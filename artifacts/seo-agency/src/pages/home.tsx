@@ -286,11 +286,6 @@ export default function Home() {
       {/* ── MARQUEE TICKER ── */}
       <MarqueeTicker />
 
-      {/* ── FEATURED INSIGHTS (slider) ── */}
-      {!featuredLoading && featured?.blogPosts && featured.blogPosts.length > 0 && (
-        <FeaturedInsights posts={featured.blogPosts} />
-      )}
-
       {/* ── SERVICES GRID ── */}
       <section className="py-28 bg-background bg-grid-pattern relative">
         <div className="container mx-auto px-4">
@@ -528,6 +523,11 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* ── FEATURED INSIGHTS (slider) ── */}
+      {!featuredLoading && featured?.blogPosts && featured.blogPosts.length > 0 && (
+        <FeaturedInsights posts={featured.blogPosts} />
+      )}
 
       {/* ── TESTIMONIALS ── */}
       <section className="py-28 bg-background border-y border-border">
