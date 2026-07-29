@@ -1,0 +1,49 @@
+Please make the following changes to the website:
+
+### Contact Information
+
+* Remove all phone numbers from the entire website (header, footer, contact page, schema, and any other sections).
+* Replace the existing/dummy email address with:
+  **[sales@searchengineoptimization.ae](mailto:sales@searchengineoptimization.ae)**
+* Replace all instances of **seo.ae** with **searchengineoptimization.ae** throughout the website, including links, buttons, contact details, metadata, and footer.
+
+### Office Address
+
+Update the company address everywhere on the website to:
+
+**M-01, Muteena Street, Above Saravana Bhavan, Deira, Dubai, UAE**
+
+### Contact Forms
+
+Integrate **all contact forms** so they are fully functional and send inquiries correctly to:
+**[sales@searchengineoptimization.ae](mailto:sales@searchengineoptimization.ae)**
+
+Every form should include appropriate validation and the following fields where applicable:
+
+* Full Name *
+* Company Name
+* Email Address *
+* Phone Number
+* Website URL
+* Business Name
+* Service Interested In (Dropdown)
+* Monthly Marketing Budget (Dropdown)
+* Message / Project Requirements *
+* Country
+* CAPTCHA / Spam Protection
+* Privacy Policy Consent Checkbox *
+
+### Form Functionality
+
+* All forms must submit successfully without errors.
+* Configure email notifications to **[sales@searchengineoptimization.ae](mailto:sales@searchengineoptimization.ae)**.
+* Display a success confirmation message after submission.
+* Ensure forms are mobile-friendly and protected against spam.
+* Test every form to confirm it is working correctly.
+
+### Additional Requirements
+
+* Update all internal links, contact details, and footer information accordingly.
+* Remove every placeholder or dummy contact detail from the website.
+* Verify that the new email address, domain, and address are reflected consistently across all pages.
+* Ensure there are no broken links or references to the old domain or email anywhere on the website.

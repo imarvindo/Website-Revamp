@@ -1,6 +1,6 @@
 <?php
 /**
- * Homepage Template — SEO.ae
+ * Homepage Template — SearchEngineOptimization.ae
  */
 get_header();
 
@@ -128,7 +128,7 @@ $case_studies  = new WP_Query(['post_type'=>'case_study','posts_per_page'=>4,'po
 <section class="section bg-light">
 	<div class="container">
 		<div class="section-header section-header--center">
-			<?php seoae_section_label('Why SEO.ae'); ?>
+			<?php seoae_section_label('Why SearchEngineOptimization.ae'); ?>
 			<h2 class="section-header__title">The Growth Partner UAE Businesses Trust</h2>
 			<p class="section-header__desc">We combine enterprise-grade strategy with obsessive execution to deliver results that move the needle.</p>
 		</div>
@@ -207,7 +207,7 @@ $case_studies  = new WP_Query(['post_type'=>'case_study','posts_per_page'=>4,'po
 		<div class="section-header section-header--center">
 			<?php seoae_section_label('Client Reviews'); ?>
 			<h2 class="section-header__title">What Our Clients Say</h2>
-			<p class="section-header__desc">Over 345 businesses across UAE trust SEO.ae for measurable digital growth.</p>
+			<p class="section-header__desc">Over 345 businesses across UAE trust SearchEngineOptimization.ae for measurable digital growth.</p>
 		</div>
 		<div class="testimonials-grid">
 			<?php foreach ($testimonials as $test) :

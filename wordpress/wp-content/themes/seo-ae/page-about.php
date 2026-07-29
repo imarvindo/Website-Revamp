@@ -11,7 +11,7 @@ $team = new WP_Query(['post_type'=>'team_member','posts_per_page'=>12,'post_stat
 		<div>
 			<div class="service-hero__badge-pill">ABOUT US</div>
 			<h1 class="service-hero__title">We Don't Guess.<br><span class="gradient-text">We Dominate.</span></h1>
-			<p class="service-hero__desc">Founded in Dubai, SEO.ae was built on a singular premise: most agencies deliver reports, we deliver revenue. We combine elite technical expertise with aggressive growth strategies to turn businesses into market leaders.</p>
+			<p class="service-hero__desc">Founded in Dubai, SearchEngineOptimization.ae was built on a singular premise: most agencies deliver reports, we deliver revenue. We combine elite technical expertise with aggressive growth strategies to turn businesses into market leaders.</p>
 			<div class="service-hero__actions">
 				<a href="<?php echo esc_url(home_url('/contact')); ?>" class="btn btn--primary btn--lg">Work With Us →</a>
 				<a href="<?php echo esc_url(get_post_type_archive_link('case_study')); ?>" class="btn btn--outline-white btn--lg">See Our Results</a>

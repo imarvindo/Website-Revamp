@@ -14,7 +14,7 @@
 						<svg width="24" height="24" viewBox="0 0 32 32" fill="none"><text x="16" y="22" text-anchor="middle" font-family="Outfit,sans-serif" font-weight="700" font-size="14" fill="#FFFFFF">S</text></svg>
 					</div>
 					<div class="navbar__logo-text">
-						<span class="footer__logo-name">SEO<span style="color:#16B1D4">.ae</span></span>
+						<span class="footer__logo-name" style="font-size:.9rem;">SearchEngine<span style="color:#16B1D4">Optimization.ae</span></span>
 					</div>
 				</a>
 				<p class="footer__brand-desc">
@@ -67,7 +67,6 @@
 				</ul>
 				<div class="footer__contact">
 					<h4 class="footer__col-heading" style="margin-top:1.5rem">Contact</h4>
-					<p><a href="tel:<?php echo esc_attr( preg_replace('/[^+0-9]/', '', seoae_phone()) ); ?>" class="footer__link"><?php echo esc_html( seoae_phone() ); ?></a></p>
 					<p><a href="mailto:<?php echo esc_attr( seoae_email() ); ?>" class="footer__link"><?php echo esc_html( seoae_email() ); ?></a></p>
 					<p class="footer__address"><?php echo esc_html( seoae_address() ); ?></p>
 				</div>

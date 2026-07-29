@@ -15,13 +15,9 @@
 <div class="topbar">
 	<div class="container topbar__inner">
 		<div class="topbar__left">
-			<a href="https://www.google.com/maps?q=Emirates+Towers+Dubai" class="topbar__item" target="_blank" rel="noopener">
+			<a href="https://www.google.com/maps?q=M-01+Muteena+Street+Deira+Dubai" class="topbar__item" target="_blank" rel="noopener">
 				<svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
 				<?php echo esc_html( seoae_address() ); ?>
-			</a>
-			<a href="tel:<?php echo esc_attr( preg_replace('/[^+0-9]/', '', seoae_phone()) ); ?>" class="topbar__item">
-				<svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 7V5z"/></svg>
-				<?php echo esc_html( seoae_phone() ); ?>
 			</a>
 		</div>
 		<div class="topbar__right">
@@ -43,7 +39,7 @@
 	<div class="container navbar__inner">
 
 		<!-- Logo -->
-		<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="navbar__logo" aria-label="SEO.ae Home">
+		<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="navbar__logo" aria-label="SearchEngineOptimization.ae Home">
 			<?php if ( has_custom_logo() ) : the_custom_logo(); else : ?>
 			<div class="navbar__logo-mark">
 				<svg width="32" height="32" viewBox="0 0 32 32" fill="none">
@@ -52,7 +48,7 @@
 				</svg>
 			</div>
 			<div class="navbar__logo-text">
-				<span class="navbar__logo-name">SEO<span class="text-primary">.ae</span></span>
+				<span class="navbar__logo-name" style="font-size:.95rem;">SearchEngine<span class="text-primary">Optimization.ae</span></span>
 				<span class="navbar__logo-tagline">DIGITAL GROWTH PARTNER</span>
 			</div>
 			<?php endif; ?>
@@ -189,7 +185,7 @@
 	<div class="mobile-menu__header">
 		<a href="<?php echo esc_url( home_url('/') ); ?>" class="navbar__logo">
 			<div class="navbar__logo-text">
-				<span class="navbar__logo-name">SEO<span class="text-primary">.ae</span></span>
+				<span class="navbar__logo-name" style="font-size:.95rem;">SearchEngine<span class="text-primary">Optimization.ae</span></span>
 			</div>
 		</a>
 		<button class="mobile-menu__close" id="mobile-menu-close" aria-label="Close menu">

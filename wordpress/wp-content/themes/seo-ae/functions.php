@@ -1,6 +1,6 @@
 <?php
 /**
- * SEO.ae Enterprise Theme — functions.php
+ * SearchEngineOptimization.ae Enterprise Theme — functions.php
  * Core setup, CPTs, ACF fields, menus, scripts
  */
 
@@ -233,9 +233,9 @@ add_action( 'acf/init', function () {
 		'key'      => 'group_theme_settings',
 		'title'    => 'Theme Settings',
 		'fields'   => [
-			[ 'key' => 'field_site_phone',   'label' => 'Phone Number',   'name' => 'site_phone',   'type' => 'text',  'default_value' => '+971 4 123 4567' ],
-			[ 'key' => 'field_site_email',   'label' => 'Email Address',   'name' => 'site_email',   'type' => 'email', 'default_value' => 'growth@seo.ae' ],
-			[ 'key' => 'field_site_address', 'label' => 'Office Address',  'name' => 'site_address', 'type' => 'text',  'default_value' => 'Level 42, Emirates Towers, Dubai' ],
+			[ 'key' => 'field_site_phone',   'label' => 'Phone Number',   'name' => 'site_phone',   'type' => 'text',  'default_value' => '' ],
+			[ 'key' => 'field_site_email',   'label' => 'Email Address',   'name' => 'site_email',   'type' => 'email', 'default_value' => 'sales@searchengineoptimization.ae' ],
+			[ 'key' => 'field_site_address', 'label' => 'Office Address',  'name' => 'site_address', 'type' => 'text',  'default_value' => 'M-01, Muteena Street, Above Saravana Bhavan, Deira, Dubai, UAE' ],
 			[ 'key' => 'field_site_maps_url','label' => 'Google Maps URL', 'name' => 'site_maps_url','type' => 'url' ],
 			[ 'key' => 'field_social_linkedin',  'label' => 'LinkedIn URL',  'name' => 'social_linkedin',  'type' => 'url' ],
 			[ 'key' => 'field_social_instagram', 'label' => 'Instagram URL', 'name' => 'social_instagram', 'type' => 'url' ],
@@ -308,7 +308,7 @@ add_action( 'acf/init', function () {
 			],
 			// Bottom CTA section
 			[ 'key' => 'field_cta_heading',     'label' => 'CTA Section Heading',     'name' => 'cta_heading',     'type' => 'text',     'default_value' => "Ready to Dominate Dubai's Digital Landscape?" ],
-			[ 'key' => 'field_cta_description', 'label' => 'CTA Section Description', 'name' => 'cta_description', 'type' => 'textarea', 'default_value' => 'Join 345+ UAE businesses that trust SEO.ae to drive measurable growth.' ],
+			[ 'key' => 'field_cta_description', 'label' => 'CTA Section Description', 'name' => 'cta_description', 'type' => 'textarea', 'default_value' => 'Join 345+ UAE businesses that trust SearchEngineOptimization.ae to drive measurable growth.' ],
 		],
 		'location' => [ [ [ 'param' => 'options_page', 'operator' => '==', 'value' => 'acf-options-homepage-settings' ] ] ],
 	] );
@@ -575,20 +575,19 @@ add_action( 'wp_head', function () {
 // ─────────────────────────────────────────────────────────────────────────────
 add_action( 'wp_head', function () {
 	if ( ! is_front_page() ) return;
-	$phone   = function_exists( 'get_field' ) ? get_field( 'site_phone', 'option' )   : '+971 4 123 4567';
-	$email   = function_exists( 'get_field' ) ? get_field( 'site_email', 'option' )   : 'growth@seo.ae';
-	$address = function_exists( 'get_field' ) ? get_field( 'site_address', 'option' ) : 'Level 42, Emirates Towers, Dubai, UAE';
+	$phone   = '';
+	$email   = function_exists( 'get_field' ) ? get_field( 'site_email', 'option' )   : 'sales@searchengineoptimization.ae';
+	$address = function_exists( 'get_field' ) ? get_field( 'site_address', 'option' ) : 'M-01, Muteena Street, Above Saravana Bhavan, Deira, Dubai, UAE';
 
 	$schema = [
 		'@context' => 'https://schema.org',
 		'@type'    => ['Organization','LocalBusiness','ProfessionalService'],
-		'name'     => 'SEO.ae',
+		'name'     => 'SearchEngineOptimization.ae',
 		'alternateName' => 'SearchEngineOptimization.ae',
 		'url'      => home_url(),
 		'logo'     => SEOAE_URI . '/assets/images/logo.svg',
 		'image'    => SEOAE_URI . '/assets/images/og-image.jpg',
 		'description' => "Dubai's #1 enterprise SEO and digital marketing agency — delivering measurable growth through AI-driven SEO, PPC, social media, and web development.",
-		'telephone'   => $phone,
 		'email'       => $email,
 		'address'     => [
 			'@type'           => 'PostalAddress',
@@ -649,21 +648,21 @@ function seoae_stars( int $rating = 5 ): string {
  * Get phone number from ACF or fallback.
  */
 function seoae_phone(): string {
-	return function_exists( 'get_field' ) ? ( get_field( 'site_phone', 'option' ) ?: '+971 4 123 4567' ) : '+971 4 123 4567';
+	return ''; // Phone number removed per business requirements
 }
 
 /**
  * Get email from ACF or fallback.
  */
 function seoae_email(): string {
-	return function_exists( 'get_field' ) ? ( get_field( 'site_email', 'option' ) ?: 'growth@seo.ae' ) : 'growth@seo.ae';
+	return function_exists( 'get_field' ) ? ( get_field( 'site_email', 'option' ) ?: 'sales@searchengineoptimization.ae' ) : 'sales@searchengineoptimization.ae';
 }
 
 /**
  * Get address from ACF or fallback.
  */
 function seoae_address(): string {
-	return function_exists( 'get_field' ) ? ( get_field( 'site_address', 'option' ) ?: 'Level 42, Emirates Towers, Dubai' ) : 'Level 42, Emirates Towers, Dubai';
+	return function_exists( 'get_field' ) ? ( get_field( 'site_address', 'option' ) ?: 'M-01, Muteena Street, Above Saravana Bhavan, Deira, Dubai, UAE' ) : 'M-01, Muteena Street, Above Saravana Bhavan, Deira, Dubai, UAE';
 }
 
 /**
@@ -717,10 +716,10 @@ function seoae_get_recent_posts( int $limit = 3 ): array {
 /**
  * Render dark CTA section.
  */
-function seoae_cta_dark( string $heading = '', string $description = '', string $primary_text = 'Get Free Audit', string $primary_url = '/contact', string $secondary_text = 'Call Us Now', string $secondary_url = '' ): void {
+function seoae_cta_dark( string $heading = '', string $description = '', string $primary_text = 'Get Free Audit', string $primary_url = '/contact', string $secondary_text = 'Email Us', string $secondary_url = '' ): void {
 	if ( ! $heading ) $heading = function_exists('get_field') ? get_field('cta_heading','option') : "Ready to Dominate Dubai's Digital Landscape?";
-	if ( ! $description ) $description = function_exists('get_field') ? get_field('cta_description','option') : 'Join 345+ UAE businesses that trust SEO.ae to drive measurable growth.';
-	if ( ! $secondary_url ) $secondary_url = 'tel:' . preg_replace('/[^+0-9]/', '', seoae_phone() );
+	if ( ! $description ) $description = function_exists('get_field') ? get_field('cta_description','option') : 'Join 345+ UAE businesses that trust searchengineoptimization.ae to drive measurable growth.';
+	if ( ! $secondary_url ) $secondary_url = 'mailto:' . seoae_email();
 	?>
 	<section class="cta-dark hero-dark">
 		<div class="container cta-dark__inner">
@@ -764,41 +763,80 @@ add_action( 'wp_ajax_seoae_contact',        'seoae_contact_handler' );
 add_action( 'wp_ajax_nopriv_seoae_contact', 'seoae_contact_handler' );
 function seoae_contact_handler(): void {
 	check_ajax_referer( 'seoae-nonce', 'nonce' );
-	$name    = sanitize_text_field( $_POST['name']    ?? '' );
-	$email   = sanitize_email(      $_POST['email']   ?? '' );
-	$phone   = sanitize_text_field( $_POST['phone']   ?? '' );
-	$company = sanitize_text_field( $_POST['company'] ?? '' );
-	$service = sanitize_text_field( $_POST['service'] ?? '' );
-	$budget  = sanitize_text_field( $_POST['budget']  ?? '' );
-	$message = sanitize_textarea_field( $_POST['message'] ?? '' );
+
+	// Honeypot spam check
+	if ( ! empty( $_POST['website_url_hp'] ) ) {
+		wp_send_json_error( 'Spam detected.' );
+	}
+
+	$name         = sanitize_text_field( $_POST['name']         ?? '' );
+	$email        = sanitize_email(      $_POST['email']        ?? '' );
+	$phone        = sanitize_text_field( $_POST['phone']        ?? '' );
+	$company      = sanitize_text_field( $_POST['company']      ?? '' );
+	$business     = sanitize_text_field( $_POST['business']     ?? '' );
+	$website      = esc_url_raw(         $_POST['website']      ?? '' );
+	$service      = sanitize_text_field( $_POST['service']      ?? '' );
+	$budget       = sanitize_text_field( $_POST['budget']       ?? '' );
+	$country      = sanitize_text_field( $_POST['country']      ?? '' );
+	$message      = sanitize_textarea_field( $_POST['message']  ?? '' );
+	$privacy      = ! empty( $_POST['privacy'] );
 
 	if ( ! $name || ! is_email( $email ) ) {
 		wp_send_json_error( 'Please fill in all required fields.' );
 	}
+	if ( ! $message ) {
+		wp_send_json_error( 'Please tell us about your project requirements.' );
+	}
+	if ( ! $privacy ) {
+		wp_send_json_error( 'Please accept the Privacy Policy to proceed.' );
+	}
 
-	// Save to DB as custom table entry
+	// Save to DB
 	global $wpdb;
 	$wpdb->insert( $wpdb->prefix . 'seoae_contacts', [
 		'name'       => $name,
 		'email'      => $email,
 		'phone'      => $phone,
-		'company'    => $company,
+		'company'    => $company ?: $business,
 		'service'    => $service,
 		'budget'     => $budget,
-		'message'    => $message,
+		'message'    => "Website: $website\nCountry: $country\n\n$message",
 		'created_at' => current_time( 'mysql' ),
 	] );
 
-	// Send notification email
-	$admin_email = get_option( 'admin_email' );
-	$subject     = "New Contact Form Submission — $name ($company)";
-	$body        = "Name: $name\nEmail: $email\nPhone: $phone\nCompany: $company\nService: $service\nBudget: $budget\n\nMessage:\n$message";
-	wp_mail( $admin_email, $subject, $body );
+	// Notification to sales
+	$to_email = 'sales@searchengineoptimization.ae';
+	$subject  = "New Enquiry: $name" . ( $company ? " — $company" : '' ) . ( $service ? " ($service)" : '' );
+	$body     = "NEW ENQUIRY FROM searchengineoptimization.ae\n";
+	$body    .= str_repeat( '─', 50 ) . "\n\n";
+	$body    .= "Full Name:    $name\n";
+	$body    .= "Email:        $email\n";
+	$body    .= "Phone:        " . ( $phone ?: '—' ) . "\n";
+	$body    .= "Company:      " . ( $company ?: '—' ) . "\n";
+	$body    .= "Business:     " . ( $business ?: '—' ) . "\n";
+	$body    .= "Website:      " . ( $website ?: '—' ) . "\n";
+	$body    .= "Country:      " . ( $country ?: '—' ) . "\n";
+	$body    .= "Service:      " . ( $service ?: '—' ) . "\n";
+	$body    .= "Budget:       " . ( $budget ?: '—' ) . "\n\n";
+	$body    .= "Message:\n$message\n\n";
+	$body    .= str_repeat( '─', 50 ) . "\n";
+	$body    .= "Submitted: " . current_time( 'mysql' ) . "\n";
 
-	// Auto-reply
-	wp_mail( $email, 'Thank you for contacting SEO.ae', "Hi $name,\n\nThank you for reaching out to SEO.ae. One of our growth experts will be in touch within 24 hours.\n\nBest regards,\nThe SEO.ae Team\n+971 4 123 4567" );
+	$headers = [ 'Reply-To: ' . $name . ' <' . $email . '>' ];
+	wp_mail( $to_email, $subject, $body, $headers );
 
-	wp_send_json_success( "Thank you $name! We'll be in touch within 24 hours." );
+	// Auto-reply to enquirer
+	$auto_subject = 'Thank you for contacting SearchEngineOptimization.ae';
+	$auto_body    = "Hi $name,\n\n";
+	$auto_body   .= "Thank you for reaching out to SearchEngineOptimization.ae.\n\n";
+	$auto_body   .= "We have received your enquiry" . ( $service ? " regarding $service" : '' ) . " and one of our growth experts will review it and be in touch within 24 hours.\n\n";
+	$auto_body   .= "In the meantime, feel free to explore our blog for insights on digital marketing in the UAE:\nhttps://searchengineoptimization.ae/blog/\n\n";
+	$auto_body   .= "Best regards,\nThe SearchEngineOptimization.ae Team\n";
+	$auto_body   .= "sales@searchengineoptimization.ae\n";
+	$auto_body   .= "M-01, Muteena Street, Above Saravana Bhavan, Deira, Dubai, UAE\n";
+	wp_mail( $email, $auto_subject, $auto_body );
+
+	wp_send_json_success( "Thank you $name! We've received your enquiry and will be in touch within 24 hours." );
 }
 
 // Create contacts table on theme activation

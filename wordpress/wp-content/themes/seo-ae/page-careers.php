@@ -17,7 +17,7 @@ get_header();
 <section class="section bg-white">
 	<div class="container">
 		<div class="section-header section-header--center">
-			<?php seoae_section_label('Life at SEO.ae'); ?>
+			<?php seoae_section_label('Life at SearchEngineOptimization.ae'); ?>
 			<h2 class="section-header__title">Why You'll Love Working Here</h2>
 		</div>
 		<div class="why-grid">
