@@ -437,6 +437,159 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── UAE COVERAGE ── */}
+      <section className="py-28 bg-background relative overflow-hidden">
+        <div className="absolute inset-0 bg-grid-pattern opacity-40" />
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="grid lg:grid-cols-2 gap-12 items-end mb-14">
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+              <div className="section-label">UAE Coverage</div>
+              <h2 className="text-4xl md:text-5xl font-extrabold text-foreground mt-4 leading-tight">
+                Search Specialists Across<br className="hidden md:block" /> Every Emirate
+              </h2>
+            </motion.div>
+            <motion.p
+              initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }} transition={{ delay: 0.1 }}
+              className="text-muted-foreground text-lg leading-relaxed lg:pb-1"
+            >
+              From Dubai's hyper-competitive market to Fujairah's niche B2B landscape — we deliver localised SEO strategies with deep knowledge of every UAE emirate's unique search audience.
+            </motion.p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {[
+              {
+                city: "Dubai",
+                desc: "The UAE's most competitive digital market. We help Dubai businesses rank for high-value commercial queries across all major sectors.",
+                searches: "18M+ monthly searches",
+                href: "/locations/dubai",
+                featured: true,
+              },
+              {
+                city: "Abu Dhabi",
+                desc: "Capital market SEO for government suppliers, hospitality, healthcare, and finance businesses targeting the UAE's wealthiest emirate.",
+                searches: "6M+ monthly searches",
+                href: "/contact",
+                featured: false,
+              },
+              {
+                city: "Sharjah",
+                desc: "Growing commercial and industrial market. We build organic visibility for Sharjah businesses across English and Arabic search audiences.",
+                searches: "4M+ monthly searches",
+                href: "/contact",
+                featured: false,
+              },
+              {
+                city: "Ajman",
+                desc: "Cost-effective SEO for Ajman's growing SME and e-commerce sector, with strong local pack and Google Maps optimisation.",
+                searches: "1.5M+ monthly searches",
+                href: "/contact",
+                featured: false,
+              },
+              {
+                city: "Ras Al Khaimah",
+                desc: "Tourism, logistics, and manufacturing SEO for RAK businesses reaching both local and international search audiences.",
+                searches: "1.2M+ monthly searches",
+                href: "/contact",
+                featured: false,
+              },
+              {
+                city: "Fujairah",
+                desc: "Port-city B2B and tourism SEO for Fujairah's unique dual-market search landscape — maritime, logistics, and hospitality.",
+                searches: "900K+ monthly searches",
+                href: "/contact",
+                featured: false,
+              },
+            ].map((emirate, i) => (
+              <motion.div
+                key={emirate.city}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.07 }}
+              >
+                <Link href={emirate.href}>
+                  <div
+                    className="group h-full rounded-2xl p-7 flex flex-col justify-between cursor-pointer transition-all duration-300 relative overflow-hidden"
+                    style={{
+                      background: emirate.featured
+                        ? "linear-gradient(135deg, #101A6A 0%, #16284a 100%)"
+                        : "hsl(var(--card))",
+                      border: emirate.featured
+                        ? "1.5px solid rgba(22,177,212,0.3)"
+                        : "1.5px solid hsl(var(--border))",
+                      boxShadow: emirate.featured
+                        ? "0 8px 32px rgba(16,26,106,0.25)"
+                        : "0 1px 4px rgba(0,0,0,0.04)",
+                    }}
+                    onMouseEnter={e => {
+                      const el = e.currentTarget as HTMLElement;
+                      if (!emirate.featured) {
+                        el.style.borderColor = "rgba(22,177,212,0.5)";
+                        el.style.boxShadow = "0 8px 32px rgba(22,177,212,0.1)";
+                        el.style.transform = "translateY(-2px)";
+                      }
+                    }}
+                    onMouseLeave={e => {
+                      const el = e.currentTarget as HTMLElement;
+                      if (!emirate.featured) {
+                        el.style.borderColor = "hsl(var(--border))";
+                        el.style.boxShadow = "0 1px 4px rgba(0,0,0,0.04)";
+                        el.style.transform = "translateY(0)";
+                      }
+                    }}
+                  >
+                    {/* Decorative glow on featured card */}
+                    {emirate.featured && (
+                      <div className="absolute top-0 right-0 w-40 h-40 opacity-15 pointer-events-none"
+                        style={{ background: "radial-gradient(circle at top right, #16B1D4, transparent 70%)" }} />
+                    )}
+
+                    <div className="relative z-10">
+                      {/* City name + arrow */}
+                      <div className="flex items-start justify-between mb-4">
+                        <h3 className={`text-xl font-extrabold leading-tight ${emirate.featured ? "text-white" : "text-foreground"}`}>
+                          {emirate.city}
+                        </h3>
+                        <div
+                          className="w-8 h-8 rounded-full flex items-center justify-center shrink-0 mt-0.5 opacity-40 group-hover:opacity-100 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300"
+                          style={{
+                            background: emirate.featured ? "rgba(22,177,212,0.2)" : "rgba(22,177,212,0.1)",
+                          }}
+                        >
+                          <ArrowRight className="w-4 h-4 -rotate-45" style={{ color: "#16B1D4" }} />
+                        </div>
+                      </div>
+
+                      {/* Description */}
+                      <p className={`text-sm leading-relaxed mb-6 ${emirate.featured ? "text-white/65" : "text-muted-foreground"}`}>
+                        {emirate.desc}
+                      </p>
+                    </div>
+
+                    {/* Search volume chip */}
+                    <div className="relative z-10">
+                      <span
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold"
+                        style={{
+                          background: emirate.featured ? "rgba(22,177,212,0.15)" : "rgba(22,177,212,0.08)",
+                          color: "#16B1D4",
+                          border: emirate.featured ? "1px solid rgba(22,177,212,0.3)" : "1px solid rgba(22,177,212,0.2)",
+                        }}
+                      >
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#16B1D4]" />
+                        {emirate.searches}
+                      </span>
+                    </div>
+                  </div>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ── CASE STUDIES ── */}
       <section className="py-28 bg-background relative overflow-hidden">
         <div className="absolute inset-0 bg-dot-pattern opacity-30" />
