@@ -16,13 +16,13 @@ const router: IRouter = Router();
 
 router.get("/stats", async (_req, res): Promise<void> => {
   const stats = {
-    clientsServed: 500,
-    projectsCompleted: 1200,
-    yearsExperience: 10,
-    countriesReached: 30,
+    clientsServed: 320,
+    projectsCompleted: 840,
+    yearsExperience: 8,
+    countriesReached: 22,
     averageRoiIncrease: 340,
     googleRating: 4.9,
-    totalReviews: 280,
+    totalReviews: 127,
   };
 
   res.json(GetAgencyStatsResponse.parse(stats));

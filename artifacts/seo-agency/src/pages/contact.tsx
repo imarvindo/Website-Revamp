@@ -81,6 +81,19 @@ export default function Contact() {
               
               <div className="flex items-start gap-5">
                 <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center shrink-0 border border-primary/20">
+                  <Phone className="w-6 h-6 text-primary" />
+                </div>
+                <div>
+                  <h4 className="text-lg font-bold text-foreground mb-1">Call Us</h4>
+                  <p className="text-muted-foreground leading-relaxed">
+                    <a href="tel:+97142524900" className="hover:text-primary transition-colors">+971 4 252 4900</a>
+                    <br/><span className="text-sm">Sun–Thu, 9 am – 6 pm GST</span>
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-5">
+                <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center shrink-0 border border-primary/20">
                   <Mail className="w-6 h-6 text-primary" />
                 </div>
                 <div>

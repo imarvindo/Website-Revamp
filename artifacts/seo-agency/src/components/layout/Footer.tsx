@@ -132,6 +132,10 @@ export default function Footer() {
                   <span>M-01, Muteena Street, Above Saravana Bhavan<br />Deira, Dubai, UAE</span>
                 </li>
                 <li className="flex items-center gap-3">
+                  <Phone className="w-4 h-4 text-primary shrink-0" />
+                  <a href="tel:+97142524900" className="hover:text-primary transition-colors">+971 4 252 4900</a>
+                </li>
+                <li className="flex items-center gap-3">
                   <Mail className="w-4 h-4 text-primary shrink-0" />
                   <a href="mailto:sales@searchengineoptimization.ae" className="hover:text-primary transition-colors">sales@searchengineoptimization.ae</a>
                 </li>

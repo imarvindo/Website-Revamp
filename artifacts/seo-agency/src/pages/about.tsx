@@ -115,8 +115,83 @@ export default function About() {
               We started with a simple observation: agencies were getting too comfortable selling vanity metrics. Impressions, clicks, rankings — numbers that looked great on a dashboard but meant nothing for the bottom line.
             </p>
             <p>
-              SEO.ae was built to change that. We assembled a team of technical SEOs, data scientists, and growth hackers who care about one thing: revenue. By treating search engines as programmable growth engines, we've helped startups become unicorns and enterprises dominate global markets.
+              SEO.ae was built to change that. We assembled a team of technical SEOs, data scientists, and growth strategists who care about one thing: revenue. By treating search engines as programmable growth engines, we've helped startups scale fast and enterprises dominate global markets — from Deira to the world.
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Team Section */}
+      <section className="py-24 bg-white border-t border-border">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <div className="section-label">The Team</div>
+            <h2 className="text-4xl md:text-5xl font-extrabold text-foreground mt-4 mb-4">The People Behind the Results</h2>
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+              A handpicked team of specialists who have collectively driven growth for 320+ brands across the MENA region and beyond.
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              {
+                name: "Ravi Kumar",
+                role: "Founder & CEO",
+                bio: "12 years in search marketing. Built SEO.ae from a single Deira office into the UAE's most results-driven digital agency.",
+                initials: "RK",
+                color: "#101A6A",
+              },
+              {
+                name: "Zainab Al-Mahmoud",
+                role: "Head of SEO Strategy",
+                bio: "Ex-Google Certified trainer. Specialises in Arabic-English bilingual SEO, technical audits, and enterprise site architecture.",
+                initials: "ZA",
+                color: "#16B1D4",
+              },
+              {
+                name: "Marcus O'Brien",
+                role: "PPC & Paid Media Director",
+                bio: "Former Google Ads product specialist. Manages AED 8M+ in annual ad spend with a relentless focus on ROAS.",
+                initials: "MO",
+                color: "#0e7fa0",
+              },
+              {
+                name: "Nadia Hassan",
+                role: "AI Search & Content Lead",
+                bio: "Pioneer in GEO (Generative Engine Optimisation). Helps brands appear in ChatGPT, Gemini, and Perplexity responses.",
+                initials: "NH",
+                color: "#101A6A",
+              },
+              {
+                name: "Omar Shaikh",
+                role: "Technical SEO Lead",
+                bio: "Core Web Vitals and crawl-budget specialist. Reduced average client page load times by 68%, resulting in measurable ranking lifts.",
+                initials: "OS",
+                color: "#16B1D4",
+              },
+              {
+                name: "Priya Menon",
+                role: "Client Success Director",
+                bio: "Ensures every client hits their 90-day milestones. Maintains our 94% client retention rate through proactive communication and strategy.",
+                initials: "PM",
+                color: "#0e7fa0",
+              },
+            ].map((member) => (
+              <div key={member.name} className="bg-background border border-border rounded-2xl p-8 flex flex-col gap-5 hover:border-primary/40 hover:shadow-md transition-all duration-200">
+                <div className="flex items-center gap-4">
+                  <div
+                    className="w-14 h-14 rounded-2xl flex items-center justify-center text-white font-extrabold text-lg shrink-0"
+                    style={{ background: member.color }}
+                  >
+                    {member.initials}
+                  </div>
+                  <div>
+                    <div className="font-bold text-foreground text-lg leading-tight">{member.name}</div>
+                    <div className="text-primary text-sm font-semibold">{member.role}</div>
+                  </div>
+                </div>
+                <p className="text-muted-foreground text-sm leading-relaxed">{member.bio}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
