@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button";
 import { Counter } from "@/components/ui/counter";
 import { Skeleton } from "@/components/ui/skeleton";
 import { TestimonialSlider } from "@/components/TestimonialSlider";
+import { MarqueeTicker } from "@/components/MarqueeTicker";
+import { FeaturedInsights } from "@/components/FeaturedInsights";
 import { motion } from "framer-motion";
 import { ArrowRight, BarChart, ChevronRight, Code, PenTool, Search, Smartphone, TrendingUp } from "lucide-react";
 import { Card } from "@/components/ui/card";
@@ -105,6 +107,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Marquee ticker */}
+      <MarqueeTicker />
 
       {/* Services Grid */}
       <section className="py-32 bg-background bg-grid-pattern relative">
@@ -249,6 +254,11 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Featured Insights Showcase */}
+      {featuredLoading ? null : featured?.blogPosts && featured.blogPosts.length > 0 ? (
+        <FeaturedInsights posts={featured.blogPosts} />
+      ) : null}
 
       {/* Testimonials */}
       <section className="py-32 bg-muted/30 border-y border-border">

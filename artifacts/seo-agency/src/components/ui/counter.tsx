@@ -10,7 +10,7 @@ interface CounterProps {
 
 export function Counter({ value, duration = 2, suffix = "", prefix = "" }: CounterProps) {
   const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: true, margin: "0px" });
   const [count, setCount] = useState(0);
 
   useEffect(() => {
