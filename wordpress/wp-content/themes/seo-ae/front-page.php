@@ -511,6 +511,194 @@ $case_studies = new WP_Query(['post_type'=>'case_study','posts_per_page'=>4,'pos
 </section>
 <?php endif; ?>
 
+<!-- ════════════════════════════════ HOME FAQ ════════════════════════════════════ -->
+<?php
+$home_faqs = [
+  [
+    'q' => 'What are SEO services in Dubai?',
+    'a' => 'SEO services in Dubai help businesses rank higher on Google for searches made by UAE customers. This includes technical audits, on-page optimisation, keyword research, content creation, link building, and local SEO. The goal is to drive qualified organic traffic that converts into leads and revenue — without the ongoing cost of paid advertising.',
+  ],
+  [
+    'q' => 'Why does my business need SEO in the UAE?',
+    'a' => 'With internet penetration above 99% and millions of monthly searches for business services across Dubai, Abu Dhabi, and the wider UAE, your customers are searching for what you offer right now. Without SEO, they find your competitors instead. Strong organic visibility is the most cost-effective, long-term customer acquisition channel available to UAE businesses.',
+  ],
+  [
+    'q' => 'How long does SEO take to deliver results in the UAE?',
+    'a' => 'Most UAE businesses see measurable ranking improvements within 60–90 days. Meaningful organic traffic growth typically follows between months 3 and 6. Highly competitive sectors — real estate, finance, healthcare, and legal — may require 6–12 months for top-3 Google positions. Local and long-tail keyword wins often appear within the first 30 days of a campaign launch.',
+  ],
+  [
+    'q' => 'How much do SEO services cost in Dubai?',
+    'a' => 'Dubai SEO retainers typically range from AED 3,000/month for local SME campaigns to AED 25,000+/month for competitive enterprise programmes. SearchEngineOptimization.ae offers transparent, fixed monthly pricing with no hidden fees and no lock-in contracts. We provide a custom quote after a free SEO audit that assesses your current rankings, competition, and growth potential.',
+  ],
+  [
+    'q' => 'Do you provide Local SEO for Dubai and Abu Dhabi businesses?',
+    'a' => 'Yes — local SEO is a core service. We optimise Google Business Profiles, build UAE-specific citation networks, create location-targeted landing pages, and implement local structured data. Our local SEO campaigns target the "near me" and location-modifier searches that drive direct calls, enquiries, and foot traffic for businesses serving specific Dubai or Abu Dhabi areas.',
+  ],
+  [
+    'q' => 'Can you help my Google Business Profile rank higher?',
+    'a' => 'Absolutely. We optimise every element of your Google Business Profile — categories, services, posts, photos, Q&A, and review management — specifically for UAE map pack rankings. Paired with consistent local citations and geo-targeted content, our GBP optimisation clients regularly enter the Google Maps 3-pack for their primary service categories within 60 days.',
+  ],
+  [
+    'q' => 'What industries do you provide SEO services for?',
+    'a' => 'We serve every major UAE industry: real estate, healthcare and clinics, legal and professional services, financial services and fintech, hospitality and tourism, e-commerce and retail, construction, logistics, education, restaurants and F&B, automotive, and technology. Each industry has a distinct search landscape — our sector-specific experience means we skip the learning curve and deliver results from month one.',
+  ],
+  [
+    'q' => 'Do you offer Arabic and English SEO services?',
+    'a' => 'Yes — bilingual Arabic and English SEO is a core offering. We conduct Arabic keyword research, produce native-quality Arabic content written by professional UAE-based writers, and implement hreflang for bilingual sites. In the UAE market, Arabic SEO can double your addressable organic audience and unlock commercially valuable searches your competitors are ignoring entirely.',
+  ],
+  [
+    'q' => "What's included in your monthly SEO packages?",
+    'a' => "Monthly retainers include: dedicated SEO strategist, full technical audit and implementation, keyword research and content strategy, on-page optimisation, content creation, link building outreach, Google Business Profile management, weekly automated rank tracking, and a monthly performance review call. Everything is in one fixed monthly fee — no surprise add-ons for reporting, content, or technical work.",
+  ],
+  [
+    'q' => 'Do you optimize websites for Google AI Overviews and ChatGPT?',
+    'a' => 'Yes — AI search optimisation (GEO/AIO) is a dedicated service. We structure your content, implement comprehensive schema markup, and build the entity authority signals that cause AI search engines to cite your brand in generated answers. Appearing in Google AI Overviews, ChatGPT, Perplexity, and Gemini responses is now essential for UAE brand visibility.',
+  ],
+  [
+    'q' => 'How do you measure SEO success and ROI?',
+    'a' => 'We track keyword rankings, organic traffic, organic lead volume, conversion rates, and revenue attribution — not vanity metrics. Every client receives a live dashboard with real-time data, weekly automated rank reports, and monthly strategy calls. We connect SEO performance directly to business outcomes so you always know exactly what your investment is delivering.',
+  ],
+  [
+    'q' => 'Why choose SearchEngineOptimization.ae as your UAE SEO agency?',
+    'a' => 'We are a UAE-specialist agency — not a global generalist applying cookie-cutter strategies. We have served 345+ UAE businesses across every major sector, have dedicated market research for every emirate, deliver full bilingual Arabic and English SEO, and focus exclusively on revenue outcomes. No lock-in contracts, transparent pricing, and a track record of measurable organic growth for UAE businesses.',
+  ],
+];
+
+// FAQPage JSON-LD schema
+$schema_items = array_map(fn($f) => [
+  '@type'          => 'Question',
+  'name'           => $f['q'],
+  'acceptedAnswer' => ['@type' => 'Answer', 'text' => $f['a']],
+], $home_faqs);
+echo '<script type="application/ld+json">' . wp_json_encode([
+  '@context'   => 'https://schema.org',
+  '@type'      => 'FAQPage',
+  'mainEntity' => $schema_items,
+], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . '</script>';
+
+// Split into two columns
+$col1 = array_slice($home_faqs, 0, 6);
+$col2 = array_slice($home_faqs, 6);
+?>
+
+<section class="section home-faq-section" style="background:var(--color-muted-bg,#f0f4f8);padding:5rem 0;">
+  <div class="container">
+
+    <!-- Header -->
+    <div class="section-header section-header--center" style="margin-bottom:3.5rem;">
+      <?php seoae_section_label('FAQ'); ?>
+      <h2 class="section-header__title" style="font-size:clamp(1.75rem,3.5vw,2.75rem);color:var(--color-heading,#101A6A);max-width:600px;margin-left:auto;margin-right:auto;line-height:1.15;">
+        Common Questions<br>About SEO in the UAE
+      </h2>
+      <p class="section-header__desc" style="max-width:520px;margin-left:auto;margin-right:auto;">
+        Everything UAE businesses want to know before starting an SEO campaign — answered clearly.
+      </p>
+    </div>
+
+    <!-- 2-column accordion grid -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;align-items:start;" class="faq-grid-2col">
+
+      <!-- Column 1 -->
+      <div style="display:flex;flex-direction:column;gap:.75rem;">
+        <?php foreach ($col1 as $i => $faq) :
+          $uid = 'hfaq-a-' . $i; ?>
+        <div class="hfaq-item" style="background:#fff;border:1.5px solid #e2e8f0;border-radius:14px;overflow:hidden;transition:border-color .2s,box-shadow .2s;">
+          <button class="hfaq-trigger"
+            aria-expanded="false"
+            aria-controls="<?php echo $uid; ?>"
+            style="width:100%;display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:1.1rem 1.35rem;background:none;border:none;cursor:pointer;text-align:left;">
+            <span style="font-weight:700;font-size:.9375rem;color:var(--color-heading,#101A6A);line-height:1.35;"><?php echo esc_html($faq['q']); ?></span>
+            <span class="hfaq-icon" aria-hidden="true"
+              style="flex-shrink:0;width:28px;height:28px;border-radius:50%;background:var(--color-primary,#16B1D4);display:flex;align-items:center;justify-content:center;transition:background .2s,transform .2s;">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            </span>
+          </button>
+          <div id="<?php echo $uid; ?>" class="hfaq-body" hidden
+            style="padding:0 1.35rem 1.2rem;font-size:.875rem;color:var(--color-body,#4a5568);line-height:1.75;border-top:1px solid #f0f4f8;">
+            <?php echo esc_html($faq['a']); ?>
+          </div>
+        </div>
+        <?php endforeach; ?>
+      </div>
+
+      <!-- Column 2 -->
+      <div style="display:flex;flex-direction:column;gap:.75rem;">
+        <?php foreach ($col2 as $i => $faq) :
+          $uid = 'hfaq-b-' . $i; ?>
+        <div class="hfaq-item" style="background:#fff;border:1.5px solid #e2e8f0;border-radius:14px;overflow:hidden;transition:border-color .2s,box-shadow .2s;">
+          <button class="hfaq-trigger"
+            aria-expanded="false"
+            aria-controls="<?php echo $uid; ?>"
+            style="width:100%;display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:1.1rem 1.35rem;background:none;border:none;cursor:pointer;text-align:left;">
+            <span style="font-weight:700;font-size:.9375rem;color:var(--color-heading,#101A6A);line-height:1.35;"><?php echo esc_html($faq['q']); ?></span>
+            <span class="hfaq-icon" aria-hidden="true"
+              style="flex-shrink:0;width:28px;height:28px;border-radius:50%;background:var(--color-primary,#16B1D4);display:flex;align-items:center;justify-content:center;transition:background .2s,transform .2s;">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            </span>
+          </button>
+          <div id="<?php echo $uid; ?>" class="hfaq-body" hidden
+            style="padding:0 1.35rem 1.2rem;font-size:.875rem;color:var(--color-body,#4a5568);line-height:1.75;border-top:1px solid #f0f4f8;">
+            <?php echo esc_html($faq['a']); ?>
+          </div>
+        </div>
+        <?php endforeach; ?>
+      </div>
+
+    </div><!-- /faq-grid-2col -->
+
+    <!-- Bottom CTA strip -->
+    <div style="text-align:center;margin-top:3rem;padding:2.5rem;background:linear-gradient(135deg,#101A6A 0%,#1a2d8a 100%);border-radius:20px;">
+      <p style="color:rgba(255,255,255,.75);font-size:.9375rem;margin-bottom:1rem;">Still have questions? Talk to a UAE SEO specialist — no sales pressure.</p>
+      <a href="/contact/" class="btn btn--primary btn--lg" style="background:var(--color-primary,#16B1D4);color:#fff;">Get a Free SEO Consultation →</a>
+    </div>
+
+  </div>
+</section>
+
+<style>
+/* Home FAQ accordion */
+.hfaq-item:hover {
+  border-color: var(--color-primary, #16B1D4) !important;
+  box-shadow: 0 4px 20px rgba(22,177,212,.10);
+}
+.hfaq-trigger[aria-expanded="true"] .hfaq-icon {
+  background: var(--color-heading, #101A6A) !important;
+  transform: rotate(45deg);
+}
+.hfaq-trigger[aria-expanded="true"] {
+  color: var(--color-primary, #16B1D4);
+}
+.hfaq-body {
+  display: none;
+}
+.hfaq-body.is-open {
+  display: block;
+}
+@media (max-width: 768px) {
+  .faq-grid-2col { grid-template-columns: 1fr !important; }
+}
+</style>
+
+<script>
+(function () {
+  document.querySelectorAll('.hfaq-trigger').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var expanded = this.getAttribute('aria-expanded') === 'true';
+      var bodyId   = this.getAttribute('aria-controls');
+      var body     = document.getElementById(bodyId);
+      if (!body) return;
+      if (expanded) {
+        this.setAttribute('aria-expanded', 'false');
+        body.classList.remove('is-open');
+      } else {
+        this.setAttribute('aria-expanded', 'true');
+        body.classList.add('is-open');
+      }
+    });
+  });
+})();
+</script>
+
 <!-- ════════════════════════════════ DARK CTA ════════════════════════════════════ -->
 <?php seoae_cta_dark(); ?>
 

@@ -1,0 +1,139 @@
+# ════════════════════════════════════════════════════════════════
+# SearchEngineOptimization.ae — Apache .htaccess for cPanel Hosting
+# ════════════════════════════════════════════════════════════════
+
+# ── PHP Settings (shared hosting) ────────────────────────────────
+<IfModule mod_php7.c>
+  php_value upload_max_filesize 64M
+  php_value post_max_size 64M
+  php_value max_execution_time 300
+  php_value max_input_time 300
+  php_value memory_limit 256M
+  php_value max_input_vars 3000
+</IfModule>
+<IfModule mod_php8.c>
+  php_value upload_max_filesize 64M
+  php_value post_max_size 64M
+  php_value max_execution_time 300
+  php_value max_input_time 300
+  php_value memory_limit 256M
+  php_value max_input_vars 3000
+</IfModule>
+
+# ── Security ──────────────────────────────────────────────────────
+# Block directory browsing
+Options -Indexes
+
+# Protect wp-config.php
+<Files wp-config.php>
+  order allow,deny
+  deny from all
+</Files>
+
+# Protect .htaccess itself
+<Files .htaccess>
+  order allow,deny
+  deny from all
+</Files>
+
+# Block access to sensitive files
+<FilesMatch "(^#.*#|\.(bak|config|dist|fla|in[ci]|log|psd|sh|sql|sw[op])|~)$">
+  order allow,deny
+  deny from all
+  satisfy all
+</FilesMatch>
+
+# Block access to PHP files in uploads
+<FilesMatch "\.php$">
+  <IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{REQUEST_URI} ^/wp-content/uploads/ [NC]
+    RewriteRule . - [F,L]
+  </IfModule>
+</FilesMatch>
+
+# Block xmlrpc.php brute force
+<Files xmlrpc.php>
+  order deny,allow
+  deny from all
+</Files>
+
+# ── Security Headers ──────────────────────────────────────────────
+<IfModule mod_headers.c>
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-XSS-Protection "1; mode=block"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(self)"
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+</IfModule>
+
+# ── Gzip Compression ──────────────────────────────────────────────
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css
+  AddOutputFilterByType DEFLATE text/javascript application/javascript application/x-javascript
+  AddOutputFilterByType DEFLATE application/json application/xml application/rss+xml
+  AddOutputFilterByType DEFLATE image/svg+xml font/woff font/woff2
+  # Remove browser bugs
+  BrowserMatch ^Mozilla/4 gzip-only-text/html
+  BrowserMatch ^Mozilla/4\.0[678] no-gzip
+  BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
+  Header append Vary User-Agent
+</IfModule>
+
+# ── Browser Caching ───────────────────────────────────────────────
+<IfModule mod_expires.c>
+  ExpiresActive On
+  # Images
+  ExpiresByType image/jpeg         "access plus 1 year"
+  ExpiresByType image/gif          "access plus 1 year"
+  ExpiresByType image/png          "access plus 1 year"
+  ExpiresByType image/webp         "access plus 1 year"
+  ExpiresByType image/avif         "access plus 1 year"
+  ExpiresByType image/svg+xml      "access plus 1 year"
+  ExpiresByType image/x-icon       "access plus 1 year"
+  # Fonts
+  ExpiresByType font/woff          "access plus 1 year"
+  ExpiresByType font/woff2         "access plus 1 year"
+  ExpiresByType application/font-woff "access plus 1 year"
+  # CSS / JS
+  ExpiresByType text/css           "access plus 1 month"
+  ExpiresByType application/javascript "access plus 1 month"
+  ExpiresByType text/javascript    "access plus 1 month"
+  # HTML / XML / JSON
+  ExpiresByType text/html          "access plus 0 seconds"
+  ExpiresByType text/xml           "access plus 0 seconds"
+  ExpiresByType application/json   "access plus 0 seconds"
+</IfModule>
+
+# Cache-Control headers
+<IfModule mod_headers.c>
+  <FilesMatch "\.(ico|jpg|jpeg|png|gif|webp|avif|svg|woff|woff2)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.(css|js)$">
+    Header set Cache-Control "public, max-age=2592000"
+  </FilesMatch>
+</IfModule>
+
+# ── WordPress Rewrites ────────────────────────────────────────────
+# BEGIN WordPress
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Redirect www to non-www (edit domain below for your actual domain)
+  # RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+  # RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+
+  # Force HTTPS (uncomment when SSL is active on cPanel)
+  # RewriteCond %{HTTPS} off
+  # RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  # WordPress standard rules
+  RewriteRule ^index\.php$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . /index.php [L]
+</IfModule>
+# END WordPress

@@ -73,10 +73,32 @@ export default defineConfig({
       strict: true,
     },
     proxy: {
-      '/wp': {
+      // WordPress core assets — must come BEFORE the generic /wp entry
+      '/wp-content':    { target: 'http://localhost:8000', changeOrigin: true },
+      '/wp-includes':   { target: 'http://localhost:8000', changeOrigin: true },
+      '/wp-admin':      { target: 'http://localhost:8000', changeOrigin: true },
+      '/wp-login.php':  { target: 'http://localhost:8000', changeOrigin: true },
+      '/wp-json':       { target: 'http://localhost:8000', changeOrigin: true },
+      '/wp-cron.php':   { target: 'http://localhost:8000', changeOrigin: true },
+      // WordPress page routes
+      '/services':      { target: 'http://localhost:8000', changeOrigin: true },
+      '/blog':          { target: 'http://localhost:8000', changeOrigin: true },
+      '/about':         { target: 'http://localhost:8000', changeOrigin: true },
+      '/contact':       { target: 'http://localhost:8000', changeOrigin: true },
+      '/locations':     { target: 'http://localhost:8000', changeOrigin: true },
+      '/industries':    { target: 'http://localhost:8000', changeOrigin: true },
+      '/portfolio':     { target: 'http://localhost:8000', changeOrigin: true },
+      '/case-studies':  { target: 'http://localhost:8000', changeOrigin: true },
+      '/careers':       { target: 'http://localhost:8000', changeOrigin: true },
+      '/sitemap':       { target: 'http://localhost:8000', changeOrigin: true },
+      '/dubai':         { target: 'http://localhost:8000', changeOrigin: true },
+      '/privacy-policy':{ target: 'http://localhost:8000', changeOrigin: true },
+      '/feed':          { target: 'http://localhost:8000', changeOrigin: true },
+      // Catch-all: proxy remaining WordPress routes (home, paginated, search, etc.)
+      // Excludes Vite internals: /@vite, /@fs, /node_modules, /__vite
+      '^/(?!@|node_modules|__vite|src/)': {
         target: 'http://localhost:8000',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/wp/, '') || '/',
       },
     },
   },

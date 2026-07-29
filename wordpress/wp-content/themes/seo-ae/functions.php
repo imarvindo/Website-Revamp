@@ -839,7 +839,28 @@ function seoae_contact_handler(): void {
 	wp_send_json_success( "Thank you $name! We've received your enquiry and will be in touch within 24 hours." );
 }
 
-// Create contacts table on theme activation
+// Create contacts table on theme activation AND on init (in case of fresh DB)
+add_action( 'init', function () {
+	global $wpdb;
+	if ( get_option( 'seoae_contacts_table_v1' ) ) return; // already done
+	$charset_collate = $wpdb->get_charset_collate();
+	$table = $wpdb->prefix . 'seoae_contacts';
+	$sql = "CREATE TABLE IF NOT EXISTS $table (
+id mediumint(9) NOT NULL AUTO_INCREMENT,
+name tinytext NOT NULL,
+email varchar(200) NOT NULL,
+phone varchar(50),
+company varchar(200),
+service varchar(200),
+budget varchar(100),
+message text,
+created_at datetime DEFAULT '0000-00-00 00:00:00',
+PRIMARY KEY (id)
+) $charset_collate;";
+	require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+	dbDelta( $sql );
+	update_option( 'seoae_contacts_table_v1', '1' );
+} );
 add_action( 'after_switch_theme', function () {
 	global $wpdb;
 	$charset_collate = $wpdb->get_charset_collate();
@@ -1363,3 +1384,175 @@ add_action( 'wp_head', function () {
 	echo '<link rel="alternate" hreflang="x-default" href="' . esc_url($url) . '">' . "\n";
 }, 6 );
 
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 23. RELATIVE URL REWRITE — strip localhost:8000 so Vite proxy handles assets
+// ─────────────────────────────────────────────────────────────────────────────
+add_action( 'template_redirect', function () {
+    ob_start( function ( $html ) {
+        return str_replace(
+            [ 'http://localhost:8000', 'https://localhost:8000' ],
+            '',
+            $html
+        );
+    } );
+} );
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 24. BLOG SETTINGS — ACF Options (CMS-editable from admin)
+// ─────────────────────────────────────────────────────────────────────────────
+add_action( 'acf/init', function () {
+	if ( ! function_exists( 'acf_add_options_sub_page' ) ) return;
+
+	// Register Blog sub-page (idempotent)
+	acf_add_options_sub_page( [
+		'page_title'  => 'Blog Settings',
+		'menu_title'  => 'Blog',
+		'menu_slug'   => 'seoae-blog-settings',
+		'parent_slug' => 'seoae-theme-settings',
+	] );
+
+	acf_add_options_sub_page( [
+		'page_title'  => 'Contact & Forms',
+		'menu_title'  => 'Contact',
+		'menu_slug'   => 'seoae-contact-settings',
+		'parent_slug' => 'seoae-theme-settings',
+	] );
+
+	// Blog Settings fields
+	acf_add_local_field_group( [
+		'key'    => 'group_blog_settings',
+		'title'  => 'Blog Settings',
+		'fields' => [
+			[ 'key' => 'field_blog_hero_title', 'label' => 'Blog Hero Title',       'name' => 'blog_hero_title', 'type' => 'text',     'default_value' => 'SEO & Digital Marketing Insights' ],
+			[ 'key' => 'field_blog_hero_desc',  'label' => 'Blog Hero Description', 'name' => 'blog_hero_desc',  'type' => 'textarea', 'default_value' => 'Expert guides, strategies, and industry news for UAE businesses looking to dominate search.' ],
+			[ 'key' => 'field_blog_posts_per_page', 'label' => 'Posts Per Page',    'name' => 'blog_posts_per_page', 'type' => 'number', 'default_value' => 12, 'min' => 6, 'max' => 24 ],
+			[ 'key' => 'field_blog_show_sidebar',   'label' => 'Show Sidebar',      'name' => 'blog_show_sidebar',   'type' => 'true_false', 'default_value' => 1, 'ui' => 1 ],
+			[ 'key' => 'field_blog_cta_enabled',    'label' => 'Show Sidebar CTA',  'name' => 'blog_cta_enabled',    'type' => 'true_false', 'default_value' => 1, 'ui' => 1 ],
+			[ 'key' => 'field_blog_sidebar_cta_title', 'label' => 'Sidebar CTA Title', 'name' => 'blog_sidebar_cta_title', 'type' => 'text', 'default_value' => 'Get Your Free SEO Audit' ],
+			[ 'key' => 'field_blog_sidebar_cta_desc',  'label' => 'Sidebar CTA Text',  'name' => 'blog_sidebar_cta_desc',  'type' => 'textarea', 'default_value' => "Find out exactly why your website isn't ranking and what to fix first." ],
+		],
+		'location' => [ [ [ 'param' => 'options_page', 'operator' => '==', 'value' => 'seoae-blog-settings' ] ] ],
+	] );
+
+	// Contact Settings fields
+	acf_add_local_field_group( [
+		'key'    => 'group_contact_settings',
+		'title'  => 'Contact & Forms',
+		'fields' => [
+			[ 'key' => 'field_contact_hero_title',  'label' => 'Contact Hero Title',   'name' => 'contact_hero_title',  'type' => 'text',     'default_value' => "Let's Talk Growth" ],
+			[ 'key' => 'field_contact_hero_desc',   'label' => 'Contact Hero Desc',    'name' => 'contact_hero_desc',   'type' => 'textarea', 'default_value' => "Ready to dominate your market? Fill in the form and our team will respond within 24 hours." ],
+			[ 'key' => 'field_contact_wpforms_id',  'label' => 'WPForms Form ID',      'name' => 'contact_wpforms_id',  'type' => 'number',   'default_value' => 163, 'instructions' => 'ID of the WPForms form to display on the Contact page.' ],
+			[ 'key' => 'field_contact_response_time','label' => 'Avg Response Time',   'name' => 'contact_response_time','type' => 'text',    'default_value' => '< 24 Hours' ],
+			[ 'key' => 'field_contact_office_hours', 'label' => 'Office Hours',         'name' => 'contact_office_hours', 'type' => 'text',   'default_value' => 'Mon–Fri, 9am–6pm GST' ],
+		],
+		'location' => [ [ [ 'param' => 'options_page', 'operator' => '==', 'value' => 'seoae-contact-settings' ] ] ],
+	] );
+} );
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 25. CONTACT FORM AJAX — save submissions to WP dashboard (custom post type)
+// ─────────────────────────────────────────────────────────────────────────────
+
+// Register Lead custom post type
+add_action( 'init', function () {
+	register_post_type( 'seoae_lead', [
+		'labels'       => [
+			'name'          => 'Leads',
+			'singular_name' => 'Lead',
+			'menu_name'     => '📥 Leads',
+			'add_new_item'  => 'Add Lead',
+			'view_item'     => 'View Lead',
+			'search_items'  => 'Search Leads',
+		],
+		'public'        => false,
+		'show_ui'       => true,
+		'show_in_menu'  => true,
+		'menu_position' => 3,
+		'menu_icon'     => 'dashicons-email-alt',
+		'supports'      => [ 'title' ],
+		'capabilities'  => [ 'create_posts' => 'do_not_allow' ],
+		'map_meta_cap'  => true,
+	] );
+} );
+
+// Handle contact form AJAX submission — save as Lead
+// Handled by seoae_contact_handler (section 9) — CPT save added there
+// (see above)
+function seoae_handle_contact_form() {
+	check_ajax_referer( 'seoae-nonce', 'nonce' );
+	$name    = sanitize_text_field( $_POST['name']    ?? '' );
+	$email   = sanitize_email(      $_POST['email']   ?? '' );
+	$phone   = sanitize_text_field( $_POST['phone']   ?? '' );
+	$company = sanitize_text_field( $_POST['company'] ?? '' );
+	$service = sanitize_text_field( $_POST['service'] ?? '' );
+	$message = sanitize_textarea_field( $_POST['message'] ?? '' );
+	$audit   = sanitize_text_field( $_POST['audit']   ?? 'No' );
+
+	if ( ! $name || ! $email || ! is_email( $email ) ) {
+		wp_send_json_error( [ 'message' => 'Please fill in your name and a valid email address.' ] );
+	}
+
+	// Save as Lead post
+	$lead_id = wp_insert_post( [
+		'post_title'  => $name . ' — ' . $email,
+		'post_type'   => 'seoae_lead',
+		'post_status' => 'publish',
+	] );
+	if ( $lead_id ) {
+		update_post_meta( $lead_id, 'lead_name',    $name );
+		update_post_meta( $lead_id, 'lead_email',   $email );
+		update_post_meta( $lead_id, 'lead_phone',   $phone );
+		update_post_meta( $lead_id, 'lead_company', $company );
+		update_post_meta( $lead_id, 'lead_service', $service );
+		update_post_meta( $lead_id, 'lead_message', $message );
+		update_post_meta( $lead_id, 'lead_audit',   $audit );
+		update_post_meta( $lead_id, 'lead_date',    current_time( 'mysql' ) );
+		update_post_meta( $lead_id, 'lead_status',  'New' );
+		update_post_meta( $lead_id, 'lead_ip',      $_SERVER['REMOTE_ADDR'] ?? '' );
+	}
+
+	// Send admin notification email
+	$to      = get_field( 'site_email', 'option' ) ?: get_option( 'admin_email' );
+	$subject = "🎯 New SEO Lead: {$name} ({$service})";
+	$body    = "New enquiry received:\n\n"
+		. "Name: {$name}\nEmail: {$email}\nPhone: {$phone}\n"
+		. "Company: {$company}\nService: {$service}\nFree Audit: {$audit}\n\n"
+		. "Message:\n{$message}\n\n"
+		. "View lead: " . admin_url( "post.php?post={$lead_id}&action=edit" );
+	wp_mail( $to, $subject, $body, [ 'Content-Type: text/plain; charset=UTF-8' ] );
+
+	wp_send_json_success( [ 'message' => 'Thank you! We\'ll respond within 24 hours.' ] );
+}
+
+// Show lead meta in admin edit screen
+add_action( 'add_meta_boxes', function () {
+	add_meta_box( 'seoae_lead_details', 'Lead Details', 'seoae_lead_meta_box', 'seoae_lead', 'normal', 'high' );
+} );
+function seoae_lead_meta_box( $post ) {
+	$fields = [
+		'lead_name'    => 'Name',
+		'lead_email'   => 'Email',
+		'lead_phone'   => 'Phone',
+		'lead_company' => 'Company',
+		'lead_service' => 'Service',
+		'lead_audit'   => 'Free Audit?',
+		'lead_status'  => 'Status',
+		'lead_date'    => 'Submitted',
+		'lead_ip'      => 'IP Address',
+	];
+	echo '<table style="width:100%;border-collapse:collapse;">';
+	foreach ( $fields as $key => $label ) {
+		$val = get_post_meta( $post->ID, $key, true );
+		echo '<tr style="border-bottom:1px solid #f0f0f0;">';
+		echo '<th style="text-align:left;padding:.5rem;width:140px;color:#666;font-weight:600;">' . esc_html( $label ) . '</th>';
+		echo '<td style="padding:.5rem;">' . esc_html( $val ) . '</td>';
+		echo '</tr>';
+	}
+	echo '</table>';
+	$msg = get_post_meta( $post->ID, 'lead_message', true );
+	if ( $msg ) {
+		echo '<h4 style="margin:1rem 0 .5rem;">Message</h4>';
+		echo '<p style="background:#f9f9f9;padding:1rem;border-radius:4px;">' . esc_html( $msg ) . '</p>';
+	}
+}

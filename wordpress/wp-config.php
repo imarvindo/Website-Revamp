@@ -46,6 +46,9 @@ $table_prefix = 'wp_';
 define( 'WP_DEBUG',         true );
 define( 'WP_DEBUG_LOG',     true );
 define( 'WP_DEBUG_DISPLAY', false );
+// Disable WP-Cron on dev (SQLite can't handle WPForms' Action Scheduler JOIN queries)
+// On production (MySQL), remove this line to re-enable cron
+define( 'DISABLE_WP_CRON', true );
 define( 'SCRIPT_DEBUG',     false );
 define( 'SAVEQUERIES',      false );
 
