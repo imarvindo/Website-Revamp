@@ -1386,6 +1386,24 @@ add_action( 'wp_head', function () {
 
 
 // ─────────────────────────────────────────────────────────────────────────────
+// 23a. REMOVE X-FRAME-OPTIONS ON DEV — Replit preview uses an iframe.
+//      On production Apache this is re-added by .htaccess.
+// ─────────────────────────────────────────────────────────────────────────────
+// Remove WP core's built-in X-Frame-Options hook (send_frame_options_header)
+add_action( 'after_setup_theme', function () {
+	remove_action( 'wp',          'send_frame_options_header' );
+	remove_action( 'login_init',  'send_frame_options_header' );
+}, 1 );
+// Belt-and-suspenders: also strip it from headers filter and late hook
+add_filter( 'wp_headers', function ( $headers ) {
+	unset( $headers['X-Frame-Options'] );
+	return $headers;
+} );
+add_action( 'send_headers', function () {
+	header_remove( 'X-Frame-Options' );
+}, 999 );
+
+// ─────────────────────────────────────────────────────────────────────────────
 // 23. RELATIVE URL REWRITE — strip localhost:8000 so Vite proxy handles assets
 // ─────────────────────────────────────────────────────────────────────────────
 add_action( 'template_redirect', function () {

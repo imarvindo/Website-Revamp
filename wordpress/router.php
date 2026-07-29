@@ -22,7 +22,8 @@ if ( $uri !== '/' && file_exists( __DIR__ . $uri ) ) {
 
 // ── Security headers ─────────────────────────────────────────────────────────
 header( 'X-Content-Type-Options: nosniff' );
-header( 'X-Frame-Options: SAMEORIGIN' );
+// X-Frame-Options intentionally omitted on dev server — Replit preview needs iframe access.
+// On production Apache, .htaccess adds: Header always set X-Frame-Options "SAMEORIGIN"
 header( 'X-XSS-Protection: 1; mode=block' );
 header( 'Referrer-Policy: strict-origin-when-cross-origin' );
 header( 'Permissions-Policy: camera=(), microphone=(), geolocation=(self), payment=()' );
