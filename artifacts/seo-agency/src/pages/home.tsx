@@ -192,7 +192,7 @@ export default function Home() {
     <div className="flex flex-col min-h-screen">
 
       {/* ── HERO: split layout ── */}
-      <section className="hero-dark bg-grid-pattern-dark relative min-h-screen flex items-center pt-24 pb-16 overflow-hidden">
+      <section className="hero-dark bg-grid-pattern-dark relative pt-32 pb-20 overflow-hidden">
         {/* Background image overlay */}
         <div className="absolute inset-0 z-0">
           <img
@@ -344,7 +344,7 @@ export default function Home() {
       </section>
 
       {/* ── WHY CHOOSE US ── */}
-      <section className="py-24 overflow-hidden" style={{ background: "linear-gradient(135deg, #f8faff 0%, #eef2ff 100%)" }}>
+      <section className="py-24 overflow-hidden bg-muted/30 border-y border-border">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
 
@@ -530,7 +530,7 @@ export default function Home() {
       </section>
 
       {/* ── TESTIMONIALS ── */}
-      <section className="py-28 border-y border-border" style={{ background: "linear-gradient(180deg, #f8faff 0%, #ffffff 100%)" }}>
+      <section className="py-28 bg-background border-y border-border">
         <div className="container mx-auto px-4">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
             className="text-center mb-16">
