@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Link } from "wouter";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { CheckCircle2, TrendingUp, ArrowRight, Phone } from "lucide-react";
+import { CheckCircle2, TrendingUp, ArrowRight, Phone, Mail } from "lucide-react";
 import { motion } from "framer-motion";
 
 export function ServiceLayout({ slug, imagePath }: { slug: string; imagePath?: string }) {

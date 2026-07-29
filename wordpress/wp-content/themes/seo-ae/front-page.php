@@ -4,17 +4,15 @@
  */
 get_header();
 
-// ACF fields with defaults
-$hero_headline     = get_field('hero_headline','option')     ?: 'Dominate Search. Scale Revenue.';
-$hero_sub          = get_field('hero_subheadline','option')  ?: "We don't just chase rankings. We architect digital dominance. Leveraging AI-driven SEO, high-converting design, and precision paid media to turn your business into a market leader.";
-$hero_cta_primary  = get_field('hero_cta_primary','option')  ?: 'Get Free Audit';
-$hero_cta_primary_url = get_field('hero_cta_primary_url','option') ?: '/contact';
-$hero_cta_sec      = get_field('hero_cta_secondary','option') ?: 'View Our Work';
-$hero_cta_sec_url  = get_field('hero_cta_secondary_url','option') ?: '/portfolio';
-$hero_badge        = get_field('hero_badge_text','option')   ?: "Dubai's #1 Enterprise SEO & Growth Partner";
-$hero_stats        = get_field('hero_stats','option')        ?: [];
+$hero_badge       = get_field('hero_badge_text','option')    ?: "UAE's Leading SEO & Digital Marketing Agency";
+$hero_headline    = get_field('hero_headline','option')      ?: "Turn Search Visibility Into\nBusiness Growth";
+$hero_sub         = get_field('hero_subheadline','option')   ?: "We help UAE and GCC businesses dominate organic search, capture high-intent traffic, and convert visitors into qualified leads — backed by data, not guesswork.";
+$hero_cta_primary = get_field('hero_cta_primary','option')   ?: 'Get Your Free SEO Audit';
+$hero_cta_primary_url = get_field('hero_cta_primary_url','option') ?: '/contact/';
+$hero_cta_sec     = get_field('hero_cta_secondary','option') ?: 'View Our Results';
+$hero_cta_sec_url = get_field('hero_cta_secondary_url','option') ?: '/case-studies/';
+$hero_stats       = get_field('hero_stats','option')         ?: [];
 
-// Default stats if none set
 if ( empty($hero_stats) ) {
 	$hero_stats = [
 		['stat_prefix' => '+', 'stat_value' => '340', 'stat_suffix' => '%',  'stat_label' => 'AVG. ROI INCREASE'],
@@ -24,78 +22,183 @@ if ( empty($hero_stats) ) {
 	];
 }
 
-$services      = seoae_get_services();
-$testimonials  = seoae_get_testimonials(6);
-$recent_posts  = seoae_get_recent_posts(3);
-$case_studies  = new WP_Query(['post_type'=>'case_study','posts_per_page'=>4,'post_status'=>'publish']);
+$services     = seoae_get_services();
+$testimonials = seoae_get_testimonials(6);
+$recent_posts = seoae_get_recent_posts(3);
+$case_studies = new WP_Query(['post_type'=>'case_study','posts_per_page'=>4,'post_status'=>'publish']);
 ?>
 
-<!-- ═══════════════════════════════════════ HERO ══════════════════════════════ -->
-<section class="hero hero-dark">
-	<div class="container hero__inner">
-		<div class="hero__content">
-			<div class="hero__badge">
-				<span class="hero__badge-dot"></span>
+<!-- ═══════════════════════════════════════ WOW HERO ══════════════════════════════ -->
+<section class="hero-wow">
+	<!-- Decorative blobs -->
+	<div class="hero-wow__blob hero-wow__blob--1" aria-hidden="true"></div>
+	<div class="hero-wow__blob hero-wow__blob--2" aria-hidden="true"></div>
+	<div class="hero-wow__grid" aria-hidden="true"></div>
+
+	<div class="container hero-wow__inner">
+
+		<!-- LEFT: Copy -->
+		<div class="hero-wow__left">
+			<div class="hero-wow__badge">
+				<span class="hero-wow__badge-dot"></span>
 				<?php echo esc_html($hero_badge); ?>
 			</div>
-			<h1 class="hero__title">
-				<?php
-				// Split headline at period for gradient on second part
-				$parts = explode('. ', $hero_headline, 2);
-				if (count($parts) === 2) {
-					echo esc_html($parts[0]) . '.<br><span class="gradient-text">' . esc_html($parts[1]) . '</span>';
-				} else {
-					echo esc_html($hero_headline);
-				}
-				?>
-			</h1>
-			<p class="hero__desc"><?php echo esc_html($hero_sub); ?></p>
-			<div class="hero__actions">
-				<a href="<?php echo esc_url($hero_cta_primary_url); ?>" class="btn btn--primary btn--lg">
-					<?php echo esc_html($hero_cta_primary); ?> →
-				</a>
-				<a href="<?php echo esc_url($hero_cta_sec_url); ?>" class="btn btn--outline-white btn--lg">
-					<?php echo esc_html($hero_cta_sec); ?>
-				</a>
-			</div>
-		</div>
-		<div class="hero__visual" aria-hidden="true">
-			<div class="hero__card">
-				<div class="hero__card-icon">
-					<svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
-				</div>
-				<p class="hero__card-label">Premium</p>
-				<p class="hero__card-sub">Results Driven</p>
-			</div>
-		</div>
-	</div>
 
-	<!-- Stats Bar (inside hero-dark) -->
-	<div class="stats-bar">
-		<div class="container">
-			<div class="stats-bar__inner">
-				<?php foreach ($hero_stats as $stat) :
-					$prefix = $stat['stat_prefix'] ?? '';
-					$value  = $stat['stat_value']  ?? '0';
-					$suffix = $stat['stat_suffix']  ?? '';
-					$label  = $stat['stat_label']   ?? '';
-				?>
-				<div class="stats-bar__item">
-					<span class="stats-bar__value stats-bar--dark"
-					      data-counter="<?php echo esc_attr(preg_replace('/[^0-9.]/','',$value)); ?>"
-					      data-prefix="<?php echo esc_attr($prefix); ?>"
-					      data-suffix="<?php echo esc_attr($suffix); ?>">
-						<?php echo esc_html($prefix . $value . $suffix); ?>
-					</span>
-					<span class="stats-bar__label"><?php echo esc_html($label); ?></span>
-				</div>
-				<?php endforeach; ?>
+			<h1 class="hero-wow__title">
+				Turn Search Visibility Into<br>
+				<span class="hero-wow__highlight">Business Growth</span>
+			</h1>
+
+			<p class="hero-wow__desc"><?php echo esc_html($hero_sub); ?></p>
+
+			<div class="hero-wow__actions">
+				<a href="<?php echo esc_url($hero_cta_primary_url); ?>" class="btn btn--primary btn--lg hero-wow__btn-primary">
+					<?php echo esc_html($hero_cta_primary); ?> <span class="btn-arrow">→</span>
+				</a>
+				<a href="<?php echo esc_url($hero_cta_sec_url); ?>" class="hero-wow__btn-ghost">
+					<?php echo esc_html($hero_cta_sec); ?> <span>↗</span>
+				</a>
+			</div>
+
+			<div class="hero-wow__tags">
+				<span>SEO Strategy</span>
+				<span class="hero-wow__tags-sep">|</span>
+				<span>Local Search</span>
+				<span class="hero-wow__tags-sep">|</span>
+				<span>Technical SEO</span>
+				<span class="hero-wow__tags-sep">|</span>
+				<span>AI Search Visibility</span>
 			</div>
 		</div>
-	</div>
+
+		<!-- RIGHT: Analytics Dashboard Widget -->
+		<div class="hero-wow__right" aria-hidden="true">
+			<div class="hero-dashboard">
+
+				<!-- AI Visibility row -->
+				<div class="hero-dashboard__ai-row">
+					<span class="hero-dashboard__ai-label">AI VISIBILITY</span>
+					<span class="hero-dashboard__chip hero-dashboard__chip--navy">ChatGPT ✓</span>
+					<span class="hero-dashboard__chip hero-dashboard__chip--cyan">Perplexity ✓</span>
+				</div>
+
+				<!-- Organic header -->
+				<div class="hero-dashboard__organic">
+					<div>
+						<div class="hero-dashboard__micro-label">ORGANIC VISIBILITY</div>
+						<div class="hero-dashboard__domain">SearchBrand.ae</div>
+					</div>
+					<div class="hero-dashboard__growth-pill">↑ +218%</div>
+				</div>
+
+				<!-- Chart -->
+				<div class="hero-dashboard__chart">
+					<svg viewBox="0 0 340 80" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+						<defs>
+							<linearGradient id="chartFill" x1="0" y1="0" x2="0" y2="1">
+								<stop offset="0%" stop-color="#16B1D4" stop-opacity="0.25"/>
+								<stop offset="100%" stop-color="#16B1D4" stop-opacity="0"/>
+							</linearGradient>
+						</defs>
+						<path d="M0,72 C30,68 55,63 80,57 C105,51 130,42 160,31 C185,22 210,15 240,10 C265,6 295,4 340,3"
+							stroke="#16B1D4" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+						<path d="M0,72 C30,68 55,63 80,57 C105,51 130,42 160,31 C185,22 210,15 240,10 C265,6 295,4 340,3 L340,80 L0,80 Z"
+							fill="url(#chartFill)"/>
+						<!-- Dot at peak -->
+						<circle cx="310" cy="3.8" r="4" fill="#16B1D4"/>
+						<circle cx="310" cy="3.8" r="7" fill="#16B1D4" fill-opacity="0.2"/>
+					</svg>
+					<div class="hero-dashboard__chart-months">
+						<span>Jan</span><span>Mar</span><span>May</span><span>Jul</span><span>Sep</span><span>Nov</span>
+					</div>
+				</div>
+
+				<!-- Stats row -->
+				<div class="hero-dashboard__stats">
+					<div class="hero-dashboard__stat">
+						<div class="hero-dashboard__stat-val">847</div>
+						<div class="hero-dashboard__stat-lbl">PAGE-1 RANKINGS</div>
+						<div class="hero-dashboard__stat-delta">+234 new</div>
+					</div>
+					<div class="hero-dashboard__stat">
+						<div class="hero-dashboard__stat-val">28.4K</div>
+						<div class="hero-dashboard__stat-lbl">MONTHLY TRAFFIC</div>
+						<div class="hero-dashboard__stat-delta">+215%</div>
+					</div>
+					<div class="hero-dashboard__stat">
+						<div class="hero-dashboard__stat-val">142</div>
+						<div class="hero-dashboard__stat-lbl">LEADS / MONTH</div>
+						<div class="hero-dashboard__stat-delta">4.2x ROI</div>
+					</div>
+				</div>
+
+				<!-- Top keyword positions -->
+				<div class="hero-dashboard__kw-head">TOP KEYWORD POSITIONS</div>
+				<div class="hero-dashboard__kw-list">
+					<div class="hero-dashboard__kw">
+						<span class="hero-dashboard__kw-pos">#1</span>
+						<span class="hero-dashboard__kw-name">SEO agency Dubai</span>
+						<span class="hero-dashboard__kw-up">+12</span>
+					</div>
+					<div class="hero-dashboard__kw">
+						<span class="hero-dashboard__kw-pos">#2</span>
+						<span class="hero-dashboard__kw-name">SEO services UAE</span>
+						<span class="hero-dashboard__kw-up">+8</span>
+					</div>
+					<div class="hero-dashboard__kw">
+						<span class="hero-dashboard__kw-pos">#1</span>
+						<span class="hero-dashboard__kw-name">local SEO Abu Dhabi</span>
+						<span class="hero-dashboard__kw-up">+15</span>
+					</div>
+				</div>
+
+				<!-- Google Maps badge -->
+				<div class="hero-dashboard__maps">
+					<span class="hero-dashboard__maps-label">GOOGLE MAPS</span>
+					<span class="hero-dashboard__maps-val">#1 UAE Local Pack ✓</span>
+				</div>
+
+			</div><!-- /.hero-dashboard -->
+
+			<!-- Floating accent cards -->
+			<div class="hero-float hero-float--tl">
+				<svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+				<span>+318% organic traffic</span>
+			</div>
+			<div class="hero-float hero-float--br">
+				<svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+				<span>Ranked #1 in 48 hrs</span>
+			</div>
+
+		</div><!-- /.hero-wow__right -->
+	</div><!-- /.hero-wow__inner -->
 </section>
 
-<!-- ═══════════════════════════════════ SERVICES ══════════════════════════════ -->
+<!-- ═══════════════════════════════════════ STATS BAR ═════════════════════════════ -->
+<div class="home-stats-bar">
+	<div class="container">
+		<div class="home-stats-bar__inner">
+			<?php foreach ($hero_stats as $stat) :
+				$prefix = $stat['stat_prefix'] ?? '';
+				$value  = $stat['stat_value']  ?? '0';
+				$suffix = $stat['stat_suffix']  ?? '';
+				$label  = $stat['stat_label']   ?? '';
+			?>
+			<div class="home-stats-bar__item">
+				<span class="home-stats-bar__value"
+				      data-counter="<?php echo esc_attr(preg_replace('/[^0-9.]/','',$value)); ?>"
+				      data-prefix="<?php echo esc_attr($prefix); ?>"
+				      data-suffix="<?php echo esc_attr($suffix); ?>">
+					<?php echo esc_html($prefix . $value . $suffix); ?>
+				</span>
+				<span class="home-stats-bar__label"><?php echo esc_html($label); ?></span>
+			</div>
+			<?php endforeach; ?>
+		</div>
+	</div>
+</div>
+
+<!-- ═══════════════════════════════════════ SERVICES ══════════════════════════════ -->
 <?php if ($services) : ?>
 <section class="section bg-white">
 	<div class="container">
@@ -106,7 +209,7 @@ $case_studies  = new WP_Query(['post_type'=>'case_study','posts_per_page'=>4,'po
 		</div>
 		<div class="services-grid">
 			<?php foreach ($services as $svc) :
-				$short  = get_field('short_description', $svc->ID) ?: wp_trim_words($svc->post_excerpt ?: $svc->post_content, 18);
+				$short    = get_field('short_description', $svc->ID) ?: wp_trim_words($svc->post_excerpt ?: $svc->post_content, 18);
 				$icon_svg = get_field('icon_svg', $svc->ID) ?: '<svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>';
 			?>
 			<a href="<?php echo esc_url(get_permalink($svc)); ?>" class="service-card">
@@ -124,8 +227,76 @@ $case_studies  = new WP_Query(['post_type'=>'case_study','posts_per_page'=>4,'po
 </section>
 <?php endif; ?>
 
-<!-- ═══════════════════════════════ WHY CHOOSE US ═════════════════════════════ -->
-<section class="section bg-light">
+<!-- ══════════════════════════════ UAE COVERAGE ═══════════════════════════════════ -->
+<section class="section uae-coverage">
+	<div class="container">
+		<div class="section-header">
+			<?php seoae_section_label('UAE Coverage'); ?>
+			<h2 class="section-header__title">Search Specialists Across Every Emirate</h2>
+			<p class="section-header__desc" style="max-width:560px;">From Dubai's hypercompetitive commercial market to Fujairah's port-city B2B sector — we deliver measurable search results in every UAE market.</p>
+		</div>
+		<div class="uae-grid">
+
+			<a href="/dubai/" class="uae-card">
+				<div class="uae-card__arrow" aria-hidden="true">
+					<svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+				</div>
+				<h3 class="uae-card__city">Dubai</h3>
+				<p class="uae-card__desc">The UAE's most competitive digital market. We help Dubai businesses rank for high-value commercial queries across all major sectors.</p>
+				<span class="uae-card__badge">18M+ monthly searches</span>
+			</a>
+
+			<a href="/locations/seo-abu-dhabi/" class="uae-card">
+				<div class="uae-card__arrow" aria-hidden="true">
+					<svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+				</div>
+				<h3 class="uae-card__city">Abu Dhabi</h3>
+				<p class="uae-card__desc">Capital market SEO for government suppliers, hospitality, healthcare, and finance businesses targeting UAE's wealthiest emirate.</p>
+				<span class="uae-card__badge">6M+ monthly searches</span>
+			</a>
+
+			<a href="/locations/seo-sharjah/" class="uae-card">
+				<div class="uae-card__arrow" aria-hidden="true">
+					<svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+				</div>
+				<h3 class="uae-card__city">Sharjah</h3>
+				<p class="uae-card__desc">Growing commercial and industrial market. We build organic visibility for Sharjah businesses across English and Arabic search audiences.</p>
+				<span class="uae-card__badge">4M+ monthly searches</span>
+			</a>
+
+			<a href="/locations/seo-ajman/" class="uae-card">
+				<div class="uae-card__arrow" aria-hidden="true">
+					<svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+				</div>
+				<h3 class="uae-card__city">Ajman</h3>
+				<p class="uae-card__desc">Cost-effective SEO for Ajman's growing SME and e-commerce sector, with strong local pack and Google Maps optimisation.</p>
+				<span class="uae-card__badge">1.5M+ monthly searches</span>
+			</a>
+
+			<a href="/locations/seo-ras-al-khaimah/" class="uae-card">
+				<div class="uae-card__arrow" aria-hidden="true">
+					<svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+				</div>
+				<h3 class="uae-card__city">Ras Al Khaimah</h3>
+				<p class="uae-card__desc">Tourism, logistics, and manufacturing SEO for RAK businesses reaching both local and international search audiences.</p>
+				<span class="uae-card__badge">1.2M+ monthly searches</span>
+			</a>
+
+			<a href="/locations/seo-fujairah/" class="uae-card">
+				<div class="uae-card__arrow" aria-hidden="true">
+					<svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+				</div>
+				<h3 class="uae-card__city">Fujairah</h3>
+				<p class="uae-card__desc">Port-city B2B and tourism SEO for Fujairah's unique dual-market search landscape — maritime, logistics, and hospitality.</p>
+				<span class="uae-card__badge">900K+ monthly searches</span>
+			</a>
+
+		</div>
+	</div>
+</section>
+
+<!-- ═══════════════════════════════ WHY CHOOSE US ═════════════════════════════════ -->
+<section class="section bg-white">
 	<div class="container">
 		<div class="section-header section-header--center">
 			<?php seoae_section_label('Why SearchEngineOptimization.ae'); ?>
@@ -154,7 +325,60 @@ $case_studies  = new WP_Query(['post_type'=>'case_study','posts_per_page'=>4,'po
 	</div>
 </section>
 
-<!-- ══════════════════════════════ CASE STUDIES ═══════════════════════════════ -->
+<!-- ══════════════════════════════ SIX-STEP PROCESS ══════════════════════════════ -->
+<section class="section process-section">
+	<div class="container">
+		<div class="section-header">
+			<?php seoae_section_label('How We Work'); ?>
+			<h2 class="section-header__title" style="max-width:600px;">A Six-Step Methodology Built for Compounding Growth</h2>
+			<div class="process-divider"></div>
+		</div>
+		<div class="process-wrap">
+			<div class="process-track" aria-hidden="true"></div>
+			<div class="process-steps">
+
+				<div class="process-step">
+					<div class="process-step__num">01</div>
+					<h3 class="process-step__title">Discover</h3>
+					<p class="process-step__desc">Deep-dive into your market, competitors, and current search performance.</p>
+				</div>
+
+				<div class="process-step">
+					<div class="process-step__num">02</div>
+					<h3 class="process-step__title">Diagnose</h3>
+					<p class="process-step__desc">Identify every technical, content, and authority gap holding you back.</p>
+				</div>
+
+				<div class="process-step">
+					<div class="process-step__num">03</div>
+					<h3 class="process-step__title">Prioritise</h3>
+					<p class="process-step__desc">Rank opportunities by revenue impact and implementation speed.</p>
+				</div>
+
+				<div class="process-step">
+					<div class="process-step__num">04</div>
+					<h3 class="process-step__title">Execute</h3>
+					<p class="process-step__desc">Implement changes with disciplined project management and QA.</p>
+				</div>
+
+				<div class="process-step">
+					<div class="process-step__num">05</div>
+					<h3 class="process-step__title">Measure</h3>
+					<p class="process-step__desc">Track rankings, traffic, and conversions with transparent reporting.</p>
+				</div>
+
+				<div class="process-step">
+					<div class="process-step__num">06</div>
+					<h3 class="process-step__title">Compound</h3>
+					<p class="process-step__desc">Build on what works — authority, content, and technical improvements compound over time.</p>
+				</div>
+
+			</div><!-- /.process-steps -->
+		</div><!-- /.process-wrap -->
+	</div>
+</section>
+
+<!-- ══════════════════════════════ CASE STUDIES ═══════════════════════════════════ -->
 <?php if ($case_studies->have_posts()) : ?>
 <section class="section bg-white">
 	<div class="container">
@@ -165,9 +389,9 @@ $case_studies  = new WP_Query(['post_type'=>'case_study','posts_per_page'=>4,'po
 		</div>
 		<div class="case-study-grid">
 			<?php while ($case_studies->have_posts()) : $case_studies->the_post();
-				$results = get_field('results') ?: [];
+				$results  = get_field('results') ?: [];
 				$industry = get_field('cs_industry') ?: '';
-				$client  = get_field('client_name') ?: get_the_title();
+				$client   = get_field('client_name') ?: get_the_title();
 			?>
 			<article class="case-study-card">
 				<div class="case-study-card__head">
@@ -200,7 +424,7 @@ $case_studies  = new WP_Query(['post_type'=>'case_study','posts_per_page'=>4,'po
 </section>
 <?php endif; ?>
 
-<!-- ═══════════════════════════════ TESTIMONIALS ══════════════════════════════ -->
+<!-- ═══════════════════════════════ TESTIMONIALS ══════════════════════════════════ -->
 <?php if ($testimonials) : ?>
 <section class="section testimonials-section">
 	<div class="container">
@@ -247,7 +471,7 @@ $case_studies  = new WP_Query(['post_type'=>'case_study','posts_per_page'=>4,'po
 </section>
 <?php endif; ?>
 
-<!-- ════════════════════════════════ BLOG POSTS ═══════════════════════════════ -->
+<!-- ════════════════════════════════ BLOG POSTS ═══════════════════════════════════ -->
 <?php if ($recent_posts) : ?>
 <section class="section bg-white">
 	<div class="container">
@@ -260,11 +484,11 @@ $case_studies  = new WP_Query(['post_type'=>'case_study','posts_per_page'=>4,'po
 		</div>
 		<div class="blog-grid">
 			<?php foreach ($recent_posts as $p) :
-				$category  = get_the_category($p->ID);
-				$cat_name  = $category ? $category[0]->name : 'SEO';
-				$thumb     = get_the_post_thumbnail_url($p->ID, 'medium_large');
-				$rt        = get_field('reading_time', $p->ID) ?: 8;
-				$excerpt   = get_the_excerpt($p);
+				$category = get_the_category($p->ID);
+				$cat_name = $category ? $category[0]->name : 'SEO';
+				$thumb    = get_the_post_thumbnail_url($p->ID, 'medium_large');
+				$rt       = get_field('reading_time', $p->ID) ?: 8;
+				$excerpt  = get_the_excerpt($p);
 			?>
 			<article class="blog-card">
 				<div class="blog-card__image">
@@ -287,7 +511,7 @@ $case_studies  = new WP_Query(['post_type'=>'case_study','posts_per_page'=>4,'po
 </section>
 <?php endif; ?>
 
-<!-- ════════════════════════════════ DARK CTA ═════════════════════════════════ -->
+<!-- ════════════════════════════════ DARK CTA ════════════════════════════════════ -->
 <?php seoae_cta_dark(); ?>
 
 <?php get_footer(); ?>

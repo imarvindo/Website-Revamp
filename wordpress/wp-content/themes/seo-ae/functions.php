@@ -938,3 +938,428 @@ add_shortcode( 'seoae_breadcrumbs', function() {
 	}
 	return '';
 } );
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 13. SUPPRESS YOAST SEO OUTPUT (plugin inactive but partially loads)
+// ─────────────────────────────────────────────────────────────────────────────
+add_action( 'after_setup_theme', function () {
+	// Yoast hooks to wp_head at priority 1 via wpseo_head
+	remove_action( 'wp_head', 'wpseo_head', 1 );
+	// Also remove via class instance if it's been instantiated
+	if ( class_exists( 'WPSEO_Frontend' ) ) {
+		$instance = WPSEO_Frontend::get_instance();
+		remove_action( 'wp_head', [ $instance, 'head' ], 1 );
+	}
+	// Yoast canonical / meta output
+	remove_action( 'wp_head', 'rel_canonical' );
+	// Yoast opengraph
+	if ( class_exists( 'WPSEO_OpenGraph' ) ) {
+		global $wpseo_og;
+		if ( isset( $wpseo_og ) ) {
+			remove_action( 'wpseo_head', [ $wpseo_og, 'opengraph' ], 30 );
+		}
+	}
+}, 999 );
+
+// Nuclear option: intercept Yoast's head action and block all its output
+add_action( 'wp_head', function () {
+	remove_action( 'wp_head', 'wpseo_head', 1 );
+	remove_action( 'wp_head', 'rel_canonical' );
+	// Block Yoast's opengraph hooks
+	global $wpseo_og;
+	if ( isset( $wpseo_og ) && is_object( $wpseo_og ) ) {
+		remove_action( 'wpseo_head', [ $wpseo_og, 'opengraph' ], 30 );
+	}
+}, 0 );
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 13b. OPEN GRAPH + TWITTER CARD META TAGS
+// ─────────────────────────────────────────────────────────────────────────────
+add_action( 'wp_head', function () {
+	global $post;
+	$site_name   = 'SearchEngineOptimization.ae';
+	$base_url    = home_url();
+	$default_img = $base_url . '/wp-content/themes/seo-ae/assets/images/og-image.jpg';
+
+	// Title
+	if ( is_front_page() ) {
+		$title = "Dubai's #1 SEO & Digital Marketing Agency — SearchEngineOptimization.ae";
+		$desc  = "Dominate search. Scale revenue. We help UAE & GCC businesses grow organic traffic, capture high-intent leads, and outrank competitors with enterprise SEO strategies.";
+		$url   = $base_url . '/';
+		$type  = 'website';
+		$img   = $default_img;
+	} elseif ( is_singular() && $post ) {
+		$title = get_the_title( $post ) . ' — ' . $site_name;
+		$desc  = wp_strip_all_tags( get_the_excerpt( $post ) ?: wp_trim_words( $post->post_content, 30 ) );
+		$url   = get_permalink( $post );
+		$type  = ( $post->post_type === 'post' ) ? 'article' : 'website';
+		$img   = get_the_post_thumbnail_url( $post, 'large' ) ?: $default_img;
+	} elseif ( is_category() || is_tag() || is_archive() ) {
+		$title = single_cat_title( '', false ) . ' — ' . $site_name;
+		$desc  = "SEO and digital marketing insights from SearchEngineOptimization.ae — Dubai's leading SEO agency.";
+		$url   = get_term_link( get_queried_object() );
+		$type  = 'website';
+		$img   = $default_img;
+	} else {
+		return;
+	}
+
+	$desc = $desc ? esc_attr( substr( $desc, 0, 160 ) ) : '';
+	$url  = esc_url( is_string($url) ? $url : $base_url );
+	$img  = esc_url( $img );
+
+	echo "\n<!-- Open Graph -->\n";
+	echo '<meta property="og:type" content="' . esc_attr($type) . '">' . "\n";
+	echo '<meta property="og:title" content="' . esc_attr($title) . '">' . "\n";
+	echo '<meta property="og:description" content="' . $desc . '">' . "\n";
+	echo '<meta property="og:url" content="' . $url . '">' . "\n";
+	echo '<meta property="og:site_name" content="' . esc_attr($site_name) . '">' . "\n";
+	echo '<meta property="og:image" content="' . $img . '">' . "\n";
+	echo '<meta property="og:image:width" content="1200">' . "\n";
+	echo '<meta property="og:image:height" content="630">' . "\n";
+	echo '<meta property="og:locale" content="en_AE">' . "\n";
+	if ( $type === 'article' && $post ) {
+		echo '<meta property="article:published_time" content="' . esc_attr( get_the_date( 'c', $post ) ) . '">' . "\n";
+		echo '<meta property="article:modified_time" content="' . esc_attr( get_the_modified_date( 'c', $post ) ) . '">' . "\n";
+		echo '<meta property="article:author" content="' . esc_attr( $site_name ) . '">' . "\n";
+	}
+
+	echo "\n<!-- Twitter Card -->\n";
+	echo '<meta name="twitter:card" content="summary_large_image">' . "\n";
+	echo '<meta name="twitter:title" content="' . esc_attr($title) . '">' . "\n";
+	echo '<meta name="twitter:description" content="' . $desc . '">' . "\n";
+	echo '<meta name="twitter:image" content="' . $img . '">' . "\n";
+	echo '<meta name="twitter:site" content="@SEOae_dubai">' . "\n";
+	echo '<meta name="twitter:creator" content="@SEOae_dubai">' . "\n";
+}, 5 );
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 14. CANONICAL URL (dynamic host — works on localhost + Replit proxy)
+// ─────────────────────────────────────────────────────────────────────────────
+add_action( 'wp_head', function () {
+	// Remove WordPress default rel=canonical and re-output with correct host
+	remove_action( 'wp_head', 'rel_canonical' );
+
+	global $post;
+	if ( is_singular() && $post ) {
+		$canonical = get_permalink( $post );
+	} elseif ( is_front_page() ) {
+		$canonical = home_url( '/' );
+	} elseif ( is_home() ) {
+		$canonical = get_permalink( get_option( 'page_for_posts' ) );
+	} elseif ( is_category() || is_tag() ) {
+		$obj = get_queried_object();
+		$canonical = $obj ? get_term_link( $obj ) : home_url('/');
+	} else {
+		return;
+	}
+	if ( $canonical && ! is_wp_error( $canonical ) ) {
+		echo '<link rel="canonical" href="' . esc_url( $canonical ) . '">' . "\n";
+	}
+}, 3 );
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 15. WEBSITE + WEBPAGE SCHEMA
+// ─────────────────────────────────────────────────────────────────────────────
+add_action( 'wp_head', function () {
+	// WebSite schema (all pages)
+	$website = [
+		'@context' => 'https://schema.org',
+		'@type'    => 'WebSite',
+		'@id'      => home_url() . '/#website',
+		'name'     => 'SearchEngineOptimization.ae',
+		'url'      => home_url(),
+		'potentialAction' => [
+			'@type'       => 'SearchAction',
+			'target'      => [
+				'@type'       => 'EntryPoint',
+				'urlTemplate' => home_url() . '/?s={search_term_string}',
+			],
+			'query-input' => 'required name=search_term_string',
+		],
+	];
+	echo '<script type="application/ld+json">' . wp_json_encode( $website, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ) . '</script>' . "\n";
+
+	// WebPage schema
+	global $post;
+	$page_type = 'WebPage';
+	if ( is_front_page() )   $page_type = 'WebPage';
+	if ( is_singular('post') ) $page_type = 'Article';
+	if ( is_home() )          $page_type = 'CollectionPage';
+	if ( is_search() )        $page_type = 'SearchResultsPage';
+	if ( is_singular() && $post && $post->post_name === 'contact' ) $page_type = 'ContactPage';
+
+	$name = is_singular() && $post ? get_the_title($post) : get_bloginfo('name');
+	$desc = is_singular() && $post
+		? substr( wp_strip_all_tags( get_the_excerpt($post) ?: $post->post_content ), 0, 200 )
+		: "Dubai's #1 SEO and digital marketing agency — delivering measurable growth.";
+
+	$webpage = [
+		'@context'        => 'https://schema.org',
+		'@type'           => $page_type,
+		'@id'             => is_singular() && $post ? get_permalink($post) . '#webpage' : home_url('/') . '#webpage',
+		'url'             => is_singular() && $post ? get_permalink($post) : home_url('/'),
+		'name'            => $name,
+		'description'     => $desc,
+		'isPartOf'        => [ '@id' => home_url() . '/#website' ],
+		'inLanguage'      => 'en-AE',
+		'datePublished'   => is_singular() && $post ? get_the_date('c', $post) : '',
+		'dateModified'    => is_singular() && $post ? get_the_modified_date('c', $post) : '',
+		'breadcrumb'      => [ '@id' => ( is_singular() && $post ? get_permalink($post) : home_url('/') ) . '#breadcrumb' ],
+	];
+	// Remove empty fields
+	$webpage = array_filter($webpage, fn($v) => $v !== '');
+	echo '<script type="application/ld+json">' . wp_json_encode( $webpage, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ) . '</script>' . "\n";
+}, 22 );
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 16. ARTICLE / BLOGPOSTING SCHEMA
+// ─────────────────────────────────────────────────────────────────────────────
+add_action( 'wp_head', function () {
+	if ( ! is_singular('post') ) return;
+	global $post;
+	if ( ! $post ) return;
+
+	$img = get_the_post_thumbnail_url( $post, 'large' ) ?: home_url() . '/wp-content/themes/seo-ae/assets/images/og-image.jpg';
+	$schema = [
+		'@context'         => 'https://schema.org',
+		'@type'            => 'BlogPosting',
+		'@id'              => get_permalink($post) . '#article',
+		'headline'         => get_the_title($post),
+		'description'      => substr( wp_strip_all_tags( get_the_excerpt($post) ?: $post->post_content ), 0, 200 ),
+		'image'            => [ '@type' => 'ImageObject', 'url' => $img ],
+		'url'              => get_permalink($post),
+		'datePublished'    => get_the_date('c', $post),
+		'dateModified'     => get_the_modified_date('c', $post),
+		'author'           => [
+			'@type' => 'Organization',
+			'name'  => 'SearchEngineOptimization.ae',
+			'url'   => home_url(),
+		],
+		'publisher'        => [
+			'@type' => 'Organization',
+			'name'  => 'SearchEngineOptimization.ae',
+			'url'   => home_url(),
+			'logo'  => [ '@type' => 'ImageObject', 'url' => home_url() . '/wp-content/themes/seo-ae/assets/images/logo.svg' ],
+		],
+		'mainEntityOfPage' => [ '@type' => 'WebPage', '@id' => get_permalink($post) ],
+		'inLanguage'       => 'en-AE',
+		'keywords'         => implode(', ', wp_list_pluck( get_the_tags($post->ID) ?: [], 'name' ) ),
+		'articleSection'   => implode(', ', wp_list_pluck( get_the_category($post->ID) ?: [], 'name' ) ),
+		'wordCount'        => str_word_count( wp_strip_all_tags( $post->post_content ) ),
+	];
+	echo '<script type="application/ld+json">' . wp_json_encode( $schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ) . '</script>' . "\n";
+}, 23 );
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 17. SERVICE SCHEMA
+// ─────────────────────────────────────────────────────────────────────────────
+add_action( 'wp_head', function () {
+	if ( ! is_singular('service') ) return;
+	global $post;
+	if ( ! $post ) return;
+
+	$desc  = get_field('short_description', $post->ID) ?: substr( wp_strip_all_tags( $post->post_content ), 0, 200 );
+	$img   = get_the_post_thumbnail_url( $post, 'large' ) ?: home_url() . '/wp-content/themes/seo-ae/assets/images/og-image.jpg';
+	$schema = [
+		'@context'    => 'https://schema.org',
+		'@type'       => 'Service',
+		'@id'         => get_permalink($post) . '#service',
+		'name'        => get_the_title($post),
+		'description' => $desc,
+		'url'         => get_permalink($post),
+		'image'       => $img,
+		'provider'    => [
+			'@type' => 'Organization',
+			'name'  => 'SearchEngineOptimization.ae',
+			'url'   => home_url(),
+		],
+		'areaServed'  => 'United Arab Emirates',
+		'serviceType' => get_the_title($post),
+	];
+	echo '<script type="application/ld+json">' . wp_json_encode( $schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ) . '</script>' . "\n";
+}, 24 );
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 18. BREADCRUMBLIST SCHEMA
+// ─────────────────────────────────────────────────────────────────────────────
+add_action( 'wp_head', function () {
+	if ( is_front_page() ) return;
+	global $post;
+
+	$items   = [];
+	$items[] = [ '@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => home_url('/') ];
+	$pos     = 2;
+
+	if ( is_singular('post') && $post ) {
+		$items[] = [ '@type' => 'ListItem', 'position' => $pos++, 'name' => 'Blog', 'item' => home_url('/blog/') ];
+		$items[] = [ '@type' => 'ListItem', 'position' => $pos++, 'name' => get_the_title($post), 'item' => get_permalink($post) ];
+	} elseif ( is_singular('service') && $post ) {
+		$items[] = [ '@type' => 'ListItem', 'position' => $pos++, 'name' => 'Services', 'item' => home_url('/services/') ];
+		$items[] = [ '@type' => 'ListItem', 'position' => $pos++, 'name' => get_the_title($post), 'item' => get_permalink($post) ];
+	} elseif ( is_singular('case_study') && $post ) {
+		$items[] = [ '@type' => 'ListItem', 'position' => $pos++, 'name' => 'Case Studies', 'item' => home_url('/case-studies/') ];
+		$items[] = [ '@type' => 'ListItem', 'position' => $pos++, 'name' => get_the_title($post), 'item' => get_permalink($post) ];
+	} elseif ( is_singular() && $post ) {
+		if ( $post->post_parent ) {
+			$parent = get_post( $post->post_parent );
+			if ( $parent ) {
+				$items[] = [ '@type' => 'ListItem', 'position' => $pos++, 'name' => get_the_title($parent), 'item' => get_permalink($parent) ];
+			}
+		}
+		$items[] = [ '@type' => 'ListItem', 'position' => $pos++, 'name' => get_the_title($post), 'item' => get_permalink($post) ];
+	} elseif ( is_home() ) {
+		$items[] = [ '@type' => 'ListItem', 'position' => $pos++, 'name' => 'Blog', 'item' => home_url('/blog/') ];
+	}
+
+	if ( count($items) < 2 ) return;
+
+	$schema = [
+		'@context'        => 'https://schema.org',
+		'@type'           => 'BreadcrumbList',
+		'@id'             => ( is_singular() && $post ? get_permalink($post) : get_pagenum_link() ) . '#breadcrumb',
+		'itemListElement' => $items,
+	];
+	echo '<script type="application/ld+json">' . wp_json_encode( $schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ) . '</script>' . "\n";
+}, 25 );
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 19. CUSTOM XML SITEMAP
+// ─────────────────────────────────────────────────────────────────────────────
+// Prevent WordPress from adding trailing slash to sitemap.xml
+add_filter( 'redirect_canonical', function( $redirect_url, $requested_url ) {
+	if ( strpos( $requested_url, 'sitemap.xml' ) !== false ) {
+		return false;
+	}
+	return $redirect_url;
+}, 10, 2 );
+
+add_action( 'init', function () {
+	add_rewrite_rule( '^sitemap\.xml$', 'index.php?seoae_sitemap=1', 'top' );
+} );
+add_filter( 'query_vars', function ( $vars ) {
+	$vars[] = 'seoae_sitemap';
+	return $vars;
+} );
+add_action( 'template_redirect', function () {
+	if ( ! get_query_var('seoae_sitemap') ) return;
+
+	header( 'Content-Type: application/xml; charset=UTF-8' );
+	header( 'X-Robots-Tag: noindex' );
+
+	$base = home_url();
+	$urls = [];
+
+	// Static pages
+	$pages = get_posts(['post_type'=>'page','post_status'=>'publish','posts_per_page'=>-1,'orderby'=>'date','order'=>'DESC']);
+	foreach ( $pages as $p ) {
+		$urls[] = [ 'loc' => get_permalink($p), 'lastmod' => get_the_modified_date('Y-m-d', $p), 'changefreq' => 'monthly', 'priority' => is_front_page() ? '1.0' : '0.8' ];
+	}
+
+	// Services
+	$services = get_posts(['post_type'=>'service','post_status'=>'publish','posts_per_page'=>-1]);
+	foreach ( $services as $p ) {
+		$urls[] = [ 'loc' => get_permalink($p), 'lastmod' => get_the_modified_date('Y-m-d', $p), 'changefreq' => 'monthly', 'priority' => '0.9' ];
+	}
+
+	// Case studies
+	$cs = get_posts(['post_type'=>'case_study','post_status'=>'publish','posts_per_page'=>-1]);
+	foreach ( $cs as $p ) {
+		$urls[] = [ 'loc' => get_permalink($p), 'lastmod' => get_the_modified_date('Y-m-d', $p), 'changefreq' => 'monthly', 'priority' => '0.7' ];
+	}
+
+	// Blog posts
+	$posts = get_posts(['post_type'=>'post','post_status'=>'publish','posts_per_page'=>-1,'orderby'=>'date','order'=>'DESC']);
+	foreach ( $posts as $p ) {
+		$urls[] = [ 'loc' => get_permalink($p), 'lastmod' => get_the_modified_date('Y-m-d', $p), 'changefreq' => 'weekly', 'priority' => '0.7' ];
+	}
+
+	echo '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
+	echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">' . "\n";
+	foreach ( $urls as $u ) {
+		if ( empty($u['loc']) || is_wp_error($u['loc']) ) continue;
+		echo "  <url>\n";
+		echo "    <loc>" . esc_url($u['loc']) . "</loc>\n";
+		if ( ! empty($u['lastmod']) )    echo "    <lastmod>" . esc_html($u['lastmod']) . "</lastmod>\n";
+		if ( ! empty($u['changefreq']) ) echo "    <changefreq>" . esc_html($u['changefreq']) . "</changefreq>\n";
+		if ( ! empty($u['priority']) )   echo "    <priority>" . esc_html($u['priority']) . "</priority>\n";
+		echo "  </url>\n";
+	}
+	echo '</urlset>';
+	exit;
+} );
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 20. PERFORMANCE — PRECONNECT, PRELOAD, LAZY LOAD, RESOURCE HINTS
+// ─────────────────────────────────────────────────────────────────────────────
+// Resource hints
+add_action( 'wp_head', function () {
+	echo '<link rel="preconnect" href="https://fonts.googleapis.com">' . "\n";
+	echo '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>' . "\n";
+	echo '<link rel="dns-prefetch" href="https://www.google-analytics.com">' . "\n";
+	echo '<link rel="dns-prefetch" href="https://www.googletagmanager.com">' . "\n";
+	echo '<link rel="dns-prefetch" href="https://maps.googleapis.com">' . "\n";
+}, 1 );
+
+// Move scripts to footer (improves LCP/FCP)
+remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
+remove_action( 'wp_print_styles', 'print_emoji_styles' );
+remove_action( 'wp_head', 'wp_generator' );
+remove_action( 'wp_head', 'wlwmanifest_link' );
+remove_action( 'wp_head', 'rsd_link' );
+remove_action( 'wp_head', 'wp_shortlink_wp_head' );
+
+// Lazy load all images and iframes
+add_filter( 'the_content', function ( $content ) {
+	if ( is_admin() ) return $content;
+	$content = preg_replace( '/<img(?![^>]*loading=)/', '<img loading="lazy"', $content );
+	$content = preg_replace( '/<iframe(?![^>]*loading=)/', '<iframe loading="lazy"', $content );
+	return $content;
+} );
+
+// Add loading="lazy" to featured images
+add_filter( 'post_thumbnail_html', function ( $html ) {
+	if ( is_admin() ) return $html;
+	return preg_replace( '/<img(?![^>]*loading=)/', '<img loading="lazy"', $html );
+} );
+
+// Defer non-critical JS
+add_filter( 'script_loader_tag', function ( $tag, $handle, $src ) {
+	$defer = ['seo-ae-main-js'];
+	if ( in_array($handle, $defer, true) ) {
+		return str_replace( ' src=', ' defer src=', $tag );
+	}
+	return $tag;
+}, 10, 3 );
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 21. META DESCRIPTION FALLBACK
+// ─────────────────────────────────────────────────────────────────────────────
+add_action( 'wp_head', function () {
+	global $post;
+	// Only output if not already provided by another plugin
+	$desc = '';
+	if ( is_front_page() ) {
+		$desc = "Dubai's #1 SEO & digital marketing agency. We help UAE businesses dominate search, capture high-intent traffic, and grow revenue. Get your free audit today.";
+	} elseif ( is_singular() && $post ) {
+		$desc = wp_trim_words( wp_strip_all_tags( get_the_excerpt($post) ?: $post->post_content ), 30 );
+	} elseif ( is_home() ) {
+		$desc = 'SEO tips, digital marketing strategies, and industry insights from Dubai\'s leading SEO agency — SearchEngineOptimization.ae.';
+	}
+	if ( $desc ) {
+		echo '<meta name="description" content="' . esc_attr( substr($desc, 0, 160) ) . '">' . "\n";
+	}
+}, 2 );
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 22. HREFLANG (English + Arabic for UAE)
+// ─────────────────────────────────────────────────────────────────────────────
+add_action( 'wp_head', function () {
+	$url = is_singular() ? get_permalink() : home_url( $_SERVER['REQUEST_URI'] ?? '/' );
+	if ( is_wp_error($url) ) return;
+	echo '<link rel="alternate" hreflang="en-ae" href="' . esc_url($url) . '">' . "\n";
+	echo '<link rel="alternate" hreflang="x-default" href="' . esc_url($url) . '">' . "\n";
+}, 6 );
+

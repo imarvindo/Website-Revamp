@@ -1,0 +1,166 @@
+For a **website revamp**, the Technical SEO scope should be comprehensive. You can include the following section in your requirements document.
+
+# Technical SEO Requirements
+
+The revamped website must follow the latest Google Search Essentials and technical SEO best practices to ensure maximum crawlability, indexability, performance, and search visibility.
+
+## Website Crawlability & Indexing
+
+* Proper Robots.txt configuration.
+* Updated XML Sitemap (Pages, Blogs, Images, Videos if applicable).
+* HTML Sitemap (optional but recommended).
+* Correct Index/Noindex implementation.
+* Proper Follow/Nofollow directives.
+* Canonical tags on all indexable pages.
+* Pagination implementation where required.
+* No orphan pages.
+* No crawl errors.
+* No indexing issues.
+* No blocked essential resources (CSS, JavaScript, Images).
+
+## URL Optimization
+
+* SEO-friendly URL structure.
+* Clean, readable URLs.
+* Lowercase URLs only.
+* Hyphen-separated words.
+* No duplicate URLs.
+* No dynamic or unnecessary URL parameters.
+* 301 redirects for changed URLs.
+* No redirect chains.
+* No redirect loops.
+* Proper handling of trailing slashes.
+
+## On-Page Technical SEO
+
+* Unique Title Tag for every page.
+* Unique Meta Description.
+* One H1 per page.
+* Proper H2–H6 hierarchy.
+* Image ALT text for all images.
+* SEO-friendly image filenames.
+* Open Graph tags.
+* Twitter Card metadata.
+* Breadcrumb navigation.
+* Internal linking optimization.
+* External links to authoritative sources where appropriate.
+
+## Structured Data (Schema)
+
+Implement valid schema markup where applicable:
+
+* Organization
+* LocalBusiness
+* Website
+* WebPage
+* BreadcrumbList
+* Service
+* FAQPage
+* Article
+* BlogPosting
+* Product
+* Review
+* VideoObject
+* Person
+* ContactPage
+
+All schema should validate without errors.
+
+## Core Web Vitals
+
+Optimize to meet Google's recommended thresholds:
+
+* Largest Contentful Paint (LCP): < 2.5 seconds
+* Interaction to Next Paint (INP): < 200 ms
+* Cumulative Layout Shift (CLS): < 0.1
+
+## Performance Optimization
+
+* Google PageSpeed Insights score of 90–100 (where practically achievable).
+* Optimize CSS and JavaScript.
+* Minify HTML, CSS, and JS.
+* Lazy load images and videos.
+* Browser caching.
+* GZIP/Brotli compression.
+* CDN compatibility.
+* WebP/AVIF images.
+* Font optimization.
+* Remove unused CSS and JavaScript.
+* Reduce render-blocking resources.
+
+## Mobile SEO
+
+* Fully responsive design.
+* Mobile-friendly layout.
+* Touch-friendly navigation.
+* Mobile usability error-free.
+* Consistent desktop and mobile content.
+
+## Security
+
+* HTTPS across the entire website.
+* Valid SSL certificate.
+* Security headers.
+* Secure admin login.
+* CAPTCHA on forms.
+* Malware protection.
+* Regular backups.
+
+## International & Local SEO (if applicable)
+
+* Hreflang implementation for multilingual websites.
+* LocalBusiness Schema.
+* Consistent NAP (Name, Address, Phone).
+* Google Maps integration.
+* Location-specific landing pages.
+
+## Technical SEO Audit
+
+The final website should have:
+
+* No duplicate content.
+* No duplicate title tags.
+* No duplicate meta descriptions.
+* No duplicate H1 tags.
+* No broken links (404 errors).
+* No broken images.
+* No soft 404 pages.
+* No server errors (5xx).
+* No JavaScript console errors.
+* No HTML validation errors.
+* No CSS validation issues.
+* No missing ALT text.
+* No missing canonical tags.
+* No missing schema markup.
+* No missing meta tags.
+* No thin content.
+* No keyword cannibalization.
+* No orphan pages.
+* No crawl anomalies.
+* No indexing issues reported in Google Search Console.
+
+## Google Search Console & Analytics
+
+* Verify and configure Google Search Console.
+* Submit XML Sitemap.
+* Monitor crawl and indexing status.
+* Configure Google Analytics 4.
+* Configure Google Tag Manager.
+* Configure Microsoft Clarity.
+* Configure Meta Pixel (if required).
+* Validate event tracking and conversions.
+
+## Final Technical SEO Deliverables
+
+* Technical SEO Audit Report.
+* XML Sitemap.
+* Robots.txt.
+* Redirect Mapping (301).
+* Schema Validation Report.
+* Core Web Vitals Report.
+* PageSpeed Insights Report.
+* Google Search Console Verification.
+* Google Analytics 4 Configuration.
+* Technical SEO issues resolved before launch.
+
+This checklist ensures the revamped website is technically optimized for Google Search, AI-powered search engines, and long-term SEO performance.
