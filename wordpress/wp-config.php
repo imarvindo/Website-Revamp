@@ -5,14 +5,25 @@
  */
 
 // ── Dynamic URL (works on Replit dev + any production host) ──────────────────
+// Priority: WP-CLI env > REPLIT_DOMAINS (dev) > X-Forwarded-Host (proxy) > HTTP_HOST (direct)
 if ( defined( 'WP_CLI' ) && WP_CLI ) {
+	// WP-CLI: explicit env or fallback
 	$_site_url = getenv( 'WP_HOME' ) ?: 'http://localhost:' . ( getenv( 'PORT' ) ?: '8000' );
+} elseif ( getenv( 'REPLIT_DOMAINS' ) ) {
+	// Replit dev — Vite proxy rewrites Host to localhost:8000 via changeOrigin:true,
+	// so HTTP_HOST is wrong. Use the real public Replit domain instead.
+	$_site_url = 'https://' . getenv( 'REPLIT_DOMAINS' );
+	// Tell WordPress it's running over HTTPS so asset URLs use https://
+	$_SERVER['HTTPS']                  = 'on';
+	$_SERVER['HTTP_X_FORWARDED_PROTO'] = 'https';
+} elseif ( ! empty( $_SERVER['HTTP_X_FORWARDED_HOST'] ) ) {
+	// Behind reverse proxy on cPanel/VPS (Nginx → PHP-FPM)
+	$_proto    = ! empty( $_SERVER['HTTP_X_FORWARDED_PROTO'] ) ? $_SERVER['HTTP_X_FORWARDED_PROTO'] : 'https';
+	$_site_url = $_proto . '://' . $_SERVER['HTTP_X_FORWARDED_HOST'];
 } else {
-	$_proto     = ( ! empty( $_SERVER['HTTP_X_FORWARDED_PROTO'] ) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https' )
-	              || ( ! empty( $_SERVER['HTTPS'] ) && $_SERVER['HTTPS'] !== 'off' )
-	              ? 'https' : 'http';
-	$_host      = $_SERVER['HTTP_HOST'] ?? 'localhost';
-	$_site_url  = $_proto . '://' . $_host;
+	// Direct access — production Apache or local CLI
+	$_proto    = ( ! empty( $_SERVER['HTTPS'] ) && $_SERVER['HTTPS'] !== 'off' ) ? 'https' : 'http';
+	$_site_url = $_proto . '://' . ( $_SERVER['HTTP_HOST'] ?? 'localhost' );
 }
 define( 'WP_HOME',    $_site_url );
 define( 'WP_SITEURL', $_site_url );

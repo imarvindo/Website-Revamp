@@ -29,7 +29,12 @@ header( 'Referrer-Policy: strict-origin-when-cross-origin' );
 header( 'Permissions-Policy: camera=(), microphone=(), geolocation=(self), payment=()' );
 
 // Light Content-Security-Policy — allows Google Fonts, Analytics, Maps etc.
-header( "Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://www.googleadservices.com https://maps.googleapis.com https://connect.facebook.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; frame-src https://www.google.com https://www.youtube.com; connect-src 'self' https://www.google-analytics.com; base-uri 'self'; form-action 'self';" );
+// On Replit dev the PHP built-in server speaks HTTP, but the public proxy is HTTPS.
+// We broaden style-src/script-src/connect-src to allow both schemes for the dev domain.
+$_replit_host   = getenv( 'REPLIT_DOMAINS' ) ?: '';
+$_replit_origin = $_replit_host ? 'https://' . $_replit_host : '';
+$_csp_self      = $_replit_origin ? "'self' {$_replit_origin}" : "'self'";
+header( "Content-Security-Policy: default-src 'self'; script-src {$_csp_self} 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://www.googleadservices.com https://maps.googleapis.com https://connect.facebook.net; style-src {$_csp_self} 'unsafe-inline' https://fonts.googleapis.com; font-src {$_csp_self} https://fonts.gstatic.com data:; img-src 'self' data: https: http: blob:; frame-src https://www.google.com https://www.youtube.com; connect-src {$_csp_self} https://www.google-analytics.com ws: wss:; base-uri 'self'; form-action 'self';" );
 
 // ── HTML cache — short TTL, must-revalidate ──────────────────────────────────
 header( 'Cache-Control: no-cache, must-revalidate, max-age=0' );

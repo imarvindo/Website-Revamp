@@ -15,8 +15,18 @@ description: Infrastructure, install details, credentials, and content inventory
 - Admin email: `admin@seo.ae`
 - Admin password: stored in Replit (not in memory) — ask user if lost, then reset via WP-CLI
 
-## URL Detection
-- `wp-config.php` dynamically sets `WP_HOME`/`WP_SITEURL` from `HTTP_HOST`, so the site works at any hostname (localhost:8000 in dev, real domain in production).
+## URL Detection (critical — Replit-specific quirk)
+- `wp-config.php` priority chain: WP-CLI env → `REPLIT_DOMAINS` env var → `HTTP_X_FORWARDED_HOST` → `HTTP_HOST`
+- **MUST use `REPLIT_DOMAINS`** in Replit dev. Vite proxy uses `changeOrigin: true` which rewrites `Host` to `localhost:8000` — so `HTTP_HOST` is always wrong in dev.
+- When `REPLIT_DOMAINS` branch runs, also set `$_SERVER['HTTPS'] = 'on'` so WordPress generates `https://` asset URLs (not `http://`).
+- `REPLIT_DOMAINS` PHP-accessible via `getenv('REPLIT_DOMAINS')` — confirmed working in both CLI and web-server contexts.
+
+## Replit Preview Fixes (apply to every fresh environment)
+- `X-Frame-Options: SAMEORIGIN` removed from `router.php` + WP core hook `send_frame_options_header` unhooked in `functions.php` — Replit preview is an iframe, SAMEORIGIN blocks it. Apache `.htaccess` re-adds it on production.
+- CSP in `router.php` dynamically adds `https://{REPLIT_DOMAINS}` to `script-src`, `style-src`, `font-src`, `connect-src` — needed because assets are served from the public Replit domain.
+- `xfwd: true` added to all Vite proxy entries — forwards `X-Forwarded-Host` / `X-Forwarded-Proto` to WordPress.
+
+**Why:** Vite proxy is the only HTTP layer between Replit's public HTTPS proxy and WordPress's HTTP-only built-in server. Without these fixes WordPress generates wrong URLs and the iframe is blocked.
 
 ## Active Plugins
 - `advanced-custom-fields` — ACF field groups for all CPTs
