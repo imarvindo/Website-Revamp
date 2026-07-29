@@ -192,7 +192,7 @@ export default function Home() {
     <div className="flex flex-col min-h-screen">
 
       {/* ── HERO: split layout ── */}
-      <section className="hero-dark bg-grid-pattern-dark relative pt-32 pb-20 overflow-hidden">
+      <section className="hero-dark bg-grid-pattern-dark relative pt-24 pb-8 md:pt-32 md:pb-16 overflow-hidden">
         {/* Background image overlay */}
         <div className="absolute inset-0 z-0">
           <img
@@ -206,7 +206,7 @@ export default function Home() {
         </div>
 
         <div className="container relative z-10 mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
 
             {/* LEFT: headline + CTAs + stats */}
             <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
@@ -219,7 +219,7 @@ export default function Home() {
                 <span className="text-xs font-black uppercase tracking-widest" style={{ color: "#16B1D4" }}>Dubai's #1 Enterprise SEO Agency</span>
               </div>
 
-              <h1 className="text-5xl md:text-6xl xl:text-7xl font-extrabold tracking-tight text-white leading-[1.08] mb-7">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl xl:text-7xl font-extrabold tracking-tight text-white leading-[1.08] mb-5 md:mb-7">
                 Turn Search<br />
                 <span style={{
                   background: "linear-gradient(135deg, #16B1D4 0%, #7dd8ef 50%, #ffffff 100%)",
@@ -230,11 +230,11 @@ export default function Home() {
                 Business Growth
               </h1>
 
-              <p className="text-lg text-white/65 max-w-lg mb-10 leading-relaxed font-light">
+              <p className="text-base md:text-lg text-white/65 max-w-lg mb-7 md:mb-10 leading-relaxed font-light">
                 We architect digital dominance for Dubai's most ambitious brands — combining AI-driven SEO, precision paid media, and conversion-led design to make you the market leader.
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-4 mb-14">
+              <div className="flex flex-col sm:flex-row gap-4 mb-8 md:mb-12">
                 <Link href="/contact">
                   <Button size="lg" className="w-full sm:w-auto gap-2 text-base h-14 px-9 font-bold"
                     style={{ background: "#16B1D4", color: "#fff", boxShadow: "0 8px 30px rgba(22,177,212,0.4)" }}>
@@ -248,29 +248,23 @@ export default function Home() {
                 </Link>
               </div>
 
-              {/* Stats row */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-8 border-t border-white/10">
-                {statsLoading ? (
-                  [1,2,3,4].map(i => <Skeleton key={i} className="h-16 bg-white/10 rounded-xl" />)
-                ) : stats ? (
-                  <>
-                    {[
-                      { value: `+${stats.averageRoiIncrease}%`, label: "Avg. ROI Increase" },
-                      { value: `${stats.projectsCompleted}+`,   label: "Projects Delivered" },
-                      { value: `${stats.googleRating}/5`,       label: "Google Rating" },
-                      { value: `${stats.yearsExperience}+`,     label: "Years Experience" },
-                    ].map((s, i) => (
-                      <motion.div key={i}
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.8 + i * 0.1 }}>
-                        <div className="text-3xl md:text-4xl font-black text-white mb-1 font-mono tracking-tight"
-                          style={{ textShadow: "0 0 20px rgba(22,177,212,0.4)" }}>{s.value}</div>
-                        <div className="text-xs font-bold uppercase tracking-wider" style={{ color: "#16B1D4" }}>{s.label}</div>
-                      </motion.div>
-                    ))}
-                  </>
-                ) : null}
+              {/* Stats row — static values, no loading state */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-5 pt-6 border-t border-white/10">
+                {[
+                  { value: stats ? `+${stats.averageRoiIncrease}%` : "+340%", label: "Avg. ROI Increase" },
+                  { value: stats ? `${stats.projectsCompleted}+`   : "200+",  label: "Projects Delivered" },
+                  { value: stats ? `${stats.googleRating}/5`       : "4.9/5", label: "Google Rating" },
+                  { value: stats ? `${stats.yearsExperience}+`     : "8+",    label: "Years Experience" },
+                ].map((s, i) => (
+                  <motion.div key={i}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4 + i * 0.06 }}>
+                    <div className="text-2xl md:text-3xl font-black text-white mb-1 font-mono tracking-tight"
+                      style={{ textShadow: "0 0 20px rgba(22,177,212,0.4)" }}>{s.value}</div>
+                    <div className="text-xs font-bold uppercase tracking-wider" style={{ color: "#16B1D4" }}>{s.label}</div>
+                  </motion.div>
+                ))}
               </div>
             </motion.div>
 
@@ -287,11 +281,11 @@ export default function Home() {
       <MarqueeTicker />
 
       {/* ── SERVICES GRID ── */}
-      <section className="py-28 bg-background bg-grid-pattern relative">
+      <section className="py-16 md:py-24 bg-background bg-grid-pattern relative">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-            className="text-center max-w-3xl mx-auto mb-20"
+            className="text-center max-w-3xl mx-auto mb-12 md:mb-16"
           >
             <div className="section-label">Our Expertise</div>
             <h2 className="text-4xl md:text-5xl font-extrabold text-foreground mb-5 mt-4">Full-Spectrum Digital Growth</h2>
@@ -339,7 +333,7 @@ export default function Home() {
       </section>
 
       {/* ── WHY CHOOSE US ── */}
-      <section className="py-24 overflow-hidden bg-muted/30 border-y border-border">
+      <section className="py-16 md:py-24 overflow-hidden bg-muted/30 border-y border-border">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
 
@@ -438,7 +432,7 @@ export default function Home() {
       </section>
 
       {/* ── UAE COVERAGE ── */}
-      <section className="py-28 bg-background relative overflow-hidden">
+      <section className="py-16 md:py-24 bg-background relative overflow-hidden">
         <div className="absolute inset-0 bg-grid-pattern opacity-40" />
         <div className="container mx-auto px-4 relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-end mb-14">
@@ -591,10 +585,10 @@ export default function Home() {
       </section>
 
       {/* ── CASE STUDIES ── */}
-      <section className="py-28 bg-background relative overflow-hidden">
+      <section className="py-16 md:py-24 bg-background relative overflow-hidden">
         <div className="absolute inset-0 bg-dot-pattern opacity-30" />
         <div className="container mx-auto px-4 relative z-10">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 md:mb-14 gap-6">
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
               <div className="section-label">Proven Results</div>
               <h2 className="text-4xl md:text-5xl font-extrabold text-foreground mt-4">We Build Market Leaders</h2>
@@ -683,10 +677,10 @@ export default function Home() {
       )}
 
       {/* ── TESTIMONIALS ── */}
-      <section className="py-28 bg-background border-y border-border">
+      <section className="py-16 md:py-24 bg-background border-y border-border">
         <div className="container mx-auto px-4">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-            className="text-center mb-16">
+            className="text-center mb-10 md:mb-14">
             <div className="section-label">Client Voices</div>
             <h2 className="text-4xl md:text-5xl font-extrabold text-foreground mt-4">Don't Just Take Our Word For It</h2>
           </motion.div>
@@ -699,7 +693,7 @@ export default function Home() {
       </section>
 
       {/* ── FINAL CTA ── */}
-      <section className="py-32 hero-dark bg-grid-pattern-dark relative overflow-hidden">
+      <section className="py-20 md:py-28 hero-dark bg-grid-pattern-dark relative overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img src="/images/seo-visualization.jpg" alt="" aria-hidden
             className="w-full h-full object-cover opacity-10 object-center"
@@ -718,7 +712,7 @@ export default function Home() {
             <h2 className="text-4xl md:text-6xl font-extrabold text-white mb-6 tracking-tight">
               Ready to Dominate<br />Your Market?
             </h2>
-            <p className="text-xl text-white/70 max-w-2xl mx-auto mb-12 font-light leading-relaxed">
+            <p className="text-lg md:text-xl text-white/70 max-w-2xl mx-auto mb-8 md:mb-12 font-light leading-relaxed">
               Stop losing customers to competitors with inferior products but better visibility. Get your free SEO audit today and discover your growth potential.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">

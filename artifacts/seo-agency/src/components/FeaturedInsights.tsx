@@ -37,7 +37,7 @@ export function FeaturedInsights({ posts }: FeaturedInsightsProps) {
   const post = posts[active];
 
   return (
-    <section className="py-28 bg-background bg-dot-pattern relative overflow-hidden">
+    <section className="py-16 md:py-24 bg-background bg-dot-pattern relative overflow-hidden">
       {/* Subtle brand glow — top right */}
       <div className="absolute top-0 right-0 w-[600px] h-[400px] pointer-events-none"
         style={{ background: "radial-gradient(ellipse at top right, rgba(22,177,212,0.06) 0%, transparent 60%)" }} />
