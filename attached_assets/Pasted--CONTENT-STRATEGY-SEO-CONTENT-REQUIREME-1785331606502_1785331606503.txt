@@ -1,0 +1,159 @@
+==========================================================
+CONTENT STRATEGY & SEO CONTENT REQUIREMENTS (MANDATORY)
+==========================================================
+
+Content is one of the highest priorities for this project. Every page must be written with a human-first, SEO-first, and AI-first approach to maximize organic rankings, AI search visibility, and conversions.
+
+### Content Requirements
+
+- Every important page must contain **at least 2,000 words** of unique, high-quality, well-researched, and engaging content (or more where appropriate based on search intent).
+- Content must be 100% original, plagiarism-free, and written specifically for this website.
+- Do not use duplicate or thin content.
+- Do not use keyword stuffing or AI-generated filler text.
+- Every page should demonstrate Experience, Expertise, Authoritativeness, and Trustworthiness (EEAT).
+
+### Existing Content Migration
+
+- Analyze the existing website thoroughly.
+- Migrate and improve all existing content.
+- Rewrite and optimize content where necessary while preserving the original meaning and SEO value.
+- Ensure no existing valuable content is lost during the migration.
+
+### Existing Blogs
+
+- Migrate **all existing blog posts** from the current website.
+- Preserve existing blog URLs wherever possible.
+- Improve and update blog content where necessary.
+- Maintain blog categories and tags.
+- Preserve internal links and SEO metadata.
+- Add related articles and recommended reading sections.
+
+### New Content Optimization
+
+Every page should include:
+
+- Optimized page title
+- Engaging introduction
+- Comprehensive content
+- Benefits
+- Features
+- Step-by-step process
+- Use cases
+- Industry insights
+- Best practices
+- Common mistakes
+- Frequently Asked Questions
+- Key Takeaways
+- Strong Call-to-Action
+- Related Services
+- Related Resources
+
+### Internal Linking Strategy
+
+Implement a comprehensive internal linking structure across the entire website.
+
+Every page should:
+
+- Link to relevant service pages.
+- Link to related blog posts.
+- Link to location pages where relevant.
+- Link to industry pages.
+- Link to case studies.
+- Link to portfolio items.
+- Link to the Contact page.
+- Link to the About page where appropriate.
+- Link to supporting resources.
+
+Each page should include **10–20 relevant internal links** where appropriate, using natural anchor text.
+
+Avoid orphan pages.
+
+Build strong topical clusters and content silos.
+
+### FAQ Requirements
+
+Every important page must include a dedicated FAQ section.
+
+Requirements:
+
+- Minimum **10–20 unique FAQs** per page.
+- FAQs must be relevant to the page topic.
+- Questions should be based on real user search intent.
+- Answers should be detailed, clear, and optimized for featured snippets and AI-generated search results.
+- Implement valid FAQ Schema (JSON-LD).
+- Avoid duplicate FAQs across different pages.
+
+### AI Search Optimization
+
+Every page should be optimized for:
+
+- Google AI Overviews
+- ChatGPT
+- Gemini
+- Claude
+- Perplexity
+- Microsoft Copilot
+- Other AI-powered search engines
+
+Implement:
+
+- Answer Engine Optimization (AEO)
+- LLM Optimization (LLMO)
+- Generative Engine Optimization (GEO)
+- Semantic SEO
+- Entity SEO
+- Knowledge Graph Optimization
+- Topical Authority
+- EEAT Optimization
+
+### Content Structure
+
+Every page should follow a logical structure using:
+
+- H1 (one per page)
+- H2 sections
+- H3 subsections
+- Bullet points
+- Numbered lists
+- Comparison tables
+- Process diagrams (where appropriate)
+- Statistics and facts
+- Visual content recommendations
+- Quote blocks
+- Key Takeaways
+- FAQ Section
+- Strong CTA
+
+### Blog Content
+
+Every blog post should:
+
+- Contain at least **2,000 words** (or more where justified by search intent).
+- Be optimized for one primary keyword and related semantic keywords.
+- Include internal links to service pages and related blogs.
+- Include external links to authoritative sources where appropriate.
+- Include FAQs and FAQ Schema.
+- Include images with optimized ALT text.
+- Include a conclusion and CTA.
+
+### Content Quality Standards
+
+Content should be:
+
+- Human-first
+- Easy to read
+- Conversational
+- Professional
+- Actionable
+- Factually accurate
+- Well researched
+- Free from grammatical errors
+- Optimized for search intent
+- Optimized for conversions
+- Optimized for AI search
+
+### Final Content Goal
+
+The entire website should become a comprehensive topical authority in Digital Marketing, SEO, AI Search Optimization (AEO, LLMO, GEO), PPC, Google Business Profile, Social Media Marketing, Website Design & Development, Web Applications, Mobile Apps, SaaS Development, and MVP Development.
+
+Every page, blog, service, and resource should be interconnected through a strong internal linking strategy, supported by comprehensive, high-quality content and unique FAQs, ensuring maximum visibility in Google Search, Google AI Overviews, featured snippets, People Also Ask, ChatGPT, Gemini, Claude, Perplexity, and Microsoft Copilot.
