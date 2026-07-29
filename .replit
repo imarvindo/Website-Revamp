@@ -24,13 +24,13 @@ args = "WordPress PHP Server"
 name = "WordPress PHP Server"
 author = "agent"
 
+[workflows.workflow.metadata]
+outputType = "webview"
+
 [[workflows.workflow.tasks]]
 task = "shell.exec"
 args = "php -S 0.0.0.0:8000 -t /home/runner/workspace/wordpress /home/runner/workspace/wordpress/router.php"
 waitForPort = 8000
-
-[workflows.workflow.metadata]
-outputType = "webview"
 
 [agent]
 stack = "PNPM_WORKSPACE"

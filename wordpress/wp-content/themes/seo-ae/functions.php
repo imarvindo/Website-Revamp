@@ -861,7 +861,28 @@ add_action( 'after_switch_theme', function () {
 } );
 
 // ─────────────────────────────────────────────────────────────────────────────
-// 10. ADMIN CUSTOMIZATIONS
+// 10. SERVICE SHORT-SLUG REDIRECTS
+// e.g. /services/seo/ → /services/search-engine-optimization/
+// ─────────────────────────────────────────────────────────────────────────────
+add_action( 'template_redirect', function () {
+	$map = [
+		'seo'          => 'search-engine-optimization',
+		'ai-search'    => 'ai-search-optimization',
+		'ppc'          => 'ppc-management',
+		'social-media' => 'social-media-marketing',
+		'web-dev'      => 'web-development',
+	];
+	$path = trim( parse_url( $_SERVER['REQUEST_URI'], PHP_URL_PATH ), '/' );
+	foreach ( $map as $short => $full ) {
+		if ( $path === "services/$short" || $path === "services/$short/" ) {
+			wp_safe_redirect( home_url( "/services/$full/" ), 301 );
+			exit;
+		}
+	}
+} );
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 11. ADMIN CUSTOMIZATIONS
 // ─────────────────────────────────────────────────────────────────────────────
 // Custom admin menu order
 add_filter( 'custom_menu_order', '__return_true' );
