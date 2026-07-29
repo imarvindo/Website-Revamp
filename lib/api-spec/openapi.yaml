@@ -3,13 +3,27 @@ info:
   # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
-  description: API specification
+  description: SEO Agency Website API
 servers:
   - url: /api
     description: Base API path
 tags:
   - name: health
     description: Health operations
+  - name: blog
+    description: Blog posts
+  - name: services
+    description: Services
+  - name: case-studies
+    description: Case studies
+  - name: testimonials
+    description: Testimonials
+  - name: portfolio
+    description: Portfolio projects
+  - name: contact
+    description: Contact and newsletter
+  - name: stats
+    description: Agency statistics
 paths:
   /healthz:
     get:
@@ -24,6 +38,213 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  /blog-posts:
+    get:
+      operationId: listBlogPosts
+      tags: [blog]
+      summary: List blog posts
+      parameters:
+        - name: category
+          in: query
+          schema:
+            type: ["string", "null"]
+        - name: limit
+          in: query
+          schema:
+            type: ["number", "null"]
+        - name: offset
+          in: query
+          schema:
+            type: ["number", "null"]
+      responses:
+        "200":
+          description: List of blog posts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/BlogPost"
+
+  /blog-posts/{slug}:
+    get:
+      operationId: getBlogPost
+      tags: [blog]
+      summary: Get blog post by slug
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Blog post
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BlogPost"
+        "404":
+          description: Not found
+
+  /services:
+    get:
+      operationId: listServices
+      tags: [services]
+      summary: List all services
+      responses:
+        "200":
+          description: List of services
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Service"
+
+  /services/{slug}:
+    get:
+      operationId: getService
+      tags: [services]
+      summary: Get service by slug
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Service
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Service"
+        "404":
+          description: Not found
+
+  /case-studies:
+    get:
+      operationId: listCaseStudies
+      tags: [case-studies]
+      summary: List case studies
+      parameters:
+        - name: service
+          in: query
+          schema:
+            type: ["string", "null"]
+      responses:
+        "200":
+          description: List of case studies
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CaseStudy"
+
+  /testimonials:
+    get:
+      operationId: listTestimonials
+      tags: [testimonials]
+      summary: List testimonials
+      responses:
+        "200":
+          description: List of testimonials
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Testimonial"
+
+  /portfolio:
+    get:
+      operationId: listPortfolioItems
+      tags: [portfolio]
+      summary: List portfolio items
+      parameters:
+        - name: category
+          in: query
+          schema:
+            type: ["string", "null"]
+      responses:
+        "200":
+          description: List of portfolio items
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PortfolioItem"
+
+  /contact:
+    post:
+      operationId: submitContact
+      tags: [contact]
+      summary: Submit contact form
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ContactInput"
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SubmitResult"
+        "400":
+          description: Validation error
+
+  /newsletter:
+    post:
+      operationId: subscribeNewsletter
+      tags: [contact]
+      summary: Subscribe to newsletter
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NewsletterInput"
+      responses:
+        "200":
+          description: Subscribed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SubmitResult"
+
+  /stats:
+    get:
+      operationId: getAgencyStats
+      tags: [stats]
+      summary: Get agency statistics
+      responses:
+        "200":
+          description: Agency stats
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AgencyStats"
+
+  /featured:
+    get:
+      operationId: getFeaturedContent
+      tags: [stats]
+      summary: Get featured homepage content (blog posts, case studies, testimonials)
+      responses:
+        "200":
+          description: Featured content
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FeaturedContent"
+
 components:
   schemas:
     HealthStatus:
@@ -34,3 +255,327 @@ components:
       required:
         - status
 
+    BlogPost:
+      type: object
+      properties:
+        id:
+          type: number
+        slug:
+          type: string
+        title:
+          type: string
+        excerpt:
+          type: string
+        content:
+          type: string
+        category:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        author:
+          type: string
+        authorRole:
+          type: string
+        authorAvatar:
+          type: ["string", "null"]
+        featuredImage:
+          type: ["string", "null"]
+        readingTime:
+          type: number
+        publishedAt:
+          type: string
+        createdAt:
+          type: string
+      required:
+        - id
+        - slug
+        - title
+        - excerpt
+        - content
+        - category
+        - tags
+        - author
+        - authorRole
+        - readingTime
+        - publishedAt
+        - createdAt
+
+    Service:
+      type: object
+      properties:
+        id:
+          type: number
+        slug:
+          type: string
+        title:
+          type: string
+        shortDescription:
+          type: string
+        fullDescription:
+          type: string
+        category:
+          type: string
+        icon:
+          type: string
+        benefits:
+          type: array
+          items:
+            type: string
+        process:
+          type: array
+          items:
+            $ref: "#/components/schemas/ProcessStep"
+        technologies:
+          type: array
+          items:
+            type: string
+        faqs:
+          type: array
+          items:
+            $ref: "#/components/schemas/Faq"
+      required:
+        - id
+        - slug
+        - title
+        - shortDescription
+        - fullDescription
+        - category
+        - icon
+        - benefits
+        - process
+        - technologies
+        - faqs
+
+    ProcessStep:
+      type: object
+      properties:
+        step:
+          type: number
+        title:
+          type: string
+        description:
+          type: string
+      required:
+        - step
+        - title
+        - description
+
+    Faq:
+      type: object
+      properties:
+        question:
+          type: string
+        answer:
+          type: string
+      required:
+        - question
+        - answer
+
+    CaseStudy:
+      type: object
+      properties:
+        id:
+          type: number
+        slug:
+          type: string
+        clientName:
+          type: string
+        industry:
+          type: string
+        service:
+          type: string
+        challenge:
+          type: string
+        solution:
+          type: string
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/Metric"
+        featuredImage:
+          type: ["string", "null"]
+        logoUrl:
+          type: ["string", "null"]
+        createdAt:
+          type: string
+      required:
+        - id
+        - slug
+        - clientName
+        - industry
+        - service
+        - challenge
+        - solution
+        - results
+        - createdAt
+
+    Metric:
+      type: object
+      properties:
+        label:
+          type: string
+        value:
+          type: string
+        change:
+          type: ["string", "null"]
+      required:
+        - label
+        - value
+
+    Testimonial:
+      type: object
+      properties:
+        id:
+          type: number
+        name:
+          type: string
+        role:
+          type: string
+        company:
+          type: string
+        content:
+          type: string
+        rating:
+          type: number
+        avatarUrl:
+          type: ["string", "null"]
+        service:
+          type: string
+      required:
+        - id
+        - name
+        - role
+        - company
+        - content
+        - rating
+        - service
+
+    PortfolioItem:
+      type: object
+      properties:
+        id:
+          type: number
+        slug:
+          type: string
+        title:
+          type: string
+        client:
+          type: string
+        category:
+          type: string
+        description:
+          type: string
+        imageUrl:
+          type: ["string", "null"]
+        technologies:
+          type: array
+          items:
+            type: string
+        projectUrl:
+          type: ["string", "null"]
+        completedAt:
+          type: string
+      required:
+        - id
+        - slug
+        - title
+        - client
+        - category
+        - description
+        - technologies
+        - completedAt
+
+    ContactInput:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 2
+        email:
+          type: string
+          
+        phone:
+          type: ["string", "null"]
+        company:
+          type: ["string", "null"]
+        service:
+          type: ["string", "null"]
+        message:
+          type: string
+          minLength: 10
+        budget:
+          type: ["string", "null"]
+      required:
+        - name
+        - email
+        - message
+
+    NewsletterInput:
+      type: object
+      properties:
+        email:
+          type: string
+          
+        name:
+          type: ["string", "null"]
+      required:
+        - email
+
+    SubmitResult:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+      required:
+        - success
+        - message
+
+    AgencyStats:
+      type: object
+      properties:
+        clientsServed:
+          type: number
+        projectsCompleted:
+          type: number
+        yearsExperience:
+          type: number
+        countriesReached:
+          type: number
+        averageRoiIncrease:
+          type: number
+        googleRating:
+          type: number
+        totalReviews:
+          type: number
+      required:
+        - clientsServed
+        - projectsCompleted
+        - yearsExperience
+        - countriesReached
+        - averageRoiIncrease
+        - googleRating
+        - totalReviews
+
+    FeaturedContent:
+      type: object
+      properties:
+        blogPosts:
+          type: array
+          items:
+            $ref: "#/components/schemas/BlogPost"
+        caseStudies:
+          type: array
+          items:
+            $ref: "#/components/schemas/CaseStudy"
+        testimonials:
+          type: array
+          items:
+            $ref: "#/components/schemas/Testimonial"
+      required:
+        - blogPosts
+        - caseStudies
+        - testimonials

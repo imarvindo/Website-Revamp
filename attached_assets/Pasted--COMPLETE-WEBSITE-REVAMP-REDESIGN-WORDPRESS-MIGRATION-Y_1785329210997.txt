@@ -1,0 +1,1248 @@
+# COMPLETE WEBSITE REVAMP, REDESIGN & WORDPRESS MIGRATION
+
+You are an award-winning UI/UX Designer, Brand Strategist, CRO Expert, Enterprise WordPress Architect, Senior Full Stack Developer, Technical SEO Expert, AI Search Optimization Specialist, Product Designer, and Digital Marketing Consultant.
+
+Your responsibility is to redesign, rebuild, optimize, and modernize an existing enterprise website.
+
+==========================================================
+IMPORTANT
+==========================================================
+
+THIS IS NOT A NEW WEBSITE PROJECT.
+
+THIS IS A COMPLETE WEBSITE REVAMP PROJECT.
+
+Existing Website
+
+https://searchengineoptimization.ae/
+
+The website already has SEO authority, indexed pages, backlinks, and organic rankings.
+
+DO NOT create a completely different website.
+
+Instead:
+
+• Analyze the complete website.
+• Crawl every page.
+• Understand the complete information architecture.
+• Preserve existing SEO.
+• Improve everything else.
+
+The objective is to create Version 2.0 of the existing website.
+
+Think of this project as redesigning an enterprise website rather than creating a new one.
+
+==========================================================
+PRIMARY OBJECTIVE
+==========================================================
+
+Build one of the best Digital Marketing Agency websites in the world.
+
+The new website should outperform the current website in:
+
+• Design
+• User Experience
+• Performance
+• SEO
+• AI Search Visibility
+• Core Web Vitals
+• Accessibility
+• Security
+• Conversion Rate
+• Lead Generation
+• Content Structure
+• Trust
+• Branding
+• Scalability
+
+while preserving
+
+• Existing URLs
+• Existing SEO
+• Existing Content
+• Existing Rankings
+• Existing Internal Links
+• Existing Indexed Pages
+
+==========================================================
+COMPANY POSITIONING
+==========================================================
+
+Position the company as a premium Digital Growth Partner specializing in:
+
+• SEO
+• AI Search Optimization
+• LLM Optimization
+• GEO
+• PPC
+• Google Ads
+• Meta Ads
+• Social Media Marketing
+• Social Media Optimization
+• Google Business Profile
+• Reputation Management
+• Website Design
+• Website Development
+• WordPress Development
+• Shopify Development
+• Laravel Development
+• React Development
+• SaaS Development
+• AI Development
+• Web Application Development
+• Mobile App Development
+• MVP Development
+• Startup Consulting
+
+The website should communicate
+
+• Trust
+• Expertise
+• Innovation
+• Premium Quality
+• Enterprise Capability
+• Technical Excellence
+
+==========================================================
+WEBSITE REVAMP REQUIREMENTS
+==========================================================
+
+The AI must analyze and rebuild
+
+100% of the existing website.
+
+This includes
+
+Homepage
+
+About
+
+Every Service Page
+
+Every Landing Page
+
+Every Location Page
+
+Every Blog
+
+Every Resource
+
+Case Studies
+
+Testimonials
+
+Portfolio
+
+Contact
+
+Privacy Policy
+
+Terms
+
+Careers
+
+Thank You Pages
+
+Hidden Pages
+
+All Indexed Pages
+
+Everything.
+
+No page should be skipped.
+
+No content should disappear.
+
+==========================================================
+SEO MIGRATION
+==========================================================
+
+Zero SEO loss.
+
+Maintain
+
+URLs
+
+Meta Titles
+
+Meta Descriptions
+
+Canonical Tags
+
+Schema
+
+Breadcrumbs
+
+XML Sitemap
+
+Robots.txt
+
+Image ALT Tags
+
+Heading Hierarchy
+
+Internal Links
+
+Structured Data
+
+Google Search Console Compatibility
+
+Maintain rankings.
+
+Maintain backlinks.
+
+Maintain indexed pages.
+
+Maintain crawlability.
+
+Implement redirects only if absolutely necessary.
+
+==========================================================
+AI SEARCH OPTIMIZATION
+==========================================================
+
+Optimize for
+
+Google AI Overviews
+
+ChatGPT
+
+Gemini
+
+Claude
+
+Perplexity
+
+Microsoft Copilot
+
+Implement
+
+Organization Schema
+
+FAQ Schema
+
+Service Schema
+
+Review Schema
+
+Person Schema
+
+Article Schema
+
+Local Business Schema
+
+Breadcrumb Schema
+
+Video Schema
+
+Product Schema where required
+
+Improve
+
+EEAT
+
+Entity SEO
+
+Knowledge Graph
+
+Topical Authority
+
+Semantic SEO
+
+Content Clustering
+
+AI Citation Optimization
+
+Generative Engine Optimization
+
+LLM Optimization
+
+==========================================================
+UI / UX
+==========================================================
+
+Completely redesign every page.
+
+Requirements
+
+Modern
+
+Minimal
+
+Luxury
+
+Premium
+
+Corporate
+
+Enterprise
+
+Clean
+
+Elegant
+
+Highly Interactive
+
+Beautiful
+
+Conversion Focused
+
+SaaS Inspired
+
+Mobile First
+
+Pixel Perfect
+
+Use
+
+Large Hero Sections
+
+Modern Typography
+
+Large Images
+
+Illustrations
+
+SVG Icons
+
+Lottie Animations
+
+Interactive Cards
+
+Modern Tables
+
+Timeline Sections
+
+Sticky Navigation
+
+Mega Menu
+
+Beautiful Footer
+
+Premium Forms
+
+Hover Effects
+
+Micro Animations
+
+Beautiful Pricing Tables
+
+Statistics
+
+Counters
+
+Accordions
+
+Tabs
+
+Testimonials
+
+Case Studies
+
+Review Sliders
+
+Awards
+
+Certificates
+
+Partner Logos
+
+==========================================================
+COLOR SYSTEM
+==========================================================
+
+Create a premium design system.
+
+Define
+
+Primary Color
+
+Secondary Color
+
+Accent Color
+
+Neutral Palette
+
+Dark Mode Colors
+
+Typography
+
+Buttons
+
+Cards
+
+Spacing
+
+Border Radius
+
+Icon Style
+
+Illustration Style
+
+==========================================================
+IMAGES
+==========================================================
+
+Replace generic images.
+
+Use
+
+Premium royalty-free images
+
+Modern illustrations
+
+Professional graphics
+
+SVG icons
+
+Custom service illustrations
+
+Optimized WebP images
+
+Lazy Loaded images
+
+==========================================================
+HOMEPAGE
+==========================================================
+
+Create one of the highest converting agency homepages.
+
+Include
+
+Hero
+
+USP
+
+CTA
+
+Awards
+
+Certifications
+
+Google Rating
+
+Statistics
+
+Client Logos
+
+Services
+
+Why Choose Us
+
+Industries
+
+AI Search
+
+SEO
+
+Development
+
+Process
+
+Case Studies
+
+Testimonials
+
+Reviews
+
+Portfolio
+
+FAQ
+
+Latest Blogs
+
+Newsletter
+
+Contact CTA
+
+Footer CTA
+
+==========================================================
+SERVICE PAGES
+==========================================================
+
+Each service page should include
+
+Hero
+
+Benefits
+
+Process
+
+Features
+
+Deliverables
+
+Technology
+
+Industries
+
+Pricing (optional)
+
+Case Studies
+
+FAQs
+
+Related Services
+
+Testimonials
+
+CTA
+
+Lead Form
+
+==========================================================
+BLOG
+==========================================================
+
+Professional blog system
+
+Categories
+
+Tags
+
+Author Pages
+
+Related Posts
+
+Reading Time
+
+Search
+
+Filters
+
+Pagination
+
+Featured Images
+
+Social Sharing
+
+Schema
+
+==========================================================
+WORDPRESS CMS
+==========================================================
+
+Custom WordPress CMS
+
+Everything editable.
+
+Administrator should manage
+
+Pages
+
+Posts
+
+Media
+
+Images
+
+Videos
+
+Menus
+
+Header
+
+Footer
+
+Forms
+
+Testimonials
+
+FAQs
+
+Portfolio
+
+Case Studies
+
+Services
+
+Locations
+
+Landing Pages
+
+SEO
+
+Redirects
+
+Schema
+
+Plugins
+
+Users
+
+Roles
+
+Analytics
+
+Everything without coding.
+
+==========================================================
+CUSTOM THEME
+==========================================================
+
+Develop a custom reusable WordPress theme.
+
+Requirements
+
+Lightweight
+
+Secure
+
+Scalable
+
+Reusable
+
+Fast
+
+SEO Friendly
+
+AI Friendly
+
+Developer Friendly
+
+Future Proof
+
+No bloated code.
+
+No unnecessary plugins.
+
+Reusable components.
+
+Reusable templates.
+
+Reusable sections.
+
+Reusable blocks.
+
+==========================================================
+PERFORMANCE
+==========================================================
+
+Engineer the site for exceptional real-world performance.
+
+Optimize
+
+Core Web Vitals
+
+LCP
+
+CLS
+
+INP
+
+TTFB
+
+Implement
+
+Critical CSS
+
+Deferred JavaScript
+
+Code Splitting
+
+Image Optimization
+
+Lazy Loading
+
+WebP
+
+AVIF
+
+Minification
+
+Compression
+
+Browser Cache
+
+Object Cache
+
+Database Optimization
+
+CDN Ready
+
+HTTP/3
+
+Font Optimization
+
+Preload Fonts
+
+Preconnect
+
+DNS Prefetch
+
+Avoid layout shifts.
+
+==========================================================
+SECURITY
+==========================================================
+
+Implement
+
+Firewall Compatibility
+
+Malware Protection
+
+SSL
+
+Role Management
+
+Login Protection
+
+Spam Protection
+
+Secure Forms
+
+Secure Uploads
+
+Backup Compatibility
+
+==========================================================
+ACCESSIBILITY
+==========================================================
+
+Follow WCAG 2.2
+
+Proper Headings
+
+Keyboard Navigation
+
+ARIA Labels
+
+Alt Text
+
+Color Contrast
+
+Semantic HTML
+
+==========================================================
+CONVERSION OPTIMIZATION
+==========================================================
+
+Every page should maximize conversions.
+
+Include
+
+Sticky CTA
+
+Sticky Header
+
+Lead Forms
+
+Quote Forms
+
+Calendly
+
+WhatsApp
+
+Live Chat
+
+Newsletter
+
+Case Studies
+
+Trust Badges
+
+Google Reviews
+
+Statistics
+
+Guarantees
+
+Client Logos
+
+Awards
+
+Exit Intent
+
+Strong CTAs
+
+==========================================================
+QUALITY
+==========================================================
+
+The final website should look like a premium enterprise website built by one of the world's best digital agencies.
+
+It should not resemble a standard WordPress template.
+
+Every section should be custom designed.
+
+Every page should have its own layout.
+
+Every service page should feel unique.
+
+Every illustration should feel premium.
+
+Every interaction should be polished.
+
+==========================================================
+FINAL GOAL
+==========================================================
+
+Deliver a complete enterprise-grade redesign of https://searchengineoptimization.ae/ that preserves all existing SEO while dramatically improving design, branding, usability, speed, accessibility, maintainability, AI search visibility, and lead generation.
+
+The final product should establish the company as a global leader in SEO, AI Search Optimization (LLMO/GEO), PPC, Social Media Marketing, Google Business Profile Optimization, Website Design & Development, Web Applications, Mobile Apps, SaaS Development, and MVP Development.
+
+The website must be fully editable through a custom WordPress CMS, built with a reusable lightweight custom theme, optimized for enterprise scalability, and suitable for reuse across future client projects.
+
+==========================================================
+FAQ & AI OVERVIEW OPTIMIZATION (MANDATORY)
+==========================================================
+
+Every page on the website must be optimized for both traditional search engines and AI-powered search experiences.
+
+This is a mandatory requirement for the entire website.
+
+Every page—including the Homepage, Service Pages, Location Pages, Industry Pages, Landing Pages, Blog Posts, Case Studies, Portfolio, About Us, Contact, and Resource Pages—must include AI-friendly content structures and comprehensive FAQ sections where relevant.
+
+### FAQ Requirements
+
+- Add a well-structured FAQ section to every important page.
+- Each page should contain 5–15 unique, relevant, and user-focused FAQs.
+- FAQs must be specific to the page's topic and search intent.
+- Avoid duplicate FAQs across pages.
+- Implement valid FAQ Schema (JSON-LD) for every FAQ section.
+- Write concise, conversational answers that are optimized for featured snippets and AI-generated responses.
+- Organize FAQs using proper H2/H3 heading structures.
+
+### AI Overview & LLM Optimization
+
+Optimize every page for visibility in:
+
+- Google AI Overviews
+- ChatGPT
+- Gemini
+- Claude
+- Perplexity
+- Microsoft Copilot
+- Other AI-powered search engines and assistants
+
+Implement best practices for:
+
+- LLM Optimization (LLMO)
+- Generative Engine Optimization (GEO)
+- AI Search Optimization (AISO)
+- Answer Engine Optimization (AEO)
+- Entity SEO
+- Semantic SEO
+- Knowledge Graph Optimization
+- Topical Authority
+- EEAT (Experience, Expertise, Authoritativeness, Trustworthiness)
+
+### Content Structure for AI Search
+
+Every page should include, where appropriate:
+
+- Clear question-and-answer sections
+- Frequently Asked Questions (FAQs)
+- Key Takeaways
+- Quick Summary
+- Service Highlights
+- Benefits
+- Step-by-step process
+- Comparison tables
+- Statistics and supporting data
+- Industry insights
+- Best practices
+- Common mistakes
+- Related services
+- Related resources
+- Internal links to supporting content
+- Strong calls to action
+
+### Structured Data
+
+Implement appropriate Schema Markup across the website, including:
+
+- Organization Schema
+- Website Schema
+- WebPage Schema
+- Service Schema
+- FAQ Schema
+- Article Schema
+- BlogPosting Schema
+- Breadcrumb Schema
+- Local Business Schema
+- Person Schema
+- Review Schema
+- Aggregate Rating Schema
+- Video Schema (where applicable)
+- ImageObject Schema
+- ContactPage Schema
+- SearchAction Schema
+- Product Schema (where applicable)
+
+### AI-Friendly Content Standards
+
+Every page should:
+
+- Directly answer user questions.
+- Cover the topic comprehensively.
+- Demonstrate real expertise and authority.
+- Use natural, conversational language.
+- Include semantic keywords and related entities.
+- Be optimized for featured snippets and People Also Ask (PAA).
+- Include unique, high-quality, human-first content.
+- Maintain strong internal linking between related pages.
+- Support topical clusters and content silos.
+
+### AI Search Goal
+
+The entire website should be designed to maximize visibility and citations in AI-generated search results while also improving traditional organic rankings. Every page should be capable of appearing in Google AI Overviews, featured snippets, People Also Ask results, and responses generated by ChatGPT, Gemini, Claude, Perplexity, and Microsoft Copilot.
+
+This AI-first content strategy must be implemented consistently across the complete website, ensuring every important page contributes to the website's overall topical authority, EEAT signals, semantic relevance, and AI search performance.
+Use this section in your prompt:
+==========================================================
+COMPLETE WEBSITE CMS REQUIREMENTS
+==========================================================
+
+The website must be developed using the latest stable version of WordPress with a custom-built, lightweight, secure, scalable, and fully editable CMS. Every section, page, image, menu, form, and website element should be manageable from the WordPress Admin Panel without requiring any coding knowledge.
+
+The CMS should be designed to allow the client to independently manage the complete website, ensuring long-term flexibility, scalability, and ease of maintenance.
+
+### Dashboard
+
+The WordPress dashboard should provide a clean and user-friendly interface with quick access to all website modules, analytics, recent activities, updates, backups, and content management.
+
+### Page Management
+
+The administrator must be able to:
+
+- Create unlimited pages
+- Edit existing pages
+- Delete pages
+- Duplicate pages
+- Schedule page publishing
+- Save drafts
+- Preview pages before publishing
+- Restore previous revisions
+- Manage page hierarchy
+- Manage page templates
+- Create custom landing pages
+- Create location pages
+- Create service pages
+- Create industry pages
+- Create campaign pages
+
+### Homepage Management
+
+Every homepage section should be editable independently, including:
+
+- Hero Banner
+- Headlines
+- Sub Headlines
+- Background Images
+- Videos
+- Call-to-Action Buttons
+- Services Section
+- Industries Section
+- Why Choose Us
+- Process
+- Statistics
+- Testimonials
+- Client Logos
+- Awards
+- Certifications
+- Case Studies
+- Portfolio
+- FAQ Section
+- Blog Section
+- Contact Section
+- Footer CTA
+
+### Blog Management
+
+Complete blog management with:
+
+- Add Blog
+- Edit Blog
+- Delete Blog
+- Draft Blog
+- Schedule Blog
+- Categories
+- Tags
+- Authors
+- Featured Images
+- SEO Settings
+- Related Posts
+- Reading Time
+- Social Sharing
+- Blog Search
+- Pagination
+- Comments Management
+
+### Service Management
+
+Admin should be able to:
+
+- Add unlimited services
+- Edit services
+- Delete services
+- Manage pricing
+- Add FAQs
+- Add process
+- Add benefits
+- Add technologies
+- Add testimonials
+- Add case studies
+- Add CTA sections
+
+### Industry Pages
+
+- Add industries
+- Edit industries
+- Delete industries
+- Industry-specific FAQs
+- Industry-specific case studies
+- Industry-specific testimonials
+
+### Location Pages
+
+- Create unlimited location pages
+- Edit location pages
+- Delete location pages
+- Google Maps Integration
+- Local SEO settings
+- Local Business Schema
+
+### Portfolio Management
+
+- Add projects
+- Edit projects
+- Delete projects
+- Categories
+- Gallery
+- Images
+- Videos
+- Client information
+- Technologies
+- Project URLs
+- Case Study linking
+
+### Case Study Management
+
+- Add case studies
+- Edit case studies
+- Delete case studies
+- Before/After results
+- Performance metrics
+- Screenshots
+- Client testimonials
+
+### FAQ Management
+
+The CMS must include a dedicated FAQ module.
+
+Administrators should be able to:
+
+- Create unlimited FAQs
+- Edit FAQs
+- Delete FAQs
+- Categorize FAQs
+- Assign FAQs to specific pages
+- Enable FAQ Schema automatically
+- Display FAQs anywhere using reusable blocks
+
+Every important page should support its own unique FAQ section.
+
+### AI Overview & SEO Content Management
+
+The CMS should allow administrators to manage AI search optimization for every page.
+
+Editable settings should include:
+
+- AI Summary
+- Page Summary
+- Key Takeaways
+- FAQ Content
+- Structured Data
+- Semantic Keywords
+- Entities
+- Related Topics
+- Internal Linking
+- Featured Snippet Content
+- People Also Ask Content
+- AI Overview Optimization Content
+- LLM Optimization Content
+- GEO Content
+- AEO Content
+
+### SEO Management
+
+Every page should allow editing of:
+
+- SEO Title
+- Meta Description
+- Focus Keyword
+- Canonical URL
+- Robots Meta
+- Open Graph Tags
+- Twitter Cards
+- Schema
+- Redirects
+- Breadcrumbs
+- XML Sitemap
+- Robots.txt
+- Index/Noindex
+- Image ALT Tags
+
+### Menu Management
+
+Manage:
+
+- Header Menu
+- Footer Menu
+- Mobile Menu
+- Mega Menu
+- Dropdown Menus
+- CTA Buttons
+- Navigation Structure
+
+### Header & Footer Management
+
+Editable:
+
+- Logo
+- Favicon
+- Contact Information
+- Email
+- Phone Numbers
+- Social Links
+- Navigation
+- CTA Buttons
+- Footer Widgets
+- Footer Columns
+- Copyright
+- Newsletter
+- Certifications
+- Awards
+
+### Forms Management
+
+- Contact Forms
+- Quote Request Forms
+- Consultation Forms
+- Newsletter Forms
+- Career Forms
+- Custom Forms
+- Email Notifications
+- Auto Responders
+- Spam Protection
+- Google reCAPTCHA
+- Form Export
+
+### Media Library
+
+Manage:
+
+- Images
+- Videos
+- PDFs
+- Documents
+- Icons
+- SVG Files
+- Image Galleries
+- Bulk Uploads
+- Media Optimization
+- WebP Conversion
+
+### User Management
+
+Support multiple user roles:
+
+- Administrator
+- Editor
+- Author
+- Contributor
+- SEO Manager
+- Content Writer
+- Marketing Manager
+
+Role-based permissions should restrict access to specific modules.
+
+### Plugin Management
+
+Administrators should be able to:
+
+- Install Plugins
+- Activate Plugins
+- Deactivate Plugins
+- Delete Plugins
+- Update Plugins
+- Configure Plugin Settings
+
+Only trusted, secure, and lightweight plugins should be used.
+
+### Theme Settings
+
+Global settings should include:
+
+- Logo
+- Colors
+- Typography
+- Buttons
+- Global CTAs
+- Contact Details
+- Social Media Links
+- Google Analytics
+- Google Tag Manager
+- Meta Pixel
+- Custom Scripts
+- Header/Footer Scripts
+
+### Analytics Integration
+
+Support integration with:
+
+- Google Analytics 4
+- Google Search Console
+- Google Tag Manager
+- Microsoft Clarity
+- Meta Pixel
+- LinkedIn Insight Tag
+- Google Ads Conversion Tracking
+
+### Performance Features
+
+The CMS should include:
+
+- Cache Management
+- CDN Compatibility
+- Image Optimization
+- Lazy Loading
+- WebP/AVIF Support
+- CSS & JavaScript Minification
+- Database Optimization
+- Core Web Vitals Optimization
+
+### Security
+
+- SSL Support
+- Login Security
+- Two-Factor Authentication
+- Brute Force Protection
+- Malware Protection
+- Firewall Compatibility
+- Secure File Uploads
+- Daily Backup Compatibility
+- Activity Logs
+
+### Reusable Theme Architecture
+
+Develop a custom enterprise WordPress theme with:
+
+- Reusable Components
+- Reusable Sections
+- Reusable Templates
+- Dynamic Content Blocks
+- Modular Architecture
+- Clean Code
+- WordPress Coding Standards
+- Future-Proof Development
+
+The same codebase should be reusable for future client projects with minimal customization.
+
+### Final Requirement
+
+The website must be **100% editable from the WordPress CMS**, allowing administrators to manage every page, section, image, video, form, blog, service, landing page, FAQ, AI Overview content, SEO settings, schema, menus, users, plugins, and website configuration without any coding. The CMS should be enterprise-grade, secure, scalable, SEO-friendly, AI-search optimized, and designed for long-term growth while providing an exceptional content management experience.
+
