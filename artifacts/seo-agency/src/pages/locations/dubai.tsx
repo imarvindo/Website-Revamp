@@ -4,47 +4,78 @@ import { MapPin, Phone, Mail } from "lucide-react";
 
 export default function LocationDubai() {
   return (
-    <div className="flex flex-col min-h-screen">
-      <section className="pt-40 pb-20 relative overflow-hidden bg-background">
+    <div className="flex flex-col min-h-screen bg-background">
+      {/* Dark Hero */}
+      <section className="hero-dark bg-grid-pattern-dark pt-40 pb-32 relative overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img 
             src="/attached_assets/generated_images/dubai-hero.jpg" 
             alt="Dubai Skyline" 
-            className="w-full h-full object-cover opacity-20 object-center"
+            className="w-full h-full object-cover opacity-20 object-center mix-blend-overlay"
             onError={(e) => e.currentTarget.style.display = 'none'}
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/80 to-background" />
+          <div className="absolute inset-0 bg-gradient-to-t from-secondary/90 to-transparent" />
         </div>
         
         <div className="container mx-auto px-4 relative z-10 max-w-4xl text-center">
-          <h1 className="text-5xl md:text-6xl font-extrabold text-white mb-6">
-            SEO Agency <span className="text-primary">Dubai</span>
+          <div className="section-label bg-white/10 text-white border-white/20 mb-6">Headquarters</div>
+          <h1 className="text-5xl md:text-7xl font-extrabold text-white mb-6 tracking-tight">
+            SEO Agency <span className="gradient-text-primary">Dubai</span>
           </h1>
-          <p className="text-xl text-white/70 mb-10 leading-relaxed">
+          <p className="text-xl text-white/80 mb-10 leading-relaxed font-light">
             Our global headquarters. Driving digital dominance for the Middle East's most ambitious brands.
           </p>
-          
-          <div className="grid md:grid-cols-3 gap-6 text-left mt-16">
-            <div className="bg-card/80 backdrop-blur border border-white/10 p-6 rounded-2xl">
-              <MapPin className="w-8 h-8 text-primary mb-4" />
-              <h3 className="font-bold text-white mb-2">Address</h3>
-              <p className="text-white/60 text-sm">Level 42, Emirates Towers<br/>Sheikh Zayed Road<br/>Dubai, UAE</p>
+        </div>
+      </section>
+
+      {/* Main Content (Light Theme) */}
+      <section className="py-24 relative z-20 -mt-20">
+        <div className="container mx-auto px-4 max-w-5xl">
+          <div className="grid md:grid-cols-3 gap-6 text-left">
+            <div className="bg-white border border-border p-8 rounded-3xl shadow-lg hover:-translate-y-1 transition-transform duration-300">
+              <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-6 border border-primary/20">
+                <MapPin className="w-7 h-7 text-primary" />
+              </div>
+              <h3 className="text-xl font-bold text-foreground mb-3">Address</h3>
+              <p className="text-muted-foreground text-base leading-relaxed">Level 42, Emirates Towers<br/>Sheikh Zayed Road<br/>Dubai, UAE</p>
             </div>
-            <div className="bg-card/80 backdrop-blur border border-white/10 p-6 rounded-2xl">
-              <Phone className="w-8 h-8 text-primary mb-4" />
-              <h3 className="font-bold text-white mb-2">Phone</h3>
-              <p className="text-white/60 text-sm">+971 4 123 4567<br/>Mon-Fri, 9am-6pm GST</p>
+            <div className="bg-white border border-border p-8 rounded-3xl shadow-lg hover:-translate-y-1 transition-transform duration-300">
+              <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-6 border border-primary/20">
+                <Phone className="w-7 h-7 text-primary" />
+              </div>
+              <h3 className="text-xl font-bold text-foreground mb-3">Phone</h3>
+              <p className="text-muted-foreground text-base leading-relaxed">+971 4 123 4567<br/>Mon-Fri, 9am-6pm GST</p>
             </div>
-            <div className="bg-card/80 backdrop-blur border border-white/10 p-6 rounded-2xl">
-              <Mail className="w-8 h-8 text-primary mb-4" />
-              <h3 className="font-bold text-white mb-2">Email</h3>
-              <p className="text-white/60 text-sm">dubai@seo.ae<br/>growth@seo.ae</p>
+            <div className="bg-white border border-border p-8 rounded-3xl shadow-lg hover:-translate-y-1 transition-transform duration-300">
+              <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-6 border border-primary/20">
+                <Mail className="w-7 h-7 text-primary" />
+              </div>
+              <h3 className="text-xl font-bold text-foreground mb-3">Email</h3>
+              <p className="text-muted-foreground text-base leading-relaxed">dubai@seo.ae<br/>growth@seo.ae</p>
             </div>
           </div>
-          
-          <div className="mt-16">
-            <Link href="/contact"><Button size="lg" variant="gold" className="px-10 h-14 text-lg">Book a Consultation</Button></Link>
-          </div>
+        </div>
+      </section>
+
+      <section className="py-24 bg-muted/30 border-y border-border">
+        <div className="container mx-auto px-4 max-w-4xl text-center">
+          <h2 className="text-4xl font-bold text-foreground mb-6">Visit Our Office</h2>
+          <p className="text-lg text-muted-foreground mb-12">
+            Located in the heart of Dubai's business district, our headquarters is where strategy meets execution. Stop by for a coffee and a growth consultation.
+          </p>
+          <Link href="/contact">
+            <Button size="lg" className="px-10 h-14 text-lg">Book a Consultation</Button>
+          </Link>
+        </div>
+      </section>
+
+      {/* Dark CTA */}
+      <section className="py-24 hero-dark bg-grid-pattern-dark text-center mt-auto">
+        <div className="container mx-auto px-4 max-w-3xl">
+          <h2 className="text-4xl font-bold text-white mb-6">Ready to conquer the MENA market?</h2>
+          <Link href="/contact">
+            <Button variant="inverted" size="lg" className="h-14 px-10 text-lg">Get Free Audit</Button>
+          </Link>
         </div>
       </section>
     </div>

@@ -1,0 +1,1 @@
+- [SEO.ae Brand & Design System](brand-system.md) — color tokens, page layout pattern, CSS utilities, button variants — read before any page/component edit.

@@ -1,12 +1,30 @@
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Globe, Mail, MapPin, Phone, ArrowRight } from "lucide-react";
-import { SiFacebook, SiX, SiInstagram } from "react-icons/si";
+import { Globe, Mail, MapPin, Phone, ArrowRight, ExternalLink } from "lucide-react";
 import { Linkedin } from "lucide-react";
+import { SiFacebook, SiX, SiInstagram } from "react-icons/si";
 import { useSubscribeNewsletter } from "@workspace/api-client-react";
 import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
+
+const SERVICES = [
+  { label: "Enterprise SEO", href: "/seo" },
+  { label: "AI Search Optimization", href: "/ai-search-optimization" },
+  { label: "PPC & Google Ads", href: "/ppc" },
+  { label: "Social Media Marketing", href: "/social-media-marketing" },
+  { label: "Premium Web Design", href: "/web-design" },
+  { label: "Web Development", href: "/web-development" },
+];
+
+const COMPANY = [
+  { label: "About Us", href: "/about" },
+  { label: "Case Studies", href: "/case-studies" },
+  { label: "Portfolio", href: "/portfolio" },
+  { label: "Insights & Blog", href: "/blog" },
+  { label: "Careers", href: "/careers" },
+  { label: "Contact Us", href: "/contact" },
+];
 
 export default function Footer() {
   const { toast } = useToast();
@@ -16,122 +34,153 @@ export default function Footer() {
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) return;
-    
     subscribe.mutate(
       { data: { email } },
       {
         onSuccess: () => {
-          toast({ title: "Subscribed successfully!", description: "Welcome to our newsletter." });
+          toast({ title: "Subscribed!", description: "You're now on our insider list." });
           setEmail("");
         },
         onError: () => {
-          toast({ variant: "destructive", title: "Subscription failed", description: "Please try again later." });
-        }
+          toast({ variant: "destructive", title: "Failed to subscribe", description: "Please try again." });
+        },
       }
     );
   };
 
   return (
-    <footer className="bg-card border-t border-white/5 pt-20 pb-10 relative overflow-hidden">
-      {/* Decorative gradient */}
-      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
-      <div className="absolute top-0 right-1/4 w-[300px] h-[300px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
+    <footer className="bg-secondary text-white relative overflow-hidden">
+      {/* Top gradient glow */}
+      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-primary/60 to-transparent" />
+      <div className="absolute top-0 left-1/4 w-[400px] h-[400px] bg-primary/8 rounded-full blur-[120px] pointer-events-none" />
 
-      <div className="container mx-auto px-4">
+      {/* Main content */}
+      <div className="container mx-auto px-4 pt-20 pb-12 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
-          {/* Brand Col */}
-          <div className="space-y-6">
-            <Link href="/" className="flex items-center gap-2 group">
-              <div className="w-8 h-8 rounded bg-primary/20 flex items-center justify-center">
-                <Globe className="w-5 h-5 text-primary" />
+
+          {/* Brand */}
+          <div className="lg:col-span-1 space-y-6">
+            <Link href="/" className="flex items-center gap-2.5 group">
+              <div className="w-9 h-9 rounded-lg bg-primary flex items-center justify-center">
+                <Globe className="w-5 h-5 text-white" />
               </div>
-              <span className="text-2xl font-bold tracking-tight text-white">SEO<span className="text-accent">.ae</span></span>
+              <span className="text-2xl font-bold tracking-tight">
+                SEO<span className="text-primary">.ae</span>
+              </span>
             </Link>
-            <p className="text-muted-foreground text-sm leading-relaxed max-w-xs">
-              Dubai's premium digital growth partner. We turn clicks into clients using data-driven SEO, AI optimization, and high-performance campaigns.
+            <p className="text-white/60 text-sm leading-relaxed max-w-xs">
+              Dubai's premium digital growth partner. AI-driven SEO, high-converting design, and precision paid media that turns your business into a market leader.
             </p>
-            <div className="flex gap-4">
-              <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white/70 hover:bg-primary hover:text-white transition-colors">
-                <SiFacebook className="w-4 h-4" />
-              </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white/70 hover:bg-primary hover:text-white transition-colors">
-                <SiX className="w-4 h-4" />
-              </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white/70 hover:bg-primary hover:text-white transition-colors">
-                <Linkedin className="w-4 h-4" />
-              </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white/70 hover:bg-primary hover:text-white transition-colors">
-                <SiInstagram className="w-4 h-4" />
-              </a>
+            {/* Social */}
+            <div className="flex gap-3">
+              {[
+                { icon: <SiFacebook className="w-4 h-4" />, label: "Facebook" },
+                { icon: <SiX className="w-4 h-4" />, label: "X" },
+                { icon: <Linkedin className="w-4 h-4" />, label: "LinkedIn" },
+                { icon: <SiInstagram className="w-4 h-4" />, label: "Instagram" },
+              ].map(({ icon, label }) => (
+                <a
+                  key={label}
+                  href="#"
+                  aria-label={label}
+                  className="w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center text-white/70 hover:bg-primary hover:text-white transition-all duration-200"
+                >
+                  {icon}
+                </a>
+              ))}
             </div>
           </div>
 
-          {/* Links Col 1 */}
+          {/* Services */}
           <div>
-            <h4 className="font-semibold text-white mb-6">Services</h4>
-            <ul className="space-y-3 text-sm text-muted-foreground">
-              <li><Link href="/seo" className="hover:text-primary transition-colors">Enterprise SEO</Link></li>
-              <li><Link href="/ai-search-optimization" className="hover:text-primary transition-colors">AI Search Optimization</Link></li>
-              <li><Link href="/ppc" className="hover:text-primary transition-colors">PPC & Google Ads</Link></li>
-              <li><Link href="/social-media-marketing" className="hover:text-primary transition-colors">Social Media Marketing</Link></li>
-              <li><Link href="/web-design" className="hover:text-primary transition-colors">Premium Web Design</Link></li>
-              <li><Link href="/web-development" className="hover:text-primary transition-colors">Web Development</Link></li>
+            <h4 className="text-sm font-bold uppercase tracking-widest text-white/40 mb-5">Services</h4>
+            <ul className="space-y-3">
+              {SERVICES.map(({ label, href }) => (
+                <li key={href}>
+                  <Link href={href} className="text-sm text-white/70 hover:text-primary transition-colors flex items-center gap-1 group">
+                    <span className="w-0 overflow-hidden group-hover:w-3 transition-all duration-200">›</span>
+                    {label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Links Col 2 */}
+          {/* Company */}
           <div>
-            <h4 className="font-semibold text-white mb-6">Company</h4>
-            <ul className="space-y-3 text-sm text-muted-foreground">
-              <li><Link href="/about" className="hover:text-primary transition-colors">About Us</Link></li>
-              <li><Link href="/case-studies" className="hover:text-primary transition-colors">Case Studies</Link></li>
-              <li><Link href="/portfolio" className="hover:text-primary transition-colors">Portfolio</Link></li>
-              <li><Link href="/blog" className="hover:text-primary transition-colors">Insights & Blog</Link></li>
-              <li><Link href="/careers" className="hover:text-primary transition-colors">Careers</Link></li>
-              <li><Link href="/contact" className="hover:text-primary transition-colors">Contact Us</Link></li>
+            <h4 className="text-sm font-bold uppercase tracking-widest text-white/40 mb-5">Company</h4>
+            <ul className="space-y-3">
+              {COMPANY.map(({ label, href }) => (
+                <li key={href}>
+                  <Link href={href} className="text-sm text-white/70 hover:text-primary transition-colors flex items-center gap-1 group">
+                    <span className="w-0 overflow-hidden group-hover:w-3 transition-all duration-200">›</span>
+                    {label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Contact Col */}
-          <div>
-            <h4 className="font-semibold text-white mb-6">Connect</h4>
-            <ul className="space-y-4 text-sm text-muted-foreground mb-8">
-              <li className="flex items-start gap-3">
-                <MapPin className="w-5 h-5 text-primary shrink-0" />
-                <span>Level 42, Emirates Towers<br/>Sheikh Zayed Road, Dubai, UAE</span>
-              </li>
-              <li className="flex items-center gap-3">
-                <Phone className="w-5 h-5 text-primary shrink-0" />
-                <span>+971 4 123 4567</span>
-              </li>
-              <li className="flex items-center gap-3">
-                <Mail className="w-5 h-5 text-primary shrink-0" />
-                <span>growth@seo.ae</span>
-              </li>
-            </ul>
-            
-            <form onSubmit={handleSubscribe} className="space-y-3">
-              <span className="text-sm font-semibold text-white">Subscribe to insights</span>
-              <div className="flex gap-2">
-                <Input 
-                  type="email" 
-                  placeholder="Your email address" 
-                  className="bg-background border-white/10"
+          {/* Contact + Newsletter */}
+          <div className="space-y-8">
+            <div>
+              <h4 className="text-sm font-bold uppercase tracking-widest text-white/40 mb-5">Contact</h4>
+              <ul className="space-y-3 text-sm text-white/70">
+                <li className="flex items-start gap-3">
+                  <MapPin className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                  <span>Level 42, Emirates Towers<br />Sheikh Zayed Road, Dubai</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <Phone className="w-4 h-4 text-primary shrink-0" />
+                  <a href="tel:+97141234567" className="hover:text-primary transition-colors">+971 4 123 4567</a>
+                </li>
+                <li className="flex items-center gap-3">
+                  <Mail className="w-4 h-4 text-primary shrink-0" />
+                  <a href="mailto:growth@seo.ae" className="hover:text-primary transition-colors">growth@seo.ae</a>
+                </li>
+                <li className="flex items-center gap-3">
+                  <ExternalLink className="w-4 h-4 text-primary shrink-0" />
+                  <a href="https://searchengineoptimization.ae" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">searchengineoptimization.ae</a>
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="text-sm font-bold uppercase tracking-widest text-white/40 mb-4">Insights Newsletter</h4>
+              <p className="text-xs text-white/50 mb-3">Weekly SEO tips, algorithm updates, and growth strategies.</p>
+              <form onSubmit={handleSubscribe} className="flex gap-2">
+                <Input
+                  type="email"
+                  placeholder="Your email address"
+                  className="bg-white/10 border-white/20 text-white placeholder:text-white/40 focus:border-primary text-sm"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   disabled={subscribe.isPending}
                 />
-                <Button type="submit" size="icon" disabled={subscribe.isPending}>
+                <Button type="submit" size="icon" variant="default" disabled={subscribe.isPending} className="shrink-0">
                   <ArrowRight className="w-4 h-4" />
                 </Button>
-              </div>
-            </form>
+              </form>
+            </div>
           </div>
         </div>
 
-        <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-muted-foreground">
-          <p>&copy; {new Date().getFullYear()} SEO.ae. All rights reserved.</p>
-          <div className="flex items-center gap-6">
+        {/* Certifications / Trust row */}
+        <div className="py-6 border-t border-white/10 border-b border-white/10 mb-8">
+          <div className="flex flex-wrap items-center justify-center gap-6 text-xs text-white/40 font-medium uppercase tracking-wider">
+            {["Google Partner", "Meta Business Partner", "HubSpot Certified", "Clutch Top Agency", "ISO 27001"].map((cert) => (
+              <span key={cert} className="flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-primary/60" />
+                {cert}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* Bottom bar */}
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-white/40">
+          <p>© {new Date().getFullYear()} SEO.ae · SearchEngineOptimization.ae · All rights reserved.</p>
+          <div className="flex items-center gap-5">
             <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
             <Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
             <Link href="/sitemap" className="hover:text-white transition-colors">Sitemap</Link>

@@ -44,138 +44,166 @@ export default function Contact() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <section className="pt-40 pb-20 relative overflow-hidden bg-background">
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[150px] pointer-events-none" />
-        <div className="container mx-auto px-4 relative z-10 grid lg:grid-cols-2 gap-16">
-          <div>
-            <h1 className="text-5xl md:text-6xl font-extrabold text-white mb-6">
-              Let's Talk <span className="text-primary">Growth</span>
-            </h1>
-            <p className="text-xl text-white/70 mb-12 max-w-lg">
-              Ready to dominate your market? Fill out the form below and our growth experts will audit your digital presence for free.
-            </p>
+    <div className="flex flex-col min-h-screen bg-background">
+      {/* Dark Hero */}
+      <section className="hero-dark bg-grid-pattern-dark pt-40 pb-32 relative overflow-hidden">
+        <div className="container mx-auto px-4 relative z-10 text-center max-w-3xl">
+          <div className="section-label bg-white/10 text-white border-white/20 mb-6">Contact Us</div>
+          <h1 className="text-5xl md:text-7xl font-extrabold text-white mb-6 tracking-tight">
+            Let's Talk <span className="gradient-text-primary">Growth</span>
+          </h1>
+          <p className="text-xl text-white/80 max-w-2xl mx-auto font-light">
+            Ready to dominate your market? Reach out and our growth experts will audit your digital presence.
+          </p>
+        </div>
+      </section>
+
+      {/* Main Content (Light) */}
+      <section className="py-24 -mt-20 relative z-20">
+        <div className="container mx-auto px-4">
+          <div className="grid lg:grid-cols-12 gap-12 items-start">
             
-            <div className="space-y-8">
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+            {/* Contact Info */}
+            <div className="lg:col-span-5 space-y-8 bg-white border border-border p-10 rounded-3xl shadow-sm">
+              <div>
+                <h3 className="text-2xl font-bold text-foreground mb-8">Get in Touch</h3>
+              </div>
+              
+              <div className="flex items-start gap-5">
+                <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center shrink-0 border border-primary/20">
                   <MapPin className="w-6 h-6 text-primary" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-white mb-1">Dubai Headquarters</h3>
-                  <p className="text-white/60">Level 42, Emirates Towers<br/>Sheikh Zayed Road, Dubai, UAE</p>
+                  <h4 className="text-lg font-bold text-foreground mb-1">Dubai Headquarters</h4>
+                  <p className="text-muted-foreground leading-relaxed">Level 42, Emirates Towers<br/>Sheikh Zayed Road, Dubai, UAE</p>
                 </div>
               </div>
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+              
+              <div className="flex items-start gap-5">
+                <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center shrink-0 border border-primary/20">
                   <Phone className="w-6 h-6 text-primary" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-white mb-1">Call Us</h3>
-                  <p className="text-white/60">+971 4 123 4567<br/>Mon-Fri, 9am-6pm GST</p>
+                  <h4 className="text-lg font-bold text-foreground mb-1">Call Us</h4>
+                  <p className="text-muted-foreground leading-relaxed">+971 4 123 4567<br/>Mon-Fri, 9am-6pm GST</p>
                 </div>
               </div>
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+              
+              <div className="flex items-start gap-5">
+                <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center shrink-0 border border-primary/20">
                   <Mail className="w-6 h-6 text-primary" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-white mb-1">Email Us</h3>
-                  <p className="text-white/60">growth@seo.ae<br/>careers@seo.ae</p>
+                  <h4 className="text-lg font-bold text-foreground mb-1">Email Us</h4>
+                  <p className="text-muted-foreground leading-relaxed">growth@seo.ae<br/>careers@seo.ae</p>
                 </div>
               </div>
             </div>
+            
+            {/* Form */}
+            <div className="lg:col-span-7 bg-white border border-border rounded-3xl p-10 shadow-xl">
+              <h3 className="text-2xl font-bold text-foreground mb-8">Request a Proposal</h3>
+              <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <FormField control={form.control} name="name" render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-foreground font-semibold">Full Name *</FormLabel>
+                        <FormControl><Input placeholder="John Doe" className="h-12 bg-muted/50 border-border" {...field} /></FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )} />
+                    <FormField control={form.control} name="email" render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-foreground font-semibold">Email *</FormLabel>
+                        <FormControl><Input placeholder="john@company.com" type="email" className="h-12 bg-muted/50 border-border" {...field} /></FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )} />
+                  </div>
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <FormField control={form.control} name="phone" render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-foreground font-semibold">Phone</FormLabel>
+                        <FormControl><Input placeholder="+971 50 000 0000" className="h-12 bg-muted/50 border-border" {...field} /></FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )} />
+                    <FormField control={form.control} name="company" render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-foreground font-semibold">Company</FormLabel>
+                        <FormControl><Input placeholder="Acme Corp" className="h-12 bg-muted/50 border-border" {...field} /></FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )} />
+                  </div>
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <FormField control={form.control} name="service" render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-foreground font-semibold">Service of Interest</FormLabel>
+                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                          <FormControl>
+                            <SelectTrigger className="h-12 bg-muted/50 border-border">
+                              <SelectValue placeholder="Select service" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            <SelectItem value="seo">Enterprise SEO</SelectItem>
+                            <SelectItem value="ai">AI Search</SelectItem>
+                            <SelectItem value="ppc">PPC & Ads</SelectItem>
+                            <SelectItem value="web">Web Design</SelectItem>
+                            <SelectItem value="other">Other</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )} />
+                    <FormField control={form.control} name="budget" render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-foreground font-semibold">Monthly Budget</FormLabel>
+                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                          <FormControl>
+                            <SelectTrigger className="h-12 bg-muted/50 border-border">
+                              <SelectValue placeholder="Select budget" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            <SelectItem value="5k-10k">$5k - $10k</SelectItem>
+                            <SelectItem value="10k-25k">$10k - $25k</SelectItem>
+                            <SelectItem value="25k+">$25k+</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )} />
+                  </div>
+                  <FormField control={form.control} name="message" render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-foreground font-semibold">Message *</FormLabel>
+                      <FormControl><Textarea placeholder="Tell us about your goals..." className="min-h-[140px] bg-muted/50 border-border resize-none" {...field} /></FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )} />
+                  <Button type="submit" size="lg" className="w-full h-14 text-base" disabled={submitContact.isPending}>
+                    {submitContact.isPending ? "Sending..." : "Send Message"}
+                  </Button>
+                </form>
+              </Form>
+            </div>
+
           </div>
-          
-          <div className="bg-card border border-white/10 rounded-2xl p-8 shadow-2xl relative">
-            <h3 className="text-2xl font-bold text-white mb-6">Request a Proposal</h3>
-            <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                <div className="grid grid-cols-2 gap-4">
-                  <FormField control={form.control} name="name" render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-white/80">Full Name *</FormLabel>
-                      <FormControl><Input placeholder="John Doe" {...field} /></FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )} />
-                  <FormField control={form.control} name="email" render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-white/80">Email *</FormLabel>
-                      <FormControl><Input placeholder="john@company.com" type="email" {...field} /></FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )} />
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <FormField control={form.control} name="phone" render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-white/80">Phone</FormLabel>
-                      <FormControl><Input placeholder="+971 50 000 0000" {...field} /></FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )} />
-                  <FormField control={form.control} name="company" render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-white/80">Company</FormLabel>
-                      <FormControl><Input placeholder="Acme Corp" {...field} /></FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )} />
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <FormField control={form.control} name="service" render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-white/80">Service of Interest</FormLabel>
-                      <Select onValueChange={field.onChange} defaultValue={field.value}>
-                        <FormControl>
-                          <SelectTrigger className="bg-white/5 border-white/10 text-white">
-                            <SelectValue placeholder="Select service" />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent className="bg-card border-white/10 text-white">
-                          <SelectItem value="seo">Enterprise SEO</SelectItem>
-                          <SelectItem value="ai">AI Search</SelectItem>
-                          <SelectItem value="ppc">PPC & Ads</SelectItem>
-                          <SelectItem value="web">Web Design</SelectItem>
-                          <SelectItem value="other">Other</SelectItem>
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )} />
-                  <FormField control={form.control} name="budget" render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-white/80">Monthly Budget</FormLabel>
-                      <Select onValueChange={field.onChange} defaultValue={field.value}>
-                        <FormControl>
-                          <SelectTrigger className="bg-white/5 border-white/10 text-white">
-                            <SelectValue placeholder="Select budget" />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent className="bg-card border-white/10 text-white">
-                          <SelectItem value="5k-10k">$5k - $10k</SelectItem>
-                          <SelectItem value="10k-25k">$10k - $25k</SelectItem>
-                          <SelectItem value="25k+">$25k+</SelectItem>
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )} />
-                </div>
-                <FormField control={form.control} name="message" render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-white/80">Message *</FormLabel>
-                    <FormControl><Textarea placeholder="Tell us about your goals..." className="min-h-[120px]" {...field} /></FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )} />
-                <Button type="submit" variant="gold" className="w-full h-12 text-base" disabled={submitContact.isPending}>
-                  {submitContact.isPending ? "Sending..." : "Send Message"}
-                </Button>
-              </form>
-            </Form>
-          </div>
+        </div>
+      </section>
+
+      {/* Dark CTA Bottom */}
+      <section className="py-24 hero-dark bg-grid-pattern-dark relative overflow-hidden mt-auto">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-3xl font-bold text-white mb-6">Prefer to call?</h2>
+          <a href="tel:+97141234567">
+            <Button variant="inverted" size="lg" className="h-14 px-10 text-lg gap-2">
+              <Phone className="w-5 h-5" /> +971 4 123 4567
+            </Button>
+          </a>
         </div>
       </section>
     </div>
