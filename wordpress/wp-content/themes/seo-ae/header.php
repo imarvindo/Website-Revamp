@@ -40,18 +40,19 @@
 
 		<!-- Logo -->
 		<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="navbar__logo" aria-label="SearchEngineOptimization.ae Home">
-			<?php if ( has_custom_logo() ) : the_custom_logo(); else : ?>
-			<div class="navbar__logo-mark">
-				<svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-					<rect width="32" height="32" rx="8" fill="#16B1D4"/>
-					<text x="16" y="22" text-anchor="middle" font-family="Outfit,sans-serif" font-weight="700" font-size="14" fill="#FFFFFF">S</text>
-				</svg>
-			</div>
+			<!-- Custom SVG logo mark: two search bars forming an "S" with upward arrow accent -->
+			<svg class="navbar__logo-svg" width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+				<!-- Top bar (shorter, navy) -->
+				<rect x="6" y="7" width="18" height="7" rx="3.5" fill="#101A6A"/>
+				<!-- Bottom bar (longer, navy) -->
+				<rect x="6" y="22" width="24" height="7" rx="3.5" fill="#101A6A"/>
+				<!-- Cyan accent: small upward arrow top-right -->
+				<path d="M26 18 L30 12 L26 14 M30 12 L28 16" stroke="#16B1D4" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+			</svg>
 			<div class="navbar__logo-text">
 				<span class="navbar__logo-name" style="font-size:.95rem;">SearchEngine<span class="text-primary">Optimization.ae</span></span>
 				<span class="navbar__logo-tagline">DIGITAL GROWTH PARTNER</span>
 			</div>
-			<?php endif; ?>
 		</a>
 
 		<!-- Desktop Navigation -->
