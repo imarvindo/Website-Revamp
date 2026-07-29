@@ -37,11 +37,17 @@ function Router() {
           <Route path="/about" component={About} />
           <Route path="/services" component={Services} />
           <Route path="/seo" component={SEO} />
+          <Route path="/services/seo" component={SEO} />
           <Route path="/ai-search-optimization" component={AISearch} />
+          <Route path="/services/ai-search-optimization" component={AISearch} />
           <Route path="/ppc" component={PPC} />
+          <Route path="/services/ppc" component={PPC} />
           <Route path="/social-media-marketing" component={SocialMedia} />
+          <Route path="/services/social-media-marketing" component={SocialMedia} />
           <Route path="/web-design" component={WebDesign} />
+          <Route path="/services/web-design" component={WebDesign} />
           <Route path="/web-development" component={WebDevelopment} />
+          <Route path="/services/web-development" component={WebDevelopment} />
           <Route path="/blog" component={BlogList} />
           <Route path="/blog/:slug" component={BlogPost} />
           <Route path="/case-studies" component={CaseStudies} />
