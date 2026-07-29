@@ -1,2 +1,3 @@
 - [SEO.ae Brand & Design System](brand-system.md) — color tokens, page layout pattern, CSS utilities, button variants — read before any page/component edit.
 - [WordPress Setup](wordpress-setup.md) — install location, WP-CLI path, port, DB, credentials hint, content inventory, template list, production migration notes.
+- [ACF Free Repeater Limitation](acf-free-limitation.md) — ACF Free has no Repeater support; store arrays as PHP arrays via update_post_meta(), read with get_post_meta().

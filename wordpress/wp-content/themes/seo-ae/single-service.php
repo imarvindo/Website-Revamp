@@ -4,18 +4,20 @@
  */
 get_header();
 while (have_posts()) : the_post();
-$short_desc   = get_field('short_description')   ?: get_the_excerpt();
-$category_lbl = get_field('category_label')      ?: 'Digital Marketing';
-$hero_badge   = get_field('hero_badge')          ?: 'Premium';
-$hero_badge_sub = get_field('hero_badge_sub')    ?: 'Results Driven';
-$cta_primary  = get_field('cta_primary_text')    ?: 'Start Your Campaign';
-$cta_phone    = get_field('cta_phone_text')      ?: 'Call Us Now';
-$icon_svg     = get_field('icon_svg')            ?: '<svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>';
-$benefits     = get_field('benefits')            ?: [];
-$process      = get_field('process_steps')       ?: [];
-$technologies = get_field('technologies')        ?: [];
-$faqs         = get_field('service_faqs')        ?: [];
-$related      = get_field('related_services')    ?: [];
+$short_desc   = get_post_meta( get_the_ID(), 'short_description', true ) ?: get_the_excerpt();
+$category_lbl = get_post_meta( get_the_ID(), 'category_label',    true ) ?: 'Digital Marketing';
+$hero_badge   = get_post_meta( get_the_ID(), 'hero_badge',        true ) ?: 'Premium';
+$hero_badge_sub = get_post_meta( get_the_ID(), 'hero_badge_sub',  true ) ?: 'Results Driven';
+$cta_primary  = get_post_meta( get_the_ID(), 'cta_primary_text',  true ) ?: 'Start Your Campaign';
+$cta_phone    = get_post_meta( get_the_ID(), 'cta_phone_text',    true ) ?: 'Call Us Now';
+$icon_svg     = get_post_meta( get_the_ID(), 'icon_svg',          true ) ?: '<svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>';
+// PHP-serialised arrays (WordPress handles serialisation natively — no encoding issues)
+$benefits     = get_post_meta( get_the_ID(), 'svc_benefits',    true ) ?: [];
+$process      = get_post_meta( get_the_ID(), 'svc_process',     true ) ?: [];
+$technologies = get_post_meta( get_the_ID(), 'svc_technologies',true ) ?: [];
+$faqs         = get_post_meta( get_the_ID(), 'svc_faqs',        true ) ?: [];
+$related_ids  = get_post_meta( get_the_ID(), 'svc_related',     true ) ?: [];
+$related      = array_filter( array_map( 'get_post', (array) $related_ids ) );
 $phone        = seoae_phone();
 ?>
 
