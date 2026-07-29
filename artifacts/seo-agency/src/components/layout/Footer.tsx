@@ -22,6 +22,7 @@ const COMPANY = [
   { label: "Case Studies", href: "/case-studies" },
   { label: "Portfolio", href: "/portfolio" },
   { label: "Insights & Blog", href: "/blog" },
+  { label: "FAQ", href: "/faq" },
   { label: "Careers", href: "/careers" },
   { label: "Contact Us", href: "/contact" },
 ];

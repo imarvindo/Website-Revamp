@@ -24,6 +24,9 @@ import Portfolio from '@/pages/portfolio';
 import Contact from '@/pages/contact';
 import Careers from '@/pages/careers';
 import LocationDubai from '@/pages/locations/dubai';
+import FAQ from '@/pages/faq';
+import Privacy from '@/pages/privacy';
+import Terms from '@/pages/terms';
 
 const queryClient = new QueryClient();
 
@@ -55,6 +58,9 @@ function Router() {
           <Route path="/contact" component={Contact} />
           <Route path="/careers" component={Careers} />
           <Route path="/locations/dubai" component={LocationDubai} />
+          <Route path="/faq" component={FAQ} />
+          <Route path="/privacy" component={Privacy} />
+          <Route path="/terms" component={Terms} />
           <Route component={NotFound} />
         </Switch>
       </main>
