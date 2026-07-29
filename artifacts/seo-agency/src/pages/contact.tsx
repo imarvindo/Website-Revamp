@@ -75,17 +75,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <h4 className="text-lg font-bold text-foreground mb-1">Dubai Headquarters</h4>
-                  <p className="text-muted-foreground leading-relaxed">Level 42, Emirates Towers<br/>Sheikh Zayed Road, Dubai, UAE</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start gap-5">
-                <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center shrink-0 border border-primary/20">
-                  <Phone className="w-6 h-6 text-primary" />
-                </div>
-                <div>
-                  <h4 className="text-lg font-bold text-foreground mb-1">Call Us</h4>
-                  <p className="text-muted-foreground leading-relaxed">+971 4 123 4567<br/>Mon-Fri, 9am-6pm GST</p>
+                  <p className="text-muted-foreground leading-relaxed">M-01, Muteena Street, Above Saravana Bhavan<br/>Deira, Dubai, UAE</p>
                 </div>
               </div>
               
@@ -95,7 +85,10 @@ export default function Contact() {
                 </div>
                 <div>
                   <h4 className="text-lg font-bold text-foreground mb-1">Email Us</h4>
-                  <p className="text-muted-foreground leading-relaxed">growth@seo.ae<br/>careers@seo.ae</p>
+                  <p className="text-muted-foreground leading-relaxed">
+                    <a href="mailto:sales@searchengineoptimization.ae" className="hover:text-primary transition-colors">sales@searchengineoptimization.ae</a>
+                    <br/><span className="text-sm">We respond within 24 hours</span>
+                  </p>
                 </div>
               </div>
             </div>
@@ -198,10 +191,10 @@ export default function Contact() {
       {/* Dark CTA Bottom */}
       <section className="py-24 hero-dark bg-grid-pattern-dark relative overflow-hidden mt-auto">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold text-white mb-6">Prefer to call?</h2>
-          <a href="tel:+97141234567">
+          <h2 className="text-3xl font-bold text-white mb-6">Ready to grow your business?</h2>
+          <a href="mailto:sales@searchengineoptimization.ae">
             <Button variant="inverted" size="lg" className="h-14 px-10 text-lg gap-2">
-              <Phone className="w-5 h-5" /> +971 4 123 4567
+              <Mail className="w-5 h-5" /> sales@searchengineoptimization.ae
             </Button>
           </a>
         </div>

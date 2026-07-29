@@ -53,15 +53,12 @@ export default function Navbar() {
         <div className="container mx-auto px-4 flex items-center justify-between">
           <div className="flex items-center gap-6">
             <span className="flex items-center gap-1.5">
-              <MapPin className="w-3 h-3" /> Level 42, Emirates Towers, Dubai
-            </span>
-            <span className="flex items-center gap-1.5">
-              <Phone className="w-3 h-3" /> +971 4 123 4567
+              <MapPin className="w-3 h-3" /> M-01, Muteena Street, Deira, Dubai, UAE
             </span>
           </div>
           <div className="flex items-center gap-6">
             <span className="flex items-center gap-1.5">
-              <Mail className="w-3 h-3" /> growth@seo.ae
+              <Mail className="w-3 h-3" /> sales@searchengineoptimization.ae
             </span>
             <span className="text-white/40">|</span>
             <Link href="/careers" className="hover:text-white transition-colors">Careers</Link>

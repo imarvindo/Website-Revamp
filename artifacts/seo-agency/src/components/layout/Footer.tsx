@@ -128,15 +128,11 @@ export default function Footer() {
               <ul className="space-y-3 text-sm text-white/70">
                 <li className="flex items-start gap-3">
                   <MapPin className="w-4 h-4 text-primary shrink-0 mt-0.5" />
-                  <span>Level 42, Emirates Towers<br />Sheikh Zayed Road, Dubai</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <Phone className="w-4 h-4 text-primary shrink-0" />
-                  <a href="tel:+97141234567" className="hover:text-primary transition-colors">+971 4 123 4567</a>
+                  <span>M-01, Muteena Street, Above Saravana Bhavan<br />Deira, Dubai, UAE</span>
                 </li>
                 <li className="flex items-center gap-3">
                   <Mail className="w-4 h-4 text-primary shrink-0" />
-                  <a href="mailto:growth@seo.ae" className="hover:text-primary transition-colors">growth@seo.ae</a>
+                  <a href="mailto:sales@searchengineoptimization.ae" className="hover:text-primary transition-colors">sales@searchengineoptimization.ae</a>
                 </li>
                 <li className="flex items-center gap-3">
                   <ExternalLink className="w-4 h-4 text-primary shrink-0" />

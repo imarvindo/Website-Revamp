@@ -37,21 +37,17 @@ export default function LocationDubai() {
                 <MapPin className="w-7 h-7 text-primary" />
               </div>
               <h3 className="text-xl font-bold text-foreground mb-3">Address</h3>
-              <p className="text-muted-foreground text-base leading-relaxed">Level 42, Emirates Towers<br/>Sheikh Zayed Road<br/>Dubai, UAE</p>
-            </div>
-            <div className="bg-white border border-border p-8 rounded-3xl shadow-lg hover:-translate-y-1 transition-transform duration-300">
-              <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-6 border border-primary/20">
-                <Phone className="w-7 h-7 text-primary" />
-              </div>
-              <h3 className="text-xl font-bold text-foreground mb-3">Phone</h3>
-              <p className="text-muted-foreground text-base leading-relaxed">+971 4 123 4567<br/>Mon-Fri, 9am-6pm GST</p>
+              <p className="text-muted-foreground text-base leading-relaxed">M-01, Muteena Street<br/>Above Saravana Bhavan<br/>Deira, Dubai, UAE</p>
             </div>
             <div className="bg-white border border-border p-8 rounded-3xl shadow-lg hover:-translate-y-1 transition-transform duration-300">
               <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-6 border border-primary/20">
                 <Mail className="w-7 h-7 text-primary" />
               </div>
               <h3 className="text-xl font-bold text-foreground mb-3">Email</h3>
-              <p className="text-muted-foreground text-base leading-relaxed">dubai@seo.ae<br/>growth@seo.ae</p>
+              <p className="text-muted-foreground text-base leading-relaxed">
+                <a href="mailto:sales@searchengineoptimization.ae" className="hover:text-primary transition-colors">sales@searchengineoptimization.ae</a>
+                <br/>Mon-Fri, 9am-6pm GST
+              </p>
             </div>
           </div>
         </div>

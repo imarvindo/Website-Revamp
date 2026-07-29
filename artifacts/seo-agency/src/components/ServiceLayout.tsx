@@ -58,9 +58,9 @@ export function ServiceLayout({ slug, imagePath }: { slug: string; imagePath?: s
                     Start Your Campaign <ArrowRight className="w-5 h-5" />
                   </Button>
                 </Link>
-                <a href="tel:+97141234567">
+                <a href="mailto:sales@searchengineoptimization.ae">
                   <Button size="lg" variant="inverted" className="h-13 px-8 text-base gap-2">
-                    <Phone className="w-4 h-4" /> Call Us Now
+                    <Mail className="w-4 h-4" /> Email Us Now
                   </Button>
                 </a>
               </div>
@@ -220,9 +220,9 @@ export function ServiceLayout({ slug, imagePath }: { slug: string; imagePath?: s
                 Get Free Consultation <ArrowRight className="w-5 h-5" />
               </Button>
             </Link>
-            <a href="tel:+97141234567">
+            <a href="mailto:sales@searchengineoptimization.ae">
               <Button size="lg" variant="inverted" className="h-14 px-10 text-base gap-2">
-                <Phone className="w-5 h-5" /> +971 4 123 4567
+                <Mail className="w-5 h-5" /> Email Us
               </Button>
             </a>
           </div>
