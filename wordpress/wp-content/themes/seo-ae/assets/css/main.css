@@ -2331,3 +2331,51 @@ p:last-child { margin-bottom: 0; }
 @media print {
   .topbar, .navbar, .footer, .cta-dark { display: none; }
 }
+
+/* ══════════════════════════════════════════════════════════════════
+   WHATSAPP FLOATING BUTTON
+══════════════════════════════════════════════════════════════════ */
+.wa-float {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: .55rem;
+  background: #25D366;
+  color: #fff;
+  text-decoration: none;
+  padding: .75rem 1.25rem .75rem .9rem;
+  border-radius: 50px;
+  box-shadow: 0 4px 24px rgba(37,211,102,.35), 0 2px 8px rgba(0,0,0,.15);
+  font-size: .875rem;
+  font-weight: 600;
+  letter-spacing: .01em;
+  transition: transform .2s ease, box-shadow .2s ease;
+  font-family: var(--font-body);
+}
+.wa-float:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 8px 32px rgba(37,211,102,.45), 0 4px 12px rgba(0,0,0,.18);
+  color: #fff;
+}
+.wa-float__icon { width: 28px; height: 28px; flex-shrink: 0; }
+.wa-float__label { white-space: nowrap; }
+
+@media (max-width: 480px) {
+  .wa-float { bottom: 1.25rem; right: 1.25rem; padding: .7rem; border-radius: 50%; }
+  .wa-float__label { display: none; }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   CLIENT LOGOS TRUST BAR
+══════════════════════════════════════════════════════════════════ */
+.logos-bar { padding: 3rem 0; background: var(--color-bg-soft); border-top: 1px solid rgba(0,0,0,.06); border-bottom: 1px solid rgba(0,0,0,.06); }
+.logos-bar__label { text-align: center; font-size: .75rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--color-text-muted); margin-bottom: 1.75rem; }
+.logos-bar__track { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 1.25rem 2.25rem; }
+.logos-bar__logo { display: flex; align-items: center; justify-content: center; padding: .65rem 1.4rem; background: #fff; border-radius: 10px; border: 1px solid rgba(0,0,0,.08); min-width: 130px; height: 52px; box-shadow: 0 1px 4px rgba(0,0,0,.06); transition: box-shadow .2s, transform .2s; }
+.logos-bar__logo:hover { box-shadow: 0 4px 14px rgba(0,0,0,.1); transform: translateY(-2px); }
+.logos-bar__logo-text { font-size: .82rem; font-weight: 700; color: #374151; letter-spacing: -.01em; white-space: nowrap; }
+.logos-bar__logo-text span { color: var(--color-primary); }
+@media (max-width: 600px) { .logos-bar__track { gap: .75rem 1rem; } .logos-bar__logo { min-width: 110px; padding: .55rem 1rem; } }

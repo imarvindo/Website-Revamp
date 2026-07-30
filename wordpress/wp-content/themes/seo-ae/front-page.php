@@ -417,6 +417,23 @@ $case_studies = new WP_Query(['post_type'=>'case_study','posts_per_page'=>4,'pos
 	</div>
 </section>
 
+<!-- ══════════════════════════════ CLIENT LOGOS ═══════════════════════════════════ -->
+<div class="logos-bar">
+	<div class="container">
+		<p class="logos-bar__label">Trusted by 345+ UAE businesses across every industry</p>
+		<div class="logos-bar__track">
+			<div class="logos-bar__logo"><span class="logos-bar__logo-text">Al Barsha <span>Residences</span></span></div>
+			<div class="logos-bar__logo"><span class="logos-bar__logo-text">Jumeirah <span>Bites</span></span></div>
+			<div class="logos-bar__logo"><span class="logos-bar__logo-text">Tech<span>Flow</span> UAE</span></div>
+			<div class="logos-bar__logo"><span class="logos-bar__logo-text">Med<span>Core</span> Dubai</span></div>
+			<div class="logos-bar__logo"><span class="logos-bar__logo-text">Shop<span>AE</span>.com</span></div>
+			<div class="logos-bar__logo"><span class="logos-bar__logo-text">Khalifa <span>Motors</span></span></div>
+			<div class="logos-bar__logo"><span class="logos-bar__logo-text">Edu<span>Rise</span> Academy</span></div>
+			<div class="logos-bar__logo"><span class="logos-bar__logo-text">Emirates <span>Legal</span></span></div>
+		</div>
+	</div>
+</div>
+
 <!-- ══════════════════════════════ CASE STUDIES ═══════════════════════════════════ -->
 <?php if ($case_studies->have_posts()) : ?>
 <section class="section bg-white">

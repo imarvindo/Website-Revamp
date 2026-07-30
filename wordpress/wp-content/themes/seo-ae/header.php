@@ -130,9 +130,13 @@
 							<span class="dropdown-menu__title">Portfolio</span>
 							<span class="dropdown-menu__desc">Our best work</span>
 						</a>
-						<a href="<?php echo esc_url( home_url('/dubai') ); ?>" class="dropdown-menu__item">
+						<a href="<?php echo esc_url( home_url('/seo-company-dubai/') ); ?>" class="dropdown-menu__item">
 							<span class="dropdown-menu__title">SEO Dubai</span>
 							<span class="dropdown-menu__desc">Local SEO services in Dubai</span>
+						</a>
+						<a href="<?php echo esc_url( home_url('/faq/') ); ?>" class="dropdown-menu__item">
+							<span class="dropdown-menu__title">FAQ</span>
+							<span class="dropdown-menu__desc">Common questions answered</span>
 						</a>
 					</div>
 				</li>
@@ -203,6 +207,7 @@
 		<a href="<?php echo esc_url( get_permalink(get_option('page_for_posts')) ?: '/blog' ); ?>" class="mobile-menu__link">Blog</a>
 		<a href="<?php echo esc_url( get_post_type_archive_link('case_study') ); ?>" class="mobile-menu__link">Case Studies</a>
 		<a href="<?php echo esc_url( home_url('/about') ); ?>" class="mobile-menu__link">About</a>
+		<a href="<?php echo esc_url( home_url('/faq/') ); ?>" class="mobile-menu__link">FAQ</a>
 		<a href="<?php echo esc_url( home_url('/contact') ); ?>" class="mobile-menu__link">Contact</a>
 		<div class="mobile-menu__cta">
 			<a href="<?php echo esc_url( home_url('/contact') ); ?>" class="btn btn--primary" style="width:100%;text-align:center;">Get Free Audit</a>

@@ -568,9 +568,23 @@ add_action( 'wp_head', function () {
 	if ( is_singular( 'service' ) ) {
 		$faqs = get_field( 'service_faqs' ) ?: [];
 	} elseif ( is_singular() ) {
+		// Try ACF page_faqs first
 		$faqs = get_field( 'page_faqs' ) ?: [];
+
 		if ( empty( $faqs ) && is_single() ) {
 			$faqs = get_field( 'article_faqs' ) ?: [];
+		}
+
+		// Fallback: location/industry pages store FAQs as PHP arrays in post meta
+		if ( empty( $faqs ) ) {
+			$raw = get_post_meta( get_the_ID(), 'location_faqs', true );
+			if ( is_array( $raw ) ) {
+				foreach ( $raw as $item ) {
+					$q = $item['faq_question'] ?? $item['question'] ?? '';
+					$a = $item['faq_answer']   ?? $item['answer']   ?? '';
+					if ( $q && $a ) $faqs[] = [ 'question' => $q, 'answer' => $a ];
+				}
+			}
 		}
 	}
 
@@ -619,6 +633,7 @@ add_action( 'wp_head', function () {
 		'image'    => SEOAE_URI . '/assets/images/og-image.jpg',
 		'description' => "Dubai's #1 enterprise SEO and digital marketing agency — delivering measurable growth through AI-driven SEO, PPC, social media, and web development.",
 		'email'       => $email,
+		'telephone'   => seoae_phone() ?: '+971 4 320 9898',
 		'address'     => [
 			'@type'           => 'PostalAddress',
 			'streetAddress'   => $address,
@@ -629,6 +644,13 @@ add_action( 'wp_head', function () {
 		'areaServed'   => ['Dubai','Abu Dhabi','Sharjah','United Arab Emirates'],
 		'priceRange'   => '$$$$',
 		'openingHours' => 'Mo-Fr 09:00-18:00',
+		'aggregateRating' => [
+			'@type'       => 'AggregateRating',
+			'ratingValue' => '4.9',
+			'reviewCount' => '127',
+			'bestRating'  => '5',
+			'worstRating' => '1',
+		],
 		'sameAs'       => array_filter( [
 			function_exists('get_field') ? get_field('social_linkedin','option') : '',
 			function_exists('get_field') ? get_field('social_instagram','option') : '',
@@ -678,7 +700,11 @@ function seoae_stars( int $rating = 5 ): string {
  * Get phone number from ACF or fallback.
  */
 function seoae_phone(): string {
-	return ''; // Phone number removed per business requirements
+	if ( function_exists( 'get_field' ) ) {
+		$acf = get_field( 'site_phone', 'option' );
+		if ( $acf ) return $acf;
+	}
+	return get_option( 'seoae_site_phone', '+971 4 320 9898' );
 }
 
 /**

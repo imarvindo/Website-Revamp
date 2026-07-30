@@ -16,7 +16,7 @@
 					Get Free Audit
 					<svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
 				</button>
-				<a href="tel:+971XXXXXXXX" class="footer__prebar-phone">
+				<a href="tel:<?php echo esc_attr( preg_replace('/[^+0-9]/', '', seoae_phone()) ); ?>" class="footer__prebar-phone">
 					<svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
 					Call Us
 				</a>
@@ -403,6 +403,28 @@
   });
 })();
 </script>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     WHATSAPP FLOATING BUTTON
+════════════════════════════════════════════════════════════════════ -->
+<?php
+$wa_raw   = seoae_phone();
+$wa_digits = preg_replace( '/[^0-9]/', '', $wa_raw );
+if ( ! $wa_digits ) $wa_digits = '97143209898'; // default Deira Dubai number
+$wa_msg   = urlencode( 'Hello! I\'d like to learn more about your SEO services for my UAE business.' );
+?>
+<a href="https://wa.me/<?php echo esc_attr( $wa_digits ); ?>?text=<?php echo $wa_msg; ?>"
+   class="wa-float"
+   target="_blank"
+   rel="noopener noreferrer"
+   aria-label="Chat with us on WhatsApp">
+	<svg class="wa-float__icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+		<circle cx="16" cy="16" r="16" fill="#25D366"/>
+		<path d="M23.5 20.4c-.3-.1-1.8-.9-2.1-1s-.5-.1-.7.2c-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1C17.6 20 16 19.1 14.7 17.8c-1.2-1.3-2-2.8-2.2-3.1-.2-.3 0-.5.1-.6l.5-.6c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.2-.7-1.7-1-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1.1 1-.1 2.5 1 1.5 2.2 3.3 5.3 4.7.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2.1-1.4.3-.6.3-1.2.2-1.3z" fill="white"/>
+		<path d="M16 6C10.5 6 6 10.5 6 16c0 1.9.5 3.7 1.4 5.2L6 26l5-1.3C12.4 25.5 14.1 26 16 26c5.5 0 10-4.5 10-10S21.5 6 16 6zm0 18.3c-1.8 0-3.5-.5-5-1.4l-.3-.2-3 .8.8-2.9-.2-.3c-1-1.5-1.5-3.2-1.5-5C6.8 11 10.9 7 16 7c2.5 0 4.8.9 6.5 2.5S25 13.5 25 16c0 5.1-4 9.3-9 9.3z" fill="white"/>
+	</svg>
+	<span class="wa-float__label">WhatsApp</span>
+</a>
 
 <?php wp_footer(); ?>
 </body>
