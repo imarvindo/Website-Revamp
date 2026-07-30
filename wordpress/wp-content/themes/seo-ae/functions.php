@@ -159,6 +159,36 @@ add_action( 'init', function () {
 		'supports'      => [ 'title', 'thumbnail' ],
 	] );
 
+	// CONTACT SUBMISSIONS
+	register_post_type( 'contact_submission', [
+		'labels' => [
+			'name'               => __( 'Contact Submissions', 'seo-ae' ),
+			'singular_name'      => __( 'Submission', 'seo-ae' ),
+			'all_items'          => __( 'All Submissions', 'seo-ae' ),
+			'menu_name'          => __( 'Enquiries', 'seo-ae' ),
+			'search_items'       => __( 'Search Submissions', 'seo-ae' ),
+			'not_found'          => __( 'No submissions found.', 'seo-ae' ),
+			'not_found_in_trash' => __( 'No submissions in trash.', 'seo-ae' ),
+		],
+		'public'             => false,
+		'publicly_queryable' => false,
+		'show_ui'            => true,
+		'show_in_menu'       => true,
+		'show_in_rest'       => false,
+		'query_var'          => false,
+		'rewrite'            => false,
+		'capability_type'    => 'post',
+		'capabilities'       => [
+			'create_posts' => 'do_not_allow', // Disable "Add New"
+		],
+		'map_meta_cap'       => true,
+		'has_archive'        => false,
+		'hierarchical'       => false,
+		'menu_position'      => 4,
+		'menu_icon'          => 'dashicons-email-alt',
+		'supports'           => [ 'title' ],
+	] );
+
 	// TEAM MEMBERS
 	register_post_type( 'team_member', [
 		'labels' => [
@@ -791,7 +821,7 @@ function seoae_contact_handler(): void {
 		wp_send_json_error( 'Please accept the Privacy Policy to proceed.' );
 	}
 
-	// Save to DB
+	// Save to DB (legacy table — kept for backward compatibility)
 	global $wpdb;
 	$wpdb->insert( $wpdb->prefix . 'seoae_contacts', [
 		'name'       => $name,
@@ -803,6 +833,26 @@ function seoae_contact_handler(): void {
 		'message'    => "Website: $website\nCountry: $country\n\n$message",
 		'created_at' => current_time( 'mysql' ),
 	] );
+
+	// Save as contact_submission CPT so leads are visible in wp-admin → Enquiries
+	$post_title = $name . ( $company ? " — $company" : ( $business ? " — $business" : '' ) );
+	$submission_id = wp_insert_post( [
+		'post_type'   => 'contact_submission',
+		'post_title'  => sanitize_text_field( $post_title ),
+		'post_status' => 'publish',
+		'post_date'   => current_time( 'mysql' ),
+	] );
+	if ( $submission_id && ! is_wp_error( $submission_id ) ) {
+		update_post_meta( $submission_id, '_sub_email',   $email );
+		update_post_meta( $submission_id, '_sub_phone',   $phone );
+		update_post_meta( $submission_id, '_sub_company', $company ?: $business );
+		update_post_meta( $submission_id, '_sub_website', $website );
+		update_post_meta( $submission_id, '_sub_country', $country );
+		update_post_meta( $submission_id, '_sub_service', $service );
+		update_post_meta( $submission_id, '_sub_budget',  $budget );
+		update_post_meta( $submission_id, '_sub_message', $message );
+		update_post_meta( $submission_id, '_sub_status',  'new' );
+	}
 
 	// Notification to sales
 	$to_email = 'sales@searchengineoptimization.ae';
@@ -912,19 +962,142 @@ add_filter( 'menu_order', function( $menu_ord ) {
 	return [
 		'index.php',
 		'separator1',
+		'edit.php?post_type=contact_submission',
+		'separator2',
 		'edit.php?post_type=service',
 		'edit.php?post_type=case_study',
 		'edit.php?post_type=portfolio_item',
 		'edit.php?post_type=testimonial',
 		'edit.php?post_type=team_member',
-		'separator2',
+		'separator-last',
 		'edit.php',
 		'edit.php?post_type=page',
-		'separator-last',
 		'seoae-theme-settings',
 	];
 } );
 
+// ─────────────────────────────────────────────────────────────────────────────
+// CONTACT SUBMISSION ADMIN COLUMNS
+// ─────────────────────────────────────────────────────────────────────────────
+
+// Replace default columns with useful ones
+add_filter( 'manage_contact_submission_posts_columns', function( $cols ) {
+	return [
+		'cb'           => $cols['cb'],
+		'title'        => __( 'Name / Company', 'seo-ae' ),
+		'sub_email'    => __( 'Email', 'seo-ae' ),
+		'sub_phone'    => __( 'Phone', 'seo-ae' ),
+		'sub_service'  => __( 'Service', 'seo-ae' ),
+		'sub_budget'   => __( 'Budget', 'seo-ae' ),
+		'sub_country'  => __( 'Country', 'seo-ae' ),
+		'sub_status'   => __( 'Status', 'seo-ae' ),
+		'date'         => __( 'Date', 'seo-ae' ),
+	];
+} );
+
+add_action( 'manage_contact_submission_posts_custom_column', function( $col, $post_id ) {
+	switch ( $col ) {
+		case 'sub_email':
+			$v = get_post_meta( $post_id, '_sub_email', true );
+			if ( $v ) echo '<a href="mailto:' . esc_attr( $v ) . '">' . esc_html( $v ) . '</a>';
+			break;
+		case 'sub_phone':
+			echo esc_html( get_post_meta( $post_id, '_sub_phone', true ) ?: '—' );
+			break;
+		case 'sub_service':
+			echo esc_html( get_post_meta( $post_id, '_sub_service', true ) ?: '—' );
+			break;
+		case 'sub_budget':
+			echo esc_html( get_post_meta( $post_id, '_sub_budget', true ) ?: '—' );
+			break;
+		case 'sub_country':
+			echo esc_html( get_post_meta( $post_id, '_sub_country', true ) ?: '—' );
+			break;
+		case 'sub_status':
+			$status = get_post_meta( $post_id, '_sub_status', true ) ?: 'new';
+			$colors = [ 'new' => '#16b1d4', 'contacted' => '#f0a500', 'converted' => '#2ecc71', 'closed' => '#aaa' ];
+			$color  = $colors[ $status ] ?? '#aaa';
+			printf(
+				'<span style="display:inline-block;padding:2px 8px;border-radius:12px;font-size:.75rem;font-weight:600;background:%s;color:#fff;">%s</span>',
+				esc_attr( $color ),
+				esc_html( ucfirst( $status ) )
+			);
+			break;
+	}
+}, 10, 2 );
+
+// Make columns sortable
+add_filter( 'manage_edit-contact_submission_sortable_columns', function( $cols ) {
+	$cols['sub_email']   = '_sub_email';
+	$cols['sub_service'] = '_sub_service';
+	$cols['sub_status']  = '_sub_status';
+	return $cols;
+} );
+
+// Add a meta box on the edit screen to show full message details
+add_action( 'add_meta_boxes', function() {
+	add_meta_box(
+		'seoae_submission_details',
+		__( 'Enquiry Details', 'seo-ae' ),
+		function( $post ) {
+			$fields = [
+				'Email'    => get_post_meta( $post->ID, '_sub_email',   true ),
+				'Phone'    => get_post_meta( $post->ID, '_sub_phone',   true ),
+				'Company'  => get_post_meta( $post->ID, '_sub_company', true ),
+				'Website'  => get_post_meta( $post->ID, '_sub_website', true ),
+				'Country'  => get_post_meta( $post->ID, '_sub_country', true ),
+				'Service'  => get_post_meta( $post->ID, '_sub_service', true ),
+				'Budget'   => get_post_meta( $post->ID, '_sub_budget',  true ),
+				'Status'   => get_post_meta( $post->ID, '_sub_status',  true ),
+				'Message'  => get_post_meta( $post->ID, '_sub_message', true ),
+			];
+			echo '<table style="width:100%;border-collapse:collapse;">';
+			foreach ( $fields as $label => $value ) {
+				if ( ! $value ) continue;
+				$display = ( $label === 'Message' )
+					? '<pre style="white-space:pre-wrap;word-break:break-word;margin:0;">' . esc_html( $value ) . '</pre>'
+					: esc_html( $value );
+				echo "<tr style='border-bottom:1px solid #eee;'>
+					<td style='padding:6px 8px;font-weight:600;color:#555;white-space:nowrap;width:100px;'>" . esc_html( $label ) . "</td>
+					<td style='padding:6px 8px;'>$display</td>
+				</tr>";
+			}
+			echo '</table>';
+
+			// Status update widget
+			$current = get_post_meta( $post->ID, '_sub_status', true ) ?: 'new';
+			echo '<div style="margin-top:1rem;padding-top:1rem;border-top:1px solid #eee;">';
+			echo '<strong>Update Status:</strong> ';
+			wp_nonce_field( 'seoae_sub_status_nonce', 'seoae_sub_status_nonce' );
+			echo '<select name="seoae_sub_status" style="margin-left:.5rem;">';
+			foreach ( [ 'new' => 'New', 'contacted' => 'Contacted', 'converted' => 'Converted', 'closed' => 'Closed' ] as $val => $label ) {
+				$sel = selected( $current, $val, false );
+				echo "<option value='" . esc_attr($val) . "' $sel>" . esc_html($label) . "</option>";
+			}
+			echo '</select></div>';
+		},
+		'contact_submission',
+		'normal',
+		'high'
+	);
+} );
+
+// Save the status field from meta box
+add_action( 'save_post_contact_submission', function( $post_id ) {
+	if ( ! isset( $_POST['seoae_sub_status_nonce'] ) ) return;
+	if ( ! wp_verify_nonce( $_POST['seoae_sub_status_nonce'], 'seoae_sub_status_nonce' ) ) return;
+	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
+	if ( ! current_user_can( 'edit_post', $post_id ) ) return;
+	if ( isset( $_POST['seoae_sub_status'] ) ) {
+		$allowed = [ 'new', 'contacted', 'converted', 'closed' ];
+		$status  = sanitize_text_field( $_POST['seoae_sub_status'] );
+		if ( in_array( $status, $allowed, true ) ) {
+			update_post_meta( $post_id, '_sub_status', $status );
+		}
+	}
+} );
+
+// ─────────────────────────────────────────────────────────────────────────────
 // Add admin columns for services
 add_filter( 'manage_service_posts_columns', function( $cols ) {
 	return array_merge(
