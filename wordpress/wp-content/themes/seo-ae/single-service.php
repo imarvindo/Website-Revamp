@@ -2,6 +2,38 @@
 /**
  * Single Service Page Template
  */
+
+// ── FAQPage JSON-LD schema ────────────────────────────────────────────────────
+// Must be registered before get_header() fires wp_head().
+$_svc_faqs = get_post_meta( get_queried_object_id(), 'svc_faqs', true ) ?: [];
+if ( ! empty( $_svc_faqs ) ) {
+	add_action( 'wp_head', function() use ( $_svc_faqs ) {
+		$entities = [];
+		foreach ( $_svc_faqs as $faq ) {
+			$q = isset( $faq['question'] ) ? trim( $faq['question'] ) : '';
+			$a = isset( $faq['answer'] )   ? trim( strip_tags( $faq['answer'] ) ) : '';
+			if ( $q && $a ) {
+				$entities[] = [
+					'@type'          => 'Question',
+					'name'           => $q,
+					'acceptedAnswer' => [ '@type' => 'Answer', 'text' => $a ],
+				];
+			}
+		}
+		if ( ! empty( $entities ) ) {
+			$schema = [
+				'@context'   => 'https://schema.org',
+				'@type'      => 'FAQPage',
+				'mainEntity' => $entities,
+			];
+			echo '<script type="application/ld+json">'
+				. wp_json_encode( $schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT )
+				. '</script>' . "\n";
+		}
+	}, 20 );
+}
+// ─────────────────────────────────────────────────────────────────────────────
+
 get_header();
 while (have_posts()) : the_post();
 $short_desc   = get_post_meta( get_the_ID(), 'short_description', true ) ?: get_the_excerpt();
