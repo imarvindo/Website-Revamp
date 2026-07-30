@@ -42,6 +42,9 @@ $schema_org = [
 		function_exists('get_field') ? get_field('social_facebook','option')  : '',
 	]),
 ];
+
+// AggregateRating and Review schema are emitted in the GBP widget section below,
+// only when the Google Places API is configured and returns real review data.
 echo '<script type="application/ld+json">' . wp_json_encode($schema_org, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . '</script>' . "\n";
 
 // ── Dubai FAQs ────────────────────────────────────────────────────────────────
@@ -435,6 +438,169 @@ echo '<script type="application/ld+json">' . wp_json_encode([
 				</iframe>
 			</div>
 		</div>
+	</div>
+</section>
+
+<!-- ══════════════════ GOOGLE BUSINESS PROFILE REVIEW WIDGET ════════════════ -->
+<?php
+/**
+ * Fetch real Google Business Profile reviews via Places API.
+ * seoae_get_gbp_reviews() is defined in functions.php.
+ * Returns structured data (rating, user_ratings_total, reviews[], profile_url)
+ * or false when the Place ID / API key are not yet configured in Theme Settings.
+ */
+$gbp = seoae_get_gbp_reviews();
+?>
+<section class="section" style="background:linear-gradient(180deg,#fff 0%,#f8fafc 100%);">
+	<div class="container">
+
+<?php if ( $gbp && ! empty( $gbp['reviews'] ) ) :
+	// ── A. GBP API is configured and returned real reviews ──────────────────
+	$gbp_rating      = $gbp['rating'];
+	$gbp_total       = $gbp['user_ratings_total'];
+	$gbp_profile_url = $gbp['profile_url'];
+
+	// Emit Review + AggregateRating schema from real GBP data
+	$gbp_schema_reviews = [];
+	foreach ( $gbp['reviews'] as $r ) {
+		$gbp_schema_reviews[] = [
+			'@type'        => 'Review',
+			'author'       => [ '@type' => 'Person', 'name' => $r['author_name'] ],
+			'reviewBody'   => $r['text'],
+			'reviewRating' => [ '@type' => 'Rating', 'ratingValue' => $r['rating'], 'bestRating' => '5' ],
+		];
+	}
+	if ( $gbp_schema_reviews ) {
+		$gbp_schema = [
+			'@context'        => 'https://schema.org',
+			'@type'           => 'LocalBusiness',
+			'name'            => 'SearchEngineOptimization.ae — Dubai SEO Agency',
+			'url'             => home_url( '/dubai/' ),
+			'aggregateRating' => [
+				'@type'       => 'AggregateRating',
+				'ratingValue' => (string) $gbp_rating,
+				'reviewCount' => (string) $gbp_total,
+				'bestRating'  => '5',
+				'worstRating' => '1',
+			],
+			'review' => $gbp_schema_reviews,
+		];
+		echo '<script type="application/ld+json">' . wp_json_encode( $gbp_schema, JSON_UNESCAPED_UNICODE ) . '</script>' . "\n";
+	}
+?>
+		<div class="section-header section-header--center">
+			<?php seoae_section_label('Google Reviews'); ?>
+			<h2>What Our Clients Say on Google</h2>
+			<p class="section-header__desc" style="max-width:540px;margin-left:auto;margin-right:auto;">
+				Real reviews from our Google Business Profile — written by Dubai businesses we have helped grow.
+			</p>
+		</div>
+
+		<!-- Aggregate rating bar — sourced from GBP API -->
+		<div style="display:flex;align-items:center;justify-content:center;gap:2rem;flex-wrap:wrap;margin:2rem 0 2.75rem;padding:1.5rem 2rem;background:#fff;border:1.5px solid #e2e8f0;border-radius:18px;max-width:520px;margin-left:auto;margin-right:auto;">
+			<div style="text-align:center;">
+				<div style="font-size:3rem;font-weight:900;color:#101A6A;line-height:1;"><?php echo esc_html( number_format( $gbp_rating, 1 ) ); ?></div>
+				<div style="display:flex;gap:3px;justify-content:center;margin:.3rem 0;">
+					<?php for ( $s = 1; $s <= 5; $s++ ) : ?>
+					<svg width="18" height="18" viewBox="0 0 24 24" fill="<?php echo $s <= floor( $gbp_rating ) ? '#FBBF24' : '#e2e8f0'; ?>"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+					<?php endfor; ?>
+				</div>
+				<div style="font-size:.8rem;color:#6b7280;font-weight:600;"><?php echo esc_html( number_format( $gbp_rating, 1 ) ); ?> out of 5</div>
+			</div>
+			<div style="width:1.5px;height:60px;background:#e2e8f0;"></div>
+			<div>
+				<div style="font-size:1.75rem;font-weight:800;color:#101A6A;line-height:1.1;"><?php echo esc_html( number_format( $gbp_total ) ); ?>+</div>
+				<div style="font-size:.8rem;color:#6b7280;margin-top:.25rem;">Google reviews</div>
+				<!-- Google logo — used only here because data IS from Google -->
+				<div style="display:flex;align-items:center;gap:.4rem;margin-top:.5rem;">
+					<svg width="16" height="16" viewBox="0 0 24 24" aria-label="Google"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+					<span style="font-size:.75rem;color:#6b7280;font-weight:600;">Google Business Profile</span>
+				</div>
+			</div>
+		</div>
+
+		<!-- Review cards — one per GBP review returned by the API (up to 5) -->
+		<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem;">
+			<?php foreach ( $gbp['reviews'] as $rev ) :
+				$stars    = (int) $rev['rating'];
+				$initials = strtoupper( mb_substr( $rev['author_name'], 0, 1 ) );
+				$ago      = esc_html( $rev['relative_time_description'] );
+			?>
+			<div style="background:#fff;border:1.5px solid #e2e8f0;border-radius:18px;padding:1.6rem 1.75rem;display:flex;flex-direction:column;gap:1rem;transition:box-shadow .2s;" class="card-lift">
+				<div style="display:flex;align-items:flex-start;gap:.875rem;">
+					<div style="flex-shrink:0;">
+						<?php if ( ! empty( $rev['profile_photo_url'] ) ) : ?>
+						<img src="<?php echo esc_url( $rev['profile_photo_url'] ); ?>" alt="<?php echo esc_attr( $rev['author_name'] ); ?>" width="44" height="44" loading="lazy" style="width:44px;height:44px;border-radius:50%;object-fit:cover;border:2px solid #e2e8f0;">
+						<?php else : ?>
+						<div style="width:44px;height:44px;border-radius:50%;background:var(--color-primary,#16B1D4);display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:800;color:#fff;"><?php echo esc_html( $initials ); ?></div>
+						<?php endif; ?>
+					</div>
+					<div style="flex:1;min-width:0;">
+						<?php if ( ! empty( $rev['author_url'] ) ) : ?>
+						<a href="<?php echo esc_url( $rev['author_url'] ); ?>" target="_blank" rel="noopener noreferrer" style="font-weight:700;font-size:.9375rem;color:#101A6A;text-decoration:none;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;"><?php echo esc_html( $rev['author_name'] ); ?></a>
+						<?php else : ?>
+						<div style="font-weight:700;font-size:.9375rem;color:#101A6A;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;"><?php echo esc_html( $rev['author_name'] ); ?></div>
+						<?php endif; ?>
+						<?php if ( $ago ) : ?>
+						<div style="font-size:.775rem;color:#9ca3af;margin-top:.1rem;"><?php echo $ago; ?></div>
+						<?php endif; ?>
+						<div style="display:flex;gap:2px;margin-top:.35rem;">
+							<?php for ( $s = 1; $s <= 5; $s++ ) : ?>
+							<svg width="13" height="13" viewBox="0 0 24 24" fill="<?php echo $s <= $stars ? '#FBBF24' : '#e2e8f0'; ?>"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+							<?php endfor; ?>
+						</div>
+					</div>
+					<!-- Google "G" icon per card — data IS from Google -->
+					<svg width="18" height="18" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:.2rem;" aria-label="Google review"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+				</div>
+				<p style="font-size:.875rem;color:#374151;line-height:1.72;margin:0;flex:1;">
+					"<?php echo esc_html( $rev['text'] ); ?>"
+				</p>
+				<div style="display:flex;align-items:center;gap:.4rem;padding-top:.75rem;border-top:1px solid #f0f4f8;">
+					<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#16B1D4" stroke-width="2.5"><path stroke-linecap="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+					<span style="font-size:.72rem;font-weight:600;color:#16B1D4;text-transform:uppercase;letter-spacing:.07em;">Google Review</span>
+				</div>
+			</div>
+			<?php endforeach; ?>
+		</div>
+
+		<div style="text-align:center;margin-top:2.25rem;">
+			<a href="<?php echo esc_url( $gbp_profile_url ); ?>" target="_blank" rel="noopener noreferrer" class="btn btn--outline" style="border-color:#e2e8f0;color:#101A6A;">
+				See All <?php echo esc_html( number_format( $gbp_total ) ); ?> Google Reviews →
+			</a>
+		</div>
+
+<?php else :
+	// ── B. GBP not yet configured — show a transparent, honest placeholder ──
+	// No fabricated ratings, no fake reviews. Just a clean prompt to configure or visit the profile.
+	$gbp_profile_url = 'https://search.google.com/local/reviews?placeid='; // blank until configured
+?>
+		<div class="section-header section-header--center">
+			<?php seoae_section_label('Google Reviews'); ?>
+			<h2>See Our Google Business Profile Reviews</h2>
+		</div>
+
+		<div style="max-width:560px;margin:2rem auto 0;padding:2.5rem 2rem;background:#fff;border:2px dashed #e2e8f0;border-radius:20px;text-align:center;">
+			<!-- Google logo -->
+			<div style="display:flex;align-items:center;justify-content:center;gap:.5rem;margin-bottom:1.25rem;">
+				<svg width="28" height="28" viewBox="0 0 24 24" aria-label="Google"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+				<span style="font-size:1.1rem;font-weight:700;color:#101A6A;">Google Business Profile</span>
+			</div>
+			<p style="color:#6b7280;font-size:.9375rem;line-height:1.7;margin-bottom:1.5rem;">
+				We are rated by our clients on Google. Visit our Google Business Profile to read our verified reviews.
+			</p>
+			<a href="https://www.google.com/search?q=SearchEngineOptimization.ae+Dubai" target="_blank" rel="noopener noreferrer" class="btn btn--primary">
+				Read Our Google Reviews →
+			</a>
+			<?php if ( current_user_can( 'manage_options' ) ) : ?>
+			<p style="margin-top:1.25rem;font-size:.8rem;color:#9ca3af;border-top:1px solid #f0f4f8;padding-top:1rem;">
+				<strong>Admin notice:</strong> To display live GBP reviews here, add your Google Place ID and Places API key under
+				<a href="<?php echo esc_url( admin_url( 'admin.php?page=seoae-theme-settings' ) ); ?>" style="color:var(--color-primary,#16B1D4);">Theme Settings → Google Business</a>.
+			</p>
+			<?php endif; ?>
+		</div>
+
+<?php endif; ?>
 	</div>
 </section>
 

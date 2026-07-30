@@ -275,7 +275,9 @@ add_action( 'acf/init', function () {
 			[ 'key' => 'field_site_phone',   'label' => 'Phone Number',   'name' => 'site_phone',   'type' => 'text',  'default_value' => '' ],
 			[ 'key' => 'field_site_email',   'label' => 'Email Address',   'name' => 'site_email',   'type' => 'email', 'default_value' => 'sales@searchengineoptimization.ae' ],
 			[ 'key' => 'field_site_address', 'label' => 'Office Address',  'name' => 'site_address', 'type' => 'text',  'default_value' => 'M-01, Muteena Street, Above Saravana Bhavan, Deira, Dubai, UAE' ],
-			[ 'key' => 'field_site_maps_url','label' => 'Google Maps URL', 'name' => 'site_maps_url','type' => 'url' ],
+			[ 'key' => 'field_site_maps_url',     'label' => 'Google Maps URL',              'name' => 'site_maps_url',     'type' => 'url' ],
+			[ 'key' => 'field_gbp_place_id',      'label' => 'Google Business Place ID',     'name' => 'gbp_place_id',      'type' => 'text',  'instructions' => 'Find via Google Maps → Share → embed the URL, the Place ID starts with "ChIJ…"' ],
+			[ 'key' => 'field_gbp_places_api_key','label' => 'Google Places API Key',        'name' => 'gbp_places_api_key','type' => 'text',  'instructions' => 'Needs Places API enabled. Used only server-side; never exposed to the browser.' ],
 			[ 'key' => 'field_social_linkedin',  'label' => 'LinkedIn URL',  'name' => 'social_linkedin',  'type' => 'url' ],
 			[ 'key' => 'field_social_instagram', 'label' => 'Instagram URL', 'name' => 'social_instagram', 'type' => 'url' ],
 			[ 'key' => 'field_social_facebook',  'label' => 'Facebook URL',  'name' => 'social_facebook',  'type' => 'url' ],
@@ -783,6 +785,104 @@ function seoae_get_services( int $limit = -1 ): array {
 	] );
 	return $q->posts ?: [];
 }
+
+/**
+ * Fetch Google Business Profile reviews via Places Details API.
+ *
+ * Requires "gbp_place_id" and "gbp_places_api_key" set in Theme Settings (ACF options).
+ * Results are cached in a WP transient for 24 hours to stay within quota.
+ * Returns an array with keys: rating, user_ratings_total, reviews[], profile_url
+ * or false when not configured or on API error.
+ *
+ * @param  bool $force_refresh  Pass true to bypass the cache (e.g. from an admin action).
+ * @return array|false
+ */
+function seoae_get_gbp_reviews( bool $force_refresh = false ) {
+	$place_id = function_exists( 'get_field' ) ? get_field( 'gbp_place_id',       'option' ) : get_option( 'gbp_place_id' );
+	$api_key  = function_exists( 'get_field' ) ? get_field( 'gbp_places_api_key', 'option' ) : get_option( 'gbp_places_api_key' );
+
+	if ( empty( $place_id ) || empty( $api_key ) ) {
+		return false; // Not configured — caller shows transparent placeholder
+	}
+
+	$cache_key = 'seoae_gbp_reviews_' . md5( $place_id );
+
+	if ( ! $force_refresh ) {
+		$cached = get_transient( $cache_key );
+		if ( false !== $cached ) {
+			return $cached; // Serve from cache
+		}
+	}
+
+	// Fetch from Google Places Details API (v1 basic fields)
+	$url = add_query_arg( [
+		'place_id' => rawurlencode( $place_id ),
+		'fields'   => 'name,rating,user_ratings_total,reviews',
+		'key'      => $api_key,
+		'language' => 'en',
+	], 'https://maps.googleapis.com/maps/api/place/details/json' );
+
+	$response = wp_remote_get( $url, [
+		'timeout'   => 10,
+		'sslverify' => true,
+	] );
+
+	if ( is_wp_error( $response ) || wp_remote_retrieve_response_code( $response ) !== 200 ) {
+		// Cache failure for 30 min so we don't hammer the API on every page load
+		set_transient( $cache_key, false, 30 * MINUTE_IN_SECONDS );
+		return false;
+	}
+
+	$body = json_decode( wp_remote_retrieve_body( $response ), true );
+
+	if ( empty( $body['result'] ) || ( $body['status'] ?? '' ) !== 'OK' ) {
+		set_transient( $cache_key, false, 30 * MINUTE_IN_SECONDS );
+		return false;
+	}
+
+	$result = $body['result'];
+
+	$data = [
+		'rating'              => (float) ( $result['rating'] ?? 0 ),
+		'user_ratings_total'  => (int)   ( $result['user_ratings_total'] ?? 0 ),
+		'profile_url'         => 'https://search.google.com/local/reviews?placeid=' . rawurlencode( $place_id ),
+		'reviews'             => [],
+	];
+
+	foreach ( (array) ( $result['reviews'] ?? [] ) as $r ) {
+		if ( empty( $r['text'] ) ) continue;
+		$data['reviews'][] = [
+			'author_name'          => $r['author_name']  ?? '',
+			'author_url'           => $r['author_url']   ?? '',
+			'profile_photo_url'    => $r['profile_photo_url'] ?? '',
+			'rating'               => (int) ( $r['rating'] ?? 5 ),
+			'text'                 => $r['text'],
+			'relative_time_description' => $r['relative_time_description'] ?? '',
+			'time'                 => (int) ( $r['time'] ?? 0 ),
+		];
+	}
+
+	// Cache for 24 hours
+	set_transient( $cache_key, $data, DAY_IN_SECONDS );
+
+	return $data;
+}
+
+/**
+ * AJAX handler to clear the GBP review cache from wp-admin.
+ * Usage: POST wp-admin/admin-ajax.php with action=seoae_clear_gbp_cache&_wpnonce=...
+ */
+add_action( 'wp_ajax_seoae_clear_gbp_cache', function () {
+	check_ajax_referer( 'seoae_clear_gbp_cache' );
+	if ( ! current_user_can( 'manage_options' ) ) {
+		wp_send_json_error( 'Insufficient permissions.' );
+	}
+	$place_id = function_exists( 'get_field' ) ? get_field( 'gbp_place_id', 'option' ) : '';
+	if ( $place_id ) {
+		delete_transient( 'seoae_gbp_reviews_' . md5( $place_id ) );
+	}
+	wp_send_json_success( 'GBP review cache cleared.' );
+} );
 
 /**
  * Get testimonials.
