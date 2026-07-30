@@ -620,6 +620,31 @@ $case_studies = new WP_Query(['post_type'=>'case_study','posts_per_page'=>4,'pos
 </section>
 <?php endif; ?>
 
+<!-- ════════════════════════════ DUBAI LOCAL SEO CTA ════════════════════════════ -->
+<section style="background:linear-gradient(135deg,#101A6A 0%,#0e2070 100%);padding:4rem 0;">
+	<div class="container">
+		<div style="display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:center;flex-wrap:wrap;">
+			<div>
+				<span style="display:inline-block;background:rgba(22,177,212,.2);color:#16B1D4;font-size:.7rem;font-weight:800;letter-spacing:.15em;text-transform:uppercase;padding:.35rem .85rem;border-radius:20px;margin-bottom:.875rem;border:1px solid rgba(22,177,212,.3);">Dubai Local SEO</span>
+				<h2 style="color:#fff;font-size:clamp(1.5rem,3vw,2.1rem);font-weight:800;line-height:1.2;margin-bottom:.75rem;">
+					Based in Dubai. Serving All UAE Businesses.
+				</h2>
+				<p style="color:rgba(255,255,255,.72);font-size:.9375rem;line-height:1.7;max-width:520px;margin-bottom:0;">
+					Our Dubai office delivers hyper-local SEO campaigns across every district — from Deira to Marina, Business Bay to Downtown. 6M+ monthly Dubai searches are waiting.
+				</p>
+			</div>
+			<div style="display:flex;flex-direction:column;gap:.75rem;min-width:220px;">
+				<a href="<?php echo esc_url(home_url('/dubai/')); ?>" class="btn btn--primary btn--lg" style="text-align:center;white-space:nowrap;">
+					Dubai SEO Services →
+				</a>
+				<a href="<?php echo esc_url(home_url('/contact/')); ?>" class="btn btn--inverted" style="text-align:center;background:rgba(255,255,255,.1);color:#fff;border:1.5px solid rgba(255,255,255,.25);">
+					Get Free Local Audit
+				</a>
+			</div>
+		</div>
+	</div>
+</section>
+
 <!-- ════════════════════════════════ HOME FAQ ════════════════════════════════════ -->
 <?php
 $home_faqs = [

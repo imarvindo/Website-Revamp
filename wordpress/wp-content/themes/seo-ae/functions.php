@@ -1263,8 +1263,8 @@ add_action( 'template_redirect', function () {
 	$uri = trailingslashit( $uri );
 
 	// Old city slug (before rename)
+	// NOTE: /dubai/ is now a live page — redirect removed
 	$city_redirects = [
-		'/dubai/'                         => '/seo-company-dubai/',
 		'/locations/seo-abu-dhabi/'       => '/seo-company-abu-dhabi/',
 		'/locations/seo-sharjah/'         => '/seo-company-sharjah/',
 		'/locations/seo-ajman/'           => '/seo-company-ajman/',
