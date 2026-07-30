@@ -328,27 +328,35 @@ echo '<script type="application/ld+json">' . wp_json_encode([
 		<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:1rem;margin-top:2.5rem;">
 			<?php
 			$districts = [
-				['name' => 'Dubai Marina',     'url' => '/dubai/marina/'],
-				['name' => 'Business Bay',     'url' => '/dubai/business-bay/'],
-				['name' => 'Downtown Dubai',   'url' => '/dubai/downtown/'],
-				['name' => 'Deira',            'url' => '/dubai/deira/'],
-				['name' => 'DIFC',             'url' => '/dubai/difc/'],
-				['name' => 'JLT',              'url' => '/dubai/jlt/'],
-				['name' => 'Jumeirah',         'url' => '/dubai/jumeirah/'],
-				['name' => 'Bur Dubai',        'url' => '/dubai/bur-dubai/'],
-				['name' => 'Al Quoz',          'url' => '/dubai/al-quoz/'],
-				['name' => 'Dubai Hills',      'url' => '/dubai/dubai-hills/'],
-				['name' => 'Palm Jumeirah',    'url' => '/dubai/palm-jumeirah/'],
-				['name' => 'Mirdif',           'url' => '/dubai/mirdif/'],
+				// Dedicated sub-pages exist for these four districts
+				['name' => 'Dubai Marina',     'url' => '/dubai/marina/',       'has_page' => true],
+				['name' => 'Business Bay',     'url' => '/dubai/business-bay/', 'has_page' => true],
+				['name' => 'Downtown Dubai',   'url' => '/dubai/downtown/',     'has_page' => true],
+				['name' => 'Deira',            'url' => '/dubai/deira/',        'has_page' => true],
+				// Remaining districts — no dedicated sub-page yet
+				['name' => 'DIFC',             'url' => '/dubai/difc/',         'has_page' => false],
+				['name' => 'JLT',              'url' => '/dubai/jlt/',          'has_page' => false],
+				['name' => 'Jumeirah',         'url' => '/dubai/jumeirah/',     'has_page' => false],
+				['name' => 'Bur Dubai',        'url' => '/dubai/bur-dubai/',    'has_page' => false],
+				['name' => 'Al Quoz',          'url' => '/dubai/al-quoz/',      'has_page' => false],
+				['name' => 'Dubai Hills',      'url' => '/dubai/dubai-hills/',  'has_page' => false],
+				['name' => 'Palm Jumeirah',    'url' => '/dubai/palm-jumeirah/','has_page' => false],
+				['name' => 'Mirdif',           'url' => '/dubai/mirdif/',       'has_page' => false],
 			];
-			foreach ($districts as $d) : ?>
-			<div style="background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:12px;padding:1.1rem 1.25rem;transition:border-color .2s,box-shadow .2s;" class="card-lift">
+			foreach ($districts as $d) :
+				$tag = $d['has_page'] ? 'a' : 'div';
+				$link_attr = $d['has_page'] ? ' href="' . esc_url(home_url($d['url'])) . '"' : '';
+				$border_color = $d['has_page'] ? 'var(--color-primary,#16B1D4)' : '#e2e8f0';
+			?>
+			<<?php echo $tag; ?><?php echo $link_attr; ?> style="background:#f8fafc;border:1.5px solid <?php echo $border_color; ?>;border-radius:12px;padding:1.1rem 1.25rem;transition:border-color .2s,box-shadow .2s;text-decoration:none;display:block;" class="card-lift">
 				<div style="display:flex;align-items:center;gap:.6rem;">
 					<svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="#16B1D4" stroke-width="2"><path stroke-linecap="round" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/></svg>
 					<span style="font-weight:600;font-size:.875rem;color:#101A6A;"><?php echo esc_html($d['name']); ?></span>
 				</div>
-				<p style="font-size:.75rem;color:#6b7280;margin-top:.35rem;">Local SEO Services</p>
-			</div>
+				<p style="font-size:.75rem;color:<?php echo $d['has_page'] ? 'var(--color-primary,#16B1D4)' : '#6b7280'; ?>;margin-top:.35rem;font-weight:<?php echo $d['has_page'] ? '600' : '400'; ?>;">
+					<?php echo $d['has_page'] ? 'View District SEO →' : 'Local SEO Services'; ?>
+				</p>
+			</<?php echo $tag; ?>>
 			<?php endforeach; ?>
 		</div>
 	</div>
