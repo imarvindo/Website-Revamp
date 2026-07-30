@@ -24,9 +24,18 @@ export default function About() {
             </p>
             <div className="flex items-center gap-6">
               <div className="flex -space-x-4">
-                {[1,2,3,4].map(i => (
-                  <div key={i} className="w-12 h-12 rounded-full border-2 border-secondary bg-primary flex items-center justify-center overflow-hidden">
-                    <img src={`https://i.pravatar.cc/100?img=${i+10}`} alt="Team member" />
+                {[
+                  { initials: "RK", bg: "#101A6A" },
+                  { initials: "ZA", bg: "#16B1D4" },
+                  { initials: "MO", bg: "#0e7fa0" },
+                  { initials: "NH", bg: "#101A6A" },
+                ].map((m) => (
+                  <div
+                    key={m.initials}
+                    className="w-12 h-12 rounded-full border-2 border-white/30 flex items-center justify-center text-white font-extrabold text-xs shrink-0"
+                    style={{ background: m.bg }}
+                  >
+                    {m.initials}
                   </div>
                 ))}
               </div>
