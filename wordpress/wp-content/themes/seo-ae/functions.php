@@ -484,6 +484,7 @@ add_action( 'acf/init', function () {
 			[ 'key' => 'field_test_name',    'label' => 'Client Name',    'name' => 'client_name',    'type' => 'text' ],
 			[ 'key' => 'field_test_role',    'label' => 'Role / Title',   'name' => 'client_role',    'type' => 'text' ],
 			[ 'key' => 'field_test_company', 'label' => 'Company',        'name' => 'client_company', 'type' => 'text' ],
+			[ 'key' => 'field_test_industry','label' => 'Industry',       'name' => 'industry',       'type' => 'select', 'choices' => [ 'Real Estate' => 'Real Estate', 'Hospitality' => 'Hospitality', 'E-commerce' => 'E-commerce', 'Legal' => 'Legal', 'Technology' => 'Technology', 'Finance' => 'Finance', 'Logistics' => 'Logistics', 'Construction' => 'Construction', 'Education' => 'Education', 'Automotive' => 'Automotive', 'HR & Recruitment' => 'HR & Recruitment', 'Events & Marketing' => 'Events & Marketing', 'Consulting' => 'Consulting', 'Other' => 'Other' ], 'allow_null' => 1 ],
 			[ 'key' => 'field_test_avatar',  'label' => 'Avatar',         'name' => 'avatar',         'type' => 'image', 'return_format' => 'url' ],
 			[ 'key' => 'field_test_rating',  'label' => 'Rating (1–5)',   'name' => 'rating',         'type' => 'number', 'min' => 1, 'max' => 5, 'default_value' => 5 ],
 			[ 'key' => 'field_test_content', 'label' => 'Testimonial',    'name' => 'content',        'type' => 'textarea', 'rows' => 5 ],
