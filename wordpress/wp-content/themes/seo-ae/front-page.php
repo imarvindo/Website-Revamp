@@ -11,16 +11,14 @@ $hero_cta_primary = get_field('hero_cta_primary','option')   ?: 'Get Your Free S
 $hero_cta_primary_url = get_field('hero_cta_primary_url','option') ?: '/contact/';
 $hero_cta_sec     = get_field('hero_cta_secondary','option') ?: 'View Our Results';
 $hero_cta_sec_url = get_field('hero_cta_secondary_url','option') ?: '/case-studies/';
-$hero_stats       = get_field('hero_stats','option')         ?: [];
-
-if ( empty($hero_stats) ) {
-	$hero_stats = [
-		['stat_prefix' => '+', 'stat_value' => '340', 'stat_suffix' => '%',  'stat_label' => 'AVG. ROI INCREASE'],
-		['stat_prefix' => '',  'stat_value' => '345', 'stat_suffix' => '+',  'stat_label' => 'PROJECTS DELIVERED'],
-		['stat_prefix' => '',  'stat_value' => '4.9', 'stat_suffix' => '/5', 'stat_label' => 'GOOGLE RATING'],
-		['stat_prefix' => '',  'stat_value' => '8',   'stat_suffix' => '+',  'stat_label' => 'YEARS EXPERIENCE'],
-	];
-}
+// Brand-authoritative stats — hardcoded as single source of truth.
+// Update these values here when the agency's real numbers change.
+$hero_stats = [
+	['stat_prefix' => '+', 'stat_value' => '206', 'stat_suffix' => '%',  'stat_label' => 'AVG. ROI INCREASE'],
+	['stat_prefix' => '',  'stat_value' => '345', 'stat_suffix' => '+',  'stat_label' => 'CLIENTS SERVED'],
+	['stat_prefix' => '',  'stat_value' => '4.8', 'stat_suffix' => '/5', 'stat_label' => 'GOOGLE RATING'],
+	['stat_prefix' => '',  'stat_value' => '5',   'stat_suffix' => '+',  'stat_label' => 'YEARS EXPERIENCE'],
+];
 
 $services     = seoae_get_services();
 $testimonials = seoae_get_testimonials(20);
