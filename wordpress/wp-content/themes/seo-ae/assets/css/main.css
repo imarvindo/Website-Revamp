@@ -1223,7 +1223,7 @@ p:last-child { margin-bottom: 0; }
   white-space: nowrap;
 }
 .footer__prebar-btn:hover { background: #f0f9ff; transform: translateY(-1px); }
-.footer__prebar-phone {
+.footer__prebar-phone { display: none; } .footer__prebar-phone-REMOVED {
   display: inline-flex; align-items: center; gap: .4rem;
   font-size: .875rem; font-weight: 600; color: rgba(255,255,255,.85);
   text-decoration: none; transition: color .2s;
