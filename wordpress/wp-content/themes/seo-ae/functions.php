@@ -625,13 +625,41 @@ add_action( 'wp_head', function () {
 }, 20 );
 
 // ─────────────────────────────────────────────────────────────────────────────
-// 6. ORGANIZATION SCHEMA
+// 6. ORGANIZATION SCHEMA (with AggregateRating + Review markup)
 // ─────────────────────────────────────────────────────────────────────────────
 add_action( 'wp_head', function () {
 	if ( ! is_front_page() ) return;
-	$phone   = '';
 	$email   = function_exists( 'get_field' ) ? get_field( 'site_email', 'option' )   : 'sales@searchengineoptimization.ae';
 	$address = function_exists( 'get_field' ) ? get_field( 'site_address', 'option' ) : 'M-01, Muteena Street, Above Saravana Bhavan, Deira, Dubai, UAE';
+
+	// ── Build individual Review objects from top 5 testimonials ──────────────
+	$testimonials = get_posts( [
+		'post_type'      => 'testimonial',
+		'post_status'    => 'publish',
+		'posts_per_page' => 5,
+		'orderby'        => 'date',
+		'order'          => 'DESC',
+	] );
+
+	$reviews = [];
+	foreach ( $testimonials as $t ) {
+		$name    = ( function_exists('get_field') ? get_field( 'client_name', $t->ID ) : '' ) ?: $t->post_title;
+		$content = ( function_exists('get_field') ? get_field( 'content',     $t->ID ) : '' ) ?: $t->post_content;
+		$rating  = intval( ( function_exists('get_field') ? get_field( 'rating', $t->ID ) : 0 ) ?: 5 );
+		if ( ! $content ) continue;
+		$reviews[] = [
+			'@type'         => 'Review',
+			'author'        => [ '@type' => 'Person', 'name' => $name ],
+			'datePublished' => get_the_date( 'Y-m-d', $t ),
+			'reviewBody'    => wp_strip_all_tags( $content ),
+			'reviewRating'  => [
+				'@type'       => 'Rating',
+				'ratingValue' => $rating,
+				'bestRating'  => 5,
+				'worstRating' => 1,
+			],
+		];
+	}
 
 	$schema = [
 		'@context' => 'https://schema.org',
@@ -667,6 +695,10 @@ add_action( 'wp_head', function () {
 			function_exists('get_field') ? get_field('social_facebook','option') : '',
 		]),
 	];
+
+	if ( ! empty( $reviews ) ) {
+		$schema['review'] = $reviews;
+	}
 
 	echo '<script type="application/ld+json">' . wp_json_encode( $schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ) . '</script>' . "\n";
 }, 21 );
