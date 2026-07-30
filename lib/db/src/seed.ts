@@ -8,7 +8,7 @@
  * testimonials so it is safe to re-run on a fresh or existing database.
  */
 
-import { db, caseStudiesTable, testimonialsTable } from "./index.js";
+import { db, caseStudiesTable, testimonialsTable, portfolioTable } from "./index.js";
 
 // ─── Case Studies ────────────────────────────────────────────────────────────
 
@@ -138,6 +138,91 @@ const testimonials = [
   },
 ];
 
+// ─── Portfolio Items ──────────────────────────────────────────────────────────
+
+const portfolioItems = [
+  {
+    slug: "boutiqaat-seo-overhaul",
+    title: "Organic Growth Engine — Beauty E-Commerce",
+    client: "Boutiqaat UAE",
+    category: "SEO",
+    description:
+      "Full technical SEO overhaul for a 4,200-product beauty platform: resolved 380+ duplicate-content issues, rebuilt topic clusters around MENA beauty intent, and launched an Arabic link-acquisition campaign. Organic traffic grew 312% in 12 months.",
+    technologies: ["Technical SEO", "Content Strategy", "Arabic SEO", "Link Building"],
+    completedAt: new Date("2024-06-01"),
+  },
+  {
+    slug: "fogo-ppc-restructure",
+    title: "Google Ads Restructure — Multi-Location Restaurant",
+    client: "Fogo de Chão UAE",
+    category: "PPC",
+    description:
+      "Rebuilt Google Ads architecture across 12 UAE restaurant locations with location-specific ad groups and Performance Max campaigns. Cost-per-reservation dropped from AED 180 to AED 42 while monthly reservations grew 340%.",
+    technologies: ["Google Ads", "Performance Max", "Conversion Tracking", "Audience Segmentation"],
+    completedAt: new Date("2024-03-15"),
+  },
+  {
+    slug: "sobha-social-media-growth",
+    title: "Social Media & Investor Lead Generation — Luxury Real Estate",
+    client: "Sobha Realty",
+    category: "Social Media",
+    description:
+      "Built a premium social content engine with cinematic property tours and CEO thought-leadership series. Instagram following grew from 3,000 to 47,200 with a 4.8% engagement rate and 186 qualified investor leads per month.",
+    technologies: ["Instagram", "LinkedIn", "Paid Social", "Video Production"],
+    completedAt: new Date("2024-09-01"),
+  },
+  {
+    slug: "sarwa-conversion-redesign",
+    title: "Acquisition Funnel Redesign — FinTech Platform",
+    client: "Sarwa Invest",
+    category: "Web Design",
+    description:
+      "Redesigned the full sign-up funnel for a Dubai robo-advisory app: simplified onboarding from 11 steps to 4, rebuilt the homepage around social proof, and rebuilt the mobile experience targeting 90+ Core Web Vitals. Conversion rate grew from 4.2% to 9.7%.",
+    technologies: ["UX Design", "React", "Core Web Vitals", "A/B Testing"],
+    completedAt: new Date("2023-12-01"),
+  },
+  {
+    slug: "property-finder-technical-seo",
+    title: "Technical SEO & Crawl Architecture — Property Portal",
+    client: "Property Finder MENA",
+    category: "SEO",
+    description:
+      "Resolved crawl budget waste across a 1M+ page listing portal: implemented dynamic rendering, rebuilt XML sitemap architecture, and introduced faceted-URL canonicalisation. Indexed pages grew by 62% and top-3 keyword rankings by 218% in 9 months.",
+    technologies: ["Technical SEO", "JavaScript SEO", "Crawl Optimisation", "Schema Markup"],
+    completedAt: new Date("2024-01-20"),
+  },
+  {
+    slug: "rotana-social-f-and-b",
+    title: "F&B Social Media — Hospitality Brand",
+    client: "Rotana Hotels & Resorts",
+    category: "Social Media",
+    description:
+      "Grew Rotana's F&B social channels from 4,200 to 52,000 engaged followers in under a year with a premium content strategy, influencer partnerships, and geo-targeted paid campaigns. Social-attributed F&B enquiries became a measurable revenue line.",
+    technologies: ["Instagram", "TikTok", "Influencer Marketing", "Content Strategy"],
+    completedAt: new Date("2024-07-01"),
+  },
+  {
+    slug: "paytabs-ppc-scaling",
+    title: "Google & Meta Ads Scale-Up — B2B FinTech",
+    client: "PayTabs MENA",
+    category: "PPC",
+    description:
+      "Scaled B2B paid-acquisition for a payment-gateway provider: rebuilt audience segmentation around decision-maker intent signals, launched Multi-Channel attribution, and introduced programmatic display retargeting. ROAS improved from 1.8× to 8.4× in six months.",
+    technologies: ["Google Ads", "Meta Ads", "Attribution Modelling", "Programmatic Display"],
+    completedAt: new Date("2024-05-10"),
+  },
+  {
+    slug: "techedge-ai-search-optimisation",
+    title: "AI Search Optimisation — B2B Technology",
+    client: "TechEdge Arabia",
+    category: "SEO",
+    description:
+      "Positioned a B2B tech brand as the authoritative answer in ChatGPT, Gemini, and Google AI Overviews for target keywords. AI-referred traffic now converts at 3× the rate of standard organic, driving qualified pipeline without incremental ad spend.",
+    technologies: ["AI Search Optimisation", "GEO", "Entity SEO", "Content Authority"],
+    completedAt: new Date("2024-11-01"),
+  },
+];
+
 // ─── Seed ─────────────────────────────────────────────────────────────────────
 
 async function seed() {
@@ -150,6 +235,11 @@ async function seed() {
   await db.delete(testimonialsTable);
   await db.insert(testimonialsTable).values(testimonials);
   console.log(`  ✓ Inserted ${testimonials.length} testimonials`);
+
+  console.log("Seeding portfolio items…");
+  await db.delete(portfolioTable);
+  await db.insert(portfolioTable).values(portfolioItems);
+  console.log(`  ✓ Inserted ${portfolioItems.length} portfolio items`);
 
   console.log("Done.");
   process.exit(0);
