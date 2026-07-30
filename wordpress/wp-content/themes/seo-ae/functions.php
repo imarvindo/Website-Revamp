@@ -1071,6 +1071,17 @@ add_action( 'wp_head', function () {
 	} elseif ( is_category() || is_tag() ) {
 		$obj = get_queried_object();
 		$canonical = $obj ? get_term_link( $obj ) : home_url('/');
+	} elseif ( is_post_type_archive() ) {
+		// Custom post type archives (service, case_study, portfolio_item)
+		$canonical = get_post_type_archive_link( get_post_type() );
+		if ( ! $canonical ) $canonical = home_url('/');
+	} elseif ( is_archive() ) {
+		// Date/author archives
+		$canonical = get_pagenum_link();
+	} elseif ( is_search() ) {
+		$canonical = get_search_link( get_search_query() );
+	} elseif ( is_404() ) {
+		return; // No canonical on 404 pages
 	} else {
 		return;
 	}
@@ -1245,6 +1256,39 @@ add_action( 'wp_head', function () {
 }, 25 );
 
 // ─────────────────────────────────────────────────────────────────────────────
+// 18b. 301 REDIRECTS — old URL slugs → new canonical URLs
+// ─────────────────────────────────────────────────────────────────────────────
+add_action( 'template_redirect', function () {
+	$uri = isset( $_SERVER['REQUEST_URI'] ) ? strtok( $_SERVER['REQUEST_URI'], '?' ) : '';
+	$uri = trailingslashit( $uri );
+
+	// Old city slug (before rename)
+	$city_redirects = [
+		'/dubai/'                         => '/seo-company-dubai/',
+		'/locations/seo-abu-dhabi/'       => '/seo-company-abu-dhabi/',
+		'/locations/seo-sharjah/'         => '/seo-company-sharjah/',
+		'/locations/seo-ajman/'           => '/seo-company-ajman/',
+		'/locations/seo-ras-al-khaimah/'  => '/seo-company-ras-al-khaimah/',
+		'/locations/seo-fujairah/'        => '/seo-company-fujairah/',
+	];
+	// Old industry slugs (before rename)
+	$industry_redirects = [
+		'/industries/real-estate/'  => '/real-estate-seo/',
+		'/industries/healthcare/'   => '/healthcare-seo/',
+		'/industries/ecommerce/'    => '/ecommerce-seo/',
+		'/industries/hospitality/'  => '/hospitality-seo/',
+		'/industries/legal/'        => '/legal-seo/',
+		'/industries/finance/'      => '/finance-seo/',
+	];
+	$all = array_merge( $city_redirects, $industry_redirects );
+
+	if ( isset( $all[ $uri ] ) ) {
+		wp_redirect( home_url( $all[ $uri ] ), 301 );
+		exit;
+	}
+}, 1 );
+
+// ─────────────────────────────────────────────────────────────────────────────
 // 19. CUSTOM XML SITEMAP
 // ─────────────────────────────────────────────────────────────────────────────
 // Prevent WordPress from adding trailing slash to sitemap.xml
@@ -1268,7 +1312,10 @@ add_action( 'template_redirect', function () {
 	header( 'Content-Type: application/xml; charset=UTF-8' );
 	header( 'X-Robots-Tag: noindex' );
 
-	$base = home_url();
+	// Always use the production domain for sitemap URLs (avoids Replit dev domain in output)
+	$prod_domain = 'https://searchengineoptimization.ae';
+	$dev_domain  = rtrim( home_url(), '/' );
+	$base = $prod_domain;
 	$urls = [];
 
 	// Static pages
@@ -1301,8 +1348,10 @@ add_action( 'template_redirect', function () {
          xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">' . "\n";
 	foreach ( $urls as $u ) {
 		if ( empty($u['loc']) || is_wp_error($u['loc']) ) continue;
+		// Replace dev domain with production domain in all sitemap URLs
+		$loc = str_replace( $dev_domain, $prod_domain, $u['loc'] );
 		echo "  <url>\n";
-		echo "    <loc>" . esc_url($u['loc']) . "</loc>\n";
+		echo "    <loc>" . esc_url($loc) . "</loc>\n";
 		if ( ! empty($u['lastmod']) )    echo "    <lastmod>" . esc_html($u['lastmod']) . "</lastmod>\n";
 		if ( ! empty($u['changefreq']) ) echo "    <changefreq>" . esc_html($u['changefreq']) . "</changefreq>\n";
 		if ( ! empty($u['priority']) )   echo "    <priority>" . esc_html($u['priority']) . "</priority>\n";

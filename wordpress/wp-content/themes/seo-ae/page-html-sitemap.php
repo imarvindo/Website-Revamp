@@ -5,7 +5,7 @@
 get_header();
 ?>
 <section class="section bg-white" style="min-height:60vh;">
-<div class="container" style="max-width:900px;">
+<div class="container" style="max-width:960px;">
 	<div class="section-header">
 		<?php seoae_section_label('Site Navigation'); ?>
 		<h1 style="font-size:clamp(1.8rem,3vw,2.5rem);margin:.75rem 0 .5rem;">HTML Sitemap</h1>
@@ -22,10 +22,12 @@ get_header();
 				<li><a href="/about/" style="color:var(--color-body);font-size:.9rem;">About Us</a></li>
 				<li><a href="/services/" style="color:var(--color-body);font-size:.9rem;">Services</a></li>
 				<li><a href="/case-studies/" style="color:var(--color-body);font-size:.9rem;">Case Studies</a></li>
+				<li><a href="/portfolio/" style="color:var(--color-body);font-size:.9rem;">Portfolio</a></li>
 				<li><a href="/blog/" style="color:var(--color-body);font-size:.9rem;">Blog</a></li>
 				<li><a href="/careers/" style="color:var(--color-body);font-size:.9rem;">Careers</a></li>
 				<li><a href="/contact/" style="color:var(--color-body);font-size:.9rem;">Contact Us</a></li>
 				<li><a href="/privacy-policy/" style="color:var(--color-body);font-size:.9rem;">Privacy Policy</a></li>
+				<li><a href="/terms-of-service/" style="color:var(--color-body);font-size:.9rem;">Terms of Service</a></li>
 			</ul>
 		</div>
 
@@ -43,29 +45,41 @@ get_header();
 			<?php endif; ?>
 		</div>
 
-		<!-- Locations -->
+		<!-- Industries -->
 		<div>
-			<h2 style="font-size:1rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--color-primary);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:2px solid var(--color-border);">Locations</h2>
+			<h2 style="font-size:1rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--color-primary);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:2px solid var(--color-border);">SEO by Industry</h2>
 			<ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:.5rem;">
-				<li><a href="/dubai/" style="color:var(--color-body);font-size:.9rem;">SEO Dubai</a></li>
-				<li><a href="/locations/seo-abu-dhabi/" style="color:var(--color-body);font-size:.9rem;">SEO Abu Dhabi</a></li>
-				<li><a href="/locations/seo-sharjah/" style="color:var(--color-body);font-size:.9rem;">SEO Sharjah</a></li>
-				<li><a href="/locations/seo-ajman/" style="color:var(--color-body);font-size:.9rem;">SEO Ajman</a></li>
-				<li><a href="/locations/seo-ras-al-khaimah/" style="color:var(--color-body);font-size:.9rem;">SEO Ras Al Khaimah</a></li>
-				<li><a href="/locations/seo-fujairah/" style="color:var(--color-body);font-size:.9rem;">SEO Fujairah</a></li>
+				<li><a href="/healthcare-seo/" style="color:var(--color-body);font-size:.9rem;">Healthcare SEO</a></li>
+				<li><a href="/real-estate-seo/" style="color:var(--color-body);font-size:.9rem;">Real Estate SEO</a></li>
+				<li><a href="/ecommerce-seo/" style="color:var(--color-body);font-size:.9rem;">E-commerce SEO</a></li>
+				<li><a href="/hospitality-seo/" style="color:var(--color-body);font-size:.9rem;">Hospitality &amp; Tourism SEO</a></li>
+				<li><a href="/saas-b2b-seo/" style="color:var(--color-body);font-size:.9rem;">SaaS &amp; B2B SEO</a></li>
+				<li><a href="/education-seo/" style="color:var(--color-body);font-size:.9rem;">Education SEO</a></li>
+				<li><a href="/automotive-seo/" style="color:var(--color-body);font-size:.9rem;">Automotive SEO</a></li>
+				<li><a href="/finance-seo/" style="color:var(--color-body);font-size:.9rem;">Finance SEO</a></li>
+				<li><a href="/legal-seo/" style="color:var(--color-body);font-size:.9rem;">Legal SEO</a></li>
 			</ul>
 		</div>
 
-		<!-- Industries -->
+		<!-- UAE Locations -->
 		<div>
-			<h2 style="font-size:1rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--color-primary);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:2px solid var(--color-border);">Industries</h2>
+			<h2 style="font-size:1rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--color-primary);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:2px solid var(--color-border);">SEO by Location</h2>
 			<ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:.5rem;">
-				<li><a href="/industries/real-estate/" style="color:var(--color-body);font-size:.9rem;">Real Estate SEO</a></li>
-				<li><a href="/industries/healthcare/" style="color:var(--color-body);font-size:.9rem;">Healthcare SEO</a></li>
-				<li><a href="/industries/ecommerce/" style="color:var(--color-body);font-size:.9rem;">Ecommerce SEO</a></li>
-				<li><a href="/industries/hospitality/" style="color:var(--color-body);font-size:.9rem;">Hospitality SEO</a></li>
-				<li><a href="/industries/legal/" style="color:var(--color-body);font-size:.9rem;">Legal SEO</a></li>
-				<li><a href="/industries/finance/" style="color:var(--color-body);font-size:.9rem;">Finance SEO</a></li>
+				<li><a href="/seo-company-dubai/" style="color:var(--color-body);font-size:.9rem;">SEO Company Dubai</a></li>
+				<li><a href="/seo-company-abu-dhabi/" style="color:var(--color-body);font-size:.9rem;">SEO Company Abu Dhabi</a></li>
+				<li><a href="/seo-company-sharjah/" style="color:var(--color-body);font-size:.9rem;">SEO Company Sharjah</a></li>
+				<li><a href="/seo-company-ajman/" style="color:var(--color-body);font-size:.9rem;">SEO Company Ajman</a></li>
+				<li><a href="/seo-company-ras-al-khaimah/" style="color:var(--color-body);font-size:.9rem;">SEO Company Ras Al Khaimah</a></li>
+				<li><a href="/seo-company-fujairah/" style="color:var(--color-body);font-size:.9rem;">SEO Company Fujairah</a></li>
+				<li><a href="/seo-company-umm-al-quwain/" style="color:var(--color-body);font-size:.9rem;">SEO Company Umm Al Quwain</a></li>
+				<li><a href="/seo-company-al-ain/" style="color:var(--color-body);font-size:.9rem;">SEO Company Al Ain</a></li>
+				<li><a href="/seo-company-khor-fakkan/" style="color:var(--color-body);font-size:.9rem;">SEO Company Khor Fakkan</a></li>
+				<li><a href="/seo-company-dibba-al-fujairah/" style="color:var(--color-body);font-size:.9rem;">SEO Company Dibba Al Fujairah</a></li>
+				<li><a href="/seo-company-jebel-ali/" style="color:var(--color-body);font-size:.9rem;">SEO Company Jebel Ali</a></li>
+				<li><a href="/seo-company-dubai-marina/" style="color:var(--color-body);font-size:.9rem;">SEO Company Dubai Marina</a></li>
+				<li><a href="/seo-company-business-bay/" style="color:var(--color-body);font-size:.9rem;">SEO Company Business Bay</a></li>
+				<li><a href="/seo-company-deira/" style="color:var(--color-body);font-size:.9rem;">SEO Company Deira</a></li>
+				<li><a href="/seo-company-downtown-dubai/" style="color:var(--color-body);font-size:.9rem;">SEO Company Downtown Dubai</a></li>
 			</ul>
 		</div>
 

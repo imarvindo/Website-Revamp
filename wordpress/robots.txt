@@ -17,7 +17,6 @@ Disallow: /wp-content/plugins/
 Disallow: /wp-includes/
 Disallow: /cgi-bin/
 Disallow: /tmp/
-Disallow: /privacy-policy/
 Disallow: */embed/
 Disallow: *?replytocom=*
 Disallow: *?s=*

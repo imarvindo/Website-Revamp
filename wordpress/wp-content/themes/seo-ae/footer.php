@@ -166,6 +166,7 @@
 					<li><a href="<?php echo esc_url( home_url('/education-seo/') ); ?>" class="footer__mega-link">Education SEO</a></li>
 					<li><a href="<?php echo esc_url( home_url('/automotive-seo/') ); ?>" class="footer__mega-link">Automotive SEO</a></li>
 					<li><a href="<?php echo esc_url( home_url('/finance-seo/') ); ?>" class="footer__mega-link">Finance SEO</a></li>
+					<li><a href="<?php echo esc_url( home_url('/legal-seo/') ); ?>" class="footer__mega-link">Legal SEO</a></li>
 				</ul>
 			</div>
 
