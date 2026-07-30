@@ -404,28 +404,6 @@
 })();
 </script>
 
-<!-- ═══════════════════════════════════════════════════════════════════
-     WHATSAPP FLOATING BUTTON
-════════════════════════════════════════════════════════════════════ -->
-<?php
-$wa_raw   = seoae_phone();
-$wa_digits = preg_replace( '/[^0-9]/', '', $wa_raw );
-if ( ! $wa_digits ) $wa_digits = '97143209898'; // default Deira Dubai number
-$wa_msg   = urlencode( 'Hello! I\'d like to learn more about your SEO services for my UAE business.' );
-?>
-<a href="https://wa.me/<?php echo esc_attr( $wa_digits ); ?>?text=<?php echo $wa_msg; ?>"
-   class="wa-float"
-   target="_blank"
-   rel="noopener noreferrer"
-   aria-label="Chat with us on WhatsApp">
-	<svg class="wa-float__icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-		<circle cx="16" cy="16" r="16" fill="#25D366"/>
-		<path d="M23.5 20.4c-.3-.1-1.8-.9-2.1-1s-.5-.1-.7.2c-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1C17.6 20 16 19.1 14.7 17.8c-1.2-1.3-2-2.8-2.2-3.1-.2-.3 0-.5.1-.6l.5-.6c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.2-.7-1.7-1-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1.1 1-.1 2.5 1 1.5 2.2 3.3 5.3 4.7.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2.1-1.4.3-.6.3-1.2.2-1.3z" fill="white"/>
-		<path d="M16 6C10.5 6 6 10.5 6 16c0 1.9.5 3.7 1.4 5.2L6 26l5-1.3C12.4 25.5 14.1 26 16 26c5.5 0 10-4.5 10-10S21.5 6 16 6zm0 18.3c-1.8 0-3.5-.5-5-1.4l-.3-.2-3 .8.8-2.9-.2-.3c-1-1.5-1.5-3.2-1.5-5C6.8 11 10.9 7 16 7c2.5 0 4.8.9 6.5 2.5S25 13.5 25 16c0 5.1-4 9.3-9 9.3z" fill="white"/>
-	</svg>
-	<span class="wa-float__label">WhatsApp</span>
-</a>
-
 <?php wp_footer(); ?>
 </body>
 </html>
