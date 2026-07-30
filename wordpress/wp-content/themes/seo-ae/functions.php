@@ -40,6 +40,15 @@ add_action( 'after_setup_theme', function () {
 } );
 
 // ─────────────────────────────────────────────────────────────────────────────
+// 1b. FAVICON (logo-concept-1.png as site icon)
+// ─────────────────────────────────────────────────────────────────────────────
+add_action( 'wp_head', function () {
+	$logo_url = SEOAE_URI . '/assets/images/logo-concept-1.png';
+	echo '<link rel="icon" type="image/png" href="' . esc_url( $logo_url ) . '">' . "\n";
+	echo '<link rel="apple-touch-icon" href="' . esc_url( $logo_url ) . '">' . "\n";
+}, 1 );
+
+// ─────────────────────────────────────────────────────────────────────────────
 // 2. ENQUEUE ASSETS
 // ─────────────────────────────────────────────────────────────────────────────
 add_action( 'wp_enqueue_scripts', function () {
@@ -629,7 +638,7 @@ add_action( 'wp_head', function () {
 		'name'     => 'SearchEngineOptimization.ae',
 		'alternateName' => 'SearchEngineOptimization.ae',
 		'url'      => home_url(),
-		'logo'     => SEOAE_URI . '/assets/images/logo.svg',
+		'logo'     => SEOAE_URI . '/assets/images/logo-concept-1.png',
 		'image'    => SEOAE_URI . '/assets/images/og-image.jpg',
 		'description' => "Dubai's #1 enterprise SEO and digital marketing agency — delivering measurable growth through AI-driven SEO, PPC, social media, and web development.",
 		'email'       => $email,
@@ -1371,7 +1380,7 @@ add_action( 'wp_head', function () {
 			'@type' => 'Organization',
 			'name'  => 'SearchEngineOptimization.ae',
 			'url'   => home_url(),
-			'logo'  => [ '@type' => 'ImageObject', 'url' => home_url() . '/wp-content/themes/seo-ae/assets/images/logo.svg' ],
+			'logo'  => [ '@type' => 'ImageObject', 'url' => home_url() . '/wp-content/themes/seo-ae/assets/images/logo-concept-1.png' ],
 		],
 		'mainEntityOfPage' => [ '@type' => 'WebPage', '@id' => get_permalink($post) ],
 		'inLanguage'       => 'en-AE',

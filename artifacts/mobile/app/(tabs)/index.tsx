@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   ActivityIndicator,
+  Image,
   Platform,
   Pressable,
   ScrollView,
@@ -14,6 +15,8 @@ import { Feather, Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
 import * as Haptics from 'expo-haptics';
+
+const logoImage = require('@/assets/images/logo.png');
 
 function StatCard({ value, label, color }: { value: string; label: string; color: string }) {
   const colors = useColors();
@@ -73,11 +76,19 @@ export default function HomeScreen() {
   return (
     <ScrollView
       style={[styles.container, { backgroundColor: colors.background }]}
-      contentContainerStyle={{ paddingTop: topPad + 16, paddingBottom: bottomPad }}
+      contentContainerStyle={{ paddingTop: topPad, paddingBottom: bottomPad }}
       showsVerticalScrollIndicator={false}
     >
+      {/* Sticky-style logo header */}
+      <View style={[styles.appHeader, { backgroundColor: colors.background, borderBottomColor: colors.border }]}>
+        <Image source={logoImage} style={styles.appHeaderLogo} resizeMode="contain" />
+        <Text style={[styles.appHeaderTitle, { color: colors.foreground }]}>
+          SearchEngine<Text style={{ color: colors.primary }}>Optimization.ae</Text>
+        </Text>
+      </View>
+
       {/* Hero */}
-      <View style={styles.heroSection}>
+      <View style={[styles.heroSection, { marginTop: 16 }]}>
         <View style={styles.badge}>
           <View style={[styles.badgeDot, { backgroundColor: colors.accent }]} />
           <Text style={[styles.badgeText, { color: colors.accent }]}>UAE's #1 SEO Agency</Text>
@@ -167,6 +178,23 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
+  appHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    paddingHorizontal: 20,
+    paddingVertical: 12,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+  appHeaderLogo: {
+    width: 36,
+    height: 36,
+  },
+  appHeaderTitle: {
+    fontSize: 15,
+    fontFamily: 'Inter_700Bold',
+    letterSpacing: -0.3,
+  },
   heroSection: { paddingHorizontal: 20, marginBottom: 28 },
   badge: {
     flexDirection: 'row',
