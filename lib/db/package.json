@@ -10,7 +10,9 @@
   "scripts": {
     "push": "drizzle-kit push --config ./drizzle.config.ts",
     "push-force": "drizzle-kit push --force --config ./drizzle.config.ts",
-    "seed": "node /home/runner/workspace/node_modules/.pnpm/tsx@4.23.1/node_modules/tsx/dist/cli.mjs src/seed.ts"
+    "seed": "node /home/runner/workspace/node_modules/.pnpm/tsx@4.23.1/node_modules/tsx/dist/cli.mjs src/seed.ts",
+    "seed:services": "node /home/runner/workspace/node_modules/.pnpm/tsx@4.23.1/node_modules/tsx/dist/cli.mjs src/seed-services.ts",
+    "seed:blog": "node /home/runner/workspace/node_modules/.pnpm/tsx@4.23.1/node_modules/tsx/dist/cli.mjs src/seed-blog.ts"
   },
   "dependencies": {
     "drizzle-orm": "catalog:",

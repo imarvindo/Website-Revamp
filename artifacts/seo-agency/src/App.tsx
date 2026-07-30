@@ -17,6 +17,13 @@ import PPC from '@/pages/services/ppc';
 import SocialMedia from '@/pages/services/social-media-marketing';
 import WebDesign from '@/pages/services/web-design';
 import WebDevelopment from '@/pages/services/web-development';
+import ShopifyDevelopment from '@/pages/services/shopify-development';
+import LaravelDevelopment from '@/pages/services/laravel-development';
+import SaasDevelopment from '@/pages/services/saas-development';
+import MobileAppDevelopment from '@/pages/services/mobile-app-development';
+import ReputationManagement from '@/pages/services/reputation-management';
+import GoogleBusinessProfile from '@/pages/services/google-business-profile';
+import MvpDevelopment from '@/pages/services/mvp-development';
 import BlogList from '@/pages/blog';
 import BlogPost from '@/pages/blog/single';
 import CaseStudies from '@/pages/case-studies';
@@ -51,6 +58,20 @@ function Router() {
           <Route path="/services/web-design" component={WebDesign} />
           <Route path="/web-development" component={WebDevelopment} />
           <Route path="/services/web-development" component={WebDevelopment} />
+          <Route path="/shopify-development" component={ShopifyDevelopment} />
+          <Route path="/services/shopify-development" component={ShopifyDevelopment} />
+          <Route path="/laravel-development" component={LaravelDevelopment} />
+          <Route path="/services/laravel-development" component={LaravelDevelopment} />
+          <Route path="/saas-development" component={SaasDevelopment} />
+          <Route path="/services/saas-development" component={SaasDevelopment} />
+          <Route path="/mobile-app-development" component={MobileAppDevelopment} />
+          <Route path="/services/mobile-app-development" component={MobileAppDevelopment} />
+          <Route path="/reputation-management" component={ReputationManagement} />
+          <Route path="/services/reputation-management" component={ReputationManagement} />
+          <Route path="/google-business-profile" component={GoogleBusinessProfile} />
+          <Route path="/services/google-business-profile" component={GoogleBusinessProfile} />
+          <Route path="/mvp-development" component={MvpDevelopment} />
+          <Route path="/services/mvp-development" component={MvpDevelopment} />
           <Route path="/blog" component={BlogList} />
           <Route path="/blog/:slug" component={BlogPost} />
           <Route path="/case-studies" component={CaseStudies} />

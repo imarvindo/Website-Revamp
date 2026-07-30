@@ -2,7 +2,7 @@ import { useListServices } from "@workspace/api-client-react";
 import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { ArrowRight, BarChart, Code, PenTool, Search, Smartphone, TrendingUp } from "lucide-react";
+import { ArrowRight, BarChart, Cloud, Code, MapPin, PenTool, Rocket, Search, Server, Shield, ShoppingBag, Smartphone, TrendingUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 
@@ -12,7 +12,17 @@ const ICON_MAP: Record<string, React.ElementType> = {
   "BarChart": BarChart,
   "Smartphone": Smartphone,
   "PenTool": PenTool,
-  "Code": Code
+  "Code": Code,
+  "ShoppingBag": ShoppingBag,
+  "Server": Server,
+  "Cloud": Cloud,
+  "Shield": Shield,
+  "MapPin": MapPin,
+  "Rocket": Rocket,
+  "Target": BarChart,
+  "Share2": TrendingUp,
+  "Palette": PenTool,
+  "Cpu": Search,
 };
 
 export default function Services() {
