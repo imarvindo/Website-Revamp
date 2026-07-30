@@ -3,13 +3,46 @@
  * Template Name: Industry Page
  * Generic SEO industry landing page template
  */
-get_header();
 
 $industry     = get_field('industry_name')    ?: get_the_title();
 $industry_adj = get_field('industry_adj')     ?: $industry;
 $icon         = get_field('industry_icon')    ?: '🏢';
 $the_content  = get_the_content();
-$faqs         = get_field('location_faqs') ?: get_post_meta( get_the_ID(), 'location_faqs', true ) ?: [];
+$faqs         = get_post_meta( get_the_ID(), 'location_faqs', true ) ?: [];
+if ( ! is_array($faqs) ) {
+	$faqs = maybe_unserialize($faqs);
+}
+if ( ! is_array($faqs) ) {
+	$faqs = [];
+}
+
+/* ---- FAQPage JSON-LD via wp_head ---- */
+if ( ! empty($faqs) ) {
+	add_action( 'wp_head', function() use ($faqs, $industry) {
+		$entities = [];
+		foreach ( $faqs as $faq ) {
+			$q = $faq['faq_question'] ?? $faq['question'] ?? '';
+			$a = wp_strip_all_tags( $faq['faq_answer'] ?? $faq['answer'] ?? '' );
+			if ( $q && $a ) {
+				$entities[] = [
+					'@type'          => 'Question',
+					'name'           => $q,
+					'acceptedAnswer' => [ '@type' => 'Answer', 'text' => $a ],
+				];
+			}
+		}
+		if ( $entities ) {
+			$schema = [
+				'@context'   => 'https://schema.org',
+				'@type'      => 'FAQPage',
+				'mainEntity' => $entities,
+			];
+			echo '<script type="application/ld+json">' . wp_json_encode( $schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ) . '</script>' . "\n";
+		}
+	});
+}
+
+get_header();
 ?>
 
 <section class="service-hero bg-dark">
@@ -24,13 +57,13 @@ $faqs         = get_field('location_faqs') ?: get_post_meta( get_the_ID(), 'loca
 				<?php seoae_section_label('Industry SEO'); ?>
 				<h1 style="color:#fff;font-size:clamp(2rem,4vw,3.2rem);font-weight:900;line-height:1.1;margin:1rem 0;">
 					<?php echo esc_html($industry); ?> SEO Services
-					<br><span style="color:var(--color-primary);">in Dubai & UAE</span>
+					<br><span style="color:var(--color-primary);">in Dubai &amp; UAE</span>
 				</h1>
 				<p style="color:rgba(255,255,255,.75);font-size:1.05rem;max-width:520px;margin-bottom:2rem;">
 					Specialised search engine optimisation strategies built specifically for <?php echo esc_html(strtolower($industry)); ?> businesses in the UAE. We understand your market, your buyers, and the keywords that drive qualified enquiries.
 				</p>
 				<div style="display:flex;gap:1rem;flex-wrap:wrap;">
-					<a href="/contact/" class="btn btn--primary btn--lg">Get Free Industry SEO Audit →</a>
+					<a href="/contact/" class="btn btn--primary btn--lg">Get Free Industry SEO Audit &rarr;</a>
 					<a href="/case-studies/" class="btn btn--outline-white btn--lg">View Results</a>
 				</div>
 			</div>
@@ -77,6 +110,7 @@ $faqs         = get_field('location_faqs') ?: get_post_meta( get_the_ID(), 'loca
 	</div>
 </section>
 
+<?php if ( ! $the_content ) : ?>
 <section class="section bg-light">
 	<div class="container">
 		<div class="section-header section-header--center">
@@ -97,19 +131,20 @@ $faqs         = get_field('location_faqs') ?: get_post_meta( get_the_ID(), 'loca
 			<a href="<?php echo esc_url($s['url']); ?>" class="service-card">
 				<h3 class="service-card__title"><?php echo esc_html($s['title']); ?></h3>
 				<p class="service-card__desc"><?php echo esc_html($s['desc']); ?></p>
-				<span class="service-card__link">Learn More →</span>
+				<span class="service-card__link">Learn More &rarr;</span>
 			</a>
 			<?php endforeach; ?>
 		</div>
 	</div>
 </section>
+<?php endif; ?>
 
-<?php if ($faqs) : ?>
+<?php if ( ! empty($faqs) ) : ?>
 <section class="section bg-white">
 	<div class="container" style="max-width:760px;">
 		<div class="section-header section-header--center">
 			<?php seoae_section_label('FAQ'); ?>
-			<h2>Frequently Asked Questions — <?php echo esc_html($industry); ?> SEO</h2>
+			<h2>Frequently Asked Questions &mdash; <?php echo esc_html($industry); ?> SEO</h2>
 		</div>
 		<div class="faq-list" style="margin-top:2.5rem;">
 			<?php foreach ($faqs as $faq) : ?>
