@@ -13,7 +13,7 @@ $hero_stat2   = get_field('loc_stat2')            ?: ['value'=>'90','label'=>'Da
 $hero_stat3   = get_field('loc_stat3')            ?: ['value'=>'4.9★','label'=>'Client Rating'];
 $intro        = get_field('location_intro')       ?: get_the_content();
 $services_text = get_field('location_services_text') ?: '';
-$faqs         = get_field('location_faqs')        ?: [];
+$faqs         = get_field('location_faqs') ?: get_post_meta( get_the_ID(), 'location_faqs', true ) ?: [];
 $the_content  = get_the_content();
 ?>
 

@@ -1333,6 +1333,52 @@ p:last-child { margin-bottom: 0; }
 }
 .footer__contact-addr svg { flex-shrink: 0; margin-top: 2px; color: #16B1D4; }
 
+/* ── Mega-links: Industries + Cities ── */
+.footer__mega {
+  border-top: 1px solid rgba(255,255,255,.06);
+  padding: 2rem 0;
+}
+.footer__mega-inner {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 3rem;
+  align-items: start;
+}
+.footer__mega-heading {
+  font-size: .68rem; font-weight: 700; letter-spacing: .12em;
+  text-transform: uppercase; color: #fff;
+  margin-bottom: 1rem; padding-bottom: .5rem;
+  border-bottom: 1px solid rgba(22,177,212,.3);
+  display: flex; align-items: center; gap: .5rem;
+}
+.footer__mega-links {
+  list-style: none; padding: 0; margin: 0;
+  display: flex; flex-direction: column; gap: .3rem;
+}
+.footer__mega-link {
+  font-size: .8rem; color: rgba(255,255,255,.5);
+  text-decoration: none;
+  transition: color .2s, padding-left .2s;
+  display: block; padding-left: 0;
+}
+.footer__mega-link:hover { color: #16B1D4; padding-left: .3rem; }
+
+/* Cities: two sub-columns */
+.footer__mega-cities {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .25rem 2rem;
+}
+
+/* ── Responsive for mega ── */
+@media (max-width: 768px) {
+  .footer__mega-inner { grid-template-columns: 1fr; gap: 1.5rem; }
+  .footer__mega-cities { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 480px) {
+  .footer__mega-cities { grid-template-columns: 1fr; }
+}
+
 /* ── Certs bar ── */
 .footer__certs { border-top: 1px solid rgba(255,255,255,.06); padding: 1rem 0; }
 .footer__certs-inner { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }

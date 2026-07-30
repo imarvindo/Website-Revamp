@@ -9,7 +9,7 @@ $industry     = get_field('industry_name')    ?: get_the_title();
 $industry_adj = get_field('industry_adj')     ?: $industry;
 $icon         = get_field('industry_icon')    ?: '🏢';
 $the_content  = get_the_content();
-$faqs         = get_field('location_faqs')    ?: [];
+$faqs         = get_field('location_faqs') ?: get_post_meta( get_the_ID(), 'location_faqs', true ) ?: [];
 ?>
 
 <section class="service-hero bg-dark">
