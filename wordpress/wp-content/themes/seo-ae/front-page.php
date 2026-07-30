@@ -326,55 +326,94 @@ $case_studies = new WP_Query(['post_type'=>'case_study','posts_per_page'=>4,'pos
 </section>
 
 <!-- ══════════════════════════════ SIX-STEP PROCESS ══════════════════════════════ -->
-<section class="section process-section">
+<section class="process-section-v2" id="process-v2">
 	<div class="container">
-		<div class="section-header">
-			<?php seoae_section_label('How We Work'); ?>
-			<h2 class="section-header__title" style="max-width:600px;">A Six-Step Methodology Built for Compounding Growth</h2>
-			<div class="process-divider"></div>
+		<div class="process-v2__header">
+			<span class="process-v2__label">HOW WE WORK</span>
+			<h2 class="process-v2__title">A Six-Step Methodology<br>Built for Compounding Growth</h2>
+			<p class="process-v2__subtitle">Every engagement follows the same proven framework — systematic, measurable, and designed to outperform your competitors long-term.</p>
 		</div>
-		<div class="process-wrap">
-			<div class="process-track" aria-hidden="true"></div>
-			<div class="process-steps">
 
-				<div class="process-step">
-					<div class="process-step__num">01</div>
-					<h3 class="process-step__title">Discover</h3>
-					<p class="process-step__desc">Deep-dive into your market, competitors, and current search performance.</p>
+		<div class="process-v2__grid">
+
+			<div class="process-v2__step">
+				<div class="process-v2__step-inner">
+					<div class="process-v2__step-num">01</div>
+					<div class="process-v2__step-icon">
+						<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="#16B1D4" stroke-width="2"/><path d="M16.5 16.5L21 21" stroke="#16B1D4" stroke-width="2" stroke-linecap="round"/></svg>
+					</div>
+					<h3 class="process-v2__step-title">Discover</h3>
+					<p class="process-v2__step-desc">Deep-dive into your market, competitors, and current search performance to find real opportunities.</p>
 				</div>
+				<div class="process-v2__connector" aria-hidden="true"></div>
+			</div>
 
-				<div class="process-step">
-					<div class="process-step__num">02</div>
-					<h3 class="process-step__title">Diagnose</h3>
-					<p class="process-step__desc">Identify every technical, content, and authority gap holding you back.</p>
+			<div class="process-v2__step">
+				<div class="process-v2__step-inner">
+					<div class="process-v2__step-num">02</div>
+					<div class="process-v2__step-icon">
+						<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M9 11l3 3L22 4" stroke="#16B1D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke="#16B1D4" stroke-width="2" stroke-linecap="round"/></svg>
+					</div>
+					<h3 class="process-v2__step-title">Diagnose</h3>
+					<p class="process-v2__step-desc">Identify every technical, content, and authority gap holding your rankings back.</p>
 				</div>
+				<div class="process-v2__connector" aria-hidden="true"></div>
+			</div>
 
-				<div class="process-step">
-					<div class="process-step__num">03</div>
-					<h3 class="process-step__title">Prioritise</h3>
-					<p class="process-step__desc">Rank opportunities by revenue impact and implementation speed.</p>
+			<div class="process-v2__step">
+				<div class="process-v2__step-inner">
+					<div class="process-v2__step-num">03</div>
+					<div class="process-v2__step-icon">
+						<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 6h18M3 12h12M3 18h8" stroke="#16B1D4" stroke-width="2" stroke-linecap="round"/><path d="M20 15l-3 3 3 3" stroke="#16B1D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+					</div>
+					<h3 class="process-v2__step-title">Prioritise</h3>
+					<p class="process-v2__step-desc">Rank opportunities by revenue impact and implementation speed for maximum ROI.</p>
 				</div>
+				<div class="process-v2__connector" aria-hidden="true"></div>
+			</div>
 
-				<div class="process-step">
-					<div class="process-step__num">04</div>
-					<h3 class="process-step__title">Execute</h3>
-					<p class="process-step__desc">Implement changes with disciplined project management and QA.</p>
+			<div class="process-v2__step">
+				<div class="process-v2__step-inner">
+					<div class="process-v2__step-num">04</div>
+					<div class="process-v2__step-icon">
+						<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke="#16B1D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+					</div>
+					<h3 class="process-v2__step-title">Execute</h3>
+					<p class="process-v2__step-desc">Senior specialists implement changes with disciplined project management and QA.</p>
 				</div>
+				<div class="process-v2__connector" aria-hidden="true"></div>
+			</div>
 
-				<div class="process-step">
-					<div class="process-step__num">05</div>
-					<h3 class="process-step__title">Measure</h3>
-					<p class="process-step__desc">Track rankings, traffic, and conversions with transparent reporting.</p>
+			<div class="process-v2__step">
+				<div class="process-v2__step-inner">
+					<div class="process-v2__step-num">05</div>
+					<div class="process-v2__step-icon">
+						<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M18 20V10M12 20V4M6 20v-6" stroke="#16B1D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+					</div>
+					<h3 class="process-v2__step-title">Measure</h3>
+					<p class="process-v2__step-desc">Track rankings, traffic, and conversions with transparent reporting and real dashboards.</p>
 				</div>
+				<div class="process-v2__connector" aria-hidden="true"></div>
+			</div>
 
-				<div class="process-step">
-					<div class="process-step__num">06</div>
-					<h3 class="process-step__title">Compound</h3>
-					<p class="process-step__desc">Build on what works — authority, content, and technical improvements compound over time.</p>
+			<div class="process-v2__step process-v2__step--last">
+				<div class="process-v2__step-inner">
+					<div class="process-v2__step-num">06</div>
+					<div class="process-v2__step-icon">
+						<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="#16B1D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+					</div>
+					<h3 class="process-v2__step-title">Compound</h3>
+					<p class="process-v2__step-desc">Build on what works — authority, content, and technical gains compound over time.</p>
 				</div>
+			</div>
 
-			</div><!-- /.process-steps -->
-		</div><!-- /.process-wrap -->
+		</div><!-- /.process-v2__grid -->
+
+		<div class="process-v2__cta">
+			<a href="<?php echo esc_url(home_url('/free-seo-audit/')); ?>" class="btn btn--primary btn--lg">Start Your Free Audit →</a>
+			<span class="process-v2__cta-note">No obligation. Results within 48 hours.</span>
+		</div>
+
 	</div>
 </section>
 
