@@ -147,56 +147,57 @@
 		</div>
 	</div>
 
-	<!-- ── SEO Coverage Mega-Links ── -->
-	<div class="footer__mega">
-		<div class="container footer__mega-inner">
+	<!-- ── SEO Coverage Bar (compact) ── -->
+	<div class="footer__coverage">
+		<div class="container">
 
-			<!-- Industries -->
-			<div class="footer__mega-col">
-				<h4 class="footer__mega-heading">
-					<svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="#16B1D4" stroke-width="2"><path stroke-linecap="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0H5m14 0h2M5 21H3M9 7h1m-1 4h1m4-4h1m-1 4h1m-2 10V11h4v10"/></svg>
+			<div class="footer__coverage-row">
+				<span class="footer__coverage-label">
+					<svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0H5"/></svg>
 					Industries
-				</h4>
-				<ul class="footer__mega-links">
-					<li><a href="<?php echo esc_url( home_url('/healthcare-seo/') ); ?>" class="footer__mega-link">Healthcare SEO</a></li>
-					<li><a href="<?php echo esc_url( home_url('/real-estate-seo/') ); ?>" class="footer__mega-link">Real Estate SEO</a></li>
-					<li><a href="<?php echo esc_url( home_url('/ecommerce-seo/') ); ?>" class="footer__mega-link">E-commerce SEO</a></li>
-					<li><a href="<?php echo esc_url( home_url('/hospitality-seo/') ); ?>" class="footer__mega-link">Hospitality &amp; Tourism SEO</a></li>
-					<li><a href="<?php echo esc_url( home_url('/saas-b2b-seo/') ); ?>" class="footer__mega-link">SaaS &amp; B2B SEO</a></li>
-					<li><a href="<?php echo esc_url( home_url('/education-seo/') ); ?>" class="footer__mega-link">Education SEO</a></li>
-					<li><a href="<?php echo esc_url( home_url('/automotive-seo/') ); ?>" class="footer__mega-link">Automotive SEO</a></li>
-					<li><a href="<?php echo esc_url( home_url('/finance-seo/') ); ?>" class="footer__mega-link">Finance SEO</a></li>
-					<li><a href="<?php echo esc_url( home_url('/legal-seo/') ); ?>" class="footer__mega-link">Legal SEO</a></li>
-				</ul>
+				</span>
+				<nav class="footer__coverage-links">
+					<?php
+					$ind = [
+						'Healthcare' => '/healthcare-seo/', 'Real Estate' => '/real-estate-seo/',
+						'E-commerce' => '/ecommerce-seo/', 'Hospitality' => '/hospitality-seo/',
+						'SaaS & B2B' => '/saas-b2b-seo/', 'Education'   => '/education-seo/',
+						'Automotive' => '/automotive-seo/', 'Finance'    => '/finance-seo/',
+						'Legal'      => '/legal-seo/',
+					];
+					$i = 0;
+					foreach ( $ind as $label => $slug ) :
+						if ( $i++ ) echo '<span class="footer__coverage-sep">·</span>';
+					?>
+					<a href="<?php echo esc_url( home_url($slug) ); ?>" class="footer__coverage-link"><?php echo esc_html($label); ?></a>
+					<?php endforeach; ?>
+				</nav>
 			</div>
 
-			<!-- SEO by City -->
-			<div class="footer__mega-col footer__mega-col--cities">
-				<h4 class="footer__mega-heading">
-					<svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="#16B1D4" stroke-width="2"><path stroke-linecap="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-					SEO by City
-				</h4>
-				<div class="footer__mega-cities">
-					<ul class="footer__mega-links">
-						<li><a href="<?php echo esc_url( home_url('/seo-company-dubai/') ); ?>" class="footer__mega-link">Dubai</a></li>
-						<li><a href="<?php echo esc_url( home_url('/seo-company-abu-dhabi/') ); ?>" class="footer__mega-link">Abu Dhabi</a></li>
-						<li><a href="<?php echo esc_url( home_url('/seo-company-sharjah/') ); ?>" class="footer__mega-link">Sharjah</a></li>
-						<li><a href="<?php echo esc_url( home_url('/seo-company-ajman/') ); ?>" class="footer__mega-link">Ajman</a></li>
-						<li><a href="<?php echo esc_url( home_url('/seo-company-ras-al-khaimah/') ); ?>" class="footer__mega-link">Ras Al Khaimah</a></li>
-						<li><a href="<?php echo esc_url( home_url('/seo-company-fujairah/') ); ?>" class="footer__mega-link">Fujairah</a></li>
-						<li><a href="<?php echo esc_url( home_url('/seo-company-umm-al-quwain/') ); ?>" class="footer__mega-link">Umm Al Quwain</a></li>
-						<li><a href="<?php echo esc_url( home_url('/seo-company-al-ain/') ); ?>" class="footer__mega-link">Al Ain</a></li>
-					</ul>
-					<ul class="footer__mega-links">
-						<li><a href="<?php echo esc_url( home_url('/seo-company-khor-fakkan/') ); ?>" class="footer__mega-link">Khor Fakkan</a></li>
-						<li><a href="<?php echo esc_url( home_url('/seo-company-dibba-al-fujairah/') ); ?>" class="footer__mega-link">Dibba Al Fujairah</a></li>
-						<li><a href="<?php echo esc_url( home_url('/seo-company-jebel-ali/') ); ?>" class="footer__mega-link">Jebel Ali</a></li>
-						<li><a href="<?php echo esc_url( home_url('/seo-company-dubai-marina/') ); ?>" class="footer__mega-link">Dubai Marina</a></li>
-						<li><a href="<?php echo esc_url( home_url('/seo-company-business-bay/') ); ?>" class="footer__mega-link">Business Bay</a></li>
-						<li><a href="<?php echo esc_url( home_url('/seo-company-deira/') ); ?>" class="footer__mega-link">Deira</a></li>
-						<li><a href="<?php echo esc_url( home_url('/seo-company-downtown-dubai/') ); ?>" class="footer__mega-link">Downtown Dubai</a></li>
-					</ul>
-				</div>
+			<div class="footer__coverage-row">
+				<span class="footer__coverage-label">
+					<svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/></svg>
+					UAE Cities
+				</span>
+				<nav class="footer__coverage-links">
+					<?php
+					$cities = [
+						'Dubai' => '/seo-company-dubai/', 'Abu Dhabi' => '/seo-company-abu-dhabi/',
+						'Sharjah' => '/seo-company-sharjah/', 'Ajman' => '/seo-company-ajman/',
+						'Ras Al Khaimah' => '/seo-company-ras-al-khaimah/', 'Fujairah' => '/seo-company-fujairah/',
+						'Al Ain' => '/seo-company-al-ain/', 'Umm Al Quwain' => '/seo-company-umm-al-quwain/',
+						'Dubai Marina' => '/seo-company-dubai-marina/', 'Business Bay' => '/seo-company-business-bay/',
+						'Deira' => '/seo-company-deira/', 'Downtown Dubai' => '/seo-company-downtown-dubai/',
+						'Jebel Ali' => '/seo-company-jebel-ali/', 'Khor Fakkan' => '/seo-company-khor-fakkan/',
+						'Dibba Al Fujairah' => '/seo-company-dibba-al-fujairah/',
+					];
+					$i = 0;
+					foreach ( $cities as $label => $slug ) :
+						if ( $i++ ) echo '<span class="footer__coverage-sep">·</span>';
+					?>
+					<a href="<?php echo esc_url( home_url($slug) ); ?>" class="footer__coverage-link"><?php echo esc_html($label); ?></a>
+					<?php endforeach; ?>
+				</nav>
 			</div>
 
 		</div>
