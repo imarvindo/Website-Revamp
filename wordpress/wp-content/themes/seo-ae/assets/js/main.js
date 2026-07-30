@@ -1,5 +1,5 @@
 /**
- * SEO.ae Enterprise Theme — main.js
+ * SearchEngineOptimization.ae Enterprise Theme — main.js
  * Navbar, mega menu, mobile menu, counter animation, FAQ accordion
  */
 

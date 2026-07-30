@@ -23,7 +23,7 @@ if ( empty($hero_stats) ) {
 }
 
 $services     = seoae_get_services();
-$testimonials = seoae_get_testimonials(6);
+$testimonials = seoae_get_testimonials(20);
 $recent_posts = seoae_get_recent_posts(3);
 $case_studies = new WP_Query(['post_type'=>'case_study','posts_per_page'=>4,'post_status'=>'publish']);
 ?>
@@ -464,49 +464,119 @@ $case_studies = new WP_Query(['post_type'=>'case_study','posts_per_page'=>4,'pos
 <?php endif; ?>
 
 <!-- ═══════════════════════════════ TESTIMONIALS ══════════════════════════════════ -->
-<?php if ($testimonials) : ?>
-<section class="section testimonials-section">
-	<div class="container">
-		<div class="section-header section-header--center">
-			<?php seoae_section_label('Client Reviews'); ?>
-			<h2 class="section-header__title">What Our Clients Say</h2>
-			<p class="section-header__desc">Over 345 businesses across UAE trust SearchEngineOptimization.ae for measurable digital growth.</p>
-		</div>
-		<div class="testimonials-grid">
-			<?php foreach ($testimonials as $test) :
-				$name    = get_field('client_name', $test->ID)    ?: $test->post_title;
-				$role    = get_field('client_role', $test->ID)    ?: 'CEO';
-				$company = get_field('client_company', $test->ID) ?: '';
-				$rating  = intval(get_field('rating', $test->ID)  ?: 5);
-				$content = get_field('content', $test->ID)        ?: $test->post_content;
-				$avatar  = get_field('avatar', $test->ID)         ?: '';
-				$verified= get_field('verified', $test->ID);
-				$initial = strtoupper(substr($name, 0, 1));
-			?>
-			<div class="testimonial-card">
-				<div class="testimonial-card__stars"><?php echo seoae_stars($rating); ?></div>
-				<p class="testimonial-card__quote">"<?php echo esc_html($content); ?>"</p>
-				<div class="testimonial-card__author">
-					<div class="testimonial-card__avatar">
-						<?php if ($avatar) : ?><img src="<?php echo esc_url($avatar); ?>" alt="<?php echo esc_attr($name); ?>"><?php else : ?>
-						<?php echo esc_html($initial); ?>
-						<?php endif; ?>
-					</div>
-					<div>
-						<p class="testimonial-card__name"><?php echo esc_html($name); ?></p>
-						<p class="testimonial-card__role"><?php echo esc_html($role . ($company ? ', ' . $company : '')); ?></p>
-					</div>
-					<?php if ($verified) : ?>
-					<div class="testimonial-card__verified">
-						<svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-						Verified
-					</div>
-					<?php endif; ?>
+<?php if ($testimonials) :
+	// Build card data array once
+	$testi_cards = [];
+	foreach ($testimonials as $t) {
+		$testi_cards[] = [
+			'name'     => get_field('client_name',    $t->ID) ?: $t->post_title,
+			'role'     => get_field('client_role',    $t->ID) ?: 'CEO',
+			'company'  => get_field('client_company', $t->ID) ?: '',
+			'rating'   => intval(get_field('rating',  $t->ID) ?: 5),
+			'content'  => get_field('content',        $t->ID) ?: $t->post_content,
+			'avatar'   => get_field('avatar',         $t->ID) ?: '',
+			'verified' => get_field('verified',       $t->ID),
+		];
+	}
+	// Split into two rows for the marquee
+	$mid    = (int) ceil(count($testi_cards) / 2);
+	$row1   = array_slice($testi_cards, 0, $mid);
+	$row2   = array_slice($testi_cards, $mid);
+	$feat   = $testi_cards[0]; // Featured = first card
+?>
+<section class="testi-section">
+
+	<!-- ── Trust bar ── -->
+	<div class="testi-trust-bar">
+		<div class="container testi-trust-bar__inner">
+			<div class="testi-trust-stat">
+				<span class="testi-trust-num">4.9</span>
+				<div>
+					<div class="testi-trust-stars">★★★★★</div>
+					<div class="testi-trust-label">Google Rating</div>
 				</div>
 			</div>
-			<?php endforeach; ?>
+			<div class="testi-trust-divider"></div>
+			<div class="testi-trust-stat">
+				<span class="testi-trust-num">345<span class="testi-trust-plus">+</span></span>
+				<div class="testi-trust-label">UAE Businesses<br>Served</div>
+			</div>
+			<div class="testi-trust-divider"></div>
+			<div class="testi-trust-stat">
+				<span class="testi-trust-num">99<span class="testi-trust-plus">%</span></span>
+				<div class="testi-trust-label">Client Retention<br>Rate</div>
+			</div>
+			<div class="testi-trust-divider"></div>
+			<div class="testi-trust-stat">
+				<span class="testi-trust-num">8<span class="testi-trust-plus">+</span></span>
+				<div class="testi-trust-label">Years Delivering<br>Results in UAE</div>
+			</div>
 		</div>
 	</div>
+
+	<!-- ── Section header ── -->
+	<div class="container">
+		<div class="testi-header">
+			<?php seoae_section_label('Client Reviews'); ?>
+			<h2 class="testi-header__title">Trusted by UAE's <span class="text-primary">Leading Businesses</span></h2>
+			<p class="testi-header__sub">Real results, real clients — from Dubai startups to enterprise brands across the UAE.</p>
+		</div>
+
+		<!-- ── Featured testimonial ── -->
+		<div class="testi-featured">
+			<div class="testi-featured__quote-mark">"</div>
+			<p class="testi-featured__text"><?php echo esc_html($feat['content']); ?></p>
+			<div class="testi-featured__author">
+				<div class="testi-featured__avatar"><?php echo esc_html(strtoupper(substr($feat['name'],0,1))); ?></div>
+				<div>
+					<p class="testi-featured__name"><?php echo esc_html($feat['name']); ?></p>
+					<p class="testi-featured__role"><?php echo esc_html($feat['role'] . ($feat['company'] ? ', '.$feat['company'] : '')); ?></p>
+				</div>
+				<div class="testi-featured__stars">
+					<?php for($i=0;$i<5;$i++) echo '<svg width="16" height="16" viewBox="0 0 24 24" fill="#F59E0B"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>'; ?>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- ── Marquee rows ── -->
+	<?php
+	// Helper to render one marquee card
+	function seoae_testi_card(array $c): string {
+		$init = esc_html(strtoupper(substr($c['name'],0,1)));
+		$name = esc_html($c['name']);
+		$role = esc_html($c['role'] . ($c['company'] ? ', '.$c['company'] : ''));
+		$quote= esc_html($c['content']);
+		$ver  = $c['verified'];
+		$stars= '';
+		for($i=0;$i<5;$i++) $stars .= '<svg width="13" height="13" viewBox="0 0 24 24" fill="#F59E0B"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>';
+		$verified = $ver ? '<span class="tc-verified"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Verified</span>' : '';
+		return "<div class=\"tc\">
+			<div class=\"tc__top\"><div class=\"tc__stars\">$stars</div>$verified</div>
+			<p class=\"tc__quote\">\"$quote\"</p>
+			<div class=\"tc__author\">
+				<div class=\"tc__avatar\">$init</div>
+				<div><p class=\"tc__name\">$name</p><p class=\"tc__role\">$role</p></div>
+			</div>
+		</div>";
+	}
+	?>
+
+	<div class="testi-marquee">
+		<!-- Row 1 — scrolls left -->
+		<div class="testi-marquee__row" aria-hidden="true">
+			<div class="testi-marquee__track testi-marquee__track--ltr">
+				<?php foreach(array_merge($row1,$row1) as $c) echo seoae_testi_card($c); ?>
+			</div>
+		</div>
+		<!-- Row 2 — scrolls right -->
+		<div class="testi-marquee__row" aria-hidden="true">
+			<div class="testi-marquee__track testi-marquee__track--rtl">
+				<?php foreach(array_merge($row2,$row2) as $c) echo seoae_testi_card($c); ?>
+			</div>
+		</div>
+	</div>
+
 </section>
 <?php endif; ?>
 
