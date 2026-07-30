@@ -181,6 +181,7 @@ export default function Navbar() {
                     { href: "/case-studies", label: "Case Studies" },
                     { href: "/portfolio", label: "Portfolio" },
                     { href: "/blog", label: "Insights & Blog" },
+                    { href: "/faq", label: "FAQ" },
                   ].map((item) => (
                     <Link
                       key={item.href}
@@ -286,6 +287,7 @@ export default function Navbar() {
               <Link href="/case-studies" className="px-3 py-2.5 text-base font-medium text-foreground hover:text-primary hover:bg-muted rounded-lg transition-colors">Case Studies</Link>
               <Link href="/portfolio" className="px-3 py-2.5 text-base font-medium text-foreground hover:text-primary hover:bg-muted rounded-lg transition-colors">Portfolio</Link>
               <Link href="/blog" className="px-3 py-2.5 text-base font-medium text-foreground hover:text-primary hover:bg-muted rounded-lg transition-colors">Blog</Link>
+              <Link href="/faq" className="px-3 py-2.5 text-base font-medium text-foreground hover:text-primary hover:bg-muted rounded-lg transition-colors">FAQ</Link>
               <Link href="/about" className="px-3 py-2.5 text-base font-medium text-foreground hover:text-primary hover:bg-muted rounded-lg transition-colors">About Us</Link>
               <div className="mt-3 flex flex-col gap-2">
                 <Link href="/contact">
