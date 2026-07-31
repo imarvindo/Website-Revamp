@@ -1266,6 +1266,148 @@ add_action( 'save_post_contact_submission', function( $post_id ) {
 } );
 
 // ─────────────────────────────────────────────────────────────────────────────
+// CONTACT SUBMISSION — CSV EXPORT
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Add "Export to CSV" button above the Enquiries list table.
+ * Passes through the active search (s), date filter (m), and status filter.
+ */
+add_action( 'restrict_manage_posts', function( $post_type ) {
+	if ( $post_type !== 'contact_submission' ) return;
+
+	$export_url = add_query_arg( [
+		'action'   => 'seoae_export_enquiries_csv',
+		'_wpnonce' => wp_create_nonce( 'seoae_export_enquiries_csv' ),
+		// Carry through active list-table filters so the export matches what is on-screen
+		's'        => sanitize_text_field( $_GET['s']      ?? '' ),
+		'm'        => sanitize_text_field( $_GET['m']      ?? '' ),
+		'sub_status_filter' => sanitize_text_field( $_GET['sub_status_filter'] ?? '' ),
+	], admin_url( 'admin-post.php' ) );
+	?>
+	<a href="<?php echo esc_url( $export_url ); ?>"
+	   class="button"
+	   style="margin-left:4px;display:inline-flex;align-items:center;gap:4px;">
+		<span class="dashicons dashicons-download" style="margin-top:3px;font-size:16px;"></span>
+		<?php esc_html_e( 'Export to CSV', 'seo-ae' ); ?>
+	</a>
+	<?php
+} );
+
+/**
+ * Add a "Status" dropdown filter to the Enquiries list table.
+ */
+add_action( 'restrict_manage_posts', function( $post_type ) {
+	if ( $post_type !== 'contact_submission' ) return;
+	$current = sanitize_text_field( $_GET['sub_status_filter'] ?? '' );
+	$statuses = [ '' => __( 'All Statuses', 'seo-ae' ), 'new' => 'New', 'contacted' => 'Contacted', 'converted' => 'Converted', 'closed' => 'Closed' ];
+	echo '<select name="sub_status_filter">';
+	foreach ( $statuses as $val => $label ) {
+		printf( '<option value="%s"%s>%s</option>', esc_attr( $val ), selected( $current, $val, false ), esc_html( $label ) );
+	}
+	echo '</select>';
+} );
+
+/**
+ * Apply the status filter to WP_Query on the list screen.
+ */
+add_action( 'pre_get_posts', function( $query ) {
+	global $pagenow;
+	if ( ! is_admin() || $pagenow !== 'edit.php' ) return;
+	if ( ( $query->get( 'post_type' ) ?: 'post' ) !== 'contact_submission' ) return;
+	if ( ! $query->is_main_query() ) return;
+
+	$status = sanitize_text_field( $_GET['sub_status_filter'] ?? '' );
+	if ( $status ) {
+		$query->set( 'meta_query', [
+			[ 'key' => '_sub_status', 'value' => $status, 'compare' => '=' ],
+		] );
+	}
+} );
+
+/**
+ * Handle the CSV export request (admin-post.php action).
+ *
+ * Respects: search string (s), month filter (m), status filter (sub_status_filter).
+ */
+add_action( 'admin_post_seoae_export_enquiries_csv', function () {
+	// Auth + nonce
+	if ( ! current_user_can( 'edit_posts' ) ) {
+		wp_die( __( 'You do not have permission to export enquiries.', 'seo-ae' ) );
+	}
+	check_admin_referer( 'seoae_export_enquiries_csv' );
+
+	// ── Build WP_Query args matching the current filters ────────────────────
+	$args = [
+		'post_type'      => 'contact_submission',
+		'post_status'    => 'publish',
+		'posts_per_page' => -1,
+		'orderby'        => 'date',
+		'order'          => 'DESC',
+	];
+
+	// Search string
+	$search = sanitize_text_field( $_GET['s'] ?? '' );
+	if ( $search ) {
+		$args['s'] = $search;
+	}
+
+	// Month filter (YYYYMM format that WP uses in the "m" param)
+	$month = sanitize_text_field( $_GET['m'] ?? '' );
+	if ( $month && preg_match( '/^\d{6}$/', $month ) ) {
+		$args['date_query'] = [ [
+			'year'  => (int) substr( $month, 0, 4 ),
+			'month' => (int) substr( $month, 4, 2 ),
+		] ];
+	}
+
+	// Status meta filter
+	$status_filter = sanitize_text_field( $_GET['sub_status_filter'] ?? '' );
+	if ( $status_filter ) {
+		$args['meta_query'] = [
+			[ 'key' => '_sub_status', 'value' => $status_filter, 'compare' => '=' ],
+		];
+	}
+
+	$posts = get_posts( $args );
+
+	// ── Output CSV ───────────────────────────────────────────────────────────
+	$filename = 'enquiries-export-' . gmdate( 'Y-m-d' ) . '.csv';
+
+	header( 'Content-Type: text/csv; charset=UTF-8' );
+	header( 'Content-Disposition: attachment; filename="' . $filename . '"' );
+	header( 'Cache-Control: no-cache, no-store, must-revalidate' );
+	header( 'Pragma: no-cache' );
+	header( 'Expires: 0' );
+
+	// BOM for Excel UTF-8 compatibility
+	echo "\xEF\xBB\xBF";
+
+	$out = fopen( 'php://output', 'w' );
+
+	// Header row
+	fputcsv( $out, [ 'Name', 'Email', 'Phone', 'Company', 'Service', 'Budget', 'Country', 'Message', 'Date', 'Status' ] );
+
+	foreach ( $posts as $post ) {
+		$name    = $post->post_title;
+		$email   = get_post_meta( $post->ID, '_sub_email',   true );
+		$phone   = get_post_meta( $post->ID, '_sub_phone',   true );
+		$company = get_post_meta( $post->ID, '_sub_company', true );
+		$service = get_post_meta( $post->ID, '_sub_service', true );
+		$budget  = get_post_meta( $post->ID, '_sub_budget',  true );
+		$country = get_post_meta( $post->ID, '_sub_country', true );
+		$message = get_post_meta( $post->ID, '_sub_message', true );
+		$date    = get_the_date( 'Y-m-d H:i:s', $post );
+		$status  = get_post_meta( $post->ID, '_sub_status',  true ) ?: 'new';
+
+		fputcsv( $out, [ $name, $email, $phone, $company, $service, $budget, $country, $message, $date, $status ] );
+	}
+
+	fclose( $out );
+	exit;
+} );
+
+// ─────────────────────────────────────────────────────────────────────────────
 // Add admin columns for services
 add_filter( 'manage_service_posts_columns', function( $cols ) {
 	return array_merge(
