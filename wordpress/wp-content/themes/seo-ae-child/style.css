@@ -1,0 +1,32 @@
+/*
+Theme Name:   SearchEngineOptimization.ae — Child
+Theme URI:    https://searchengineoptimization.ae
+Description:  Child theme of seo-ae. All visual customisations live here so parent theme updates never overwrite your changes.
+Author:       SearchEngineOptimization.ae
+Template:     seo-ae
+Version:      1.0.0
+Text Domain:  seo-ae-child
+*/
+
+/* ─────────────────────────────────────────────────────────────
+   Custom overrides go below this line.
+   Parent theme styles load automatically — do not re-import them.
+───────────────────────────────────────────────────────────── */
+
+/* Elementor compatibility */
+.elementor-page .entry-content,
+.elementor-page .page-content {
+    padding: 0;
+    margin: 0;
+}
+
+/* Remove default page title on Elementor pages */
+.elementor-page h1.page-title,
+.elementor-page .page-header {
+    display: none;
+}
+
+/* Ensure Elementor sections span full width */
+.elementor-section.elementor-section-full_width {
+    width: 100%;
+}
