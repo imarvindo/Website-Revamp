@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <rect width="1280" height="720" fill="#0a2540"/>
+  <!-- Top bar -->
+  <rect y="0" width="1280" height="40" fill="#0d3060"/>
+  <text x="50" y="26" font-family="system-ui" font-size="13" fill="#94a3b8">M-01 Muteena Street, Deira, Dubai, UAE</text>
+  <text x="1050" y="26" font-family="system-ui" font-size="13" fill="#94a3b8">sales@searchengineoptimization.ae</text>
+  <!-- Navbar -->
+  <rect y="40" width="1280" height="64" fill="#fff"/>
+  <circle cx="60" cy="72" r="18" fill="#00b4d8"/>
+  <text x="90" y="78" font-family="system-ui" font-size="16" font-weight="700" fill="#0a2540">SearchEngineOptimization.ae</text>
+  <text x="420" y="78" font-family="system-ui" font-size="14" fill="#0a2540">Home</text>
+  <text x="500" y="78" font-family="system-ui" font-size="14" fill="#475569">Services ▾</text>
+  <text x="620" y="78" font-family="system-ui" font-size="14" fill="#475569">Resources ▾</text>
+  <text x="740" y="78" font-family="system-ui" font-size="14" fill="#475569">Company ▾</text>
+  <rect x="1100" y="52" width="140" height="40" rx="6" fill="#00b4d8"/>
+  <text x="1170" y="77" font-family="system-ui" font-size="14" font-weight="600" fill="#fff" text-anchor="middle">Get Started →</text>
+  <!-- Hero -->
+  <text x="640" y="220" font-family="system-ui" font-size="52" font-weight="800" fill="#fff" text-anchor="middle">Dubai's #1 SEO &amp;</text>
+  <text x="640" y="285" font-family="system-ui" font-size="52" font-weight="800" fill="#fff" text-anchor="middle">Digital Marketing Agency</text>
+  <text x="640" y="345" font-family="system-ui" font-size="18" fill="rgba(255,255,255,0.8)" text-anchor="middle">We help UAE businesses rank higher, attract more customers</text>
+  <text x="640" y="373" font-family="system-ui" font-size="18" fill="rgba(255,255,255,0.8)" text-anchor="middle">and grow revenue through data-driven SEO.</text>
+  <rect x="490" y="410" width="300" height="56" rx="8" fill="#00b4d8"/>
+  <text x="640" y="444" font-family="system-ui" font-size="17" font-weight="700" fill="#fff" text-anchor="middle">Get Your Free Audit</text>
+  <!-- Stats bar -->
+  <rect y="530" width="1280" height="90" fill="#00b4d8"/>
+  <text x="220" y="576" font-family="system-ui" font-size="36" font-weight="800" fill="#fff" text-anchor="middle">500+</text>
+  <text x="220" y="603" font-family="system-ui" font-size="13" fill="rgba(255,255,255,0.85)" text-anchor="middle">Projects Delivered</text>
+  <text x="520" y="576" font-family="system-ui" font-size="36" font-weight="800" fill="#fff" text-anchor="middle">4.9★</text>
+  <text x="520" y="603" font-family="system-ui" font-size="13" fill="rgba(255,255,255,0.85)" text-anchor="middle">Google Rating</text>
+  <text x="760" y="576" font-family="system-ui" font-size="36" font-weight="800" fill="#fff" text-anchor="middle">320%</text>
+  <text x="760" y="603" font-family="system-ui" font-size="13" fill="rgba(255,255,255,0.85)" text-anchor="middle">Avg. ROI</text>
+  <text x="1060" y="576" font-family="system-ui" font-size="36" font-weight="800" fill="#fff" text-anchor="middle">8+</text>
+  <text x="1060" y="603" font-family="system-ui" font-size="13" fill="rgba(255,255,255,0.85)" text-anchor="middle">Years in UAE</text>
+  <!-- Bottom gradient -->
+  <rect y="620" width="1280" height="100" fill="#0a2540"/>
+  <text x="640" y="680" font-family="system-ui" font-size="20" font-weight="600" fill="rgba(255,255,255,0.4)" text-anchor="middle">searchengineoptimization.ae</text>
+</svg>

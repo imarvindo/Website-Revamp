@@ -2,13 +2,18 @@
 /**
  * SearchEngineOptimization.ae — Child Theme Functions
  *
- * The parent theme (seo-ae) loads its functions.php first automatically.
- * This file adds child-specific behaviour and Elementor enhancements.
+ * Load order:
+ *  1. Parent theme (seo-ae) functions.php  — loaded by WordPress automatically
+ *  2. This file                             — child-theme additions
+ *
+ * Includes:
+ *  • TGM Plugin Activation   → admin notice listing required/recommended plugins
+ *  • Demo Importer           → Appearance → Import Demo one-click importer
  */
 
 // ── 1. Enqueue parent + child stylesheets ────────────────────────────────────
 add_action( 'wp_enqueue_scripts', function () {
-    // Parent stylesheet (already enqueued by parent, but we ensure correct dependency)
+    // Parent main stylesheet
     wp_enqueue_style(
         'seo-ae-parent',
         get_template_directory_uri() . '/assets/css/main.css',
@@ -16,7 +21,7 @@ add_action( 'wp_enqueue_scripts', function () {
         wp_get_theme( 'seo-ae' )->get( 'Version' )
     );
 
-    // Child stylesheet overrides
+    // Child-theme overrides (Elementor compatibility, minor tweaks)
     wp_enqueue_style(
         'seo-ae-child',
         get_stylesheet_directory_uri() . '/style.css',
@@ -25,33 +30,37 @@ add_action( 'wp_enqueue_scripts', function () {
     );
 }, 20 );
 
-// ── 2. Elementor compatibility ───────────────────────────────────────────────
+// ── 2. Child-theme safety: re-define constants if parent didn't load ─────────
+if ( ! defined( 'SEOAE_VERSION' ) ) { define( 'SEOAE_VERSION', '1.0.0' ); }
+if ( ! defined( 'SEOAE_DIR' ) )     { define( 'SEOAE_DIR',     get_template_directory() ); }
+if ( ! defined( 'SEOAE_URI' ) )     { define( 'SEOAE_URI',     get_template_directory_uri() ); }
+
+// ── 3. TGM Plugin Activation — required / recommended plugins ────────────────
+require_once get_stylesheet_directory() . '/includes/required-plugins.php';
+
+// ── 4. Demo Content Importer ─────────────────────────────────────────────────
+require_once get_stylesheet_directory() . '/includes/demo-importer.php';
+
+// ── 5. Elementor compatibility ───────────────────────────────────────────────
 
 /**
- * Allow Elementor to use the full page width (no sidebar padding).
- */
-add_action( 'elementor/theme/register_conditions', function ( $conditions_manager ) {
-    // Elementor handles its own width; nothing extra needed here.
-} );
-
-/**
- * Tell Elementor to hide the default WordPress title on Elementor-built pages.
+ * Hide WP default page title on Elementor-built pages.
+ * The title is rendered inside the Elementor layout itself.
  */
 add_filter( 'the_title', function ( $title ) {
     if (
         is_singular() &&
+        in_the_loop() &&
+        class_exists( '\Elementor\Plugin' ) &&
         \Elementor\Plugin::$instance->db->is_built_with_elementor( get_the_ID() )
     ) {
-        // Title is rendered inside the Elementor layout; suppress the WP default
-        if ( in_the_loop() ) {
-            return '';
-        }
+        return '';
     }
     return $title;
 } );
 
 /**
- * Add Elementor support: ensure parent theme body class is still applied.
+ * Add body class on Elementor pages so CSS targets are available.
  */
 add_filter( 'body_class', function ( $classes ) {
     if (
@@ -64,32 +73,21 @@ add_filter( 'body_class', function ( $classes ) {
     return $classes;
 } );
 
-// ── 3. Elementor global colours & fonts (matches brand palette) ──────────────
-add_action( 'elementor/element/kit/section_buttons/before_section_end', function ( $element, $args ) {
-    // Brand colours are defined in parent theme CSS variables; Elementor picks them up
-    // via var(--color-primary) etc. No extra registration needed for free version.
-}, 10, 2 );
-
-// ── 4. Child-theme safety: re-define constants if parent didn't load ─────────
-if ( ! defined( 'SEOAE_VERSION' ) ) {
-    define( 'SEOAE_VERSION', '1.0.0' );
-}
-if ( ! defined( 'SEOAE_DIR' ) ) {
-    define( 'SEOAE_DIR', get_template_directory() );
-}
-if ( ! defined( 'SEOAE_URI' ) ) {
-    define( 'SEOAE_URI', get_template_directory_uri() );
-}
-
-// ── 5. Admin notice: confirm child theme is active ───────────────────────────
+// ── 6. Admin notice: confirm child theme is active (shown once) ───────────────
 add_action( 'admin_notices', function () {
     if ( get_stylesheet() !== 'seo-ae-child' ) return;
     if ( ! current_user_can( 'manage_options' ) ) return;
-    // Only show once
-    $shown = get_transient( 'seoae_child_notice_shown' );
-    if ( $shown ) return;
-    set_transient( 'seoae_child_notice_shown', 1, WEEK_IN_SECONDS );
-    echo '<div class="notice notice-success is-dismissible">
-        <p><strong>✅ SEO.ae Child Theme active.</strong> All future customisations are safely stored here — parent theme updates will never overwrite them. Elementor is ready to use on any page.</p>
-    </div>';
+    if ( get_transient( 'seoae_child_activated_notice' ) ) return;
+    set_transient( 'seoae_child_activated_notice', 1, WEEK_IN_SECONDS );
+    ?>
+    <div class="notice notice-success is-dismissible">
+        <p>
+            <strong>✅ SearchEngineOptimization.ae Child Theme activated.</strong>
+            Go to <a href="<?= esc_url( admin_url( 'themes.php?page=seoae-demo-import' ) ) ?>">
+            <strong>Appearance → Import Demo</strong></a> to import the full demo content in one click.
+            &nbsp;|&nbsp;
+            <a href="<?= esc_url( admin_url( 'themes.php?page=tgmpa-install-plugins' ) ) ?>">Install required plugins</a>
+        </p>
+    </div>
+    <?php
 } );
