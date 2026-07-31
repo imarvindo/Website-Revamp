@@ -1,0 +1,8 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "o8IPMGPhdkA9FzHMIlF0r"
+uri = "file://wordpress-mysql8.sql"
+type = "unspecified"
+title = "wordpress-mysql8.sql — MySQL 8 compatible dump"
