@@ -41,14 +41,14 @@
 		<!-- Logo -->
 		<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="navbar__logo" aria-label="SearchEngineOptimization.ae Home">
 			<img
-				src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/logo-concept-1.png' ); ?>"
+				src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/logo-mark.png' ); ?>"
 				alt="SearchEngineOptimization.ae"
 				class="navbar__logo-img"
 				width="40"
 				height="40"
 			/>
 			<div class="navbar__logo-text">
-				<span class="navbar__logo-name" style="font-size:.95rem;">SearchEngine<span class="text-primary">Optimization.ae</span></span>
+				<span class="navbar__logo-name" >SearchEngine<span class="text-primary">Optimization.ae</span></span>
 				<span class="navbar__logo-tagline">DIGITAL GROWTH PARTNER</span>
 			</div>
 		</a>
@@ -187,14 +187,14 @@
 	<div class="mobile-menu__header">
 		<a href="<?php echo esc_url( home_url('/') ); ?>" class="navbar__logo">
 			<img
-				src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/logo-concept-1.png' ); ?>"
+				src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/logo-mark.png' ); ?>"
 				alt="SearchEngineOptimization.ae"
 				class="navbar__logo-img"
 				width="36"
 				height="36"
 			/>
 			<div class="navbar__logo-text">
-				<span class="navbar__logo-name" style="font-size:.95rem;">SearchEngine<span class="text-primary">Optimization.ae</span></span>
+				<span class="navbar__logo-name" >SearchEngine<span class="text-primary">Optimization.ae</span></span>
 			</div>
 		</a>
 		<button class="mobile-menu__close" id="mobile-menu-close" aria-label="Close menu">

@@ -177,21 +177,21 @@ add_filter( 'the_content', function ( $content ) {
     if ( ! is_singular( 'service' ) ) return $content;
 
     $locations = [
-        [ 'name' => 'Dubai',             'url' => '/seo-company-dubai/',            'searches' => '18M+' ],
-        [ 'name' => 'Abu Dhabi',         'url' => '/seo-company-abu-dhabi/',        'searches' => '6M+'  ],
-        [ 'name' => 'Sharjah',           'url' => '/seo-company-sharjah/',          'searches' => '4M+'  ],
-        [ 'name' => 'Ajman',             'url' => '/seo-company-ajman/',            'searches' => '1.5M+'],
-        [ 'name' => 'Ras Al Khaimah',    'url' => '/seo-company-ras-al-khaimah/',   'searches' => '1.2M+'],
-        [ 'name' => 'Fujairah',          'url' => '/seo-company-fujairah/',         'searches' => '900K+'],
-        [ 'name' => 'Umm Al Quwain',     'url' => '/seo-company-umm-al-quwain/',   'searches' => '400K+'],
-        [ 'name' => 'Al Ain',            'url' => '/seo-company-al-ain/',           'searches' => '2M+'  ],
-        [ 'name' => 'Dubai Marina',      'url' => '/seo-company-dubai-marina/',     'searches' => '2.5M+'],
-        [ 'name' => 'Business Bay',      'url' => '/seo-company-business-bay/',     'searches' => '3M+'  ],
-        [ 'name' => 'Deira',             'url' => '/seo-company-deira/',            'searches' => '2.8M+'],
-        [ 'name' => 'Downtown Dubai',    'url' => '/seo-company-downtown-dubai/',   'searches' => '3.5M+'],
-        [ 'name' => 'Jebel Ali',         'url' => '/seo-company-jebel-ali/',        'searches' => '1.8M+'],
-        [ 'name' => 'Khor Fakkan',       'url' => '/seo-company-khor-fakkan/',      'searches' => '200K+'],
-        [ 'name' => 'Dibba Al Fujairah', 'url' => '/seo-company-dibba-al-fujairah/','searches' => '180K+'],
+        [ 'name' => 'Dubai',          'url' => '/dubai/',              'searches' => 'High intent' ],
+        [ 'name' => 'Abu Dhabi',      'url' => '/seo-abu-dhabi/',      'searches' => 'Capital market' ],
+        [ 'name' => 'Sharjah',        'url' => '/seo-sharjah/',        'searches' => 'SME growth' ],
+        [ 'name' => 'Ajman',          'url' => '/seo-ajman/',          'searches' => 'Local demand' ],
+        [ 'name' => 'Ras Al Khaimah', 'url' => '/seo-ras-al-khaimah/', 'searches' => 'Tourism + trade' ],
+        [ 'name' => 'Fujairah',       'url' => '/seo-fujairah/',       'searches' => 'Port economy' ],
+        [ 'name' => 'All Locations',  'url' => '/locations/',          'searches' => 'UAE coverage' ],
+        [ 'name' => 'Industries',     'url' => '/industries/',         'searches' => 'Sector SEO' ],
+        [ 'name' => 'Real Estate',    'url' => '/real-estate/',        'searches' => 'Property leads' ],
+        [ 'name' => 'Healthcare',     'url' => '/healthcare/',         'searches' => 'Patient acquisition' ],
+        [ 'name' => 'Legal',          'url' => '/legal/',              'searches' => 'Law firm growth' ],
+        [ 'name' => 'Ecommerce',      'url' => '/ecommerce/',          'searches' => 'Online sales' ],
+        [ 'name' => 'Finance',        'url' => '/finance/',            'searches' => 'Fintech + banking' ],
+        [ 'name' => 'Hospitality',    'url' => '/hospitality/',        'searches' => 'Hotel bookings' ],
+        [ 'name' => 'Case Studies',   'url' => '/case-studies/',       'searches' => 'Proven results' ],
     ];
 
     $cards = '';
@@ -208,8 +208,8 @@ add_filter( 'the_content', function ( $content ) {
   <div class="container">
     <div class="section-header" style="margin-bottom:2rem;">
       <span class="section-label">UAE Coverage</span>
-      <h2 style="font-size:1.5rem;font-weight:800;color:var(--color-heading);margin-bottom:.5rem;">We Deliver This Service Across All UAE Emirates &amp; Districts</h2>
-      <p style="color:var(--color-body);font-size:.9375rem;max-width:560px;">From Dubai\'s hypercompetitive commercial market to Fujairah\'s port-city sector — the same service, tuned to your local market.</p>
+      <h2 style="font-size:1.5rem;font-weight:800;color:var(--color-heading);margin-bottom:.5rem;">We Deliver This Service Across UAE Cities and Industries</h2>
+      <p style="color:var(--color-body);font-size:.9375rem;max-width:560px;">From Dubai\'s competitive commercial market to Fujairah\'s port economy, the same service standards adapted to your local audience and sector.</p>
     </div>
     <div class="uae-grid" style="grid-template-columns:repeat(5,1fr);">' . $cards . '
     </div>

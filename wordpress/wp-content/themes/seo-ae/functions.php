@@ -6,7 +6,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-define( 'SEOAE_VERSION', '1.0.0' );
+define( 'SEOAE_VERSION', '1.0.1' );
 define( 'SEOAE_DIR', get_template_directory() );
 define( 'SEOAE_URI', get_template_directory_uri() );
 

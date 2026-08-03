@@ -493,11 +493,7 @@ $case_studies = new WP_Query(['post_type'=>'case_study','posts_per_page'=>4,'pos
 			'verified' => get_field('verified',       $t->ID),
 		];
 	}
-	// Split into two rows for the marquee
-	$mid    = (int) ceil(count($testi_cards) / 2);
-	$row1   = array_slice($testi_cards, 0, $mid);
-	$row2   = array_slice($testi_cards, $mid);
-	$feat   = $testi_cards[0]; // Featured = first card
+	$feat = $testi_cards[0]; // Featured = first card
 ?>
 <section class="testi-section">
 
@@ -534,7 +530,7 @@ $case_studies = new WP_Query(['post_type'=>'case_study','posts_per_page'=>4,'pos
 		<div class="testi-header">
 			<?php seoae_section_label('Client Reviews'); ?>
 			<h2 class="testi-header__title">Trusted by UAE's <span class="text-primary">Leading Businesses</span></h2>
-			<p class="testi-header__sub">Real results, real clients — from Dubai startups to enterprise brands across the UAE.</p>
+			<p class="testi-header__sub">Real results from real clients, from Dubai startups to enterprise brands across the UAE.</p>
 		</div>
 
 		<!-- ── Featured testimonial ── -->
@@ -554,19 +550,21 @@ $case_studies = new WP_Query(['post_type'=>'case_study','posts_per_page'=>4,'pos
 		</div>
 	</div>
 
-	<!-- ── Marquee rows ── -->
+	<!-- ── Single-line marquee ── -->
 	<?php
-	// Helper to render one marquee card
-	function seoae_testi_card(array $c): string {
-		$init = esc_html(strtoupper(substr($c['name'],0,1)));
-		$name = esc_html($c['name']);
-		$role = esc_html($c['role'] . ($c['company'] ? ', '.$c['company'] : ''));
-		$quote= esc_html($c['content']);
-		$ver  = $c['verified'];
-		$stars= '';
-		for($i=0;$i<5;$i++) $stars .= '<svg width="13" height="13" viewBox="0 0 24 24" fill="#F59E0B"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>';
-		$verified = $ver ? '<span class="tc-verified"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Verified</span>' : '';
-		return "<div class=\"tc\">
+	if ( ! function_exists( 'seoae_testi_card' ) ) {
+		function seoae_testi_card( array $c ): string {
+			$init = esc_html( strtoupper( substr( $c['name'], 0, 1 ) ) );
+			$name = esc_html( $c['name'] );
+			$role = esc_html( $c['role'] . ( $c['company'] ? ', ' . $c['company'] : '' ) );
+			$quote = esc_html( $c['content'] );
+			$ver  = $c['verified'];
+			$stars = '';
+			for ( $i = 0; $i < 5; $i++ ) {
+				$stars .= '<svg width="13" height="13" viewBox="0 0 24 24" fill="#F59E0B"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>';
+			}
+			$verified = $ver ? '<span class="tc-verified"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Verified</span>' : '';
+			return "<div class=\"tc\">
 			<div class=\"tc__top\"><div class=\"tc__stars\">$stars</div>$verified</div>
 			<p class=\"tc__quote\">\"$quote\"</p>
 			<div class=\"tc__author\">
@@ -574,20 +572,14 @@ $case_studies = new WP_Query(['post_type'=>'case_study','posts_per_page'=>4,'pos
 				<div><p class=\"tc__name\">$name</p><p class=\"tc__role\">$role</p></div>
 			</div>
 		</div>";
+		}
 	}
 	?>
 
-	<div class="testi-marquee">
-		<!-- Row 1 — scrolls left -->
-		<div class="testi-marquee__row" aria-hidden="true">
+	<div class="testi-marquee testi-marquee--single" aria-label="Client testimonials">
+		<div class="testi-marquee__row">
 			<div class="testi-marquee__track testi-marquee__track--ltr">
-				<?php foreach(array_merge($row1,$row1) as $c) echo seoae_testi_card($c); ?>
-			</div>
-		</div>
-		<!-- Row 2 — scrolls right -->
-		<div class="testi-marquee__row" aria-hidden="true">
-			<div class="testi-marquee__track testi-marquee__track--rtl">
-				<?php foreach(array_merge($row2,$row2) as $c) echo seoae_testi_card($c); ?>
+				<?php foreach ( array_merge( $testi_cards, $testi_cards ) as $c ) { echo seoae_testi_card( $c ); } ?>
 			</div>
 		</div>
 	</div>
