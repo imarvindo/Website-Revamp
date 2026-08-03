@@ -1,7 +1,7 @@
 <?php
 /**
  * Template Name: RAK Location Page
- * Ras Al Khaimah SEO agency landing page — targets "SEO agency RAK",
+ * Ras Al Khaimah SEO agency landing page  -  targets "SEO agency RAK",
  * "SEO agency Ras Al Khaimah", "digital marketing RAK" and geo-modified queries.
  */
 get_header();
@@ -10,7 +10,7 @@ get_header();
 $schema_org = [
 	'@context' => 'https://schema.org',
 	'@type'    => ['LocalBusiness','ProfessionalService','MarketingAgency'],
-	'name'     => 'SearchEngineOptimization.ae — Ras Al Khaimah SEO Agency',
+	'name'     => 'SearchEngineOptimization.ae  -  Ras Al Khaimah SEO Agency',
 	'alternateName' => ['SEO Agency RAK','SEO Agency Ras Al Khaimah','Digital Marketing Ras Al Khaimah','SEO Company RAK'],
 	'description'   => "Ras Al Khaimah's leading SEO and digital marketing agency. We help RAK businesses dominate Google search, attract high-intent traffic, and convert visitors into customers. SEO, PPC, social media, and web design tailored to the RAK and Northern Emirates market.",
 	'url'      => get_permalink(get_the_ID()),
@@ -47,15 +47,15 @@ $city_faqs = [
 	],
 	[
 		'question' => 'How long does SEO take to show results for a RAK business?',
-		'answer'   => 'Most RAK businesses see measurable ranking improvements within 60–90 days. Meaningful organic traffic growth typically follows in months 3–6. RAK\'s lower overall SEO competition (compared to Dubai) means many businesses can achieve page-1 rankings faster, particularly for tourism, hospitality, and real estate keywords. Local and long-tail keyword wins often appear within the first 30 days.',
+		'answer'   => 'Most RAK businesses see measurable ranking improvements within 60-90 days. Meaningful organic traffic growth typically follows in months 3-6. RAK\'s lower overall SEO competition (compared to Dubai) means many businesses can achieve page-1 rankings faster, particularly for tourism, hospitality, and real estate keywords. Local and long-tail keyword wins often appear within the first 30 days.',
 	],
 	[
 		'question' => 'Do you specialise in SEO for Ras Al Khaimah\'s tourism industry?',
-		'answer'   => 'Yes. RAK tourism is a rapidly growing sector, with Wynn Al Marjan Island resort and the broader Al Marjan Island development driving significant international search interest. We create destination SEO strategies targeting adventure tourism (Jebel Jais), beach resorts, family destinations, and luxury accommodation — in both English and Arabic.',
+		'answer'   => 'Yes. RAK tourism is a rapidly growing sector, with Wynn Al Marjan Island resort and the broader Al Marjan Island development driving significant international search interest. We create destination SEO strategies targeting adventure tourism (Jebel Jais), beach resorts, family destinations, and luxury accommodation  -  in both English and Arabic.',
 	],
 	[
 		'question' => 'Can you help RAK Free Trade Zone businesses with SEO?',
-		'answer'   => 'Absolutely. RAK Free Trade Zone (RAKFTZ) hosts thousands of international businesses looking to reach UAE, GCC, and global customers online. We specialise in B2B SEO for free zone businesses — including technical content creation, international keyword targeting, and multilingual SEO strategies.',
+		'answer'   => 'Absolutely. RAK Free Trade Zone (RAKFTZ) hosts thousands of international businesses looking to reach UAE, GCC, and global customers online. We specialise in B2B SEO for free zone businesses  -  including technical content creation, international keyword targeting, and multilingual SEO strategies.',
 	],
 	[
 		'question' => 'Do you provide Arabic SEO for RAK businesses?',
@@ -71,11 +71,11 @@ $city_faqs = [
 	],
 	[
 		'question' => 'Can you help my RAK business rank in Google Maps and local pack results?',
-		'answer'   => 'Yes. Google Maps local pack rankings are a key focus of our local SEO service. We optimise your Google Business Profile, build citations on RAK-relevant directories, and create geo-specific content that signals local relevance to Google\'s algorithm — helping you appear in the top 3 local pack results for your target searches.',
+		'answer'   => 'Yes. Google Maps local pack rankings are a key focus of our local SEO service. We optimise your Google Business Profile, build citations on RAK-relevant directories, and create geo-specific content that signals local relevance to Google\'s algorithm  -  helping you appear in the top 3 local pack results for your target searches.',
 	],
 	[
 		'question' => 'How do I get a free SEO audit for my Ras Al Khaimah website?',
-		'answer'   => 'Fill in the contact form on this page or email sales@searchengineoptimization.ae. Our team will conduct a full technical, on-page, and keyword audit of your site and deliver a personalised report within 48 hours — no obligation, no sales pressure.',
+		'answer'   => 'Fill in the contact form on this page or email sales@searchengineoptimization.ae. Our team will conduct a full technical, on-page, and keyword audit of your site and deliver a personalised report within 48 hours  -  no obligation, no sales pressure.',
 	],
 	[
 		'question' => 'Why choose SearchEngineOptimization.ae over other RAK SEO agencies?',
@@ -118,7 +118,7 @@ echo '<script type="application/ld+json">' . wp_json_encode([
 					<br><span style="color:var(--color-primary,#16B1D4);">Drive Local &amp; Tourism Search Growth</span>
 				</h1>
 				<p style="color:rgba(255,255,255,.78);font-size:1.075rem;max-width:520px;line-height:1.7;margin-bottom:2.25rem;">
-					RAK generates <strong style="color:#fff;">900K+ monthly Google searches</strong> — and tourism searches are growing fast with Al Marjan Island development. We help RAK businesses capture local and international search traffic before competitors do.
+					RAK generates <strong style="color:#fff;">900K+ monthly Google searches</strong>  -  and tourism searches are growing fast with Al Marjan Island development. We help RAK businesses capture local and international search traffic before competitors do.
 				</p>
 				<div style="display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:2rem;">
 					<a href="<?php echo esc_url(home_url('/contact/')); ?>" class="btn btn--primary btn--lg">Get Free RAK SEO Audit →</a>
@@ -156,7 +156,7 @@ echo '<script type="application/ld+json">' . wp_json_encode([
 						<div style="font-size:.65rem;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.4);margin-top:.2rem;">To Page 1 Rankings</div>
 					</div>
 					<div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:1.1rem;text-align:center;">
-						<div style="font-size:1.5rem;font-weight:800;color:#fff;">4.9★</div>
+						<div style="font-size:1.5rem;font-weight:800;color:#fff;">4.9</div>
 						<div style="font-size:.65rem;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.4);margin-top:.2rem;">Google Rating</div>
 					</div>
 					<div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:1.1rem;text-align:center;">
@@ -177,7 +177,7 @@ echo '<script type="application/ld+json">' . wp_json_encode([
 			<?php seoae_section_label('RAK Market Expertise'); ?>
 			<h2>Why RAK Businesses Choose SearchEngineOptimization.ae</h2>
 			<p class="section-header__desc" style="max-width:560px;margin-left:auto;margin-right:auto;">
-				RAK is one of the UAE's fastest-growing tourism and investment destinations. Our SEO strategies are built to capture this growth — for hospitality, real estate, manufacturing, and free zone businesses.
+				RAK is one of the UAE's fastest-growing tourism and investment destinations. Our SEO strategies are built to capture this growth  -  for hospitality, real estate, manufacturing, and free zone businesses.
 			</p>
 		</div>
 		<div class="why-grid" style="margin-top:2.5rem;">
@@ -186,7 +186,7 @@ echo '<script type="application/ld+json">' . wp_json_encode([
 				[
 					'icon' => '<svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>',
 					'title' => 'RAK Tourism SEO',
-					'desc'  => 'Specialist SEO for RAK\'s booming tourism sector — adventure tourism at Jebel Jais, beach resorts, family destinations, and the Al Marjan Island luxury development.',
+					'desc'  => 'Specialist SEO for RAK\'s booming tourism sector  -  adventure tourism at Jebel Jais, beach resorts, family destinations, and the Al Marjan Island luxury development.',
 				],
 				[
 					'icon' => '<svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>',
@@ -206,12 +206,12 @@ echo '<script type="application/ld+json">' . wp_json_encode([
 				[
 					'icon' => '<svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>',
 					'title' => 'Transparent Reporting',
-					'desc'  => 'Weekly rank tracking, monthly strategy calls, and a live dashboard showing exactly how your RAK SEO is performing — no vanity metrics, only revenue-relevant data.',
+					'desc'  => 'Weekly rank tracking, monthly strategy calls, and a live dashboard showing exactly how your RAK SEO is performing  -  no vanity metrics, only revenue-relevant data.',
 				],
 				[
 					'icon' => '<svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>',
 					'title' => 'Fast Execution',
-					'desc'  => 'Strategy to implementation in days, not weeks. Senior specialists on every account — moving at the pace RAK\'s growing market demands.',
+					'desc'  => 'Strategy to implementation in days, not weeks. Senior specialists on every account  -  moving at the pace RAK\'s growing market demands.',
 				],
 			];
 			foreach ($points as $p) : ?>
@@ -233,7 +233,7 @@ echo '<script type="application/ld+json">' . wp_json_encode([
 			$local_stats = [
 				['num' => '900K+', 'label' => 'RAK monthly Google searches'],
 				['num' => '99%',   'label' => 'UAE internet penetration rate'],
-				['num' => 'Fast',  'label' => 'Growing tourism destination — Al Marjan Island'],
+				['num' => 'Fast',  'label' => 'Growing tourism destination  -  Al Marjan Island'],
 				['num' => '416K',  'label' => 'RAK population actively searching online'],
 			];
 			foreach ($local_stats as $s) : ?>
@@ -253,7 +253,7 @@ echo '<script type="application/ld+json">' . wp_json_encode([
 			<?php seoae_section_label('Our Services in RAK'); ?>
 			<h2>Complete SEO &amp; Digital Marketing Services in Ras Al Khaimah</h2>
 			<p class="section-header__desc" style="max-width:540px;margin-left:auto;margin-right:auto;">
-				From technical SEO to AI search optimisation — every service tuned to RAK's tourism, industrial, and residential search landscape.
+				From technical SEO to AI search optimisation  -  every service tuned to RAK's tourism, industrial, and residential search landscape.
 			</p>
 		</div>
 		<div class="services-grid" style="margin-top:2.5rem;">
@@ -263,7 +263,7 @@ echo '<script type="application/ld+json">' . wp_json_encode([
 					'icon'  => '<svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>',
 					'title' => 'Search Engine Optimisation',
 					'url'   => '/services/search-engine-optimization/',
-					'desc'  => 'Full-service SEO strategy to dominate RAK Google results — technical, on-page, and off-page.',
+					'desc'  => 'Full-service SEO strategy to dominate RAK Google results  -  technical, on-page, and off-page.',
 				],
 				[
 					'icon'  => '<svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>',
@@ -345,16 +345,16 @@ echo '<script type="application/ld+json">' . wp_json_encode([
 			<?php seoae_section_label('How We Work'); ?>
 			<h2>Our Ras Al Khaimah SEO Process</h2>
 			<p class="section-header__desc" style="max-width:520px;margin-left:auto;margin-right:auto;">
-				A proven, repeatable process that moves RAK businesses from obscurity to the first page of Google — for local and international audiences.
+				A proven, repeatable process that moves RAK businesses from obscurity to the first page of Google  -  for local and international audiences.
 			</p>
 		</div>
 		<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem;margin-top:2.5rem;">
 			<?php
 			$steps = [
-				['num'=>'01','title'=>'Free SEO Audit','desc'=>'We analyse your site\'s current rankings, technical health, content gaps, and competitive position in RAK\'s search landscape — including tourism keyword opportunities.'],
-				['num'=>'02','title'=>'RAK Keyword Research','desc'=>'We identify the exact queries RAK customers and international visitors use to find businesses like yours — including Arabic terms, tourism keywords, and B2B industrial searches.'],
+				['num'=>'01','title'=>'Free SEO Audit','desc'=>'We analyse your site\'s current rankings, technical health, content gaps, and competitive position in RAK\'s search landscape  -  including tourism keyword opportunities.'],
+				['num'=>'02','title'=>'RAK Keyword Research','desc'=>'We identify the exact queries RAK customers and international visitors use to find businesses like yours  -  including Arabic terms, tourism keywords, and B2B industrial searches.'],
 				['num'=>'03','title'=>'Strategy & Roadmap','desc'=>'A clear 90-day roadmap with prioritised actions, traffic projections, and revenue goals specific to your RAK market and international audience goals.'],
-				['num'=>'04','title'=>'Implementation','desc'=>'Senior specialists execute technical fixes, on-page optimisation, bilingual Arabic/English content creation, and targeted link building — fast and with full QA.'],
+				['num'=>'04','title'=>'Implementation','desc'=>'Senior specialists execute technical fixes, on-page optimisation, bilingual Arabic/English content creation, and targeted link building  -  fast and with full QA.'],
 				['num'=>'05','title'=>'Track & Report','desc'=>'Weekly rank tracking, monthly performance calls, and a live dashboard. You always know exactly where you stand in RAK search results and international rankings.'],
 				['num'=>'06','title'=>'Compound & Scale','desc'=>'As rankings and domain authority build, we expand into international keyword opportunities and scale the channels delivering the highest ROI for your RAK business.'],
 			];
@@ -407,7 +407,7 @@ echo '<script type="application/ld+json">' . wp_json_encode([
 	<div class="container" style="max-width:800px;">
 		<div class="section-header section-header--center">
 			<?php seoae_section_label('FAQ'); ?>
-			<h2>Frequently Asked Questions — SEO Agency Ras Al Khaimah</h2>
+			<h2>Frequently Asked Questions  -  SEO Agency Ras Al Khaimah</h2>
 			<p class="section-header__desc" style="max-width:520px;margin-left:auto;margin-right:auto;">
 				Everything RAK businesses want to know before starting an SEO campaign.
 			</p>

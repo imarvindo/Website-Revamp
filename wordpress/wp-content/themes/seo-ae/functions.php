@@ -6,7 +6,10 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-define( 'SEOAE_VERSION', '1.0.1' );
+define( 'SEOAE_VERSION', '1.0.3' );
+
+// Prevent WordPress from converting hyphens into en/em dashes in public content.
+add_filter( 'run_wptexturize', '__return_false' );
 define( 'SEOAE_DIR', get_template_directory() );
 define( 'SEOAE_URI', get_template_directory_uri() );
 
@@ -671,7 +674,7 @@ add_action( 'wp_head', function () {
 		'url'      => home_url(),
 		'logo'     => SEOAE_URI . '/assets/images/logo-concept-1.png',
 		'image'    => SEOAE_URI . '/assets/images/og-image.jpg',
-		'description' => "Dubai's #1 enterprise SEO and digital marketing agency — delivering measurable growth through AI-driven SEO, PPC, social media, and web development.",
+		'description' => "Dubai's #1 enterprise SEO and digital marketing agency delivering measurable growth through AI-driven SEO, PPC, social media, and web development.",
 		'email'       => $email,
 		'telephone'   => seoae_phone() ?: '+971 4 320 9898',
 		'address'     => [
@@ -1487,20 +1490,20 @@ add_action( 'wp_head', function () {
 
 	// Title
 	if ( is_front_page() ) {
-		$title = "Dubai's #1 SEO & Digital Marketing Agency — SearchEngineOptimization.ae";
+		$title = "Dubai's #1 SEO & Digital Marketing Agency | SearchEngineOptimization.ae";
 		$desc  = "Dominate search. Scale revenue. We help UAE & GCC businesses grow organic traffic, capture high-intent leads, and outrank competitors with enterprise SEO strategies.";
 		$url   = $base_url . '/';
 		$type  = 'website';
 		$img   = $default_img;
 	} elseif ( is_singular() && $post ) {
-		$title = get_the_title( $post ) . ' — ' . $site_name;
+		$title = get_the_title( $post ) . ' | ' . $site_name;
 		$desc  = wp_strip_all_tags( get_the_excerpt( $post ) ?: wp_trim_words( $post->post_content, 30 ) );
 		$url   = get_permalink( $post );
 		$type  = ( $post->post_type === 'post' ) ? 'article' : 'website';
 		$img   = get_the_post_thumbnail_url( $post, 'large' ) ?: $default_img;
 	} elseif ( is_category() || is_tag() || is_archive() ) {
-		$title = single_cat_title( '', false ) . ' — ' . $site_name;
-		$desc  = "SEO and digital marketing insights from SearchEngineOptimization.ae — Dubai's leading SEO agency.";
+		$title = single_cat_title( '', false ) . ' | ' . $site_name;
+		$desc  = "SEO and digital marketing insights from SearchEngineOptimization.ae, Dubai's leading SEO agency.";
 		$url   = get_term_link( get_queried_object() );
 		$type  = 'website';
 		$img   = $default_img;
@@ -1607,7 +1610,7 @@ add_action( 'wp_head', function () {
 	$name = is_singular() && $post ? get_the_title($post) : get_bloginfo('name');
 	$desc = is_singular() && $post
 		? substr( wp_strip_all_tags( get_the_excerpt($post) ?: $post->post_content ), 0, 200 )
-		: "Dubai's #1 SEO and digital marketing agency — delivering measurable growth.";
+		: "Dubai's #1 SEO and digital marketing agency delivering measurable growth.";
 
 	$webpage = [
 		'@context'        => 'https://schema.org',
@@ -1745,28 +1748,34 @@ add_action( 'template_redirect', function () {
 	$uri = isset( $_SERVER['REQUEST_URI'] ) ? strtok( $_SERVER['REQUEST_URI'], '?' ) : '';
 	$uri = trailingslashit( $uri );
 
-	// Old city slug (before rename)
-	// NOTE: /dubai/ is now a live page — redirect removed
-	$city_redirects = [
-		'/locations/seo-abu-dhabi/'       => '/seo-company-abu-dhabi/',
-		'/locations/seo-sharjah/'         => '/seo-company-sharjah/',
-		'/locations/seo-ajman/'           => '/seo-company-ajman/',
-		'/locations/seo-ras-al-khaimah/'  => '/seo-company-ras-al-khaimah/',
-		'/locations/seo-fujairah/'        => '/seo-company-fujairah/',
+	// Legacy slugs → current canonical page URLs (never redirect away from live pages).
+	$legacy_redirects = [
+		'/seo-company-abu-dhabi/'      => '/locations/seo-abu-dhabi/',
+		'/seo-company-sharjah/'        => '/locations/seo-sharjah/',
+		'/seo-company-ajman/'          => '/locations/seo-ajman/',
+		'/seo-company-ras-al-khaimah/' => '/locations/seo-ras-al-khaimah/',
+		'/seo-company-fujairah/'       => '/locations/seo-fujairah/',
+		'/seo-abu-dhabi/'              => '/locations/seo-abu-dhabi/',
+		'/seo-sharjah/'                => '/locations/seo-sharjah/',
+		'/seo-ajman/'                  => '/locations/seo-ajman/',
+		'/seo-ras-al-khaimah/'         => '/locations/seo-ras-al-khaimah/',
+		'/seo-fujairah/'               => '/locations/seo-fujairah/',
+		'/real-estate-seo/'            => '/industries/real-estate/',
+		'/healthcare-seo/'             => '/industries/healthcare/',
+		'/ecommerce-seo/'              => '/industries/ecommerce/',
+		'/hospitality-seo/'            => '/industries/hospitality/',
+		'/legal-seo/'                  => '/industries/legal/',
+		'/finance-seo/'                => '/industries/finance/',
+		'/real-estate/'                => '/industries/real-estate/',
+		'/healthcare/'                 => '/industries/healthcare/',
+		'/ecommerce/'                  => '/industries/ecommerce/',
+		'/hospitality/'                => '/industries/hospitality/',
+		'/legal/'                      => '/industries/legal/',
+		'/finance/'                    => '/industries/finance/',
 	];
-	// Old industry slugs (before rename)
-	$industry_redirects = [
-		'/industries/real-estate/'  => '/real-estate-seo/',
-		'/industries/healthcare/'   => '/healthcare-seo/',
-		'/industries/ecommerce/'    => '/ecommerce-seo/',
-		'/industries/hospitality/'  => '/hospitality-seo/',
-		'/industries/legal/'        => '/legal-seo/',
-		'/industries/finance/'      => '/finance-seo/',
-	];
-	$all = array_merge( $city_redirects, $industry_redirects );
 
-	if ( isset( $all[ $uri ] ) ) {
-		wp_redirect( home_url( $all[ $uri ] ), 301 );
+	if ( isset( $legacy_redirects[ $uri ] ) ) {
+		wp_safe_redirect( home_url( $legacy_redirects[ $uri ] ), 301 );
 		exit;
 	}
 }, 1 );
@@ -1899,7 +1908,7 @@ add_action( 'wp_head', function () {
 	} elseif ( is_singular() && $post ) {
 		$desc = wp_trim_words( wp_strip_all_tags( get_the_excerpt($post) ?: $post->post_content ), 30 );
 	} elseif ( is_home() ) {
-		$desc = 'SEO tips, digital marketing strategies, and industry insights from Dubai\'s leading SEO agency — SearchEngineOptimization.ae.';
+		$desc = 'SEO tips, digital marketing strategies, and industry insights from Dubai\'s leading SEO agency, SearchEngineOptimization.ae.';
 	}
 	if ( $desc ) {
 		echo '<meta name="description" content="' . esc_attr( substr($desc, 0, 160) ) . '">' . "\n";

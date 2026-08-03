@@ -1,7 +1,7 @@
 <?php
 /**
  * Template Name: Ajman Location Page
- * Ajman SEO agency landing page — targets "SEO agency Ajman",
+ * Ajman SEO agency landing page  -  targets "SEO agency Ajman",
  * "digital marketing Ajman", "SEO company Ajman" and geo-modified queries.
  */
 get_header();
@@ -10,7 +10,7 @@ get_header();
 $schema_org = [
 	'@context' => 'https://schema.org',
 	'@type'    => ['LocalBusiness','ProfessionalService','MarketingAgency'],
-	'name'     => 'SearchEngineOptimization.ae — Ajman SEO Agency',
+	'name'     => 'SearchEngineOptimization.ae  -  Ajman SEO Agency',
 	'alternateName' => ['SEO Agency Ajman','Digital Marketing Agency Ajman','SEO Company Ajman'],
 	'description'   => "Ajman's leading SEO and digital marketing agency. We help Ajman businesses dominate Google search, attract high-intent traffic, and convert visitors into customers. SEO, PPC, social media, and web design tailored to the Ajman market.",
 	'url'      => get_permalink(get_the_ID()),
@@ -47,11 +47,11 @@ $city_faqs = [
 	],
 	[
 		'question' => 'How long does SEO take to show results for an Ajman business?',
-		'answer'   => 'Most Ajman businesses see measurable ranking improvements within 60–90 days. Meaningful organic traffic growth typically follows in months 3–6. Because Ajman is a smaller market with less competition than Dubai, many businesses achieve page-1 rankings faster — particularly for local service searches. Local and long-tail keyword wins often appear within the first 30 days.',
+		'answer'   => 'Most Ajman businesses see measurable ranking improvements within 60-90 days. Meaningful organic traffic growth typically follows in months 3-6. Because Ajman is a smaller market with less competition than Dubai, many businesses achieve page-1 rankings faster  -  particularly for local service searches. Local and long-tail keyword wins often appear within the first 30 days.',
 	],
 	[
 		'question' => 'Is Ajman less competitive for SEO than Dubai?',
-		'answer'   => 'Yes — significantly. Ajman has fewer SEO-optimised competitors than Dubai or Abu Dhabi across most sectors, meaning businesses can achieve page-1 rankings faster and at lower cost. However, many Ajman businesses compete for Dubai-wide keywords too, requiring a dual emirate strategy.',
+		'answer'   => 'Yes  -  significantly. Ajman has fewer SEO-optimised competitors than Dubai or Abu Dhabi across most sectors, meaning businesses can achieve page-1 rankings faster and at lower cost. However, many Ajman businesses compete for Dubai-wide keywords too, requiring a dual emirate strategy.',
 	],
 	[
 		'question' => 'Do you provide Arabic SEO for Ajman businesses?',
@@ -67,15 +67,15 @@ $city_faqs = [
 	],
 	[
 		'question' => 'Do you run Google Ads (PPC) campaigns for Ajman businesses?',
-		'answer'   => 'Yes. We offer fully managed Google Ads and Meta Ads campaigns targeted at Ajman and Northern Emirates audiences. Our PPC service complements SEO — capturing immediate traffic while organic rankings build. Ajman clients often combine both services as an integrated growth package.',
+		'answer'   => 'Yes. We offer fully managed Google Ads and Meta Ads campaigns targeted at Ajman and Northern Emirates audiences. Our PPC service complements SEO  -  capturing immediate traffic while organic rankings build. Ajman clients often combine both services as an integrated growth package.',
 	],
 	[
 		'question' => 'Can you help my Ajman business rank in Google Maps?',
-		'answer'   => 'Yes. Google Maps local pack rankings are a key focus of our local SEO service. We optimise your Google Business Profile, build citations on Ajman-relevant directories, and create geo-specific content that signals local relevance to Google\'s algorithm — helping you appear in the top 3 local pack results.',
+		'answer'   => 'Yes. Google Maps local pack rankings are a key focus of our local SEO service. We optimise your Google Business Profile, build citations on Ajman-relevant directories, and create geo-specific content that signals local relevance to Google\'s algorithm  -  helping you appear in the top 3 local pack results.',
 	],
 	[
 		'question' => 'How do I get a free SEO audit for my Ajman website?',
-		'answer'   => 'Fill in the contact form on this page or email sales@searchengineoptimization.ae. Our team will conduct a full technical, on-page, and keyword audit of your site and deliver a personalised report within 48 hours — no obligation, no sales pressure.',
+		'answer'   => 'Fill in the contact form on this page or email sales@searchengineoptimization.ae. Our team will conduct a full technical, on-page, and keyword audit of your site and deliver a personalised report within 48 hours  -  no obligation, no sales pressure.',
 	],
 	[
 		'question' => 'Why choose SearchEngineOptimization.ae over other Ajman SEO agencies?',
@@ -118,7 +118,7 @@ echo '<script type="application/ld+json">' . wp_json_encode([
 					<br><span style="color:var(--color-primary,#16B1D4);">Drive Local Search Growth</span>
 				</h1>
 				<p style="color:rgba(255,255,255,.78);font-size:1.075rem;max-width:520px;line-height:1.7;margin-bottom:2.25rem;">
-					Ajman generates <strong style="color:#fff;">650K+ monthly Google searches</strong> for local products and services. With lower competition than Dubai, Ajman businesses can reach page 1 faster — and we know exactly how to get you there.
+					Ajman generates <strong style="color:#fff;">650K+ monthly Google searches</strong> for local products and services. With lower competition than Dubai, Ajman businesses can reach page 1 faster  -  and we know exactly how to get you there.
 				</p>
 				<div style="display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:2rem;">
 					<a href="<?php echo esc_url(home_url('/contact/')); ?>" class="btn btn--primary btn--lg">Get Free Ajman SEO Audit →</a>
@@ -156,7 +156,7 @@ echo '<script type="application/ld+json">' . wp_json_encode([
 						<div style="font-size:.65rem;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.4);margin-top:.2rem;">To Page 1 Rankings</div>
 					</div>
 					<div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:1.1rem;text-align:center;">
-						<div style="font-size:1.5rem;font-weight:800;color:#fff;">4.9★</div>
+						<div style="font-size:1.5rem;font-weight:800;color:#fff;">4.9</div>
 						<div style="font-size:.65rem;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.4);margin-top:.2rem;">Google Rating</div>
 					</div>
 					<div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:1.1rem;text-align:center;">
@@ -186,12 +186,12 @@ echo '<script type="application/ld+json">' . wp_json_encode([
 				[
 					'icon' => '<svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>',
 					'title' => 'Ajman Market Expertise',
-					'desc'  => 'Deep knowledge of Ajman\'s competitive landscape — from the Free Zone to the industrial sector, residential real estate, and local services businesses.',
+					'desc'  => 'Deep knowledge of Ajman\'s competitive landscape  -  from the Free Zone to the industrial sector, residential real estate, and local services businesses.',
 				],
 				[
 					'icon' => '<svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>',
 					'title' => 'Faster Results Than Dubai',
-					'desc'  => 'Ajman\'s lower SEO competition means page-1 rankings for many keywords in 60 days rather than 90–120. We identify where Ajman businesses can win fastest and build from there.',
+					'desc'  => 'Ajman\'s lower SEO competition means page-1 rankings for many keywords in 60 days rather than 90-120. We identify where Ajman businesses can win fastest and build from there.',
 				],
 				[
 					'icon' => '<svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M3 5h12M9 3v2m1.048 3.938C11.25 9.657 11.998 11.02 13 12M5 7a4 4 0 004 4M3 21v-4a2 2 0 012-2h4a2 2 0 012 2v4"/></svg>',
@@ -201,12 +201,12 @@ echo '<script type="application/ld+json">' . wp_json_encode([
 				[
 					'icon' => '<svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>',
 					'title' => 'UAE-Wide Reach',
-					'desc'  => 'We build dual strategies: ranking for Ajman-specific searches while also targeting the broader UAE market — helping Ajman businesses compete for Dubai and Northern Emirates customers.',
+					'desc'  => 'We build dual strategies: ranking for Ajman-specific searches while also targeting the broader UAE market  -  helping Ajman businesses compete for Dubai and Northern Emirates customers.',
 				],
 				[
 					'icon' => '<svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>',
 					'title' => 'Transparent Reporting',
-					'desc'  => 'Weekly rank tracking, monthly strategy calls, and a live dashboard showing exactly how your Ajman SEO is performing — no vanity metrics, only revenue-relevant data.',
+					'desc'  => 'Weekly rank tracking, monthly strategy calls, and a live dashboard showing exactly how your Ajman SEO is performing  -  no vanity metrics, only revenue-relevant data.',
 				],
 				[
 					'icon' => '<svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>',
@@ -253,7 +253,7 @@ echo '<script type="application/ld+json">' . wp_json_encode([
 			<?php seoae_section_label('Our Services in Ajman'); ?>
 			<h2>Complete SEO &amp; Digital Marketing Services in Ajman</h2>
 			<p class="section-header__desc" style="max-width:540px;margin-left:auto;margin-right:auto;">
-				From technical SEO to AI search optimisation — every service tuned to Ajman's local and wider UAE search landscape.
+				From technical SEO to AI search optimisation  -  every service tuned to Ajman's local and wider UAE search landscape.
 			</p>
 		</div>
 		<div class="services-grid" style="margin-top:2.5rem;">
@@ -263,7 +263,7 @@ echo '<script type="application/ld+json">' . wp_json_encode([
 					'icon'  => '<svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>',
 					'title' => 'Search Engine Optimisation',
 					'url'   => '/services/search-engine-optimization/',
-					'desc'  => 'Full-service SEO strategy to dominate Ajman Google results — technical, on-page, and off-page.',
+					'desc'  => 'Full-service SEO strategy to dominate Ajman Google results  -  technical, on-page, and off-page.',
 				],
 				[
 					'icon'  => '<svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>',
@@ -352,9 +352,9 @@ echo '<script type="application/ld+json">' . wp_json_encode([
 			<?php
 			$steps = [
 				['num'=>'01','title'=>'Free SEO Audit','desc'=>'We analyse your site\'s current rankings, technical health, content gaps, and competitive position in Ajman\'s search landscape.'],
-				['num'=>'02','title'=>'Ajman Keyword Research','desc'=>'We identify the exact queries Ajman customers use to find businesses like yours — including Arabic search terms and opportunity keywords in low-competition niches.'],
+				['num'=>'02','title'=>'Ajman Keyword Research','desc'=>'We identify the exact queries Ajman customers use to find businesses like yours  -  including Arabic search terms and opportunity keywords in low-competition niches.'],
 				['num'=>'03','title'=>'Strategy & Roadmap','desc'=>'A clear 90-day roadmap with prioritised actions, traffic projections, and revenue goals specific to your Ajman market and UAE-wide ambitions.'],
-				['num'=>'04','title'=>'Implementation','desc'=>'Senior specialists execute technical fixes, on-page optimisation, bilingual Arabic/English content creation, and targeted link building — fast and with full QA.'],
+				['num'=>'04','title'=>'Implementation','desc'=>'Senior specialists execute technical fixes, on-page optimisation, bilingual Arabic/English content creation, and targeted link building  -  fast and with full QA.'],
 				['num'=>'05','title'=>'Track & Report','desc'=>'Weekly rank tracking, monthly performance calls, and a live dashboard. You always know exactly where you stand in Ajman search results.'],
 				['num'=>'06','title'=>'Compound & Scale','desc'=>'As rankings and domain authority build, we expand into broader UAE keyword opportunities and scale the channels delivering the highest ROI for your Ajman business.'],
 			];
@@ -407,7 +407,7 @@ echo '<script type="application/ld+json">' . wp_json_encode([
 	<div class="container" style="max-width:800px;">
 		<div class="section-header section-header--center">
 			<?php seoae_section_label('FAQ'); ?>
-			<h2>Frequently Asked Questions — SEO Agency Ajman</h2>
+			<h2>Frequently Asked Questions  -  SEO Agency Ajman</h2>
 			<p class="section-header__desc" style="max-width:520px;margin-left:auto;margin-right:auto;">
 				Everything Ajman businesses want to know before starting an SEO campaign.
 			</p>

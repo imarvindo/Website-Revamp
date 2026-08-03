@@ -1,17 +1,17 @@
 <?php
 /**
- * Homepage Template — SearchEngineOptimization.ae
+ * Homepage Template  -  SearchEngineOptimization.ae
  */
 get_header();
 
 $hero_badge       = get_field('hero_badge_text','option')    ?: "UAE's Leading SEO & Digital Marketing Agency";
 $hero_headline    = get_field('hero_headline','option')      ?: "Turn Search Visibility Into\nBusiness Growth";
-$hero_sub         = get_field('hero_subheadline','option')   ?: "We help UAE and GCC businesses dominate organic search, capture high-intent traffic, and convert visitors into qualified leads — backed by data, not guesswork.";
+$hero_sub         = get_field('hero_subheadline','option')   ?: "We help UAE and GCC businesses dominate organic search, capture high-intent traffic, and convert visitors into qualified leads  -  backed by data, not guesswork.";
 $hero_cta_primary = get_field('hero_cta_primary','option')   ?: 'Get Your Free SEO Audit';
 $hero_cta_primary_url = get_field('hero_cta_primary_url','option') ?: '/contact/';
 $hero_cta_sec     = get_field('hero_cta_secondary','option') ?: 'View Our Results';
 $hero_cta_sec_url = get_field('hero_cta_secondary_url','option') ?: '/case-studies/';
-// Brand-authoritative stats — hardcoded as single source of truth.
+// Brand-authoritative stats  -  hardcoded as single source of truth.
 // Update these values here when the agency's real numbers change.
 $hero_stats = [
 	['stat_prefix' => '+', 'stat_value' => '206', 'stat_suffix' => '%',  'stat_label' => 'AVG. ROI INCREASE'],
@@ -76,8 +76,8 @@ $case_studies = new WP_Query(['post_type'=>'case_study','posts_per_page'=>4,'pos
 				<!-- AI Visibility row -->
 				<div class="hero-dashboard__ai-row">
 					<span class="hero-dashboard__ai-label">AI VISIBILITY</span>
-					<span class="hero-dashboard__chip hero-dashboard__chip--navy">ChatGPT ✓</span>
-					<span class="hero-dashboard__chip hero-dashboard__chip--cyan">Perplexity ✓</span>
+					<span class="hero-dashboard__chip hero-dashboard__chip--navy">ChatGPT </span>
+					<span class="hero-dashboard__chip hero-dashboard__chip--cyan">Perplexity </span>
 				</div>
 
 				<!-- Organic header -->
@@ -153,7 +153,7 @@ $case_studies = new WP_Query(['post_type'=>'case_study','posts_per_page'=>4,'pos
 				<!-- Google Maps badge -->
 				<div class="hero-dashboard__maps">
 					<span class="hero-dashboard__maps-label">GOOGLE MAPS</span>
-					<span class="hero-dashboard__maps-val">#1 UAE Local Pack ✓</span>
+					<span class="hero-dashboard__maps-val">#1 UAE Local Pack </span>
 				</div>
 
 			</div><!-- /.hero-dashboard -->
@@ -203,7 +203,7 @@ $case_studies = new WP_Query(['post_type'=>'case_study','posts_per_page'=>4,'pos
 		<div class="section-header section-header--center">
 			<?php seoae_section_label('Our Services'); ?>
 			<h2 class="section-header__title">Enterprise Digital Marketing Solutions</h2>
-			<p class="section-header__desc">From AI-driven SEO to high-converting web development — everything your business needs to dominate online.</p>
+			<p class="section-header__desc">From AI-driven SEO to high-converting web development  -  everything your business needs to dominate online.</p>
 		</div>
 		<div class="services-grid">
 			<?php foreach ($services as $svc) :
@@ -231,7 +231,7 @@ $case_studies = new WP_Query(['post_type'=>'case_study','posts_per_page'=>4,'pos
 		<div class="section-header">
 			<?php seoae_section_label('UAE Coverage'); ?>
 			<h2 class="section-header__title">Search Specialists Across Every Emirate</h2>
-			<p class="section-header__desc" style="max-width:560px;">From Dubai's hypercompetitive commercial market to Fujairah's port-city B2B sector — we deliver measurable search results in every UAE market.</p>
+			<p class="section-header__desc" style="max-width:560px;">From Dubai's hypercompetitive commercial market to Fujairah's port-city B2B sector  -  we deliver measurable search results in every UAE market.</p>
 		</div>
 		<div class="uae-grid">
 
@@ -285,7 +285,7 @@ $case_studies = new WP_Query(['post_type'=>'case_study','posts_per_page'=>4,'pos
 					<svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M7 17L17 7M17 7H7M17 7v10"/></svg>
 				</div>
 				<h3 class="uae-card__city">Fujairah</h3>
-				<p class="uae-card__desc">Port-city B2B and tourism SEO for Fujairah's unique dual-market search landscape — maritime, logistics, and hospitality.</p>
+				<p class="uae-card__desc">Port-city B2B and tourism SEO for Fujairah's unique dual-market search landscape  -  maritime, logistics, and hospitality.</p>
 				<span class="uae-card__badge">900K+ monthly searches</span>
 			</a>
 
@@ -307,7 +307,7 @@ $case_studies = new WP_Query(['post_type'=>'case_study','posts_per_page'=>4,'pos
 			['why_icon' => '<svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>',          'why_title' => 'Rapid Execution',        'why_desc' => 'We move faster than your competitors can react. Strategy → execution in days, not months.'],
 			['why_icon' => '<svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>',  'why_title' => 'Guaranteed Transparency', 'why_desc' => 'You own your data. Weekly reports, monthly strategy calls, full dashboard access.'],
 			['why_icon' => '<svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>', 'why_title' => 'Senior-Led Teams',       'why_desc' => 'No juniors. Your account is managed by senior specialists with 8+ years of experience.'],
-			['why_icon' => '<svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>', 'why_title' => 'UAE Market Expertise',   'why_desc' => 'Deep knowledge of the UAE, GCC, and Arabic digital landscape — including bilingual SEO.'],
+			['why_icon' => '<svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>', 'why_title' => 'UAE Market Expertise',   'why_desc' => 'Deep knowledge of the UAE, GCC, and Arabic digital landscape  -  including bilingual SEO.'],
 			['why_icon' => '<svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M9.663 17h4.673M12 3v1m6.364 1.636-.707.707M21 12h-1M4 12H3m3.343-5.657-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>', 'why_title' => 'AI-Search Optimized',    'why_desc' => 'Future-proof strategies covering Google AI Overviews, ChatGPT, Gemini, and Perplexity.'],
 		];
 		?>
@@ -329,7 +329,7 @@ $case_studies = new WP_Query(['post_type'=>'case_study','posts_per_page'=>4,'pos
 		<div class="process-v2__header">
 			<span class="process-v2__label">HOW WE WORK</span>
 			<h2 class="process-v2__title">A Six-Step Methodology<br>Built for Compounding Growth</h2>
-			<p class="process-v2__subtitle">Every engagement follows the same proven framework — systematic, measurable, and designed to outperform your competitors long-term.</p>
+			<p class="process-v2__subtitle">Every engagement follows the same proven framework  -  systematic, measurable, and designed to outperform your competitors long-term.</p>
 		</div>
 
 		<div class="process-v2__grid">
@@ -401,7 +401,7 @@ $case_studies = new WP_Query(['post_type'=>'case_study','posts_per_page'=>4,'pos
 						<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="#16B1D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
 					</div>
 					<h3 class="process-v2__step-title">Compound</h3>
-					<p class="process-v2__step-desc">Build on what works — authority, content, and technical gains compound over time.</p>
+					<p class="process-v2__step-desc">Build on what works  -  authority, content, and technical gains compound over time.</p>
 				</div>
 			</div>
 
@@ -503,7 +503,7 @@ $case_studies = new WP_Query(['post_type'=>'case_study','posts_per_page'=>4,'pos
 			<div class="testi-trust-stat">
 				<span class="testi-trust-num">4.9</span>
 				<div>
-					<div class="testi-trust-stars">★★★★★</div>
+					<div class="testi-trust-stars"></div>
 					<div class="testi-trust-label">Google Rating</div>
 				</div>
 			</div>
@@ -637,7 +637,7 @@ $case_studies = new WP_Query(['post_type'=>'case_study','posts_per_page'=>4,'pos
 					Based in Dubai. Serving All UAE Businesses.
 				</h2>
 				<p style="color:rgba(255,255,255,.72);font-size:.9375rem;line-height:1.7;max-width:520px;margin-bottom:0;">
-					Our Dubai office delivers hyper-local SEO campaigns across every district — from Deira to Marina, Business Bay to Downtown. 6M+ monthly Dubai searches are waiting.
+					Our Dubai office delivers hyper-local SEO campaigns across every district  -  from Deira to Marina, Business Bay to Downtown. 6M+ monthly Dubai searches are waiting.
 				</p>
 			</div>
 			<div style="display:flex;flex-direction:column;gap:.75rem;min-width:220px;">
@@ -657,7 +657,7 @@ $case_studies = new WP_Query(['post_type'=>'case_study','posts_per_page'=>4,'pos
 $home_faqs = [
   [
     'q' => 'What are SEO services in Dubai?',
-    'a' => 'SEO services in Dubai help businesses rank higher on Google for searches made by UAE customers. This includes technical audits, on-page optimisation, keyword research, content creation, link building, and local SEO. The goal is to drive qualified organic traffic that converts into leads and revenue — without the ongoing cost of paid advertising.',
+    'a' => 'SEO services in Dubai help businesses rank higher on Google for searches made by UAE customers. This includes technical audits, on-page optimisation, keyword research, content creation, link building, and local SEO. The goal is to drive qualified organic traffic that converts into leads and revenue  -  without the ongoing cost of paid advertising.',
   ],
   [
     'q' => 'Why does my business need SEO in the UAE?',
@@ -665,7 +665,7 @@ $home_faqs = [
   ],
   [
     'q' => 'How long does SEO take to deliver results in the UAE?',
-    'a' => 'Most UAE businesses see measurable ranking improvements within 60–90 days. Meaningful organic traffic growth typically follows between months 3 and 6. Highly competitive sectors — real estate, finance, healthcare, and legal — may require 6–12 months for top-3 Google positions. Local and long-tail keyword wins often appear within the first 30 days of a campaign launch.',
+    'a' => 'Most UAE businesses see measurable ranking improvements within 60-90 days. Meaningful organic traffic growth typically follows between months 3 and 6. Highly competitive sectors  -  real estate, finance, healthcare, and legal  -  may require 6-12 months for top-3 Google positions. Local and long-tail keyword wins often appear within the first 30 days of a campaign launch.',
   ],
   [
     'q' => 'How much do SEO services cost in Dubai?',
@@ -673,35 +673,35 @@ $home_faqs = [
   ],
   [
     'q' => 'Do you provide Local SEO for Dubai and Abu Dhabi businesses?',
-    'a' => 'Yes — local SEO is a core service. We optimise Google Business Profiles, build UAE-specific citation networks, create location-targeted landing pages, and implement local structured data. Our local SEO campaigns target the "near me" and location-modifier searches that drive direct calls, enquiries, and foot traffic for businesses serving specific Dubai or Abu Dhabi areas.',
+    'a' => 'Yes  -  local SEO is a core service. We optimise Google Business Profiles, build UAE-specific citation networks, create location-targeted landing pages, and implement local structured data. Our local SEO campaigns target the "near me" and location-modifier searches that drive direct calls, enquiries, and foot traffic for businesses serving specific Dubai or Abu Dhabi areas.',
   ],
   [
     'q' => 'Can you help my Google Business Profile rank higher?',
-    'a' => 'Absolutely. We optimise every element of your Google Business Profile — categories, services, posts, photos, Q&A, and review management — specifically for UAE map pack rankings. Paired with consistent local citations and geo-targeted content, our GBP optimisation clients regularly enter the Google Maps 3-pack for their primary service categories within 60 days.',
+    'a' => 'Absolutely. We optimise every element of your Google Business Profile  -  categories, services, posts, photos, Q&A, and review management  -  specifically for UAE map pack rankings. Paired with consistent local citations and geo-targeted content, our GBP optimisation clients regularly enter the Google Maps 3-pack for their primary service categories within 60 days.',
   ],
   [
     'q' => 'What industries do you provide SEO services for?',
-    'a' => 'We serve every major UAE industry: real estate, healthcare and clinics, legal and professional services, financial services and fintech, hospitality and tourism, e-commerce and retail, construction, logistics, education, restaurants and F&B, automotive, and technology. Each industry has a distinct search landscape — our sector-specific experience means we skip the learning curve and deliver results from month one.',
+    'a' => 'We serve every major UAE industry: real estate, healthcare and clinics, legal and professional services, financial services and fintech, hospitality and tourism, e-commerce and retail, construction, logistics, education, restaurants and F&B, automotive, and technology. Each industry has a distinct search landscape  -  our sector-specific experience means we skip the learning curve and deliver results from month one.',
   ],
   [
     'q' => 'Do you offer Arabic and English SEO services?',
-    'a' => 'Yes — bilingual Arabic and English SEO is a core offering. We conduct Arabic keyword research, produce native-quality Arabic content written by professional UAE-based writers, and implement hreflang for bilingual sites. In the UAE market, Arabic SEO can double your addressable organic audience and unlock commercially valuable searches your competitors are ignoring entirely.',
+    'a' => 'Yes  -  bilingual Arabic and English SEO is a core offering. We conduct Arabic keyword research, produce native-quality Arabic content written by professional UAE-based writers, and implement hreflang for bilingual sites. In the UAE market, Arabic SEO can double your addressable organic audience and unlock commercially valuable searches your competitors are ignoring entirely.',
   ],
   [
     'q' => "What's included in your monthly SEO packages?",
-    'a' => "Monthly retainers include: dedicated SEO strategist, full technical audit and implementation, keyword research and content strategy, on-page optimisation, content creation, link building outreach, Google Business Profile management, weekly automated rank tracking, and a monthly performance review call. Everything is in one fixed monthly fee — no surprise add-ons for reporting, content, or technical work.",
+    'a' => "Monthly retainers include: dedicated SEO strategist, full technical audit and implementation, keyword research and content strategy, on-page optimisation, content creation, link building outreach, Google Business Profile management, weekly automated rank tracking, and a monthly performance review call. Everything is in one fixed monthly fee  -  no surprise add-ons for reporting, content, or technical work.",
   ],
   [
     'q' => 'Do you optimize websites for Google AI Overviews and ChatGPT?',
-    'a' => 'Yes — AI search optimisation (GEO/AIO) is a dedicated service. We structure your content, implement comprehensive schema markup, and build the entity authority signals that cause AI search engines to cite your brand in generated answers. Appearing in Google AI Overviews, ChatGPT, Perplexity, and Gemini responses is now essential for UAE brand visibility.',
+    'a' => 'Yes  -  AI search optimisation (GEO/AIO) is a dedicated service. We structure your content, implement comprehensive schema markup, and build the entity authority signals that cause AI search engines to cite your brand in generated answers. Appearing in Google AI Overviews, ChatGPT, Perplexity, and Gemini responses is now essential for UAE brand visibility.',
   ],
   [
     'q' => 'How do you measure SEO success and ROI?',
-    'a' => 'We track keyword rankings, organic traffic, organic lead volume, conversion rates, and revenue attribution — not vanity metrics. Every client receives a live dashboard with real-time data, weekly automated rank reports, and monthly strategy calls. We connect SEO performance directly to business outcomes so you always know exactly what your investment is delivering.',
+    'a' => 'We track keyword rankings, organic traffic, organic lead volume, conversion rates, and revenue attribution  -  not vanity metrics. Every client receives a live dashboard with real-time data, weekly automated rank reports, and monthly strategy calls. We connect SEO performance directly to business outcomes so you always know exactly what your investment is delivering.',
   ],
   [
     'q' => 'Why choose SearchEngineOptimization.ae as your UAE SEO agency?',
-    'a' => 'We are a UAE-specialist agency — not a global generalist applying cookie-cutter strategies. We have served 345+ UAE businesses across every major sector, have dedicated market research for every emirate, deliver full bilingual Arabic and English SEO, and focus exclusively on revenue outcomes. No lock-in contracts, transparent pricing, and a track record of measurable organic growth for UAE businesses.',
+    'a' => 'We are a UAE-specialist agency  -  not a global generalist applying cookie-cutter strategies. We have served 345+ UAE businesses across every major sector, have dedicated market research for every emirate, deliver full bilingual Arabic and English SEO, and focus exclusively on revenue outcomes. No lock-in contracts, transparent pricing, and a track record of measurable organic growth for UAE businesses.',
   ],
 ];
 
@@ -732,7 +732,7 @@ $col2 = array_slice($home_faqs, 6);
         Common Questions<br>About SEO in the UAE
       </h2>
       <p class="section-header__desc" style="max-width:520px;margin-left:auto;margin-right:auto;">
-        Everything UAE businesses want to know before starting an SEO campaign — answered clearly.
+        Everything UAE businesses want to know before starting an SEO campaign  -  answered clearly.
       </p>
     </div>
 
@@ -789,7 +789,7 @@ $col2 = array_slice($home_faqs, 6);
 
     <!-- Bottom CTA strip -->
     <div style="text-align:center;margin-top:3rem;padding:2.5rem;background:linear-gradient(135deg,#101A6A 0%,#1a2d8a 100%);border-radius:20px;">
-      <p style="color:rgba(255,255,255,.75);font-size:.9375rem;margin-bottom:1rem;">Still have questions? Talk to a UAE SEO specialist — no sales pressure.</p>
+      <p style="color:rgba(255,255,255,.75);font-size:.9375rem;margin-bottom:1rem;">Still have questions? Talk to a UAE SEO specialist  -  no sales pressure.</p>
       <a href="/contact/" class="btn btn--primary btn--lg" style="background:var(--color-primary,#16B1D4);color:#fff;">Get a Free SEO Consultation →</a>
     </div>
 

@@ -9,7 +9,7 @@
 			<div class="footer__prebar-text">
 				<span class="footer__prebar-tag">UAE's #1 SEO Agency</span>
 				<h3 class="footer__prebar-heading">Ready to dominate search in Dubai?</h3>
-				<p class="footer__prebar-sub">Get your free audit — results within 48 hours, no obligation.</p>
+				<p class="footer__prebar-sub">Get your free audit  -  results within 48 hours, no obligation.</p>
 			</div>
 			<div class="footer__prebar-actions">
 				<button type="button" class="footer__prebar-btn" onclick="document.getElementById('quick-contact-modal').classList.add('is-open')">
@@ -57,7 +57,7 @@
 				<div class="footer__newsletter">
 					<p class="footer__newsletter-label">
 						<svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="#16B1D4" stroke-width="2"><path stroke-linecap="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-						Weekly SEO insights — free
+						Weekly SEO insights  -  free
 					</p>
 					<form class="footer__newsletter-form" id="newsletter-form">
 						<input type="email" name="email" placeholder="your@email.com" class="footer__newsletter-input" required>
@@ -240,7 +240,7 @@
 				&nbsp;&bull;&nbsp;
 				<a href="<?php echo esc_url( home_url('/sitemap.xml') ); ?>" class="footer__bottom-link">Sitemap</a>
 			</p>
-			<p class="footer__made">Made with ❤️ in Dubai, UAE 🇦🇪</p>
+			<p class="footer__made">Made with  in Dubai, UAE 🇦🇪</p>
 		</div>
 	</div>
 
@@ -260,7 +260,7 @@
 		<div class="qcm-header">
 			<span class="qcm-tag">Free Consultation</span>
 			<h2 id="qcm-title" class="qcm-title">Get Your Free SEO Audit</h2>
-			<p class="qcm-subtitle">Fill in the form — our team will respond within 2 hours.</p>
+			<p class="qcm-subtitle">Fill in the form  -  our team will respond within 2 hours.</p>
 		</div>
 
 		<!-- Form -->
@@ -293,7 +293,7 @@
 				<div class="qcm-field">
 					<label for="qcm-service">Service Interested In</label>
 					<select id="qcm-service" name="service">
-						<option value="">— Select a service —</option>
+						<option value="">Select a service</option>
 						<option>Search Engine Optimisation (SEO)</option>
 						<option>AI Search / GEO Optimisation</option>
 						<option>PPC &amp; Google Ads Management</option>
@@ -339,7 +339,7 @@
 				<svg width="36" height="36" fill="none" viewBox="0 0 24 24" stroke="#16B1D4" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
 			</div>
 			<h3>Enquiry Received!</h3>
-			<p>Thank you — our senior SEO specialist will contact you within 2 business hours.</p>
+			<p>Thank you  -  our senior SEO specialist will contact you within 2 business hours.</p>
 			<button class="qcm-success-close" onclick="document.getElementById('quick-contact-modal').classList.remove('is-open')">Close</button>
 		</div>
 	</div>

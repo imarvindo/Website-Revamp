@@ -10,7 +10,7 @@ $country      = get_field('location_country')     ?: 'UAE';
 $searches     = get_field('monthly_searches')     ?: '6M+';
 $hero_stat1   = get_field('loc_stat1')            ?: ['value'=>'340%','label'=>'Avg. Traffic Increase'];
 $hero_stat2   = get_field('loc_stat2')            ?: ['value'=>'90','label'=>'Days to Page 1'];
-$hero_stat3   = get_field('loc_stat3')            ?: ['value'=>'4.9★','label'=>'Client Rating'];
+$hero_stat3   = get_field('loc_stat3')            ?: ['value'=>'4.9','label'=>'Client Rating'];
 $intro        = get_field('location_intro')       ?: get_the_content();
 $services_text = get_field('location_services_text') ?: '';
 $faqs         = get_field('location_faqs') ?: get_post_meta( get_the_ID(), 'location_faqs', true ) ?: [];
@@ -72,12 +72,12 @@ $the_content  = get_the_content();
 			<div class="why-grid" style="margin-top:2rem;">
 				<?php
 				$points = [
-					['icon'=>'📍','title'=>$city.' Market Expertise','desc'=>'Deep knowledge of the '.$city.' competitive landscape, local search behaviour, and high-value commercial keywords.'],
-					['icon'=>'🏆','title'=>'Proven Local Rankings','desc'=>'We\'ve helped '.$city.' businesses achieve page-1 Google rankings for competitive local queries in under 90 days.'],
-					['icon'=>'📊','title'=>'Data-Driven Strategy','desc'=>'Every campaign is backed by '.$city.'-specific keyword research, competitor analysis, and intent mapping.'],
-					['icon'=>'🌐','title'=>'Arabic + English SEO','desc'=>'Full bilingual optimisation for '.$city.'\'s dual-language search audience — maximising reach across both markets.'],
-					['icon'=>'📈','title'=>'Transparent Reporting','desc'=>'Weekly rank tracking, monthly strategy calls, and a live dashboard showing exactly how your '.$city.' SEO is performing.'],
-					['icon'=>'⚡','title'=>'Fast Execution','desc'=>'Strategy to implementation in days. We move as fast as the '.$city.' market demands.'],
+					['icon'=>'','title'=>$city.' Market Expertise','desc'=>'Deep knowledge of the '.$city.' competitive landscape, local search behaviour, and high-value commercial keywords.'],
+					['icon'=>'','title'=>'Proven Local Rankings','desc'=>'We\'ve helped '.$city.' businesses achieve page-1 Google rankings for competitive local queries in under 90 days.'],
+					['icon'=>'','title'=>'Data-Driven Strategy','desc'=>'Every campaign is backed by '.$city.'-specific keyword research, competitor analysis, and intent mapping.'],
+					['icon'=>'','title'=>'Arabic + English SEO','desc'=>'Full bilingual optimisation for '.$city.'\'s dual-language search audience  -  maximising reach across both markets.'],
+					['icon'=>'','title'=>'Transparent Reporting','desc'=>'Weekly rank tracking, monthly strategy calls, and a live dashboard showing exactly how your '.$city.' SEO is performing.'],
+					['icon'=>'','title'=>'Fast Execution','desc'=>'Strategy to implementation in days. We move as fast as the '.$city.' market demands.'],
 				];
 				foreach ($points as $p) : ?>
 				<div class="why-card">
@@ -126,7 +126,7 @@ $the_content  = get_the_content();
 	<div class="container" style="max-width:760px;">
 		<div class="section-header section-header--center">
 			<?php seoae_section_label('FAQ'); ?>
-			<h2>Frequently Asked Questions — SEO in <?php echo esc_html($city); ?></h2>
+			<h2>Frequently Asked Questions  -  SEO in <?php echo esc_html($city); ?></h2>
 		</div>
 		<div class="faq-list" style="margin-top:2.5rem;">
 			<?php foreach ($faqs as $faq) : ?>

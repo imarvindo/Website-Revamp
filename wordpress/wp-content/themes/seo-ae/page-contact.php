@@ -28,7 +28,7 @@ $address = seoae_address();
 					<div>
 						<p class="contact-info-title">Dubai Office</p>
 						<p class="contact-info-text"><?php echo esc_html($address); ?></p>
-						<p class="contact-info-text" style="font-size:.78rem;color:var(--color-body);margin-top:.25rem;">Mon–Fri, 9am–6pm GST</p>
+						<p class="contact-info-text" style="font-size:.78rem;color:var(--color-body);margin-top:.25rem;">Mon-Fri, 9am-6pm GST</p>
 					</div>
 				</div>
 
@@ -41,7 +41,7 @@ $address = seoae_address();
 				</div>
 
 				<div style="margin-top:1.5rem;padding:1rem;background:var(--color-muted-bg);border-radius:12px;">
-					<p style="font-size:.8rem;font-weight:600;color:var(--color-heading);margin-bottom:.25rem;">⚡ Average Response Time</p>
+					<p style="font-size:.8rem;font-weight:600;color:var(--color-heading);margin-bottom:.25rem;"> Average Response Time</p>
 					<p style="font-size:1.5rem;font-weight:800;color:var(--color-primary);">&lt; 24 Hours</p>
 				</div>
 
@@ -51,7 +51,7 @@ $address = seoae_address();
 						<li>We review your enquiry within 24 hours</li>
 						<li>A senior specialist contacts you to learn more</li>
 						<li>We prepare a tailored strategy &amp; proposal</li>
-						<li>You choose whether to proceed — no pressure</li>
+						<li>You choose whether to proceed  -  no pressure</li>
 					</ol>
 				</div>
 			</div>
@@ -106,7 +106,7 @@ $address = seoae_address();
 						<div class="form-group">
 							<label class="form-label">Service Interested In</label>
 							<select name="service" class="form-select">
-								<option value="">— Select a service —</option>
+								<option value=""> -  Select a service  - </option>
 								<option>Search Engine Optimization (SEO)</option>
 								<option>AI Search Optimization (AEO / GEO)</option>
 								<option>PPC &amp; Google Ads Management</option>
@@ -120,12 +120,12 @@ $address = seoae_address();
 						<div class="form-group">
 							<label class="form-label">Monthly Marketing Budget</label>
 							<select name="budget" class="form-select">
-								<option value="">— Select budget —</option>
+								<option value=""> -  Select budget  - </option>
 								<option>Under AED 3,000</option>
-								<option>AED 3,000 – 5,000</option>
-								<option>AED 5,000 – 10,000</option>
-								<option>AED 10,000 – 25,000</option>
-								<option>AED 25,000 – 50,000</option>
+								<option>AED 3,000 - 5,000</option>
+								<option>AED 5,000 - 10,000</option>
+								<option>AED 10,000 - 25,000</option>
+								<option>AED 25,000 - 50,000</option>
 								<option>AED 50,000+</option>
 							</select>
 						</div>
@@ -134,7 +134,7 @@ $address = seoae_address();
 					<div class="form-group">
 						<label class="form-label">Country</label>
 						<select name="country" class="form-select">
-							<option value="">— Select country —</option>
+							<option value=""> -  Select country  - </option>
 							<option selected>United Arab Emirates</option>
 							<option>Saudi Arabia</option>
 							<option>Kuwait</option>
@@ -164,7 +164,7 @@ $address = seoae_address();
 						<svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
 						Send My Enquiry
 					</button>
-					<p style="font-size:.75rem;color:var(--color-body);text-align:center;margin-top:.75rem;">🔒 Your information is secure and will never be shared with third parties.</p>
+					<p style="font-size:.75rem;color:var(--color-body);text-align:center;margin-top:.75rem;"> Your information is secure and will never be shared with third parties.</p>
 					<div class="form-message" style="display:none;margin-top:1rem;"></div>
 				</form>
 			</div>
