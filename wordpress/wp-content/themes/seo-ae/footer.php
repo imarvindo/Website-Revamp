@@ -12,7 +12,7 @@
 				<p class="footer__prebar-sub">Get your free audit  -  results within 48 hours, no obligation.</p>
 			</div>
 			<div class="footer__prebar-actions">
-				<button type="button" class="footer__prebar-btn" onclick="document.getElementById('quick-contact-modal').classList.add('is-open')">
+				<button type="button" class="footer__prebar-btn" onclick="window.seoaeOpenContactModal&&window.seoaeOpenContactModal()">
 					Get Free Audit
 					<svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
 				</button>
@@ -268,7 +268,7 @@
 <!-- ═══════════════════════════════════════════════════════════════════
      QUICK CONTACT MODAL
 ════════════════════════════════════════════════════════════════════ -->
-<div id="quick-contact-modal" class="qcm-overlay" role="dialog" aria-modal="true" aria-labelledby="qcm-title">
+<div id="quick-contact-modal" class="qcm-overlay" role="dialog" aria-modal="true" aria-labelledby="qcm-title" aria-hidden="true" inert hidden>
 	<div class="qcm-panel">
 		<!-- Close -->
 		<button class="qcm-close" id="qcm-close-btn" aria-label="Close">
@@ -359,7 +359,7 @@
 			</div>
 			<h3>Enquiry Received!</h3>
 			<p>Thank you  -  our senior SEO specialist will contact you within 2 business hours.</p>
-			<button class="qcm-success-close" onclick="document.getElementById('quick-contact-modal').classList.remove('is-open')">Close</button>
+			<button type="button" class="qcm-success-close" onclick="window.seoaeCloseContactModal&&window.seoaeCloseContactModal()">Close</button>
 		</div>
 	</div>
 </div>
@@ -372,18 +372,32 @@
   var submitBtn= document.getElementById('qcm-submit-btn');
   var errEl    = document.getElementById('qcm-error');
   var success  = document.getElementById('qcm-success');
+  if (!overlay) return;
 
-  // Set nonce from localised SEOAE object
   document.getElementById('qcm-nonce').value =
     (typeof SEOAE !== 'undefined' && SEOAE.nonce) ? SEOAE.nonce : '';
 
-  // Close handlers
-  closeBtn.addEventListener('click', close);
-  overlay.addEventListener('click', function(e){ if(e.target===overlay) close(); });
-  document.addEventListener('keydown', function(e){ if(e.key==='Escape') close(); });
-  function close(){ overlay.classList.remove('is-open'); }
+  function openModal(){
+    overlay.hidden = false;
+    overlay.removeAttribute('inert');
+    overlay.setAttribute('aria-hidden', 'false');
+    overlay.classList.add('is-open');
+    var focusEl = overlay.querySelector('#qcm-name, #qcm-close-btn, input, button');
+    if (focusEl) focusEl.focus();
+  }
+  function closeModal(){
+    overlay.classList.remove('is-open');
+    overlay.setAttribute('aria-hidden', 'true');
+    overlay.setAttribute('inert', '');
+    overlay.hidden = true;
+  }
+  window.seoaeOpenContactModal = openModal;
+  window.seoaeCloseContactModal = closeModal;
 
-  // Submit
+  closeBtn.addEventListener('click', closeModal);
+  overlay.addEventListener('click', function(e){ if(e.target===overlay) closeModal(); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape' && overlay.classList.contains('is-open')) closeModal(); });
+
   form.addEventListener('submit', function(e){
     e.preventDefault();
     var txt  = submitBtn.querySelector('.qcm-submit-text');

@@ -60,34 +60,91 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   // ── MOBILE MENU ─────────────────────────────────────────────────
+  // Closed menu uses aria-hidden + inert + tabindex=-1 so focusable
+  // children never remain in the accessibility / tab order (PSI / a11y).
   const mobileBtn     = document.getElementById('mobile-menu-btn');
   const mobileClose   = document.getElementById('mobile-menu-close');
   const mobileMenu    = document.getElementById('mobile-menu');
   const mobileOverlay = document.getElementById('mobile-overlay');
+  const mobileFocusableSel = 'a[href], button, input, select, textarea, [tabindex]:not([tabindex="-1"])';
+
+  function setMobileMenuFocusable(enabled) {
+    if (!mobileMenu) return;
+    mobileMenu.querySelectorAll('a[href], button').forEach((el) => {
+      if (enabled) {
+        el.removeAttribute('tabindex');
+      } else {
+        el.setAttribute('tabindex', '-1');
+      }
+    });
+  }
 
   function openMobile() {
-    mobileMenu?.classList.add('is-open');
+    if (!mobileMenu) return;
+    mobileMenu.classList.add('is-open');
     mobileOverlay?.classList.add('is-open');
     mobileBtn?.setAttribute('aria-expanded', 'true');
-    mobileMenu?.setAttribute('aria-hidden', 'false');
+    mobileBtn?.setAttribute('aria-label', 'Close menu');
+    mobileMenu.setAttribute('aria-hidden', 'false');
+    mobileMenu.removeAttribute('inert');
+    mobileOverlay?.setAttribute('aria-hidden', 'false');
+    mobileOverlay?.removeAttribute('inert');
+    setMobileMenuFocusable(true);
     document.body.style.overflow = 'hidden';
+    // Move focus into the drawer for keyboard / agent browsing.
+    (mobileClose || mobileMenu.querySelector(mobileFocusableSel))?.focus();
   }
 
   function closeMobile() {
-    mobileMenu?.classList.remove('is-open');
+    if (!mobileMenu || !mobileMenu.classList.contains('is-open')) {
+      // Keep closed state consistent on first paint / Escape.
+      mobileMenu?.setAttribute('aria-hidden', 'true');
+      mobileMenu?.setAttribute('inert', '');
+      mobileOverlay?.setAttribute('aria-hidden', 'true');
+      mobileOverlay?.setAttribute('inert', '');
+      setMobileMenuFocusable(false);
+      return;
+    }
+    mobileMenu.classList.remove('is-open');
     mobileOverlay?.classList.remove('is-open');
     mobileBtn?.setAttribute('aria-expanded', 'false');
-    mobileMenu?.setAttribute('aria-hidden', 'true');
+    mobileBtn?.setAttribute('aria-label', 'Open menu');
+    mobileMenu.setAttribute('aria-hidden', 'true');
+    mobileMenu.setAttribute('inert', '');
+    mobileOverlay?.setAttribute('aria-hidden', 'true');
+    mobileOverlay?.setAttribute('inert', '');
+    setMobileMenuFocusable(false);
     document.body.style.overflow = '';
+    mobileBtn?.focus();
   }
 
-  mobileBtn?.addEventListener('click', openMobile);
+  // Ensure closed state on load (no focusable nodes under aria-hidden).
+  closeMobile();
+
+  mobileBtn?.addEventListener('click', () => {
+    if (mobileMenu?.classList.contains('is-open')) closeMobile();
+    else openMobile();
+  });
   mobileClose?.addEventListener('click', closeMobile);
   mobileOverlay?.addEventListener('click', closeMobile);
 
-  // Close on Escape
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeMobile();
+    // Simple focus trap while drawer is open.
+    if (e.key !== 'Tab' || !mobileMenu?.classList.contains('is-open')) return;
+    const nodes = [...mobileMenu.querySelectorAll(mobileFocusableSel)].filter(
+      (el) => !el.hasAttribute('disabled') && el.offsetParent !== null
+    );
+    if (!nodes.length) return;
+    const first = nodes[0];
+    const last  = nodes[nodes.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
   });
 
   // ── COUNTER ANIMATION ───────────────────────────────────────────
@@ -128,20 +185,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // ── FAQ ACCORDION ────────────────────────────────────────────────
   document.querySelectorAll('.faq-question').forEach(btn => {
+    const item = btn.closest('.faq-item');
+    const answer = item?.querySelector('.faq-answer');
+    if (answer && !answer.hasAttribute('aria-hidden')) {
+      answer.setAttribute('aria-hidden', 'true');
+    }
     btn.addEventListener('click', () => {
-      const item = btn.closest('.faq-item');
       const isOpen = item.classList.contains('is-open');
 
-      // Close all
       document.querySelectorAll('.faq-item.is-open').forEach(el => {
         el.classList.remove('is-open');
         el.querySelector('.faq-question')?.setAttribute('aria-expanded', 'false');
+        el.querySelector('.faq-answer')?.setAttribute('aria-hidden', 'true');
       });
 
-      // Open clicked (toggle)
       if (!isOpen) {
         item.classList.add('is-open');
         btn.setAttribute('aria-expanded', 'true');
+        answer?.setAttribute('aria-hidden', 'false');
       }
     });
   });

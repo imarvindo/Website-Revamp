@@ -197,7 +197,7 @@
 		<!-- Right actions -->
 		<div class="navbar__right">
 			<div class="navbar__cta">
-				<button type="button" class="btn btn--primary btn--sm" id="navbar-cta-btn" onclick="document.getElementById('quick-contact-modal').classList.add('is-open')">
+				<button type="button" class="btn btn--primary btn--sm" id="navbar-cta-btn" onclick="window.seoaeOpenContactModal&&window.seoaeOpenContactModal()">
 					Get Started
 					<svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
 				</button>
@@ -213,9 +213,9 @@
 <!-- ═══════════════════════════════════════════════════════════════════
      MOBILE MENU
 ════════════════════════════════════════════════════════════════════ -->
-<div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+<div class="mobile-menu" id="mobile-menu" aria-hidden="true" inert>
 	<div class="mobile-menu__header">
-		<a href="<?php echo esc_url( home_url('/') ); ?>" class="navbar__logo">
+		<a href="<?php echo esc_url( home_url('/') ); ?>" class="navbar__logo" tabindex="-1">
 			<img
 				src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/logo-mark.png' ); ?>"
 				srcset="<?php echo esc_url( get_template_directory_uri() . '/assets/images/logo-mark.png' ); ?> 1x, <?php echo esc_url( get_template_directory_uri() . '/assets/images/logo-mark@2x.png' ); ?> 2x"
@@ -229,26 +229,26 @@
 				<span class="navbar__logo-name">SearchEngine<span class="text-primary">Optimization.ae</span></span>
 			</div>
 		</a>
-		<button class="mobile-menu__close" id="mobile-menu-close" aria-label="Close menu">
-			<svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M6 18L18 6M6 6l12 12"/></svg>
+		<button type="button" class="mobile-menu__close" id="mobile-menu-close" aria-label="Close menu" tabindex="-1">
+			<svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" d="M6 18L18 6M6 6l12 12"/></svg>
 		</button>
 	</div>
-	<nav class="mobile-menu__nav">
-		<a href="<?php echo esc_url( home_url('/') ); ?>" class="mobile-menu__link">Home</a>
+	<nav class="mobile-menu__nav" aria-label="Mobile">
+		<a href="<?php echo esc_url( home_url('/') ); ?>" class="mobile-menu__link" tabindex="-1">Home</a>
 		<div class="mobile-menu__section">
 			<span class="mobile-menu__section-label">Services</span>
 			<?php foreach ( seoae_get_services() as $svc ) : ?>
-			<a href="<?php echo esc_url( get_permalink($svc) ); ?>" class="mobile-menu__link mobile-menu__link--sub"><?php echo esc_html($svc->post_title); ?></a>
+			<a href="<?php echo esc_url( get_permalink($svc) ); ?>" class="mobile-menu__link mobile-menu__link--sub" tabindex="-1"><?php echo esc_html($svc->post_title); ?></a>
 			<?php endforeach; ?>
 		</div>
-		<a href="<?php echo esc_url( get_permalink(get_option('page_for_posts')) ?: '/blog' ); ?>" class="mobile-menu__link">Blog</a>
-		<a href="<?php echo esc_url( get_post_type_archive_link('case_study') ); ?>" class="mobile-menu__link">Case Studies</a>
-		<a href="<?php echo esc_url( home_url('/about') ); ?>" class="mobile-menu__link">About</a>
-		<a href="<?php echo esc_url( home_url('/faq/') ); ?>" class="mobile-menu__link">FAQ</a>
-		<a href="<?php echo esc_url( home_url('/contact') ); ?>" class="mobile-menu__link">Contact</a>
+		<a href="<?php echo esc_url( get_permalink(get_option('page_for_posts')) ?: '/blog' ); ?>" class="mobile-menu__link" tabindex="-1">Blog</a>
+		<a href="<?php echo esc_url( get_post_type_archive_link('case_study') ); ?>" class="mobile-menu__link" tabindex="-1">Case Studies</a>
+		<a href="<?php echo esc_url( home_url('/about') ); ?>" class="mobile-menu__link" tabindex="-1">About</a>
+		<a href="<?php echo esc_url( home_url('/faq/') ); ?>" class="mobile-menu__link" tabindex="-1">FAQ</a>
+		<a href="<?php echo esc_url( home_url('/contact') ); ?>" class="mobile-menu__link" tabindex="-1">Contact</a>
 		<div class="mobile-menu__cta">
-			<a href="<?php echo esc_url( home_url('/contact') ); ?>" class="btn btn--primary" style="width:100%;text-align:center;">Get Free Audit</a>
+			<a href="<?php echo esc_url( home_url('/contact') ); ?>" class="btn btn--primary" style="width:100%;text-align:center;" tabindex="-1">Get Free Audit</a>
 		</div>
 	</nav>
 </div>
-<div class="mobile-menu__overlay" id="mobile-overlay" aria-hidden="true"></div>
+<div class="mobile-menu__overlay" id="mobile-overlay" aria-hidden="true" inert></div>
