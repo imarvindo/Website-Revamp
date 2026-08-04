@@ -6,7 +6,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-define( 'SEOAE_VERSION', '1.1.0' );
+define( 'SEOAE_VERSION', '1.1.1' );
 
 // Prevent WordPress from converting hyphens into en/em dashes in public content.
 add_filter( 'run_wptexturize', '__return_false' );
@@ -1017,6 +1017,8 @@ function seoae_contact_handler(): void {
 
 	// Save to DB (legacy table — kept for backward compatibility)
 	global $wpdb;
+	seoae_ensure_contacts_table();
+	// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
 	$wpdb->insert( $wpdb->prefix . 'seoae_contacts', [
 		'name'       => $name,
 		'email'      => $email,
@@ -1083,47 +1085,39 @@ function seoae_contact_handler(): void {
 	wp_send_json_success( "Thank you $name! We've received your enquiry and will be in touch within 24 hours." );
 }
 
-// Create contacts table on theme activation AND on init (in case of fresh DB)
-add_action( 'init', function () {
+/**
+ * Ensure wp_{prefix}seoae_contacts exists (option alone is not enough —
+ * a prior failed create can leave the option set with no table).
+ */
+function seoae_ensure_contacts_table(): void {
 	global $wpdb;
-	if ( get_option( 'seoae_contacts_table_v1' ) ) return; // already done
-	$charset_collate = $wpdb->get_charset_collate();
 	$table = $wpdb->prefix . 'seoae_contacts';
-	$sql = "CREATE TABLE IF NOT EXISTS $table (
-id mediumint(9) NOT NULL AUTO_INCREMENT,
-name tinytext NOT NULL,
-email varchar(200) NOT NULL,
-phone varchar(50),
-company varchar(200),
-service varchar(200),
-budget varchar(100),
-message text,
-created_at datetime DEFAULT '0000-00-00 00:00:00',
-PRIMARY KEY (id)
-) $charset_collate;";
-	require_once ABSPATH . 'wp-admin/includes/upgrade.php';
-	dbDelta( $sql );
-	update_option( 'seoae_contacts_table_v1', '1' );
-} );
-add_action( 'after_switch_theme', function () {
-	global $wpdb;
+	// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+	$exists = $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table ) );
+	if ( $exists === $table ) {
+		return;
+	}
 	$charset_collate = $wpdb->get_charset_collate();
-	$table = $wpdb->prefix . 'seoae_contacts';
-	$sql = "CREATE TABLE IF NOT EXISTS $table (
+	$sql             = "CREATE TABLE $table (
 		id mediumint(9) NOT NULL AUTO_INCREMENT,
 		name tinytext NOT NULL,
 		email varchar(200) NOT NULL,
-		phone varchar(50),
-		company varchar(200),
-		service varchar(200),
-		budget varchar(100),
+		phone varchar(50) DEFAULT '',
+		company varchar(200) DEFAULT '',
+		service varchar(200) DEFAULT '',
+		budget varchar(100) DEFAULT '',
 		message text,
-		created_at datetime DEFAULT '0000-00-00 00:00:00',
-		PRIMARY KEY (id)
+		created_at datetime DEFAULT CURRENT_TIMESTAMP,
+		PRIMARY KEY  (id),
+		KEY email (email),
+		KEY created_at (created_at)
 	) $charset_collate;";
 	require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 	dbDelta( $sql );
-} );
+	update_option( 'seoae_contacts_table_v1', '1' );
+}
+add_action( 'init', 'seoae_ensure_contacts_table' );
+add_action( 'after_switch_theme', 'seoae_ensure_contacts_table' );
 
 // ─────────────────────────────────────────────────────────────────────────────
 // 10. SERVICE SHORT-SLUG REDIRECTS

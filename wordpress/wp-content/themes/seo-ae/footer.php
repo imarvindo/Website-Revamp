@@ -336,7 +336,7 @@
 
 			<div class="qcm-privacy">
 				<label class="qcm-checkbox-label">
-					<input type="checkbox" name="privacy" id="qcm-privacy" required>
+					<input type="checkbox" name="privacy" id="qcm-privacy" value="1" required>
 					<span>I agree to the <a href="<?php echo esc_url(home_url('/privacy-policy')); ?>" target="_blank">Privacy Policy</a></span>
 				</label>
 			</div>
@@ -395,7 +395,7 @@
     var data = new FormData(form);
     data.append('action', 'seoae_contact');
 
-    fetch((typeof SEOAE!=='undefined'&&SEOAE.ajax_url)||'/wp-admin/admin-ajax.php', {
+    fetch((typeof SEOAE!=='undefined'&&(SEOAE.ajaxUrl||SEOAE.ajax_url))||'/wp-admin/admin-ajax.php', {
       method: 'POST', body: data
     })
     .then(function(r){ return r.json(); })
