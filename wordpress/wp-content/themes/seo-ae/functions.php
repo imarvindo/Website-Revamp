@@ -6,7 +6,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-define( 'SEOAE_VERSION', '1.1.1' );
+define( 'SEOAE_VERSION', '1.1.2' );
 
 // Prevent WordPress from converting hyphens into en/em dashes in public content.
 add_filter( 'run_wptexturize', '__return_false' );
@@ -1454,52 +1454,37 @@ add_action( 'after_switch_theme', function () {
 } );
 
 // ─────────────────────────────────────────────────────────────────────────────
-// 12. YOAST SEO — BREADCRUMB SHORTCODE
+// 12. BREADCRUMB SHORTCODE (Rank Math → Yoast fallback)
 // ─────────────────────────────────────────────────────────────────────────────
-add_shortcode( 'seoae_breadcrumbs', function() {
+add_shortcode( 'seoae_breadcrumbs', function () {
+	if ( function_exists( 'rank_math_the_breadcrumbs' ) ) {
+		ob_start();
+		echo '<nav class="breadcrumbs" aria-label="Breadcrumb">';
+		rank_math_the_breadcrumbs();
+		echo '</nav>';
+		return ob_get_clean();
+	}
 	if ( function_exists( 'yoast_breadcrumb' ) ) {
 		return yoast_breadcrumb( '<nav class="breadcrumbs" aria-label="Breadcrumb">', '</nav>', false );
 	}
 	return '';
 } );
 
-// ─────────────────────────────────────────────────────────────────────────────
-// 13. SUPPRESS YOAST SEO OUTPUT (plugin inactive but partially loads)
-// ─────────────────────────────────────────────────────────────────────────────
-add_action( 'after_setup_theme', function () {
-	// Yoast hooks to wp_head at priority 1 via wpseo_head
-	remove_action( 'wp_head', 'wpseo_head', 1 );
-	// Also remove via class instance if it's been instantiated
-	if ( class_exists( 'WPSEO_Frontend' ) ) {
-		$instance = WPSEO_Frontend::get_instance();
-		remove_action( 'wp_head', [ $instance, 'head' ], 1 );
-	}
-	// Yoast canonical / meta output
-	remove_action( 'wp_head', 'rel_canonical' );
-	// Yoast opengraph
-	if ( class_exists( 'WPSEO_OpenGraph' ) ) {
-		global $wpseo_og;
-		if ( isset( $wpseo_og ) ) {
-			remove_action( 'wpseo_head', [ $wpseo_og, 'opengraph' ], 30 );
-		}
-	}
-}, 999 );
-
-// Nuclear option: intercept Yoast's head action and block all its output
-add_action( 'wp_head', function () {
-	remove_action( 'wp_head', 'wpseo_head', 1 );
-	remove_action( 'wp_head', 'rel_canonical' );
-	// Block Yoast's opengraph hooks
-	global $wpseo_og;
-	if ( isset( $wpseo_og ) && is_object( $wpseo_og ) ) {
-		remove_action( 'wpseo_head', [ $wpseo_og, 'opengraph' ], 30 );
-	}
-}, 0 );
+/**
+ * Rank Math is the primary SEO plugin — skip theme OG/Twitter/canonical
+ * so titles and social tags are not duplicated in <head>.
+ */
+function seoae_rank_math_active(): bool {
+	return defined( 'RANK_MATH_VERSION' ) || class_exists( 'RankMath' );
+}
 
 // ─────────────────────────────────────────────────────────────────────────────
-// 13b. OPEN GRAPH + TWITTER CARD META TAGS
+// 13b. OPEN GRAPH + TWITTER CARD META TAGS (fallback when Rank Math is off)
 // ─────────────────────────────────────────────────────────────────────────────
 add_action( 'wp_head', function () {
+	if ( seoae_rank_math_active() ) {
+		return;
+	}
 	global $post;
 	$site_name   = 'SearchEngineOptimization.ae';
 	$base_url    = home_url();
@@ -1558,9 +1543,12 @@ add_action( 'wp_head', function () {
 }, 5 );
 
 // ─────────────────────────────────────────────────────────────────────────────
-// 14. CANONICAL URL (dynamic host — works on localhost + Replit proxy)
+// 14. CANONICAL URL (fallback when Rank Math is off)
 // ─────────────────────────────────────────────────────────────────────────────
 add_action( 'wp_head', function () {
+	if ( seoae_rank_math_active() ) {
+		return;
+	}
 	// Remove WordPress default rel=canonical and re-output with correct host
 	remove_action( 'wp_head', 'rel_canonical' );
 
@@ -1946,11 +1934,13 @@ add_filter( 'script_loader_tag', function ( $tag, $handle, $src ) {
 }, 10, 3 );
 
 // ─────────────────────────────────────────────────────────────────────────────
-// 21. META DESCRIPTION FALLBACK
+// 21. META DESCRIPTION FALLBACK (when Rank Math is off)
 // ─────────────────────────────────────────────────────────────────────────────
 add_action( 'wp_head', function () {
+	if ( seoae_rank_math_active() ) {
+		return;
+	}
 	global $post;
-	// Only output if not already provided by another plugin
 	$desc = '';
 	if ( is_front_page() ) {
 		$desc = "Dubai's #1 SEO & digital marketing agency. We help UAE businesses dominate search, capture high-intent traffic, and grow revenue. Get your free audit today.";
