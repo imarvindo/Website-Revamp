@@ -107,8 +107,12 @@
 						<svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5h6M5 2l3 3-3 3" stroke="#16B1D4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Portfolio</a></li>
 					<li><a href="<?php echo esc_url( home_url('/contact') ); ?>" class="footer__link">
 						<svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5h6M5 2l3 3-3 3" stroke="#16B1D4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Contact</a></li>
-					<li><a href="<?php echo esc_url( home_url('/dubai') ); ?>" class="footer__link">
+					<li><a href="<?php echo esc_url( home_url('/dubai/') ); ?>" class="footer__link">
 						<svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5h6M5 2l3 3-3 3" stroke="#16B1D4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>SEO Dubai</a></li>
+					<li><a href="<?php echo esc_url( home_url('/locations/') ); ?>" class="footer__link">
+						<svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5h6M5 2l3 3-3 3" stroke="#16B1D4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Locations</a></li>
+					<li><a href="<?php echo esc_url( home_url('/industries/') ); ?>" class="footer__link">
+						<svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5h6M5 2l3 3-3 3" stroke="#16B1D4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Industries</a></li>
 				</ul>
 			</div>
 
@@ -153,20 +157,23 @@
 					<svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0H5"/></svg>
 					Industries
 				</span>
-				<nav class="footer__coverage-links">
+				<nav class="footer__coverage-links" aria-label="Industry pages">
 					<?php
+					// Canonical industry URLs (live page-industry.php pages).
 					$ind = [
-						'Healthcare' => '/healthcare-seo/', 'Real Estate' => '/real-estate-seo/',
-						'E-commerce' => '/ecommerce-seo/', 'Hospitality' => '/hospitality-seo/',
-						'SaaS & B2B' => '/saas-b2b-seo/', 'Education'   => '/education-seo/',
-						'Automotive' => '/automotive-seo/', 'Finance'    => '/finance-seo/',
-						'Legal'      => '/legal-seo/',
+						'All Industries' => '/industries/',
+						'Healthcare'     => '/industries/healthcare/',
+						'Real Estate'    => '/industries/real-estate/',
+						'E-commerce'     => '/industries/ecommerce/',
+						'Hospitality'    => '/industries/hospitality/',
+						'Finance'        => '/industries/finance/',
+						'Legal'          => '/industries/legal/',
 					];
 					$i = 0;
 					foreach ( $ind as $label => $slug ) :
 						if ( $i++ ) echo '<span class="footer__coverage-sep">·</span>';
 					?>
-					<a href="<?php echo esc_url( home_url($slug) ); ?>" class="footer__coverage-link"><?php echo esc_html($label); ?></a>
+					<a href="<?php echo esc_url( home_url( $slug ) ); ?>" class="footer__coverage-link"><?php echo esc_html( $label ); ?></a>
 					<?php endforeach; ?>
 				</nav>
 			</div>
@@ -176,23 +183,35 @@
 					<svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/></svg>
 					UAE Cities
 				</span>
-				<nav class="footer__coverage-links">
+				<nav class="footer__coverage-links" aria-label="Location pages">
 					<?php
+					// Canonical location / district URLs currently published on production.
 					$cities = [
-						'Dubai' => '/seo-company-dubai/', 'Abu Dhabi' => '/seo-company-abu-dhabi/',
-						'Sharjah' => '/seo-company-sharjah/', 'Ajman' => '/seo-company-ajman/',
-						'Ras Al Khaimah' => '/seo-company-ras-al-khaimah/', 'Fujairah' => '/seo-company-fujairah/',
-						'Al Ain' => '/seo-company-al-ain/', 'Umm Al Quwain' => '/seo-company-umm-al-quwain/',
-						'Dubai Marina' => '/seo-company-dubai-marina/', 'Business Bay' => '/seo-company-business-bay/',
-						'Deira' => '/seo-company-deira/', 'Downtown Dubai' => '/seo-company-downtown-dubai/',
-						'Jebel Ali' => '/seo-company-jebel-ali/', 'Khor Fakkan' => '/seo-company-khor-fakkan/',
-						'Dibba Al Fujairah' => '/seo-company-dibba-al-fujairah/',
+						'All Locations'    => '/locations/',
+						'Dubai'            => '/dubai/',
+						'Abu Dhabi'        => '/locations/seo-abu-dhabi/',
+						'Sharjah'          => '/locations/seo-sharjah/',
+						'Ajman'            => '/locations/seo-ajman/',
+						'Ras Al Khaimah'   => '/locations/seo-ras-al-khaimah/',
+						'Fujairah'         => '/locations/seo-fujairah/',
+						'Dubai Marina'     => '/dubai/marina/',
+						'Business Bay'     => '/dubai/business-bay/',
+						'Downtown Dubai'   => '/dubai/downtown/',
+						'Deira'            => '/dubai/deira/',
+						'DIFC'             => '/dubai/difc/',
+						'JLT'              => '/dubai/jlt/',
+						'Jumeirah'         => '/dubai/jumeirah/',
+						'Bur Dubai'        => '/dubai/bur-dubai/',
+						'Al Quoz'          => '/dubai/al-quoz/',
+						'Dubai Hills'      => '/dubai/dubai-hills/',
+						'Palm Jumeirah'    => '/dubai/palm-jumeirah/',
+						'Mirdif'           => '/dubai/mirdif/',
 					];
 					$i = 0;
 					foreach ( $cities as $label => $slug ) :
 						if ( $i++ ) echo '<span class="footer__coverage-sep">·</span>';
 					?>
-					<a href="<?php echo esc_url( home_url($slug) ); ?>" class="footer__coverage-link"><?php echo esc_html($label); ?></a>
+					<a href="<?php echo esc_url( home_url( $slug ) ); ?>" class="footer__coverage-link"><?php echo esc_html( $label ); ?></a>
 					<?php endforeach; ?>
 				</nav>
 			</div>

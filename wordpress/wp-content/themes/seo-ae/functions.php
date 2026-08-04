@@ -6,7 +6,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-define( 'SEOAE_VERSION', '1.0.8' );
+define( 'SEOAE_VERSION', '1.0.9' );
 
 // Prevent WordPress from converting hyphens into en/em dashes in public content.
 add_filter( 'run_wptexturize', '__return_false' );
@@ -1792,11 +1792,21 @@ add_action( 'template_redirect', function () {
 
 	// Legacy slugs → current canonical page URLs (never redirect away from live pages).
 	$legacy_redirects = [
+		'/seo-company-dubai/'          => '/dubai/',
 		'/seo-company-abu-dhabi/'      => '/locations/seo-abu-dhabi/',
 		'/seo-company-sharjah/'        => '/locations/seo-sharjah/',
 		'/seo-company-ajman/'          => '/locations/seo-ajman/',
 		'/seo-company-ras-al-khaimah/' => '/locations/seo-ras-al-khaimah/',
 		'/seo-company-fujairah/'       => '/locations/seo-fujairah/',
+		'/seo-company-dubai-marina/'   => '/dubai/marina/',
+		'/seo-company-business-bay/'   => '/dubai/business-bay/',
+		'/seo-company-deira/'          => '/dubai/deira/',
+		'/seo-company-downtown-dubai/' => '/dubai/downtown/',
+		'/seo-company-jebel-ali/'      => '/dubai/',
+		'/seo-company-khor-fakkan/'    => '/locations/',
+		'/seo-company-dibba-al-fujairah/' => '/locations/',
+		'/seo-company-al-ain/'         => '/locations/',
+		'/seo-company-umm-al-quwain/'  => '/locations/',
 		'/seo-abu-dhabi/'              => '/locations/seo-abu-dhabi/',
 		'/seo-sharjah/'                => '/locations/seo-sharjah/',
 		'/seo-ajman/'                  => '/locations/seo-ajman/',
@@ -1808,6 +1818,9 @@ add_action( 'template_redirect', function () {
 		'/hospitality-seo/'            => '/industries/hospitality/',
 		'/legal-seo/'                  => '/industries/legal/',
 		'/finance-seo/'                => '/industries/finance/',
+		'/saas-b2b-seo/'               => '/industries/',
+		'/education-seo/'              => '/industries/',
+		'/automotive-seo/'             => '/industries/',
 		'/real-estate/'                => '/industries/real-estate/',
 		'/healthcare/'                 => '/industries/healthcare/',
 		'/ecommerce/'                  => '/industries/ecommerce/',
