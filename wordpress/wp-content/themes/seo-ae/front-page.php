@@ -43,8 +43,17 @@ $case_studies = new WP_Query(['post_type'=>'case_study','posts_per_page'=>4,'pos
 			</div>
 
 			<h1 class="hero-wow__title">
-				Turn Search Visibility Into<br>
-				<span class="hero-wow__highlight">Business Growth</span>
+				<?php
+				$hl_lines = preg_split( '/\r\n|\r|\n/', (string) $hero_headline );
+				if ( count( $hl_lines ) > 1 ) {
+					$last = array_pop( $hl_lines );
+					echo esc_html( implode( ' ', $hl_lines ) ) . '<br>';
+					echo '<span class="hero-wow__highlight">' . esc_html( $last ) . '</span>';
+				} else {
+					// Default expressive split matching brand hero.
+					echo 'Turn Search Visibility Into<br><span class="hero-wow__highlight">Business Growth</span>';
+				}
+				?>
 			</h1>
 
 			<p class="hero-wow__desc"><?php echo esc_html($hero_sub); ?></p>
@@ -69,96 +78,89 @@ $case_studies = new WP_Query(['post_type'=>'case_study','posts_per_page'=>4,'pos
 			</div>
 		</div>
 
-		<!-- RIGHT: Analytics Dashboard Widget -->
+		<!-- RIGHT: Live analytics dashboard (visual mock matching React design) -->
 		<div class="hero-wow__right" aria-hidden="true">
-			<div class="hero-dashboard">
-
-				<!-- AI Visibility row -->
-				<div class="hero-dashboard__ai-row">
-					<span class="hero-dashboard__ai-label">AI VISIBILITY</span>
-					<span class="hero-dashboard__chip hero-dashboard__chip--navy">ChatGPT </span>
-					<span class="hero-dashboard__chip hero-dashboard__chip--cyan">Perplexity </span>
-				</div>
-
-				<!-- Organic header -->
-				<div class="hero-dashboard__organic">
-					<div>
-						<div class="hero-dashboard__micro-label">ORGANIC VISIBILITY</div>
-						<div class="hero-dashboard__domain">SearchBrand.ae</div>
+			<div class="hero-dashboard hero-dashboard--live">
+				<div class="hero-dashboard__header">
+					<div class="hero-dashboard__header-left">
+						<span class="hero-dashboard__live-icon" aria-hidden="true">
+							<svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+						</span>
+						<span class="hero-dashboard__header-title">Live SEO Dashboard</span>
 					</div>
-					<div class="hero-dashboard__growth-pill">↑ +218%</div>
+					<div class="hero-dashboard__live-pill">
+						<span class="hero-dashboard__live-dot"></span>
+						Live
+					</div>
 				</div>
 
-				<!-- Chart -->
-				<div class="hero-dashboard__chart">
-					<svg viewBox="0 0 340 80" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+				<div class="hero-dashboard__chart-block">
+					<div class="hero-dashboard__chart-top">
+						<span>Organic Traffic</span>
+						<span class="hero-dashboard__chart-delta">↑ +127% this quarter</span>
+					</div>
+					<svg class="hero-dashboard__spark" viewBox="0 0 220 64" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
 						<defs>
-							<linearGradient id="chartFill" x1="0" y1="0" x2="0" y2="1">
-								<stop offset="0%" stop-color="#16B1D4" stop-opacity="0.25"/>
+							<linearGradient id="chartGradLive" x1="0" y1="0" x2="0" y2="1">
+								<stop offset="0%" stop-color="#16B1D4" stop-opacity="0.4"/>
 								<stop offset="100%" stop-color="#16B1D4" stop-opacity="0"/>
 							</linearGradient>
 						</defs>
-						<path d="M0,72 C30,68 55,63 80,57 C105,51 130,42 160,31 C185,22 210,15 240,10 C265,6 295,4 340,3"
-							stroke="#16B1D4" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-						<path d="M0,72 C30,68 55,63 80,57 C105,51 130,42 160,31 C185,22 210,15 240,10 C265,6 295,4 340,3 L340,80 L0,80 Z"
-							fill="url(#chartFill)"/>
-						<!-- Dot at peak -->
-						<circle cx="310" cy="3.8" r="4" fill="#16B1D4"/>
-						<circle cx="310" cy="3.8" r="7" fill="#16B1D4" fill-opacity="0.2"/>
+						<!-- Points mapped from sample traffic series: 42,55,48,70,83,97,108,134 -->
+						<polygon points="0,64 0,41.7 31.4,36.6 62.9,39.4 94.3,30.8 125.7,25.7 157.1,20.3 188.6,16.0 220,5.9 220,64" fill="url(#chartGradLive)"/>
+						<polyline points="0,41.7 31.4,36.6 62.9,39.4 94.3,30.8 125.7,25.7 157.1,20.3 188.6,16.0 220,5.9" fill="none" stroke="#16B1D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+						<circle cx="220" cy="5.9" r="3.5" fill="#16B1D4"/>
 					</svg>
 					<div class="hero-dashboard__chart-months">
-						<span>Jan</span><span>Mar</span><span>May</span><span>Jul</span><span>Sep</span><span>Nov</span>
+						<span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span>
 					</div>
 				</div>
 
-				<!-- Stats row -->
-				<div class="hero-dashboard__stats">
-					<div class="hero-dashboard__stat">
-						<div class="hero-dashboard__stat-val">847</div>
-						<div class="hero-dashboard__stat-lbl">PAGE-1 RANKINGS</div>
-						<div class="hero-dashboard__stat-delta">+234 new</div>
+				<div class="hero-dashboard__metrics">
+					<div>
+						<div class="hero-dashboard__metric-val">28.4K</div>
+						<div class="hero-dashboard__metric-lbl">Sessions</div>
 					</div>
-					<div class="hero-dashboard__stat">
-						<div class="hero-dashboard__stat-val">28.4K</div>
-						<div class="hero-dashboard__stat-lbl">MONTHLY TRAFFIC</div>
-						<div class="hero-dashboard__stat-delta">+215%</div>
+					<div>
+						<div class="hero-dashboard__metric-val">847</div>
+						<div class="hero-dashboard__metric-lbl">Page-1 KWs</div>
 					</div>
-					<div class="hero-dashboard__stat">
-						<div class="hero-dashboard__stat-val">142</div>
-						<div class="hero-dashboard__stat-lbl">LEADS / MONTH</div>
-						<div class="hero-dashboard__stat-delta">4.2x ROI</div>
+					<div>
+						<div class="hero-dashboard__metric-val">4.2x</div>
+						<div class="hero-dashboard__metric-lbl">ROI</div>
 					</div>
 				</div>
 
-				<!-- Top keyword positions -->
-				<div class="hero-dashboard__kw-head">TOP KEYWORD POSITIONS</div>
+				<div class="hero-dashboard__kw-head">Keyword Rankings</div>
 				<div class="hero-dashboard__kw-list">
 					<div class="hero-dashboard__kw">
 						<span class="hero-dashboard__kw-pos">#1</span>
 						<span class="hero-dashboard__kw-name">SEO agency Dubai</span>
-						<span class="hero-dashboard__kw-up">+12</span>
+						<span class="hero-dashboard__kw-up">+3</span>
 					</div>
 					<div class="hero-dashboard__kw">
 						<span class="hero-dashboard__kw-pos">#2</span>
-						<span class="hero-dashboard__kw-name">SEO services UAE</span>
-						<span class="hero-dashboard__kw-up">+8</span>
+						<span class="hero-dashboard__kw-name">Google Ads UAE</span>
+						<span class="hero-dashboard__kw-up">+5</span>
 					</div>
 					<div class="hero-dashboard__kw">
-						<span class="hero-dashboard__kw-pos">#1</span>
-						<span class="hero-dashboard__kw-name">local SEO Abu Dhabi</span>
-						<span class="hero-dashboard__kw-up">+15</span>
+						<span class="hero-dashboard__kw-pos">#4</span>
+						<span class="hero-dashboard__kw-name">digital marketing Dubai</span>
+						<span class="hero-dashboard__kw-up">+2</span>
+					</div>
+					<div class="hero-dashboard__kw">
+						<span class="hero-dashboard__kw-pos">#6</span>
+						<span class="hero-dashboard__kw-name">web design Abu Dhabi</span>
+						<span class="hero-dashboard__kw-down">-1</span>
 					</div>
 				</div>
 
-				<!-- Google Maps badge -->
 				<div class="hero-dashboard__maps">
 					<span class="hero-dashboard__maps-label">GOOGLE MAPS</span>
-					<span class="hero-dashboard__maps-val">#1 UAE Local Pack </span>
+					<span class="hero-dashboard__maps-val">#1 UAE Local Pack</span>
 				</div>
+			</div>
 
-			</div><!-- /.hero-dashboard -->
-
-			<!-- Floating accent cards -->
 			<div class="hero-float hero-float--tl">
 				<svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
 				<span>+318% organic traffic</span>
@@ -167,7 +169,6 @@ $case_studies = new WP_Query(['post_type'=>'case_study','posts_per_page'=>4,'pos
 				<svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
 				<span>Ranked #1 in 48 hrs</span>
 			</div>
-
 		</div><!-- /.hero-wow__right -->
 	</div><!-- /.hero-wow__inner -->
 </section>

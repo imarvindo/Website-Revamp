@@ -328,20 +328,18 @@ echo '<script type="application/ld+json">' . wp_json_encode([
 		<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:1rem;margin-top:2.5rem;">
 			<?php
 			$districts = [
-				// Dedicated sub-pages exist for these four districts
 				['name' => 'Dubai Marina',     'url' => '/dubai/marina/',       'has_page' => true],
 				['name' => 'Business Bay',     'url' => '/dubai/business-bay/', 'has_page' => true],
 				['name' => 'Downtown Dubai',   'url' => '/dubai/downtown/',     'has_page' => true],
 				['name' => 'Deira',            'url' => '/dubai/deira/',        'has_page' => true],
-				// Remaining districts  -  no dedicated sub-page yet
-				['name' => 'DIFC',             'url' => '/dubai/difc/',         'has_page' => false],
-				['name' => 'JLT',              'url' => '/dubai/jlt/',          'has_page' => false],
-				['name' => 'Jumeirah',         'url' => '/dubai/jumeirah/',     'has_page' => false],
-				['name' => 'Bur Dubai',        'url' => '/dubai/bur-dubai/',    'has_page' => false],
-				['name' => 'Al Quoz',          'url' => '/dubai/al-quoz/',      'has_page' => false],
-				['name' => 'Dubai Hills',      'url' => '/dubai/dubai-hills/',  'has_page' => false],
-				['name' => 'Palm Jumeirah',    'url' => '/dubai/palm-jumeirah/','has_page' => false],
-				['name' => 'Mirdif',           'url' => '/dubai/mirdif/',       'has_page' => false],
+				['name' => 'DIFC',             'url' => '/dubai/difc/',         'has_page' => true],
+				['name' => 'JLT',              'url' => '/dubai/jlt/',          'has_page' => true],
+				['name' => 'Jumeirah',         'url' => '/dubai/jumeirah/',     'has_page' => true],
+				['name' => 'Bur Dubai',        'url' => '/dubai/bur-dubai/',    'has_page' => true],
+				['name' => 'Al Quoz',          'url' => '/dubai/al-quoz/',      'has_page' => true],
+				['name' => 'Dubai Hills',      'url' => '/dubai/dubai-hills/',  'has_page' => true],
+				['name' => 'Palm Jumeirah',    'url' => '/dubai/palm-jumeirah/','has_page' => true],
+				['name' => 'Mirdif',           'url' => '/dubai/mirdif/',       'has_page' => true],
 			];
 			foreach ($districts as $d) :
 				$tag = $d['has_page'] ? 'a' : 'div';

@@ -2,7 +2,7 @@
 /**
  * Template Name: Dubai District Page
  * Neighbourhood-level SEO landing pages for Dubai districts.
- * Handles: /dubai/marina/, /dubai/business-bay/, /dubai/downtown/, /dubai/deira/
+ * Handles: /dubai/{slug}/ for Marina, Business Bay, Downtown, Deira + 8 more.
  */
 get_header();
 
@@ -13,7 +13,7 @@ $districts = [
 		'slug'        => 'marina',
 		'geo_lat'     => '25.0800',
 		'geo_lng'     => '55.1404',
-		'tagline'     => 'The Marina Mile — Where Luxury Brands Compete for Every Click',
+		'tagline'     => 'The Marina Mile - Where Luxury Brands Compete for Every Click',
 		'hero_intro'  => 'Dubai Marina generates over <strong style="color:#fff;">400,000+ monthly searches</strong> for restaurants, real estate, fitness, and lifestyle. Rank above your Marina neighbours with hyper-local SEO built for this high-density, high-intent district.',
 		'searches'    => '400K+',
 		'searches_label' => 'Monthly Marina Google Searches',
@@ -23,16 +23,16 @@ $districts = [
 		'business_types' => ['waterfront restaurants & cafés', 'luxury real estate developers', 'fitness studios & wellness centres', 'marina yacht services', 'boutique hotels & serviced apartments', 'retail brands on The Walk'],
 		'local_intro' => 'Dubai Marina is one of the most competitive local search markets in the UAE. With over 200 restaurants, dozens of real estate agencies, and hundreds of lifestyle businesses clustered along a 3km waterfront strip, ranking for "near me" and district-specific searches directly drives footfall and leads.',
 		'why_points'  => [
-			['title' => 'Marina-Specific Keyword Research', 'desc' => 'We map the exact search queries Marina visitors use — from "restaurants Dubai Marina" to "marina apartments for sale" — and build content that captures every stage of buyer intent.'],
+			['title' => 'Marina-Specific Keyword Research', 'desc' => 'We map the exact search queries Marina visitors use - from "restaurants Dubai Marina" to "marina apartments for sale" - and build content that captures every stage of buyer intent.'],
 			['title' => 'Google Business Profile Optimisation', 'desc' => 'Marina searches are heavily local-pack-driven. We optimise your GBP for the Marina area, generate high-quality review strategies, and build local citations pointing to this district.'],
 			['title' => 'Competitor Gap Analysis', 'desc' => 'We analyse every ranking Marina competitor in your sector, identify their content and backlink gaps, and execute a strategy to overtake them on the keywords that matter most.'],
-			['title' => 'Hyperlocal Content', 'desc' => 'Our copywriters create Marina-specific landing pages, neighbourhood guides, and service content that Google recognises as genuinely local — not generic templates.'],
+			['title' => 'Hyperlocal Content', 'desc' => 'Our copywriters create Marina-specific landing pages, neighbourhood guides, and service content that Google recognises as genuinely local - not generic templates.'],
 		],
 		'services_intro' => 'Every major search category in Dubai Marina has fierce competition. Our SEO services are tailored to the Marina\'s unique mix of luxury, lifestyle, and high-turnover hospitality businesses.',
 		'faqs' => [
 			[
 				'question' => 'What types of businesses benefit most from Marina SEO?',
-				'answer'   => 'Restaurants, cafés, real estate agencies, fitness studios, hotels, beauty salons, and yacht services in Dubai Marina see the highest ROI from local SEO because residents and tourists search for these services specifically by neighbourhood — "best sushi Dubai Marina", "gym near Marina Walk" — creating high-intent local traffic.',
+				'answer'   => 'Restaurants, cafés, real estate agencies, fitness studios, hotels, beauty salons, and yacht services in Dubai Marina see the highest ROI from local SEO because residents and tourists search for these services specifically by neighbourhood - "best sushi Dubai Marina", "gym near Marina Walk" - creating high-intent local traffic.',
 			],
 			[
 				'question' => 'How does local SEO work for Dubai Marina businesses?',
@@ -40,15 +40,15 @@ $districts = [
 			],
 			[
 				'question' => 'How long before my Marina business ranks on Google?',
-				'answer'   => 'Most Marina businesses see local pack improvements within 30–60 days for lower-competition searches. Organic page-1 rankings for competitive terms like "Dubai Marina restaurants" or "Marina apartments for sale" typically take 3–6 months of sustained optimisation.',
+				'answer'   => 'Most Marina businesses see local pack improvements within 30-60 days for lower-competition searches. Organic page-1 rankings for competitive terms like "Dubai Marina restaurants" or "Marina apartments for sale" typically take 3-6 months of sustained optimisation.',
 			],
 			[
 				'question' => 'Do you manage Google Ads for Marina businesses too?',
-				'answer'   => 'Yes. We offer fully managed Google Ads and Meta Ads campaigns targeting Marina audiences. PPC is particularly effective during the Marina\'s peak tourist seasons (October–April) and can be used alongside SEO to capture immediate traffic while organic rankings build.',
+				'answer'   => 'Yes. We offer fully managed Google Ads and Meta Ads campaigns targeting Marina audiences. PPC is particularly effective during the Marina\'s peak tourist seasons (October-April) and can be used alongside SEO to capture immediate traffic while organic rankings build.',
 			],
 			[
 				'question' => 'Can you help a new Marina business rank quickly?',
-				'answer'   => 'Absolutely. For new businesses with no domain authority, we prioritise Google Business Profile, local citations, and long-tail keyword content — channels that can deliver visible results within 30–45 days even for a brand-new Marina listing.',
+				'answer'   => 'Absolutely. For new businesses with no domain authority, we prioritise Google Business Profile, local citations, and long-tail keyword content - channels that can deliver visible results within 30-45 days even for a brand-new Marina listing.',
 			],
 		],
 	],
@@ -58,7 +58,7 @@ $districts = [
 		'slug'        => 'business-bay',
 		'geo_lat'     => '25.1865',
 		'geo_lng'     => '55.2618',
-		'tagline'     => 'The Corporate Heartbeat — B2B Search Dominance in Business Bay',
+		'tagline'     => 'The Corporate Heartbeat - B2B Search Dominance in Business Bay',
 		'hero_intro'  => 'Business Bay is Dubai\'s fastest-growing business hub with over <strong style="color:#fff;">350,000+ monthly searches</strong> for professional services, corporate real estate, and B2B solutions. Outrank your Business Bay competitors and capture high-value commercial leads.',
 		'searches'    => '350K+',
 		'searches_label' => 'Monthly Business Bay Google Searches',
@@ -69,19 +69,19 @@ $districts = [
 		'local_intro' => 'Business Bay has over 240 completed towers hosting thousands of businesses competing for the same high-value B2B searches. Ranking for "law firm Business Bay", "corporate office Business Bay", or "financial advisory Dubai" means capturing decision-maker traffic that converts at significantly higher rates than consumer searches.',
 		'why_points'  => [
 			['title' => 'B2B SEO Specialists', 'desc' => 'Business Bay is a B2B-dominated zone. We build keyword strategies around the commercial intent searches decision-makers use: "accounting firm Business Bay", "legal services Dubai CBD", "management consulting UAE".'],
-			['title' => 'LinkedIn & Professional Visibility', 'desc' => 'We combine SEO with targeted content strategies that build topical authority for professional services — increasing visibility not just on Google but across the professional digital ecosystem that Business Bay clients use.'],
-			['title' => 'Local Citation & Directory Coverage', 'desc' => 'We build citations across UAE business directories, Google Business Profile, and sector-specific platforms — cementing Business Bay as your primary service location for Google\'s local algorithms.'],
+			['title' => 'LinkedIn & Professional Visibility', 'desc' => 'We combine SEO with targeted content strategies that build topical authority for professional services - increasing visibility not just on Google but across the professional digital ecosystem that Business Bay clients use.'],
+			['title' => 'Local Citation & Directory Coverage', 'desc' => 'We build citations across UAE business directories, Google Business Profile, and sector-specific platforms - cementing Business Bay as your primary service location for Google\'s local algorithms.'],
 			['title' => 'Conversion-Focused Content', 'desc' => 'B2B buyers research thoroughly before contacting. We create service pages, case studies, and comparison content that captures mid-funnel queries and moves high-value prospects toward enquiry.'],
 		],
 		'services_intro' => 'Business Bay\'s corporate ecosystem demands a sophisticated, B2B-first approach to SEO. We have helped professional services firms, real estate agencies, and corporate service providers rank for the decision-maker searches that drive their pipeline.',
 		'faqs' => [
 			[
 				'question' => 'What industries in Business Bay benefit most from SEO?',
-				'answer'   => 'Professional services (legal, financial, consulting), corporate real estate agencies, business centres, and B2B technology companies in Business Bay see the highest return from SEO. Their clients conduct research-heavy searches — "Dubai corporate law firm", "business setup services Business Bay" — making organic visibility a key source of qualified leads.',
+				'answer'   => 'Professional services (legal, financial, consulting), corporate real estate agencies, business centres, and B2B technology companies in Business Bay see the highest return from SEO. Their clients conduct research-heavy searches - "Dubai corporate law firm", "business setup services Business Bay" - making organic visibility a key source of qualified leads.',
 			],
 			[
 				'question' => 'Is SEO effective for B2B businesses in Business Bay?',
-				'answer'   => 'Yes — often more effective than for consumer businesses. B2B decision-makers in Dubai conduct extensive research before engaging suppliers, meaning high-ranking content that addresses commercial intent questions (comparisons, guides, case studies) can generate high-quality inbound leads with conversion rates exceeding paid channels.',
+				'answer'   => 'Yes - often more effective than for consumer businesses. B2B decision-makers in Dubai conduct extensive research before engaging suppliers, meaning high-ranking content that addresses commercial intent questions (comparisons, guides, case studies) can generate high-quality inbound leads with conversion rates exceeding paid channels.',
 			],
 			[
 				'question' => 'How do you approach SEO for a professional services firm in Business Bay?',
@@ -89,7 +89,7 @@ $districts = [
 			],
 			[
 				'question' => 'How quickly can a Business Bay company see results?',
-				'answer'   => 'Professional service firms with established domains typically see ranking improvements within 45–75 days. For new Business Bay businesses or those with technical SEO issues, a full technical audit and fix phase is completed in the first month, with ranking progress following in months 2–3.',
+				'answer'   => 'Professional service firms with established domains typically see ranking improvements within 45-75 days. For new Business Bay businesses or those with technical SEO issues, a full technical audit and fix phase is completed in the first month, with ranking progress following in months 2-3.',
 			],
 			[
 				'question' => 'Do you handle SEO for businesses with multiple Business Bay offices?',
@@ -103,7 +103,7 @@ $districts = [
 		'slug'        => 'downtown',
 		'geo_lat'     => '25.1972',
 		'geo_lng'     => '55.2744',
-		'tagline'     => "World's Most Iconic Address — SEO for Downtown Dubai Businesses",
+		'tagline'     => "World's Most Iconic Address - SEO for Downtown Dubai Businesses",
 		'hero_intro'  => 'Downtown Dubai drives over <strong style="color:#fff;">500,000+ monthly searches</strong> fuelled by the Burj Khalifa, Dubai Mall, and a global tourist audience. Rank for the highest-value searches in the UAE\'s most prestigious commercial district.',
 		'searches'    => '500K+',
 		'searches_label' => 'Monthly Downtown Dubai Google Searches',
@@ -113,7 +113,7 @@ $districts = [
 		'business_types' => ['luxury retail and flagship brand stores', 'fine dining and upscale restaurants', 'luxury hotel properties', 'premium real estate developers', 'tourist experience operators', 'high-end wellness and spa brands'],
 		'local_intro' => 'Downtown Dubai is the most searched commercial zone in the UAE. With 80+ million annual visitors to Dubai Mall alone, the search volume for Downtown businesses is unmatched in the region. Ranking for "Downtown Dubai restaurants", "Burj Khalifa hotels", or "Dubai Mall luxury shopping" means capturing both resident and global tourist intent at massive scale.',
 		'why_points'  => [
-			['title' => 'Tourism & Hospitality SEO', 'desc' => 'Downtown\'s business mix is heavily tourism-driven. We build keyword strategies that capture both local resident searches and global tourist queries — including searches from travellers planning before they arrive in Dubai.'],
+			['title' => 'Tourism & Hospitality SEO', 'desc' => 'Downtown\'s business mix is heavily tourism-driven. We build keyword strategies that capture both local resident searches and global tourist queries - including searches from travellers planning before they arrive in Dubai.'],
 			['title' => 'Google Maps & Local Pack Dominance', 'desc' => 'Near-me and map searches dominate Downtown. We focus heavily on GBP optimisation, review strategy, and local citation accuracy to ensure you appear in the map pack for your category across the Downtown area.'],
 			['title' => 'E-A-T Content for Luxury Brands', 'desc' => 'Luxury and premium brands require authoritative content that matches Google\'s E-E-A-T standards. Our editorial team creates high-quality copy that positions Downtown businesses as the category authority in their niche.'],
 			['title' => 'Seasonal & Event SEO', 'desc' => 'Downtown Dubai has distinct search peaks around Dubai Shopping Festival, New Year\'s Eve, Dubai Expo season, and other major events. We plan content calendars that capitalise on these spikes to maximise organic traffic at peak demand.'],
@@ -130,7 +130,7 @@ $districts = [
 			],
 			[
 				'question' => 'How competitive is Downtown Dubai for SEO?',
-				'answer'   => 'Very competitive. Categories like "restaurants Downtown Dubai" and "Dubai Mall hotels" are among the most contested local search terms in the UAE. Success requires a sustained, multi-channel strategy — technical SEO, on-page optimisation, content authority, link building, and GBP management working together over 6–12 months for top positions.',
+				'answer'   => 'Very competitive. Categories like "restaurants Downtown Dubai" and "Dubai Mall hotels" are among the most contested local search terms in the UAE. Success requires a sustained, multi-channel strategy - technical SEO, on-page optimisation, content authority, link building, and GBP management working together over 6-12 months for top positions.',
 			],
 			[
 				'question' => 'Can SEO drive direct hotel bookings or restaurant reservations in Downtown?',
@@ -148,7 +148,7 @@ $districts = [
 		'slug'        => 'deira',
 		'geo_lat'     => '25.2721',
 		'geo_lng'     => '55.3279',
-		'tagline'     => "Dubai's Original Trading Hub — Digital Growth for Deira Businesses",
+		'tagline'     => "Dubai's Original Trading Hub - Digital Growth for Deira Businesses",
 		'hero_intro'  => 'Deira is Dubai\'s oldest and most densely-traded commercial district, with <strong style="color:#fff;">300,000+ monthly searches</strong> for wholesale, retail, gold, spices, and traditional trade. Modernise your Deira business\'s online presence and capture the district\'s high-frequency commercial searches.',
 		'searches'    => '300K+',
 		'searches_label' => 'Monthly Deira Google Searches',
@@ -156,18 +156,18 @@ $districts = [
 		'stat2'       => ['value' => '60 Days', 'label' => 'First Ranking Results'],
 		'landmarks'   => ['Gold Souk', 'Spice Souk', 'Deira City Centre', 'Dubai Creek', 'Al Rigga Street', 'Naif Souk', 'Muteena Street'],
 		'business_types' => ['gold and jewellery retailers', 'wholesale and import/export businesses', 'traditional souks and traders', 'hotels and budget hospitality', 'money exchange and financial services', 'retail and electronics distributors'],
-		'local_intro' => 'Deira represents the original commercial heart of Dubai — a high-density trading district where thousands of businesses compete for wholesale buyers, retail customers, and digital-native shoppers who search online before visiting the souk. Many Deira businesses have strong offline reputations but minimal digital presence, creating a significant first-mover SEO opportunity for those who act now.',
+		'local_intro' => 'Deira represents the original commercial heart of Dubai - a high-density trading district where thousands of businesses compete for wholesale buyers, retail customers, and digital-native shoppers who search online before visiting the souk. Many Deira businesses have strong offline reputations but minimal digital presence, creating a significant first-mover SEO opportunity for those who act now.',
 		'why_points'  => [
-			['title' => 'First-Mover Advantage in Deira', 'desc' => 'Many Deira businesses are yet to invest seriously in SEO, creating an opportunity to rank for high-frequency local searches — "gold souk Dubai", "wholesale electronics Deira" — before competitors build domain authority.'],
+			['title' => 'First-Mover Advantage in Deira', 'desc' => 'Many Deira businesses are yet to invest seriously in SEO, creating an opportunity to rank for high-frequency local searches - "gold souk Dubai", "wholesale electronics Deira" - before competitors build domain authority.'],
 			['title' => 'Bilingual Arabic & English SEO', 'desc' => 'Deira\'s search audience is one of the most linguistically diverse in Dubai, including significant Arabic, Hindi, Urdu, and English-language searches. Our bilingual strategy ensures you capture demand across all language segments.'],
 			['title' => 'Local Business Profile Optimisation', 'desc' => 'Many Deira businesses lack complete or optimised Google Business Profiles. We conduct a full GBP audit, populate all fields, optimise for Deira-specific search terms, and implement a review generation strategy.'],
 			['title' => 'Wholesale & B2B Lead Generation', 'desc' => 'Deira\'s wholesale sector relies on trade buyers finding suppliers online. We target buyer-intent keywords ("wholesale gold Dubai", "electronics suppliers Deira") that drive commercial enquiries, not just footfall.'],
 		],
-		'services_intro' => 'Deira\'s diverse commercial ecosystem — from gold trading to electronics wholesale — requires a versatile SEO approach that spans consumer local search, wholesale B2B intent, and bilingual audience targeting. Our Deira SEO campaigns are built around the district\'s unique trade mix.',
+		'services_intro' => 'Deira\'s diverse commercial ecosystem - from gold trading to electronics wholesale - requires a versatile SEO approach that spans consumer local search, wholesale B2B intent, and bilingual audience targeting. Our Deira SEO campaigns are built around the district\'s unique trade mix.',
 		'faqs' => [
 			[
 				'question' => 'Is SEO useful for traditional Deira businesses like souks and traders?',
-				'answer'   => 'Absolutely. Today\'s buyers — including wholesale trade buyers and retail shoppers — research online before visiting even traditional markets. Ranking for "gold souk Dubai best prices", "spice supplier Deira", or "wholesale clothing Dubai" drives both footfall to your physical location and online enquiries from buyers across the UAE and GCC.',
+				'answer'   => 'Absolutely. Today\'s buyers - including wholesale trade buyers and retail shoppers - research online before visiting even traditional markets. Ranking for "gold souk Dubai best prices", "spice supplier Deira", or "wholesale clothing Dubai" drives both footfall to your physical location and online enquiries from buyers across the UAE and GCC.',
 			],
 			[
 				'question' => 'What Deira businesses benefit most from local SEO?',
@@ -179,15 +179,24 @@ $districts = [
 			],
 			[
 				'question' => 'Can you help a Deira business generate leads from outside Dubai?',
-				'answer'   => 'Yes. Deira is historically a regional trade hub — many of its wholesale customers come from across the GCC, South Asia, and East Africa. We create geo-expanded content strategies that target out-of-market buyers searching for Dubai wholesale suppliers, helping you capture export and regional trade leads alongside local footfall.',
+				'answer'   => 'Yes. Deira is historically a regional trade hub - many of its wholesale customers come from across the GCC, South Asia, and East Africa. We create geo-expanded content strategies that target out-of-market buyers searching for Dubai wholesale suppliers, helping you capture export and regional trade leads alongside local footfall.',
 			],
 			[
 				'question' => 'How do you approach SEO for a new or recently launched Deira business?',
-				'answer'   => 'For new Deira businesses we prioritise speed-to-visibility: set up and fully optimise your Google Business Profile (typically delivering local pack results within 30 days), build foundational citations across UAE directories, and create targeted content for your top 10 highest-intent local keywords. Domain authority and organic rankings build from this foundation over months 2–6.',
+				'answer'   => 'For new Deira businesses we prioritise speed-to-visibility: set up and fully optimise your Google Business Profile (typically delivering local pack results within 30 days), build foundational citations across UAE directories, and create targeted content for your top 10 highest-intent local keywords. Domain authority and organic rankings build from this foundation over months 2-6.',
 			],
 		],
 	],
 ];
+
+// Merge remaining 8 districts (DIFC, JLT, Jumeirah, Bur Dubai, Al Quoz, Dubai Hills, Palm, Mirdif).
+$extra_districts = SEOAE_DIR . '/inc/dubai-districts-extra.php';
+if ( is_readable( $extra_districts ) ) {
+	$loaded = include $extra_districts;
+	if ( is_array( $loaded ) ) {
+		$districts = array_merge( $districts, $loaded );
+	}
+}
 
 // Detect current district from page slug
 $page_slug  = get_post_field( 'post_name', get_the_ID() );
@@ -216,7 +225,7 @@ $geo_lng = $district['geo_lng'];
 $schema = [
 	'@context' => 'https://schema.org',
 	'@type'    => ['LocalBusiness','ProfessionalService','MarketingAgency'],
-	'name'     => 'SearchEngineOptimization.ae — ' . $name . ' SEO Agency',
+	'name'     => 'SearchEngineOptimization.ae - ' . $name . ' SEO Agency',
 	'alternateName' => ['SEO Agency ' . $name, 'SEO Company ' . $name],
 	'description'   => 'SearchEngineOptimization.ae is the leading SEO agency serving ' . $name . ', Dubai. We help ' . $name . ' businesses dominate Google search, drive qualified local traffic, and convert visitors into customers with tailored, district-specific SEO strategies.',
 	'url'      => home_url('/dubai/' . $dslug . '/'),
@@ -403,7 +412,7 @@ echo '<script type="application/ld+json">' . wp_json_encode([
 					'icon'  => '<svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>',
 					'title' => 'Search Engine Optimisation',
 					'url'   => '/services/search-engine-optimization/',
-					'desc'  => 'Full-service SEO strategy to dominate ' . $name . ' Google results — technical, on-page, and off-page.',
+					'desc'  => 'Full-service SEO strategy to dominate ' . $name . ' Google results - technical, on-page, and off-page.',
 				],
 				[
 					'icon'  => '<svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>',
@@ -433,7 +442,7 @@ echo '<script type="application/ld+json">' . wp_json_encode([
 					'icon'  => '<svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>',
 					'title' => 'Local SEO ' . $name,
 					'url'   => '/services/search-engine-optimization/',
-					'desc'  => 'Dominate Google Maps and the local pack for ' . $name . ' searches — maps, GBP, and citation building.',
+					'desc'  => 'Dominate Google Maps and the local pack for ' . $name . ' searches - maps, GBP, and citation building.',
 				],
 			];
 			foreach ($svcs as $s) : ?>
@@ -453,7 +462,7 @@ echo '<script type="application/ld+json">' . wp_json_encode([
 	<div class="container" style="max-width:800px;">
 		<div class="section-header section-header--center">
 			<?php seoae_section_label('FAQ'); ?>
-			<h2>Frequently Asked Questions — SEO in <?php echo esc_html($name); ?></h2>
+			<h2>Frequently Asked Questions - SEO in <?php echo esc_html($name); ?></h2>
 			<p class="section-header__desc" style="max-width:520px;margin-left:auto;margin-right:auto;">
 				Common questions from <?php echo esc_html($name); ?> businesses about local SEO.
 			</p>
@@ -487,7 +496,7 @@ echo '<script type="application/ld+json">' . wp_json_encode([
 <section style="background:#f8fafc;padding:2.5rem 0;border-top:1.5px solid #e2e8f0;">
 	<div class="container" style="text-align:center;">
 		<p style="font-size:.9rem;color:#6b7280;margin-bottom:1.25rem;">
-			We cover all Dubai districts — not just <?php echo esc_html($name); ?>.
+			We cover all Dubai districts - not just <?php echo esc_html($name); ?>.
 		</p>
 		<div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;">
 			<a href="<?php echo esc_url(home_url('/dubai/')); ?>" style="display:inline-flex;align-items:center;gap:.5rem;background:#fff;border:1.5px solid #e2e8f0;border-radius:10px;padding:.65rem 1.1rem;font-size:.875rem;font-weight:600;color:#101A6A;text-decoration:none;transition:border-color .2s;" class="hover-primary">
