@@ -21,7 +21,7 @@ $the_content  = get_the_content();
 	<div class="container">
 		<div class="breadcrumbs">
 			<a href="/">Home</a> <span>/</span>
-			<a href="/dubai/">Locations</a> <span>/</span>
+			<a href="/locations/">Locations</a> <span>/</span>
 			<span><?php echo esc_html($city); ?> SEO</span>
 		</div>
 		<div class="service-hero__inner" style="grid-template-columns:1.2fr 0.8fr;gap:3rem;">

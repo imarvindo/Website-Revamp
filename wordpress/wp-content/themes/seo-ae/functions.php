@@ -6,7 +6,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-define( 'SEOAE_VERSION', '1.1.2' );
+define( 'SEOAE_VERSION', '1.1.3' );
 
 // Prevent WordPress from converting hyphens into en/em dashes in public content.
 add_filter( 'run_wptexturize', '__return_false' );
@@ -575,42 +575,138 @@ add_action( 'acf/init', function () {
 
 } );
 
+/**
+ * Extract a brace-balanced FAQPage JSON object from HTML/content.
+ *
+ * @return array{0:string,1:?array} [cleaned, decoded_schema_or_null]
+ */
+function seoae_extract_faqpage_from_content( string $content ): array {
+	$markers = [ '"@type":"FAQPage"', '"@type": "FAQPage"' ];
+	$pos     = false;
+	foreach ( $markers as $marker ) {
+		$pos = strpos( $content, $marker );
+		if ( false !== $pos ) {
+			break;
+		}
+	}
+	if ( false === $pos ) {
+		return [ $content, null ];
+	}
+
+	$start = $pos;
+	while ( $start > 0 && $content[ $start ] !== '{' ) {
+		--$start;
+	}
+	if ( $content[ $start ] !== '{' ) {
+		return [ $content, null ];
+	}
+
+	$depth  = 0;
+	$in_str = false;
+	$escape = false;
+	$end    = null;
+	$len    = strlen( $content );
+	for ( $i = $start; $i < $len; $i++ ) {
+		$ch = $content[ $i ];
+		if ( $in_str ) {
+			if ( $escape ) {
+				$escape = false;
+			} elseif ( '\\' === $ch ) {
+				$escape = true;
+			} elseif ( '"' === $ch ) {
+				$in_str = false;
+			}
+			continue;
+		}
+		if ( '"' === $ch ) {
+			$in_str = true;
+			continue;
+		}
+		if ( '{' === $ch ) {
+			++$depth;
+		} elseif ( '}' === $ch ) {
+			--$depth;
+			if ( 0 === $depth ) {
+				$end = $i;
+				break;
+			}
+		}
+	}
+	if ( null === $end ) {
+		return [ $content, null ];
+	}
+
+	$json    = substr( $content, $start, $end - $start + 1 );
+	$decoded = json_decode( $json, true );
+	if ( ! is_array( $decoded ) || ( $decoded['@type'] ?? '' ) !== 'FAQPage' ) {
+		return [ $content, null ];
+	}
+
+	$before = substr( $content, 0, $start );
+	$after  = substr( $content, $end + 1 );
+	if ( preg_match( '/<p[^>]*>\s*$/i', $before ) && preg_match( '/^\s*<\/p>/i', $after ) ) {
+		$before = preg_replace( '/<p[^>]*>\s*$/i', '', $before );
+		$after  = preg_replace( '/^\s*<\/p>/i', '', $after );
+	}
+
+	$cleaned = preg_replace( "/\n{3,}/", "\n\n", rtrim( $before ) . "\n\n" . ltrim( $after ) );
+	return [ $cleaned, $decoded ];
+}
+
 // ─────────────────────────────────────────────────────────────────────────────
 // 5. FAQ SCHEMA JSON-LD (injected via wp_head)
 // ─────────────────────────────────────────────────────────────────────────────
 add_action( 'wp_head', function () {
-	if ( ! function_exists( 'get_field' ) ) return;
+	if ( ! is_singular() ) {
+		return;
+	}
 
 	$faqs = [];
 
-	if ( is_singular( 'service' ) ) {
-		$faqs = get_field( 'service_faqs' ) ?: [];
-	} elseif ( is_singular() ) {
-		// Try ACF page_faqs first
-		$faqs = get_field( 'page_faqs' ) ?: [];
-
-		if ( empty( $faqs ) && is_single() ) {
-			$faqs = get_field( 'article_faqs' ) ?: [];
-		}
-
-		// Fallback: location/industry pages store FAQs as PHP arrays in post meta
-		if ( empty( $faqs ) ) {
-			$raw = get_post_meta( get_the_ID(), 'location_faqs', true );
-			if ( is_array( $raw ) ) {
-				foreach ( $raw as $item ) {
-					$q = $item['faq_question'] ?? $item['question'] ?? '';
-					$a = $item['faq_answer']   ?? $item['answer']   ?? '';
-					if ( $q && $a ) $faqs[] = [ 'question' => $q, 'answer' => $a ];
+	if ( function_exists( 'get_field' ) ) {
+		if ( is_singular( 'service' ) ) {
+			$faqs = get_field( 'service_faqs' ) ?: [];
+		} else {
+			$faqs = get_field( 'page_faqs' ) ?: [];
+			if ( empty( $faqs ) && is_single() ) {
+				$faqs = get_field( 'article_faqs' ) ?: [];
+			}
+			if ( empty( $faqs ) ) {
+				$raw = get_post_meta( get_the_ID(), 'location_faqs', true );
+				if ( is_array( $raw ) ) {
+					foreach ( $raw as $item ) {
+						$q = $item['faq_question'] ?? $item['question'] ?? '';
+						$a = $item['faq_answer']   ?? $item['answer']   ?? '';
+						if ( $q && $a ) {
+							$faqs[] = [ 'question' => $q, 'answer' => $a ];
+						}
+					}
 				}
 			}
 		}
 	}
 
-	if ( empty( $faqs ) ) return;
+	// Saved schema extracted from post content (was previously visible as raw JSON).
+	if ( empty( $faqs ) ) {
+		$inline = get_post_meta( get_the_ID(), '_seoae_inline_faq_schema', true );
+		if ( is_string( $inline ) && $inline !== '' ) {
+			$decoded = json_decode( $inline, true );
+			if ( is_array( $decoded ) && ( $decoded['@type'] ?? '' ) === 'FAQPage' && ! empty( $decoded['mainEntity'] ) ) {
+				echo '<script type="application/ld+json">' . wp_json_encode( $decoded, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ) . '</script>' . "\n";
+				return;
+			}
+		}
+	}
+
+	if ( empty( $faqs ) ) {
+		return;
+	}
 
 	$items = [];
 	foreach ( $faqs as $faq ) {
-		if ( empty( $faq['question'] ) || empty( $faq['answer'] ) ) continue;
+		if ( empty( $faq['question'] ) || empty( $faq['answer'] ) ) {
+			continue;
+		}
 		$items[] = [
 			'@type'          => 'Question',
 			'name'           => wp_strip_all_tags( $faq['question'] ),
@@ -621,7 +717,9 @@ add_action( 'wp_head', function () {
 		];
 	}
 
-	if ( empty( $items ) ) return;
+	if ( empty( $items ) ) {
+		return;
+	}
 
 	$schema = [
 		'@context'   => 'https://schema.org',
@@ -1910,13 +2008,37 @@ remove_action( 'wp_head', 'wlwmanifest_link' );
 remove_action( 'wp_head', 'rsd_link' );
 remove_action( 'wp_head', 'wp_shortlink_wp_head' );
 
-// Lazy load all images and iframes
+// Lazy load images/iframes; hide leaked FAQ JSON; remap broken Unsplash IDs.
 add_filter( 'the_content', function ( $content ) {
-	if ( is_admin() ) return $content;
+	if ( is_admin() || ! is_string( $content ) || $content === '' ) {
+		return $content;
+	}
+
+	static $broken_map = [
+		'photo-1535919020263-2f3ea35e95b4' => 'photo-1494412574643-ff11b0a5c1c3',
+		'photo-1548625149-720f52f84c84'    => 'photo-1518684079-3c830dcef090',
+		'photo-1597149098814-c9e7b9fefbff' => 'photo-1486406146926-c627a92ad1ab',
+	];
+	$content = str_replace( array_keys( $broken_map ), array_values( $broken_map ), $content );
+
+	if ( strpos( $content, 'FAQPage' ) !== false ) {
+		[ $content, $faq_schema ] = seoae_extract_faqpage_from_content( $content );
+		if ( is_array( $faq_schema ) ) {
+			add_action( 'wp_footer', static function () use ( $faq_schema ) {
+				static $done = false;
+				if ( $done ) {
+					return;
+				}
+				$done = true;
+				echo '<script type="application/ld+json">' . wp_json_encode( $faq_schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ) . '</script>' . "\n";
+			}, 5 );
+		}
+	}
+
 	$content = preg_replace( '/<img(?![^>]*loading=)/', '<img loading="lazy"', $content );
 	$content = preg_replace( '/<iframe(?![^>]*loading=)/', '<iframe loading="lazy"', $content );
 	return $content;
-} );
+}, 8 );
 
 // Add loading="lazy" to featured images
 add_filter( 'post_thumbnail_html', function ( $html ) {
