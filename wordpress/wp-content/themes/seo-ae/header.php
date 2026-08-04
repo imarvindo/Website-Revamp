@@ -39,15 +39,16 @@
 	<div class="container navbar__inner">
 
 		<!-- Logo -->
-		<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="navbar__logo" aria-label="SearchEngineOptimization.ae Home">
+		<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="navbar__logo" aria-label="SearchEngineOptimization.ae - Dubai SEO Agency Home">
 			<img
 				src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/logo-mark.png' ); ?>"
 				srcset="<?php echo esc_url( get_template_directory_uri() . '/assets/images/logo-mark.png' ); ?> 1x, <?php echo esc_url( get_template_directory_uri() . '/assets/images/logo-mark@2x.png' ); ?> 2x"
-				alt="SearchEngineOptimization.ae digital growth partner logo"
+				alt="SearchEngineOptimization.ae - Dubai SEO and digital marketing agency"
 				class="navbar__logo-img"
-				width="48"
-				height="48"
+				width="40"
+				height="40"
 				decoding="async"
+				fetchpriority="high"
 			/>
 			<div class="navbar__logo-text">
 				<span class="navbar__logo-name">SearchEngine<span class="text-primary">Optimization.ae</span></span>
