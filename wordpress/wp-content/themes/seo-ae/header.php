@@ -167,18 +167,18 @@
 			</ul>
 		</nav>
 
-		<!-- CTA Button -->
-		<div class="navbar__cta">
-			<button type="button" class="btn btn--primary btn--sm" id="navbar-cta-btn" onclick="document.getElementById('quick-contact-modal').classList.add('is-open')">
-				Get Started
-				<svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+		<!-- Right actions -->
+		<div class="navbar__right">
+			<div class="navbar__cta">
+				<button type="button" class="btn btn--primary btn--sm" id="navbar-cta-btn" onclick="document.getElementById('quick-contact-modal').classList.add('is-open')">
+					Get Started
+					<svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+				</button>
+			</div>
+			<button class="navbar__hamburger" id="mobile-menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+				<span></span><span></span><span></span>
 			</button>
 		</div>
-
-		<!-- Mobile Hamburger -->
-		<button class="navbar__hamburger" id="mobile-menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
-			<span></span><span></span><span></span>
-		</button>
 
 	</div>
 </header>
