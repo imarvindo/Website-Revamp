@@ -16,7 +16,8 @@ function seoae_whatsapp_number(): string {
 
 /** Public phone display. */
 function seoae_phone_display(): string {
-	return apply_filters( 'seoae_phone_display', '+971 4 568 7444' );
+	$phone = function_exists( 'seoae_phone' ) ? seoae_phone() : '';
+	return apply_filters( 'seoae_phone_display', $phone );
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
