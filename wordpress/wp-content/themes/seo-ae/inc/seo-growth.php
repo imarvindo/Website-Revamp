@@ -9,9 +9,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-/** WhatsApp business number (UAE). Override via filter. */
+/** WhatsApp business number (international, digits only). Override via filter. */
 function seoae_whatsapp_number(): string {
-	return apply_filters( 'seoae_whatsapp_number', '97145687444' );
+	return apply_filters( 'seoae_whatsapp_number', '918010355718' );
 }
 
 /** Public phone display. */
