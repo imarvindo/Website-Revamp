@@ -1,846 +1,584 @@
 <?php
 /**
- * Homepage Template — SearchEngineOptimization.ae
+ * Front Page — Enterprise Homepage Redesign
+ * SearchEngineOptimization.ae
+ *
+ * Self-contained premium homepage. Styles: assets/redesign-home.css
+ * Interactions: assets/redesign-home.js (enqueued in functions.php on the front page).
  */
+
 get_header();
 
-$hero_badge       = get_field('hero_badge_text','option')    ?: "UAE's Leading SEO & Digital Marketing Agency";
-$hero_headline    = get_field('hero_headline','option')      ?: "Turn Search Visibility Into\nBusiness Growth";
-$hero_sub         = get_field('hero_subheadline','option')   ?: "We help UAE and GCC businesses dominate organic search, capture high-intent traffic, and convert visitors into qualified leads — backed by data, not guesswork.";
-$hero_cta_primary = get_field('hero_cta_primary','option')   ?: 'Get Your Free SEO Audit';
-$hero_cta_primary_url = get_field('hero_cta_primary_url','option') ?: '/contact/';
-$hero_cta_sec     = get_field('hero_cta_secondary','option') ?: 'View Our Results';
-$hero_cta_sec_url = get_field('hero_cta_secondary_url','option') ?: '/case-studies/';
-// Brand-authoritative stats — hardcoded as single source of truth.
-// Update these values here when the agency's real numbers change.
-$hero_stats = [
-	['stat_prefix' => '+', 'stat_value' => '206', 'stat_suffix' => '%',  'stat_label' => 'AVG. ROI INCREASE'],
-	['stat_prefix' => '',  'stat_value' => '345', 'stat_suffix' => '+',  'stat_label' => 'CLIENTS SERVED'],
-	['stat_prefix' => '',  'stat_value' => '4.8', 'stat_suffix' => '/5', 'stat_label' => 'GOOGLE RATING'],
-	['stat_prefix' => '',  'stat_value' => '5',   'stat_suffix' => '+',  'stat_label' => 'YEARS EXPERIENCE'],
-];
+$email = function_exists( 'seoae_email' ) ? seoae_email() : 'sales@searchengineoptimization.ae';
 
-$services     = seoae_get_services();
-$testimonials = seoae_get_testimonials(20);
-$recent_posts = seoae_get_recent_posts(3);
-$case_studies = new WP_Query(['post_type'=>'case_study','posts_per_page'=>4,'post_status'=>'publish']);
-?>
-
-<!-- ═══════════════════════════════════════ WOW HERO ══════════════════════════════ -->
-<section class="hero-wow">
-	<!-- Decorative blobs -->
-	<div class="hero-wow__blob hero-wow__blob--1" aria-hidden="true"></div>
-	<div class="hero-wow__blob hero-wow__blob--2" aria-hidden="true"></div>
-	<div class="hero-wow__grid" aria-hidden="true"></div>
-
-	<div class="container hero-wow__inner">
-
-		<!-- LEFT: Copy -->
-		<div class="hero-wow__left">
-			<div class="hero-wow__badge">
-				<span class="hero-wow__badge-dot"></span>
-				<?php echo esc_html($hero_badge); ?>
-			</div>
-
-			<h1 class="hero-wow__title">
-				Turn Search Visibility Into<br>
-				<span class="hero-wow__highlight">Business Growth</span>
-			</h1>
-
-			<p class="hero-wow__desc"><?php echo esc_html($hero_sub); ?></p>
-
-			<div class="hero-wow__actions">
-				<a href="<?php echo esc_url($hero_cta_primary_url); ?>" class="btn btn--primary btn--lg hero-wow__btn-primary">
-					<?php echo esc_html($hero_cta_primary); ?> <span class="btn-arrow">→</span>
-				</a>
-				<a href="<?php echo esc_url($hero_cta_sec_url); ?>" class="hero-wow__btn-ghost">
-					<?php echo esc_html($hero_cta_sec); ?> <span>↗</span>
-				</a>
-			</div>
-
-			<div class="hero-wow__tags">
-				<span>SEO Strategy</span>
-				<span class="hero-wow__tags-sep">|</span>
-				<span>Local Search</span>
-				<span class="hero-wow__tags-sep">|</span>
-				<span>Technical SEO</span>
-				<span class="hero-wow__tags-sep">|</span>
-				<span>AI Search Visibility</span>
-			</div>
-		</div>
-
-		<!-- RIGHT: Analytics Dashboard Widget -->
-		<div class="hero-wow__right" aria-hidden="true">
-			<div class="hero-dashboard">
-
-				<!-- AI Visibility row -->
-				<div class="hero-dashboard__ai-row">
-					<span class="hero-dashboard__ai-label">AI VISIBILITY</span>
-					<span class="hero-dashboard__chip hero-dashboard__chip--navy">ChatGPT ✓</span>
-					<span class="hero-dashboard__chip hero-dashboard__chip--cyan">Perplexity ✓</span>
-				</div>
-
-				<!-- Organic header -->
-				<div class="hero-dashboard__organic">
-					<div>
-						<div class="hero-dashboard__micro-label">ORGANIC VISIBILITY</div>
-						<div class="hero-dashboard__domain">SearchBrand.ae</div>
-					</div>
-					<div class="hero-dashboard__growth-pill">↑ +218%</div>
-				</div>
-
-				<!-- Chart -->
-				<div class="hero-dashboard__chart">
-					<svg viewBox="0 0 340 80" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-						<defs>
-							<linearGradient id="chartFill" x1="0" y1="0" x2="0" y2="1">
-								<stop offset="0%" stop-color="#16B1D4" stop-opacity="0.25"/>
-								<stop offset="100%" stop-color="#16B1D4" stop-opacity="0"/>
-							</linearGradient>
-						</defs>
-						<path d="M0,72 C30,68 55,63 80,57 C105,51 130,42 160,31 C185,22 210,15 240,10 C265,6 295,4 340,3"
-							stroke="#16B1D4" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-						<path d="M0,72 C30,68 55,63 80,57 C105,51 130,42 160,31 C185,22 210,15 240,10 C265,6 295,4 340,3 L340,80 L0,80 Z"
-							fill="url(#chartFill)"/>
-						<!-- Dot at peak -->
-						<circle cx="310" cy="3.8" r="4" fill="#16B1D4"/>
-						<circle cx="310" cy="3.8" r="7" fill="#16B1D4" fill-opacity="0.2"/>
-					</svg>
-					<div class="hero-dashboard__chart-months">
-						<span>Jan</span><span>Mar</span><span>May</span><span>Jul</span><span>Sep</span><span>Nov</span>
-					</div>
-				</div>
-
-				<!-- Stats row -->
-				<div class="hero-dashboard__stats">
-					<div class="hero-dashboard__stat">
-						<div class="hero-dashboard__stat-val">847</div>
-						<div class="hero-dashboard__stat-lbl">PAGE-1 RANKINGS</div>
-						<div class="hero-dashboard__stat-delta">+234 new</div>
-					</div>
-					<div class="hero-dashboard__stat">
-						<div class="hero-dashboard__stat-val">28.4K</div>
-						<div class="hero-dashboard__stat-lbl">MONTHLY TRAFFIC</div>
-						<div class="hero-dashboard__stat-delta">+215%</div>
-					</div>
-					<div class="hero-dashboard__stat">
-						<div class="hero-dashboard__stat-val">142</div>
-						<div class="hero-dashboard__stat-lbl">LEADS / MONTH</div>
-						<div class="hero-dashboard__stat-delta">4.2x ROI</div>
-					</div>
-				</div>
-
-				<!-- Top keyword positions -->
-				<div class="hero-dashboard__kw-head">TOP KEYWORD POSITIONS</div>
-				<div class="hero-dashboard__kw-list">
-					<div class="hero-dashboard__kw">
-						<span class="hero-dashboard__kw-pos">#1</span>
-						<span class="hero-dashboard__kw-name">SEO agency Dubai</span>
-						<span class="hero-dashboard__kw-up">+12</span>
-					</div>
-					<div class="hero-dashboard__kw">
-						<span class="hero-dashboard__kw-pos">#2</span>
-						<span class="hero-dashboard__kw-name">SEO services UAE</span>
-						<span class="hero-dashboard__kw-up">+8</span>
-					</div>
-					<div class="hero-dashboard__kw">
-						<span class="hero-dashboard__kw-pos">#1</span>
-						<span class="hero-dashboard__kw-name">local SEO Abu Dhabi</span>
-						<span class="hero-dashboard__kw-up">+15</span>
-					</div>
-				</div>
-
-				<!-- Google Maps badge -->
-				<div class="hero-dashboard__maps">
-					<span class="hero-dashboard__maps-label">GOOGLE MAPS</span>
-					<span class="hero-dashboard__maps-val">#1 UAE Local Pack ✓</span>
-				</div>
-
-			</div><!-- /.hero-dashboard -->
-
-			<!-- Floating accent cards -->
-			<div class="hero-float hero-float--tl">
-				<svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
-				<span>+318% organic traffic</span>
-			</div>
-			<div class="hero-float hero-float--br">
-				<svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-				<span>Ranked #1 in 48 hrs</span>
-			</div>
-
-		</div><!-- /.hero-wow__right -->
-	</div><!-- /.hero-wow__inner -->
-</section>
-
-<!-- ═══════════════════════════════════════ STATS BAR ═════════════════════════════ -->
-<div class="home-stats-bar">
-	<div class="container">
-		<div class="home-stats-bar__inner">
-			<?php foreach ($hero_stats as $stat) :
-				$prefix = $stat['stat_prefix'] ?? '';
-				$value  = $stat['stat_value']  ?? '0';
-				$suffix = $stat['stat_suffix']  ?? '';
-				$label  = $stat['stat_label']   ?? '';
-			?>
-			<div class="home-stats-bar__item">
-				<span class="home-stats-bar__value"
-				      data-counter="<?php echo esc_attr(preg_replace('/[^0-9.]/','',$value)); ?>"
-				      data-prefix="<?php echo esc_attr($prefix); ?>"
-				      data-suffix="<?php echo esc_attr($suffix); ?>">
-					<?php echo esc_html($prefix . $value . $suffix); ?>
-				</span>
-				<span class="home-stats-bar__label"><?php echo esc_html($label); ?></span>
-			</div>
-			<?php endforeach; ?>
-		</div>
-	</div>
-</div>
-
-<!-- ═══════════════════════════════════════ SERVICES ══════════════════════════════ -->
-<?php if ($services) : ?>
-<section class="section bg-white">
-	<div class="container">
-		<div class="section-header section-header--center">
-			<?php seoae_section_label('Our Services'); ?>
-			<h2 class="section-header__title">Enterprise Digital Marketing Solutions</h2>
-			<p class="section-header__desc">From AI-driven SEO to high-converting web development — everything your business needs to dominate online.</p>
-		</div>
-		<div class="services-grid">
-			<?php foreach ($services as $svc) :
-				$short    = get_field('short_description', $svc->ID) ?: wp_trim_words($svc->post_excerpt ?: $svc->post_content, 18);
-				$icon_svg = get_field('icon_svg', $svc->ID) ?: '<svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>';
-			?>
-			<a href="<?php echo esc_url(get_permalink($svc)); ?>" class="service-card">
-				<div class="service-card__icon"><?= $icon_svg ?></div>
-				<h3 class="service-card__title"><?php echo esc_html($svc->post_title); ?></h3>
-				<p class="service-card__desc"><?php echo esc_html($short); ?></p>
-				<span class="service-card__link">
-					Learn More
-					<svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-				</span>
-			</a>
-			<?php endforeach; ?>
-		</div>
-	</div>
-</section>
-<?php endif; ?>
-
-<!-- ══════════════════════════════ UAE COVERAGE ═══════════════════════════════════ -->
-<section class="section uae-coverage">
-	<div class="container">
-		<div class="section-header">
-			<?php seoae_section_label('UAE Coverage'); ?>
-			<h2 class="section-header__title">Search Specialists Across Every Emirate</h2>
-			<p class="section-header__desc" style="max-width:560px;">From Dubai's hypercompetitive commercial market to Fujairah's port-city B2B sector — we deliver measurable search results in every UAE market.</p>
-		</div>
-		<div class="uae-grid">
-
-			<a href="/dubai/" class="uae-card">
-				<div class="uae-card__arrow" aria-hidden="true">
-					<svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M7 17L17 7M17 7H7M17 7v10"/></svg>
-				</div>
-				<h3 class="uae-card__city">Dubai</h3>
-				<p class="uae-card__desc">The UAE's most competitive digital market. We help Dubai businesses rank for high-value commercial queries across all major sectors.</p>
-				<span class="uae-card__badge">18M+ monthly searches</span>
-			</a>
-
-			<a href="/locations/seo-abu-dhabi/" class="uae-card">
-				<div class="uae-card__arrow" aria-hidden="true">
-					<svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M7 17L17 7M17 7H7M17 7v10"/></svg>
-				</div>
-				<h3 class="uae-card__city">Abu Dhabi</h3>
-				<p class="uae-card__desc">Capital market SEO for government suppliers, hospitality, healthcare, and finance businesses targeting UAE's wealthiest emirate.</p>
-				<span class="uae-card__badge">6M+ monthly searches</span>
-			</a>
-
-			<a href="/locations/seo-sharjah/" class="uae-card">
-				<div class="uae-card__arrow" aria-hidden="true">
-					<svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M7 17L17 7M17 7H7M17 7v10"/></svg>
-				</div>
-				<h3 class="uae-card__city">Sharjah</h3>
-				<p class="uae-card__desc">Growing commercial and industrial market. We build organic visibility for Sharjah businesses across English and Arabic search audiences.</p>
-				<span class="uae-card__badge">4M+ monthly searches</span>
-			</a>
-
-			<a href="/locations/seo-ajman/" class="uae-card">
-				<div class="uae-card__arrow" aria-hidden="true">
-					<svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M7 17L17 7M17 7H7M17 7v10"/></svg>
-				</div>
-				<h3 class="uae-card__city">Ajman</h3>
-				<p class="uae-card__desc">Cost-effective SEO for Ajman's growing SME and e-commerce sector, with strong local pack and Google Maps optimisation.</p>
-				<span class="uae-card__badge">1.5M+ monthly searches</span>
-			</a>
-
-			<a href="/locations/seo-ras-al-khaimah/" class="uae-card">
-				<div class="uae-card__arrow" aria-hidden="true">
-					<svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M7 17L17 7M17 7H7M17 7v10"/></svg>
-				</div>
-				<h3 class="uae-card__city">Ras Al Khaimah</h3>
-				<p class="uae-card__desc">Tourism, logistics, and manufacturing SEO for RAK businesses reaching both local and international search audiences.</p>
-				<span class="uae-card__badge">1.2M+ monthly searches</span>
-			</a>
-
-			<a href="/locations/seo-fujairah/" class="uae-card">
-				<div class="uae-card__arrow" aria-hidden="true">
-					<svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M7 17L17 7M17 7H7M17 7v10"/></svg>
-				</div>
-				<h3 class="uae-card__city">Fujairah</h3>
-				<p class="uae-card__desc">Port-city B2B and tourism SEO for Fujairah's unique dual-market search landscape — maritime, logistics, and hospitality.</p>
-				<span class="uae-card__badge">900K+ monthly searches</span>
-			</a>
-
-		</div>
-	</div>
-</section>
-
-<!-- ═══════════════════════════════ WHY CHOOSE US ═════════════════════════════════ -->
-<section class="section bg-white">
-	<div class="container">
-		<div class="section-header section-header--center">
-			<?php seoae_section_label('Why SearchEngineOptimization.ae'); ?>
-			<h2 class="section-header__title">The Growth Partner UAE Businesses Trust</h2>
-			<p class="section-header__desc">We combine enterprise-grade strategy with obsessive execution to deliver results that move the needle.</p>
-		</div>
-		<?php
-		$why_items = (function_exists('get_field') ? get_field('why_choose_items','option') : null) ?: [
-			['why_icon' => '<svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>', 'why_title' => 'Data-First Strategy',    'why_desc' => 'Every campaign is backed by hard data, deep market analysis, and competitive intelligence.'],
-			['why_icon' => '<svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>',          'why_title' => 'Rapid Execution',        'why_desc' => 'We move faster than your competitors can react. Strategy → execution in days, not months.'],
-			['why_icon' => '<svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>',  'why_title' => 'Guaranteed Transparency', 'why_desc' => 'You own your data. Weekly reports, monthly strategy calls, full dashboard access.'],
-			['why_icon' => '<svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>', 'why_title' => 'Senior-Led Teams',       'why_desc' => 'No juniors. Your account is managed by senior specialists with 8+ years of experience.'],
-			['why_icon' => '<svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>', 'why_title' => 'UAE Market Expertise',   'why_desc' => 'Deep knowledge of the UAE, GCC, and Arabic digital landscape — including bilingual SEO.'],
-			['why_icon' => '<svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M9.663 17h4.673M12 3v1m6.364 1.636-.707.707M21 12h-1M4 12H3m3.343-5.657-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>', 'why_title' => 'AI-Search Optimized',    'why_desc' => 'Future-proof strategies covering Google AI Overviews, ChatGPT, Gemini, and Perplexity.'],
+/* Local inline-SVG icon helper (kept theme-local to avoid collisions). */
+if ( ! function_exists( 'rh_icon' ) ) {
+	function rh_icon( $name, $s = 24 ) {
+		$p = [
+			'search'   => '<circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>',
+			'gauge'    => '<path d="M12 14 4 6"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/>',
+			'target'   => '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/>',
+			'rocket'   => '<path d="M4.5 16.5 3 21l4.5-1.5"/><path d="M15 9a3 3 0 1 0-3 3"/><path d="M9 15c-2 0-5 2-6 6 4-1 6-4 6-6z"/><path d="M13 19 22 10c1-1 1-6 1-8-2 0-7 0-8 1L6 12z"/>',
+			'chart'    => '<path d="M3 3v18h18"/><path d="m7 14 3-4 3 3 5-7"/>',
+			'trend'    => '<path d="m3 17 6-6 4 4 8-8"/><path d="M17 7h4v4"/>',
+			'ai'       => '<path d="M12 3v3M12 18v3M3 12h3M18 12h3"/><rect x="7" y="7" width="10" height="10" rx="3"/><circle cx="12" cy="12" r="1.5"/>',
+			'ppc'      => '<path d="M3 3l7 17 2-7 7-2z"/>',
+			'social'   => '<circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/>',
+			'design'   => '<rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 9h18M8 4v5"/>',
+			'code'     => '<path d="m8 8-4 4 4 4M16 8l4 4-4 4M13 6l-2 12"/>',
+			'link'     => '<path d="M10 13a5 5 0 0 0 7 0l2-2a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-2 2a5 5 0 0 0 7 7l1-1"/>',
+			'check'    => '<path d="M20 6 9 17l-5-5"/>',
+			'arrow'    => '<path d="M5 12h14M13 6l6 6-6 6"/>',
+			'arrowdr'  => '<path d="M7 7h10v10M7 17 17 7"/>',
+			'shield'   => '<path d="M12 3 4 6v6c0 5 3.5 7.5 8 9 4.5-1.5 8-4 8-9V6z"/><path d="m9 12 2 2 4-4"/>',
+			'users'    => '<circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0 1 12 0"/><path d="M16 6a3 3 0 0 1 0 6M21 20a6 6 0 0 0-4-5.6"/>',
+			'report'   => '<rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/>',
+			'brain'    => '<path d="M9 3a3 3 0 0 0-3 3 3 3 0 0 0-1 5 3 3 0 0 0 2 5 3 3 0 0 0 4 1V4a3 3 0 0 0-2-1zM15 3a3 3 0 0 1 3 3 3 3 0 0 1 1 5 3 3 0 0 1-2 5 3 3 0 0 1-4 1"/>',
+			'eye'      => '<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/>',
+			'coins'    => '<ellipse cx="8" cy="6" rx="5" ry="2.5"/><path d="M3 6v6c0 1.4 2.2 2.5 5 2.5"/><ellipse cx="16" cy="14" rx="5" ry="2.5"/><path d="M11 14v4c0 1.4 2.2 2.5 5 2.5s5-1.1 5-2.5v-4"/>',
+			'bolt'     => '<path d="M13 2 4 14h6l-1 8 9-12h-6z"/>',
+			'plus'     => '<path d="M12 5v14M5 12h14"/>',
+			'mail'     => '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>',
+			'pin'      => '<path d="M12 21s7-6.5 7-11a7 7 0 1 0-14 0c0 4.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/>',
+			'star'     => '<path d="m12 3 2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 18.6 6.1 21.9l1.2-6.5L2.5 9.9 9.1 9z"/>',
+			'clock'    => '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
 		];
-		?>
-		<div class="why-grid">
-			<?php foreach ($why_items as $item) : ?>
-			<div class="why-card">
-				<div class="why-card__icon"><?= $item['why_icon'] ?? '' ?></div>
-				<h3 class="why-card__title"><?php echo esc_html($item['why_title'] ?? ''); ?></h3>
-				<p class="why-card__desc"><?php echo esc_html($item['why_desc'] ?? ''); ?></p>
-			</div>
-			<?php endforeach; ?>
-		</div>
-	</div>
-</section>
-
-<!-- ══════════════════════════════ SIX-STEP PROCESS ══════════════════════════════ -->
-<section class="process-section-v2" id="process-v2">
-	<div class="container">
-		<div class="process-v2__header">
-			<span class="process-v2__label">HOW WE WORK</span>
-			<h2 class="process-v2__title">A Six-Step Methodology<br>Built for Compounding Growth</h2>
-			<p class="process-v2__subtitle">Every engagement follows the same proven framework — systematic, measurable, and designed to outperform your competitors long-term.</p>
-		</div>
-
-		<div class="process-v2__grid">
-
-			<div class="process-v2__step">
-				<div class="process-v2__step-inner">
-					<div class="process-v2__step-num">01</div>
-					<div class="process-v2__step-icon">
-						<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="#16B1D4" stroke-width="2"/><path d="M16.5 16.5L21 21" stroke="#16B1D4" stroke-width="2" stroke-linecap="round"/></svg>
-					</div>
-					<h3 class="process-v2__step-title">Discover</h3>
-					<p class="process-v2__step-desc">Deep-dive into your market, competitors, and current search performance to find real opportunities.</p>
-				</div>
-				<div class="process-v2__connector" aria-hidden="true"></div>
-			</div>
-
-			<div class="process-v2__step">
-				<div class="process-v2__step-inner">
-					<div class="process-v2__step-num">02</div>
-					<div class="process-v2__step-icon">
-						<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M9 11l3 3L22 4" stroke="#16B1D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke="#16B1D4" stroke-width="2" stroke-linecap="round"/></svg>
-					</div>
-					<h3 class="process-v2__step-title">Diagnose</h3>
-					<p class="process-v2__step-desc">Identify every technical, content, and authority gap holding your rankings back.</p>
-				</div>
-				<div class="process-v2__connector" aria-hidden="true"></div>
-			</div>
-
-			<div class="process-v2__step">
-				<div class="process-v2__step-inner">
-					<div class="process-v2__step-num">03</div>
-					<div class="process-v2__step-icon">
-						<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 6h18M3 12h12M3 18h8" stroke="#16B1D4" stroke-width="2" stroke-linecap="round"/><path d="M20 15l-3 3 3 3" stroke="#16B1D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-					</div>
-					<h3 class="process-v2__step-title">Prioritise</h3>
-					<p class="process-v2__step-desc">Rank opportunities by revenue impact and implementation speed for maximum ROI.</p>
-				</div>
-				<div class="process-v2__connector" aria-hidden="true"></div>
-			</div>
-
-			<div class="process-v2__step">
-				<div class="process-v2__step-inner">
-					<div class="process-v2__step-num">04</div>
-					<div class="process-v2__step-icon">
-						<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke="#16B1D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-					</div>
-					<h3 class="process-v2__step-title">Execute</h3>
-					<p class="process-v2__step-desc">Senior specialists implement changes with disciplined project management and QA.</p>
-				</div>
-				<div class="process-v2__connector" aria-hidden="true"></div>
-			</div>
-
-			<div class="process-v2__step">
-				<div class="process-v2__step-inner">
-					<div class="process-v2__step-num">05</div>
-					<div class="process-v2__step-icon">
-						<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M18 20V10M12 20V4M6 20v-6" stroke="#16B1D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-					</div>
-					<h3 class="process-v2__step-title">Measure</h3>
-					<p class="process-v2__step-desc">Track rankings, traffic, and conversions with transparent reporting and real dashboards.</p>
-				</div>
-				<div class="process-v2__connector" aria-hidden="true"></div>
-			</div>
-
-			<div class="process-v2__step process-v2__step--last">
-				<div class="process-v2__step-inner">
-					<div class="process-v2__step-num">06</div>
-					<div class="process-v2__step-icon">
-						<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="#16B1D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-					</div>
-					<h3 class="process-v2__step-title">Compound</h3>
-					<p class="process-v2__step-desc">Build on what works — authority, content, and technical gains compound over time.</p>
-				</div>
-			</div>
-
-		</div><!-- /.process-v2__grid -->
-
-		<div class="process-v2__cta">
-			<a href="<?php echo esc_url(home_url('/free-seo-audit/')); ?>" class="btn btn--primary btn--lg">Start Your Free Audit →</a>
-			<span class="process-v2__cta-note">No obligation. Results within 48 hours.</span>
-		</div>
-
-	</div>
-</section>
-
-<!-- ══════════════════════════════ CLIENT LOGOS ═══════════════════════════════════ -->
-<div class="logos-bar">
-	<div class="container">
-		<p class="logos-bar__label">Trusted by 345+ UAE businesses across every industry</p>
-		<div class="logos-bar__track">
-			<div class="logos-bar__logo"><span class="logos-bar__logo-text">Al Barsha <span>Residences</span></span></div>
-			<div class="logos-bar__logo"><span class="logos-bar__logo-text">Jumeirah <span>Bites</span></span></div>
-			<div class="logos-bar__logo"><span class="logos-bar__logo-text">Tech<span>Flow</span> UAE</span></div>
-			<div class="logos-bar__logo"><span class="logos-bar__logo-text">Med<span>Core</span> Dubai</span></div>
-			<div class="logos-bar__logo"><span class="logos-bar__logo-text">Shop<span>AE</span>.com</span></div>
-			<div class="logos-bar__logo"><span class="logos-bar__logo-text">Khalifa <span>Motors</span></span></div>
-			<div class="logos-bar__logo"><span class="logos-bar__logo-text">Edu<span>Rise</span> Academy</span></div>
-			<div class="logos-bar__logo"><span class="logos-bar__logo-text">Emirates <span>Legal</span></span></div>
-		</div>
-	</div>
-</div>
-
-<!-- ══════════════════════════════ CASE STUDIES ═══════════════════════════════════ -->
-<?php if ($case_studies->have_posts()) : ?>
-<section class="section bg-white">
-	<div class="container">
-		<div class="section-header section-header--center">
-			<?php seoae_section_label('Case Studies'); ?>
-			<h2 class="section-header__title">Real Results for Real UAE Businesses</h2>
-			<p class="section-header__desc">Our work speaks for itself. Here's what we've achieved for clients across Dubai and the UAE.</p>
-		</div>
-		<div class="case-study-grid">
-			<?php while ($case_studies->have_posts()) : $case_studies->the_post();
-				$results  = get_field('results') ?: [];
-				$industry = get_field('cs_industry') ?: '';
-				$client   = get_field('client_name') ?: get_the_title();
-			?>
-			<article class="case-study-card">
-				<div class="case-study-card__head">
-					<div class="case-study-card__industry"><?php echo esc_html($industry); ?></div>
-					<h3 class="case-study-card__title"><?php echo esc_html($client); ?></h3>
-				</div>
-				<?php if ($results) : ?>
-				<div class="case-study-card__results">
-					<?php foreach (array_slice($results, 0, 3) as $r) : ?>
-					<div class="case-study-card__result-item">
-						<span class="case-study-card__result-value"><?php echo esc_html($r['value'] ?? ''); ?></span>
-						<span class="case-study-card__result-label"><?php echo esc_html($r['metric'] ?? ''); ?></span>
-					</div>
-					<?php endforeach; ?>
-				</div>
-				<?php endif; ?>
-				<div class="case-study-card__body">
-					<p class="case-study-card__desc"><?php echo esc_html(wp_trim_words(get_the_excerpt() ?: get_the_content(), 25)); ?></p>
-					<a href="<?php the_permalink(); ?>" class="service-card__link" style="margin-top:.75rem;display:inline-flex;align-items:center;gap:.35rem;font-size:.875rem;font-weight:600;color:var(--color-primary);">
-						Read Case Study →
-					</a>
-				</div>
-			</article>
-			<?php endwhile; wp_reset_postdata(); ?>
-		</div>
-		<div style="text-align:center;margin-top:2.5rem;">
-			<a href="<?php echo esc_url(get_post_type_archive_link('case_study')); ?>" class="btn btn--outline">View All Case Studies</a>
-		</div>
-	</div>
-</section>
-<?php endif; ?>
-
-<!-- ═══════════════════════════════ TESTIMONIALS ══════════════════════════════════ -->
-<?php if ($testimonials) :
-	// Build card data array once
-	$testi_cards = [];
-	foreach ($testimonials as $t) {
-		$testi_cards[] = [
-			'name'     => get_field('client_name',    $t->ID) ?: $t->post_title,
-			'role'     => get_field('client_role',    $t->ID) ?: 'CEO',
-			'company'  => get_field('client_company', $t->ID) ?: '',
-			'rating'   => intval(get_field('rating',  $t->ID) ?: 5),
-			'content'  => get_field('content',        $t->ID) ?: $t->post_content,
-			'avatar'   => get_field('avatar',         $t->ID) ?: '',
-			'verified' => get_field('verified',       $t->ID),
-		];
+		$d = isset( $p[ $name ] ) ? $p[ $name ] : $p['check'];
+		return '<svg width="' . $s . '" height="' . $s . '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' . $d . '</svg>';
 	}
-	$feat = $testi_cards[0]; // Featured = first card
-?>
-<section class="testi-section">
-
-	<!-- ── Trust bar ── -->
-	<div class="testi-trust-bar">
-		<div class="container testi-trust-bar__inner">
-			<div class="testi-trust-stat">
-				<span class="testi-trust-num">4.9</span>
-				<div>
-					<div class="testi-trust-stars">★★★★★</div>
-					<div class="testi-trust-label">Google Rating</div>
-				</div>
-			</div>
-			<div class="testi-trust-divider"></div>
-			<div class="testi-trust-stat">
-				<span class="testi-trust-num">345<span class="testi-trust-plus">+</span></span>
-				<div class="testi-trust-label">UAE Businesses<br>Served</div>
-			</div>
-			<div class="testi-trust-divider"></div>
-			<div class="testi-trust-stat">
-				<span class="testi-trust-num">99<span class="testi-trust-plus">%</span></span>
-				<div class="testi-trust-label">Client Retention<br>Rate</div>
-			</div>
-			<div class="testi-trust-divider"></div>
-			<div class="testi-trust-stat">
-				<span class="testi-trust-num">8<span class="testi-trust-plus">+</span></span>
-				<div class="testi-trust-label">Years Delivering<br>Results in UAE</div>
-			</div>
-		</div>
-	</div>
-
-	<!-- ── Section header ── -->
-	<div class="container">
-		<div class="testi-header">
-			<?php seoae_section_label('Client Reviews'); ?>
-			<h2 class="testi-header__title">Trusted by UAE's <span class="text-primary">Leading Businesses</span></h2>
-			<p class="testi-header__sub">Real results from real clients, from Dubai startups to enterprise brands across the UAE.</p>
-		</div>
-
-		<!-- ── Featured testimonial ── -->
-		<div class="testi-featured">
-			<div class="testi-featured__quote-mark">"</div>
-			<p class="testi-featured__text"><?php echo esc_html($feat['content']); ?></p>
-			<div class="testi-featured__author">
-				<div class="testi-featured__avatar"><?php echo esc_html(strtoupper(substr($feat['name'],0,1))); ?></div>
-				<div>
-					<p class="testi-featured__name"><?php echo esc_html($feat['name']); ?></p>
-					<p class="testi-featured__role"><?php echo esc_html($feat['role'] . ($feat['company'] ? ', '.$feat['company'] : '')); ?></p>
-				</div>
-				<div class="testi-featured__stars">
-					<?php for($i=0;$i<5;$i++) echo '<svg width="16" height="16" viewBox="0 0 24 24" fill="#F59E0B"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>'; ?>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<!-- ── Single-line marquee ── -->
-	<?php
-	if ( ! function_exists( 'seoae_testi_card' ) ) {
-		function seoae_testi_card( array $c ): string {
-			$init = esc_html( strtoupper( substr( $c['name'], 0, 1 ) ) );
-			$name = esc_html( $c['name'] );
-			$role = esc_html( $c['role'] . ( $c['company'] ? ', ' . $c['company'] : '' ) );
-			$quote = esc_html( $c['content'] );
-			$ver  = $c['verified'];
-			$stars = '';
-			for ( $i = 0; $i < 5; $i++ ) {
-				$stars .= '<svg width="13" height="13" viewBox="0 0 24 24" fill="#F59E0B"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>';
-			}
-			$verified = $ver ? '<span class="tc-verified"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Verified</span>' : '';
-			return "<div class=\"tc\">
-			<div class=\"tc__top\"><div class=\"tc__stars\">$stars</div>$verified</div>
-			<p class=\"tc__quote\">\"$quote\"</p>
-			<div class=\"tc__author\">
-				<div class=\"tc__avatar\">$init</div>
-				<div><p class=\"tc__name\">$name</p><p class=\"tc__role\">$role</p></div>
-			</div>
-		</div>";
-		}
-	}
-	?>
-
-	<div class="testi-marquee testi-marquee--single" aria-label="Client testimonials">
-		<div class="testi-marquee__row">
-			<div class="testi-marquee__track testi-marquee__track--ltr">
-				<?php foreach ( array_merge( $testi_cards, $testi_cards ) as $c ) { echo seoae_testi_card( $c ); } ?>
-			</div>
-		</div>
-	</div>
-
-</section>
-<?php endif; ?>
-
-<!-- ════════════════════════════════ BLOG POSTS ═══════════════════════════════════ -->
-<?php if ($recent_posts) : ?>
-<section class="section bg-white">
-	<div class="container">
-		<div class="section-header">
-			<?php seoae_section_label('Latest Insights'); ?>
-			<div style="display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;flex-wrap:wrap;">
-				<h2 class="section-header__title">SEO Tips & Digital Marketing Insights</h2>
-				<a href="<?php echo esc_url(get_permalink(get_option('page_for_posts')) ?: home_url('/blog')); ?>" class="btn btn--outline btn--sm">View All Posts</a>
-			</div>
-		</div>
-		<div class="blog-grid">
-			<?php foreach ($recent_posts as $p) :
-				$category = get_the_category($p->ID);
-				$cat_name = $category ? $category[0]->name : 'SEO';
-				$thumb    = get_the_post_thumbnail_url($p->ID, 'medium_large');
-				$rt       = get_field('reading_time', $p->ID) ?: 8;
-				$excerpt  = get_the_excerpt($p);
-			?>
-			<article class="blog-card">
-				<div class="blog-card__image">
-					<?php if ($thumb) : ?><img src="<?php echo esc_url($thumb); ?>" alt="<?php echo esc_attr($p->post_title); ?>" loading="lazy"><?php endif; ?>
-				</div>
-				<div class="blog-card__body">
-					<span class="blog-card__category"><?php echo esc_html($cat_name); ?></span>
-					<h3 class="blog-card__title"><a href="<?php echo esc_url(get_permalink($p)); ?>"><?php echo esc_html($p->post_title); ?></a></h3>
-					<p class="blog-card__excerpt"><?php echo esc_html(wp_trim_words($excerpt ?: $p->post_content, 22)); ?></p>
-					<div class="blog-card__meta">
-						<span><?php echo get_the_date('M j, Y', $p); ?></span>
-						<span>·</span>
-						<span><?php echo esc_html($rt); ?> min read</span>
-					</div>
-				</div>
-			</article>
-			<?php endforeach; ?>
-		</div>
-	</div>
-</section>
-<?php endif; ?>
-
-<!-- ════════════════════════════ DUBAI LOCAL SEO CTA ════════════════════════════ -->
-<section style="background:linear-gradient(135deg,#101A6A 0%,#0e2070 100%);padding:4rem 0;">
-	<div class="container">
-		<div style="display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:center;flex-wrap:wrap;">
-			<div>
-				<span style="display:inline-block;background:rgba(22,177,212,.2);color:#16B1D4;font-size:.7rem;font-weight:800;letter-spacing:.15em;text-transform:uppercase;padding:.35rem .85rem;border-radius:20px;margin-bottom:.875rem;border:1px solid rgba(22,177,212,.3);">Dubai Local SEO</span>
-				<h2 style="color:#fff;font-size:clamp(1.5rem,3vw,2.1rem);font-weight:800;line-height:1.2;margin-bottom:.75rem;">
-					Based in Dubai. Serving All UAE Businesses.
-				</h2>
-				<p style="color:rgba(255,255,255,.72);font-size:.9375rem;line-height:1.7;max-width:520px;margin-bottom:0;">
-					Our Dubai office delivers hyper-local SEO campaigns across every district — from Deira to Marina, Business Bay to Downtown. 6M+ monthly Dubai searches are waiting.
-				</p>
-			</div>
-			<div style="display:flex;flex-direction:column;gap:.75rem;min-width:220px;">
-				<a href="<?php echo esc_url(home_url('/dubai/')); ?>" class="btn btn--primary btn--lg" style="text-align:center;white-space:nowrap;">
-					Dubai SEO Services →
-				</a>
-				<a href="<?php echo esc_url(home_url('/contact/')); ?>" class="btn btn--inverted" style="text-align:center;background:rgba(255,255,255,.1);color:#fff;border:1.5px solid rgba(255,255,255,.25);">
-					Get Free Local Audit
-				</a>
-			</div>
-		</div>
-	</div>
-</section>
-
-<!-- ════════════════════════════════ HOME FAQ ════════════════════════════════════ -->
-<?php
-$home_faqs = [
-  [
-    'q' => 'What are SEO services in Dubai?',
-    'a' => 'SEO services in Dubai help businesses rank higher on Google for searches made by UAE customers. This includes technical audits, on-page optimisation, keyword research, content creation, link building, and local SEO. The goal is to drive qualified organic traffic that converts into leads and revenue — without the ongoing cost of paid advertising.',
-  ],
-  [
-    'q' => 'Why does my business need SEO in the UAE?',
-    'a' => 'With internet penetration above 99% and millions of monthly searches for business services across Dubai, Abu Dhabi, and the wider UAE, your customers are searching for what you offer right now. Without SEO, they find your competitors instead. Strong organic visibility is the most cost-effective, long-term customer acquisition channel available to UAE businesses.',
-  ],
-  [
-    'q' => 'How long does SEO take to deliver results in the UAE?',
-    'a' => 'Most UAE businesses see measurable ranking improvements within 60–90 days. Meaningful organic traffic growth typically follows between months 3 and 6. Highly competitive sectors — real estate, finance, healthcare, and legal — may require 6–12 months for top-3 Google positions. Local and long-tail keyword wins often appear within the first 30 days of a campaign launch.',
-  ],
-  [
-    'q' => 'How much do SEO services cost in Dubai?',
-    'a' => 'Dubai SEO retainers typically range from AED 3,000/month for local SME campaigns to AED 25,000+/month for competitive enterprise programmes. SearchEngineOptimization.ae offers transparent, fixed monthly pricing with no hidden fees and no lock-in contracts. We provide a custom quote after a free SEO audit that assesses your current rankings, competition, and growth potential.',
-  ],
-  [
-    'q' => 'Do you provide Local SEO for Dubai and Abu Dhabi businesses?',
-    'a' => 'Yes — local SEO is a core service. We optimise Google Business Profiles, build UAE-specific citation networks, create location-targeted landing pages, and implement local structured data. Our local SEO campaigns target the "near me" and location-modifier searches that drive direct calls, enquiries, and foot traffic for businesses serving specific Dubai or Abu Dhabi areas.',
-  ],
-  [
-    'q' => 'Can you help my Google Business Profile rank higher?',
-    'a' => 'Absolutely. We optimise every element of your Google Business Profile — categories, services, posts, photos, Q&A, and review management — specifically for UAE map pack rankings. Paired with consistent local citations and geo-targeted content, our GBP optimisation clients regularly enter the Google Maps 3-pack for their primary service categories within 60 days.',
-  ],
-  [
-    'q' => 'What industries do you provide SEO services for?',
-    'a' => 'We serve every major UAE industry: real estate, healthcare and clinics, legal and professional services, financial services and fintech, hospitality and tourism, e-commerce and retail, construction, logistics, education, restaurants and F&B, automotive, and technology. Each industry has a distinct search landscape — our sector-specific experience means we skip the learning curve and deliver results from month one.',
-  ],
-  [
-    'q' => 'Do you offer Arabic and English SEO services?',
-    'a' => 'Yes — bilingual Arabic and English SEO is a core offering. We conduct Arabic keyword research, produce native-quality Arabic content written by professional UAE-based writers, and implement hreflang for bilingual sites. In the UAE market, Arabic SEO can double your addressable organic audience and unlock commercially valuable searches your competitors are ignoring entirely.',
-  ],
-  [
-    'q' => "What's included in your monthly SEO packages?",
-    'a' => "Monthly retainers include: dedicated SEO strategist, full technical audit and implementation, keyword research and content strategy, on-page optimisation, content creation, link building outreach, Google Business Profile management, weekly automated rank tracking, and a monthly performance review call. Everything is in one fixed monthly fee — no surprise add-ons for reporting, content, or technical work.",
-  ],
-  [
-    'q' => 'Do you optimize websites for Google AI Overviews and ChatGPT?',
-    'a' => 'Yes — AI search optimisation (GEO/AIO) is a dedicated service. We structure your content, implement comprehensive schema markup, and build the entity authority signals that cause AI search engines to cite your brand in generated answers. Appearing in Google AI Overviews, ChatGPT, Perplexity, and Gemini responses is now essential for UAE brand visibility.',
-  ],
-  [
-    'q' => 'How do you measure SEO success and ROI?',
-    'a' => 'We track keyword rankings, organic traffic, organic lead volume, conversion rates, and revenue attribution — not vanity metrics. Every client receives a live dashboard with real-time data, weekly automated rank reports, and monthly strategy calls. We connect SEO performance directly to business outcomes so you always know exactly what your investment is delivering.',
-  ],
-  [
-    'q' => 'Why choose SearchEngineOptimization.ae as your UAE SEO agency?',
-    'a' => 'We are a UAE-specialist agency — not a global generalist applying cookie-cutter strategies. We have served 345+ UAE businesses across every major sector, have dedicated market research for every emirate, deliver full bilingual Arabic and English SEO, and focus exclusively on revenue outcomes. No lock-in contracts, transparent pricing, and a track record of measurable organic growth for UAE businesses.',
-  ],
-];
-
-// FAQPage JSON-LD schema
-$schema_items = array_map(fn($f) => [
-  '@type'          => 'Question',
-  'name'           => $f['q'],
-  'acceptedAnswer' => ['@type' => 'Answer', 'text' => $f['a']],
-], $home_faqs);
-echo '<script type="application/ld+json">' . wp_json_encode([
-  '@context'   => 'https://schema.org',
-  '@type'      => 'FAQPage',
-  'mainEntity' => $schema_items,
-], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . '</script>';
-
-// Split into two columns
-$col1 = array_slice($home_faqs, 0, 6);
-$col2 = array_slice($home_faqs, 6);
+}
 ?>
 
-<section class="section home-faq-section" style="background:var(--color-muted-bg,#f0f4f8);padding:5rem 0;">
-  <div class="container">
+<main class="rhome">
 
-    <!-- Header -->
-    <div class="section-header section-header--center" style="margin-bottom:3.5rem;">
-      <?php seoae_section_label('FAQ'); ?>
-      <h2 class="section-header__title" style="font-size:clamp(1.75rem,3.5vw,2.75rem);color:var(--color-heading,#101A6A);max-width:600px;margin-left:auto;margin-right:auto;line-height:1.15;">
-        Common Questions<br>About SEO in the UAE
-      </h2>
-      <p class="section-header__desc" style="max-width:520px;margin-left:auto;margin-right:auto;">
-        Everything UAE businesses want to know before starting an SEO campaign — answered clearly.
-      </p>
-    </div>
-
-    <!-- 2-column accordion grid -->
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;align-items:start;" class="faq-grid-2col">
-
-      <!-- Column 1 -->
-      <div style="display:flex;flex-direction:column;gap:.75rem;">
-        <?php foreach ($col1 as $i => $faq) :
-          $uid = 'hfaq-a-' . $i; ?>
-        <div class="hfaq-item" style="background:#fff;border:1.5px solid #e2e8f0;border-radius:14px;overflow:hidden;transition:border-color .2s,box-shadow .2s;">
-          <button class="hfaq-trigger"
-            aria-expanded="false"
-            aria-controls="<?php echo $uid; ?>"
-            style="width:100%;display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:1.1rem 1.35rem;background:none;border:none;cursor:pointer;text-align:left;">
-            <span style="font-weight:700;font-size:.9375rem;color:var(--color-heading,#101A6A);line-height:1.35;"><?php echo esc_html($faq['q']); ?></span>
-            <span class="hfaq-icon" aria-hidden="true"
-              style="flex-shrink:0;width:28px;height:28px;border-radius:50%;background:var(--color-primary,#16B1D4);display:flex;align-items:center;justify-content:center;transition:background .2s,transform .2s;">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
-            </span>
-          </button>
-          <div id="<?php echo $uid; ?>" class="hfaq-body" hidden
-            style="padding:0 1.35rem 1.2rem;font-size:.875rem;color:var(--color-body,#4a5568);line-height:1.75;border-top:1px solid #f0f4f8;">
-            <?php echo esc_html($faq['a']); ?>
+  <!-- ============================ 1. HERO ============================ -->
+  <section class="rh-hero">
+    <span class="rh-hero__glow rh-hero__glow--1"></span>
+    <span class="rh-hero__glow rh-hero__glow--2"></span>
+    <div class="rh-particles" aria-hidden="true"></div>
+    <div class="rh-wrap">
+      <div class="rh-hero__grid">
+        <div class="rh-hero__copy" data-reveal>
+          <span class="rh-eyebrow"><?php echo rh_icon('bolt',14); ?> UAE&rsquo;s #1 Enterprise SEO Agency</span>
+          <h1 class="rh-hero__title">SEO That Generates<br><span class="rh-grad-text">Revenue,</span> Not Just Rankings</h1>
+          <p class="rh-hero__lead">We combine enterprise-grade strategy with obsessive execution &mdash; turning search visibility into pipeline, leads, and measurable revenue for ambitious UAE businesses.</p>
+          <div class="rh-hero__cta">
+            <a href="<?php echo esc_url( home_url('/contact/') ); ?>" class="rh-btn rh-btn--primary"><?php echo rh_icon('rocket',18); ?> Get Free SEO Audit</a>
+            <a href="<?php echo esc_url( home_url('/case-studies/') ); ?>" class="rh-btn rh-btn--ghost">View Case Studies</a>
+          </div>
+          <div class="rh-hero__trust">
+            <div class="rh-trust__item">
+              <span class="rh-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+              <span class="rh-trust__label">4.9 Google Rating</span>
+            </div>
+            <div class="rh-trust__item"><span class="rh-trust__num" data-count="345" data-suffix="+">0</span><span class="rh-trust__label">Clients Served</span></div>
+            <div class="rh-trust__item"><span class="rh-trust__num" data-count="206" data-prefix="+" data-suffix="%">0</span><span class="rh-trust__label">Avg. Organic Growth</span></div>
+            <div class="rh-trust__item"><span class="rh-trust__num" data-count="99" data-suffix="%">0</span><span class="rh-trust__label">Client Retention</span></div>
           </div>
         </div>
-        <?php endforeach; ?>
-      </div>
 
-      <!-- Column 2 -->
-      <div style="display:flex;flex-direction:column;gap:.75rem;">
-        <?php foreach ($col2 as $i => $faq) :
-          $uid = 'hfaq-b-' . $i; ?>
-        <div class="hfaq-item" style="background:#fff;border:1.5px solid #e2e8f0;border-radius:14px;overflow:hidden;transition:border-color .2s,box-shadow .2s;">
-          <button class="hfaq-trigger"
-            aria-expanded="false"
-            aria-controls="<?php echo $uid; ?>"
-            style="width:100%;display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:1.1rem 1.35rem;background:none;border:none;cursor:pointer;text-align:left;">
-            <span style="font-weight:700;font-size:.9375rem;color:var(--color-heading,#101A6A);line-height:1.35;"><?php echo esc_html($faq['q']); ?></span>
-            <span class="hfaq-icon" aria-hidden="true"
-              style="flex-shrink:0;width:28px;height:28px;border-radius:50%;background:var(--color-primary,#16B1D4);display:flex;align-items:center;justify-content:center;transition:background .2s,transform .2s;">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
-            </span>
-          </button>
-          <div id="<?php echo $uid; ?>" class="hfaq-body" hidden
-            style="padding:0 1.35rem 1.2rem;font-size:.875rem;color:var(--color-body,#4a5568);line-height:1.75;border-top:1px solid #f0f4f8;">
-            <?php echo esc_html($faq['a']); ?>
+        <div class="rh-dash" data-reveal data-reveal-delay="2">
+          <div class="rh-dash__float rh-dash__float--a">
+            <span class="rh-dash__ic" style="background:var(--grad-cyan)"><?php echo rh_icon('trend',18); ?></span>
+            <span>+318% Traffic<small>Last 6 months</small></span>
+          </div>
+          <div class="rh-dash__float rh-dash__float--b">
+            <span class="rh-dash__ic" style="background:#35e08e"><?php echo rh_icon('target',18); ?></span>
+            <span>#1 Rankings<small>842 keywords</small></span>
+          </div>
+          <div class="rh-dash__panel">
+            <div class="rh-dash__top">
+              <span class="rh-dash__brand"><span class="rh-dash__dot"></span> Growth Dashboard</span>
+              <span class="rh-dash__pill">LIVE</span>
+            </div>
+            <div class="rh-dash__row">
+              <div class="rh-kpi"><div class="rh-kpi__v">12.6M</div><div class="rh-kpi__l">Organic Clicks</div><div class="rh-kpi__up">&#9650; 41%</div></div>
+              <div class="rh-kpi"><div class="rh-kpi__v">34.5K</div><div class="rh-kpi__l">Keywords Top 3</div><div class="rh-kpi__up">&#9650; 18%</div></div>
+              <div class="rh-kpi"><div class="rh-kpi__v">$8.7M</div><div class="rh-kpi__l">Revenue Influenced</div><div class="rh-kpi__up">&#9650; 63%</div></div>
+            </div>
+            <div class="rh-chart">
+              <svg viewBox="0 0 320 120" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="rhGrad" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0" stop-color="#1CC8FF"/><stop offset="1" stop-color="#6E8BFF"/>
+                  </linearGradient>
+                  <linearGradient id="rhFillG" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="rgba(28,200,255,.35)"/><stop offset="1" stop-color="rgba(28,200,255,0)"/>
+                  </linearGradient>
+                </defs>
+                <path d="M0,100 L40,92 L80,96 L120,74 L160,78 L200,52 L240,44 L280,26 L320,14 L320,120 L0,120 Z" fill="url(#rhFillG)"/>
+                <path class="rh-chart__line" d="M0,100 L40,92 L80,96 L120,74 L160,78 L200,52 L240,44 L280,26 L320,14"/>
+              </svg>
+            </div>
+            <div class="rh-logos-inline">
+              <span class="rh-logo-chip">Google Analytics</span>
+              <span class="rh-logo-chip">Search Console</span>
+              <span class="rh-logo-chip">Semrush</span>
+              <span class="rh-logo-chip">Ahrefs</span>
+              <span class="rh-logo-chip">ChatGPT</span>
+            </div>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ 2. LOGO MARQUEE ============================ -->
+  <section class="rh-marquee">
+    <div class="rh-wrap">
+      <p class="rh-marquee__label">Trusted by leading UAE businesses</p>
+    </div>
+    <?php $brands = ['EMAAR','DAMAC','AZIZI','DP WORLD','NAKHEEL','MERAAS','Al-Futtaim','ALDAR','Majid Al Futtaim']; ?>
+    <div class="rh-marquee__track">
+      <?php for ( $r = 0; $r < 2; $r++ ) : ?>
+        <?php foreach ( $brands as $b ) : ?>
+          <span class="rh-marquee__item"><?php echo esc_html( $b ); ?></span>
+        <?php endforeach; ?>
+      <?php endfor; ?>
+    </div>
+  </section>
+
+  <!-- ============================ 3. STATS ============================ -->
+  <section class="rh-section rh-section--tight rh-gray">
+    <div class="rh-wrap">
+      <div class="rh-stats">
+        <div class="rh-stat" data-reveal><div class="rh-stat__num"><span data-count="206" data-prefix="+" data-suffix="%">0</span></div><div class="rh-stat__label">Average Organic Growth</div></div>
+        <div class="rh-stat" data-reveal data-reveal-delay="1"><div class="rh-stat__num"><span data-count="345" data-suffix="+">0</span></div><div class="rh-stat__label">UAE Businesses Served</div></div>
+        <div class="rh-stat" data-reveal data-reveal-delay="2"><div class="rh-stat__num"><span data-count="12" data-suffix="M+">0</span></div><div class="rh-stat__label">Organic Clicks Generated</div></div>
+        <div class="rh-stat" data-reveal data-reveal-delay="3"><div class="rh-stat__num"><span data-count="99" data-suffix="%">0</span></div><div class="rh-stat__label">Client Retention Rate</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ 4. WHY BUSINESSES FAIL ============================ -->
+  <section class="rh-section">
+    <div class="rh-wrap">
+      <div class="rh-head-center" data-reveal>
+        <span class="rh-eyebrow"><?php echo rh_icon('gauge',14); ?> Why most SEO fails</span>
+        <h2 class="rh-h2">Three reasons UAE businesses <span class="rh-grad-text">waste budget</span> on SEO</h2>
+        <p class="rh-lead">Most agencies chase vanity rankings. We engineer a system that compounds into revenue.</p>
+      </div>
+      <div class="rh-fail">
+        <div class="rh-fail__card" data-reveal><div class="rh-fail__ic"><?php echo rh_icon('code',24); ?></div><div class="rh-fail__t">Poor Technical SEO</div><p class="rh-fail__d">Slow sites, crawl errors, and broken structured data quietly cap your rankings before content even matters.</p></div>
+        <div class="rh-fail__card" data-reveal data-reveal-delay="1"><div class="rh-fail__ic"><?php echo rh_icon('report',24); ?></div><div class="rh-fail__t">Weak Content Strategy</div><p class="rh-fail__d">Thin, low-intent content that never maps to how UAE buyers actually search &mdash; so it never converts.</p></div>
+        <div class="rh-fail__card" data-reveal data-reveal-delay="2"><div class="rh-fail__ic"><?php echo rh_icon('target',24); ?></div><div class="rh-fail__t">No Clear Strategy</div><p class="rh-fail__d">No roadmap, no tracking, no accountability. Effort is spent, but revenue never moves.</p></div>
+        <div class="rh-fail__arrow" data-reveal data-reveal-delay="2"><?php echo rh_icon('arrow',44); ?></div>
+        <div class="rh-fail__sol" data-reveal data-reveal-delay="3"><div class="rh-fail__ic"><?php echo rh_icon('shield',24); ?></div><div class="rh-fail__t">Our SEO Growth Framework</div><p class="rh-fail__d">A data-driven, 6-step system that fixes foundations, wins intent coverage, and scales what converts.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ 5. SERVICES ============================ -->
+  <?php
+  $svc_icons = ['search','ai','ppc','social','design','code','link','trend'];
+  $svc_fallback = [
+    ['Search Engine Optimization','Technical + content SEO that earns durable page-one rankings for high-intent UAE keywords.',['Technical SEO & Core Web Vitals','On-page & content optimisation','Authority link building']],
+    ['AI Search Optimization','Get cited by ChatGPT, Google AI Overviews, Perplexity and Copilot with entity-first SEO.',['Structured data & entities','Answer-ready content','Generative visibility tracking']],
+    ['PPC & Google Ads','High-ROI paid search and shopping campaigns engineered for qualified UAE leads.',['Search, Shopping & Performance Max','Conversion tracking','Landing-page CRO']],
+    ['Social Media Marketing','Bilingual social strategy that builds authority and converts followers into customers.',['Instagram, LinkedIn, TikTok','Arabic + English content','Paid social management']],
+    ['Web Design','Conversion-optimised, lightning-fast websites that turn visitors into enquiries.',['UX & conversion design','Core Web Vitals friendly','Mobile-first build']],
+    ['Web Development','WordPress, React and custom builds engineered for speed, scale and SEO.',['Custom & headless builds','API & integrations','Speed optimisation']],
+  ];
+  $services = function_exists( 'seoae_get_services' ) ? seoae_get_services( 8 ) : [];
+  ?>
+  <section class="rh-section rh-gray">
+    <div class="rh-wrap">
+      <div class="rh-head-center" data-reveal>
+        <span class="rh-eyebrow"><?php echo rh_icon('bolt',14); ?> What we do</span>
+        <h2 class="rh-h2">Enterprise digital marketing, <span class="rh-grad-text">built to scale</span></h2>
+        <p class="rh-lead">A full-stack growth team covering every channel that moves revenue &mdash; under one roof.</p>
+      </div>
+      <div class="rh-serv">
+        <?php if ( $services ) : $i = 0; foreach ( $services as $svc ) : $i++;
+            $title = get_the_title( $svc );
+            $desc  = get_post_meta( $svc->ID, 'short_description', true ) ?: wp_trim_words( wp_strip_all_tags( $svc->post_content ), 20 );
+            $link  = get_permalink( $svc );
+            $ic    = $svc_icons[ ($i-1) % count($svc_icons) ];
+            $fb    = $svc_fallback[ ($i-1) % count($svc_fallback) ];
+            $list  = $fb[2];
+        ?>
+          <div class="rh-serv__card" data-reveal data-reveal-delay="<?php echo esc_attr( ($i-1) % 4 ); ?>">
+            <div class="rh-serv__ic"><?php echo rh_icon( $ic, 26 ); ?></div>
+            <h3 class="rh-serv__t"><?php echo esc_html( $title ); ?></h3>
+            <p class="rh-serv__d"><?php echo esc_html( wp_trim_words( $desc, 22 ) ); ?></p>
+            <ul class="rh-serv__list">
+              <?php foreach ( $list as $li ) : ?><li><?php echo rh_icon('check',17); ?><span><?php echo esc_html( $li ); ?></span></li><?php endforeach; ?>
+            </ul>
+            <a class="rh-serv__link" href="<?php echo esc_url( $link ); ?>">Learn more <?php echo rh_icon('arrow',16); ?></a>
+          </div>
+        <?php endforeach; else : foreach ( $svc_fallback as $i => $fb ) : ?>
+          <div class="rh-serv__card" data-reveal data-reveal-delay="<?php echo esc_attr( $i % 4 ); ?>">
+            <div class="rh-serv__ic"><?php echo rh_icon( $svc_icons[ $i % count($svc_icons) ], 26 ); ?></div>
+            <h3 class="rh-serv__t"><?php echo esc_html( $fb[0] ); ?></h3>
+            <p class="rh-serv__d"><?php echo esc_html( $fb[1] ); ?></p>
+            <ul class="rh-serv__list"><?php foreach ( $fb[2] as $li ) : ?><li><?php echo rh_icon('check',17); ?><span><?php echo esc_html( $li ); ?></span></li><?php endforeach; ?></ul>
+            <a class="rh-serv__link" href="<?php echo esc_url( home_url('/services/') ); ?>">Learn more <?php echo rh_icon('arrow',16); ?></a>
+          </div>
+        <?php endforeach; endif; ?>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ 6. INDUSTRIES ============================ -->
+  <section class="rh-section rh-section--tight">
+    <div class="rh-wrap">
+      <div class="rh-head-center" data-reveal>
+        <span class="rh-eyebrow"><?php echo rh_icon('users',14); ?> Industries we serve</span>
+        <h2 class="rh-h2">Sector-specific SEO for every UAE industry</h2>
+      </div>
+      <?php $inds = [
+        ['Healthcare','shield'],['Legal','report'],['Real Estate','pin'],['Construction','design'],
+        ['Hospitality','star'],['Education','brain'],['Finance','coins'],['Automotive','bolt'],
+        ['E-commerce','coins'],['Retail','target'],
+      ]; ?>
+      <div class="rh-pills" data-reveal>
+        <?php foreach ( $inds as $in ) : ?>
+          <a class="rh-pill" href="<?php echo esc_url( home_url('/industries/') ); ?>"><?php echo rh_icon( $in[1], 20 ); ?> <?php echo esc_html( $in[0] ); ?></a>
         <?php endforeach; ?>
       </div>
-
-    </div><!-- /faq-grid-2col -->
-
-    <!-- Bottom CTA strip -->
-    <div style="text-align:center;margin-top:3rem;padding:2.5rem;background:linear-gradient(135deg,#101A6A 0%,#1a2d8a 100%);border-radius:20px;">
-      <p style="color:rgba(255,255,255,.75);font-size:.9375rem;margin-bottom:1rem;">Still have questions? Talk to a UAE SEO specialist — no sales pressure.</p>
-      <a href="/contact/" class="btn btn--primary btn--lg" style="background:var(--color-primary,#16B1D4);color:#fff;">Get a Free SEO Consultation →</a>
     </div>
+  </section>
 
-  </div>
-</section>
+  <!-- ============================ 7. INTERACTIVE UAE MAP ============================ -->
+  <section class="rh-section rh-gray">
+    <div class="rh-wrap">
+      <div class="rh-head-center" data-reveal>
+        <span class="rh-eyebrow"><?php echo rh_icon('pin',14); ?> Nationwide coverage</span>
+        <h2 class="rh-h2">We rank businesses across <span class="rh-grad-text">every emirate</span></h2>
+        <p class="rh-lead">Tap a city to see the growth we&rsquo;ve driven for clients on the ground.</p>
+      </div>
+      <div class="rh-map">
+        <div class="rh-map__stage" data-reveal>
+          <svg class="rh-map__svg" viewBox="0 0 520 380" role="img" aria-label="Map of the United Arab Emirates">
+            <path class="rh-map__region" d="M60 250 L70 180 L120 120 L200 90 L270 70 L340 60 L420 80 L470 130 L480 190 L440 210 L430 260 L470 300 L400 320 L320 330 L250 340 L170 330 L110 300 Z"/>
+            <!-- pins -->
+            <g class="rh-pin is-active" data-city-key="dubai">
+              <circle class="rh-pin__halo" cx="300" cy="215" r="10"/><circle class="rh-pin__dot" cx="300" cy="215" r="7"/>
+              <text class="rh-pin__label" x="312" y="219">Dubai</text>
+            </g>
+            <g class="rh-pin" data-city-key="abu-dhabi">
+              <circle class="rh-pin__halo" cx="215" cy="255" r="10"/><circle class="rh-pin__dot" cx="215" cy="255" r="7"/>
+              <text class="rh-pin__label" x="150" y="259">Abu Dhabi</text>
+            </g>
+            <g class="rh-pin" data-city-key="sharjah">
+              <circle class="rh-pin__halo" cx="330" cy="190" r="10"/><circle class="rh-pin__dot" cx="330" cy="190" r="7"/>
+              <text class="rh-pin__label" x="342" y="194">Sharjah</text>
+            </g>
+            <g class="rh-pin" data-city-key="ajman">
+              <circle class="rh-pin__halo" cx="350" cy="170" r="9"/><circle class="rh-pin__dot" cx="350" cy="170" r="6"/>
+              <text class="rh-pin__label" x="362" y="166">Ajman</text>
+            </g>
+            <g class="rh-pin" data-city-key="rak">
+              <circle class="rh-pin__halo" cx="390" cy="130" r="9"/><circle class="rh-pin__dot" cx="390" cy="130" r="6"/>
+              <text class="rh-pin__label" x="402" y="126">Ras Al Khaimah</text>
+            </g>
+            <g class="rh-pin" data-city-key="fujairah">
+              <circle class="rh-pin__halo" cx="440" cy="185" r="9"/><circle class="rh-pin__dot" cx="440" cy="185" r="6"/>
+              <text class="rh-pin__label" x="452" y="189">Fujairah</text>
+            </g>
+          </svg>
+        </div>
+        <div class="rh-map__panel" data-reveal data-reveal-delay="2">
+          <div class="rh-map__city" data-city>Dubai</div>
+          <div class="rh-map__tag" data-tag>High-intent commercial market</div>
+          <div class="rh-map__metrics">
+            <div class="rh-map__metric"><b data-traffic>+318%</b><span>Organic traffic</span></div>
+            <div class="rh-map__metric"><b data-keywords>840+</b><span>Keywords ranked</span></div>
+            <div class="rh-map__metric"><b data-clients>120+</b><span>Clients served</span></div>
+            <div class="rh-map__metric"><b data-roi>+206%</b><span>Average ROI</span></div>
+          </div>
+          <p class="rh-map__quote" data-quote>&ldquo;From page 3 to the map pack and #1 organic for our core money keywords in 5 months.&rdquo;</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<style>
-/* Home FAQ accordion */
-.hfaq-item:hover {
-  border-color: var(--color-primary, #16B1D4) !important;
-  box-shadow: 0 4px 20px rgba(22,177,212,.10);
-}
-.hfaq-trigger[aria-expanded="true"] .hfaq-icon {
-  background: var(--color-heading, #101A6A) !important;
-  transform: rotate(45deg);
-}
-.hfaq-trigger[aria-expanded="true"] {
-  color: var(--color-primary, #16B1D4);
-}
-.hfaq-body {
-  display: none;
-}
-.hfaq-body.is-open {
-  display: block;
-}
-@media (max-width: 768px) {
-  .faq-grid-2col { grid-template-columns: 1fr !important; }
-}
-</style>
+  <!-- ============================ 8. SIX-STEP TIMELINE ============================ -->
+  <section class="rh-section rh-dark">
+    <div class="rh-wrap">
+      <div class="rh-head-center" data-reveal>
+        <span class="rh-eyebrow"><?php echo rh_icon('rocket',14); ?> Our methodology</span>
+        <h2 class="rh-h2">The 6-step growth framework</h2>
+        <p class="rh-lead">A proven, transparent process that compounds organic visibility into revenue &mdash; scroll to follow the journey.</p>
+      </div>
+      <?php $steps = [
+        ['Discover','search','We deep-dive into your market, competitors, and current search performance to find the fastest paths to revenue.'],
+        ['Technical Audit','gauge','A full crawl of your site &mdash; speed, indexation, structured data and Core Web Vitals &mdash; to remove every ranking blocker.'],
+        ['SEO Strategy','target','A prioritised roadmap mapping high-intent keywords, content clusters and authority plays to your business goals.'],
+        ['Execution','bolt','Senior specialists implement technical fixes, publish conversion-focused content, and build authoritative links.'],
+        ['Measure','chart','Transparent reporting on rankings, traffic, leads and revenue &mdash; with weekly visibility into progress.'],
+        ['Scale Growth','trend','We double down on what converts, expand coverage, and compound results month over month.'],
+      ]; ?>
+      <div class="rh-timeline">
+        <div class="rh-timeline__spine"></div>
+        <div class="rh-timeline__fill"></div>
+        <?php foreach ( $steps as $n => $st ) : ?>
+          <div class="rh-step<?php echo $n === 0 ? ' is-active' : ''; ?>">
+            <div class="rh-step__node"><div class="rh-step__num"><?php echo sprintf('%02d', $n + 1); ?></div></div>
+            <div class="rh-step__card">
+              <div class="rh-step__head"><span class="rh-step__ic"><?php echo rh_icon( $st[1], 22 ); ?></span><h3 class="rh-step__t"><?php echo esc_html( $st[0] ); ?></h3></div>
+              <p class="rh-step__d"><?php echo esc_html( $st[2] ); ?></p>
+            </div>
+          </div>
+        <?php endforeach; ?>
+      </div>
+    </div>
+  </section>
 
-<script>
-(function () {
-  document.querySelectorAll('.hfaq-trigger').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var expanded = this.getAttribute('aria-expanded') === 'true';
-      var bodyId   = this.getAttribute('aria-controls');
-      var body     = document.getElementById(bodyId);
-      if (!body) return;
-      if (expanded) {
-        this.setAttribute('aria-expanded', 'false');
-        body.classList.remove('is-open');
-      } else {
-        this.setAttribute('aria-expanded', 'true');
-        body.classList.add('is-open');
-      }
-    });
-  });
-})();
-</script>
+  <!-- ============================ 9. FEATURED CASE STUDIES ============================ -->
+  <?php
+  $cases = [
+    ['Luxury Villas Dubai','Real Estate','LV','+248%','+186%','+320%','From page 3 to dominating "off-plan villas Dubai" &mdash; lead volume more than tripled in 6 months.',
+     'M0,110 L45,100 L90,104 L135,80 L180,84 L225,54 L270,44 L320,20', 'Organic Traffic','Keyword Growth','Lead Growth'],
+    ['Aster Dental Clinic','Healthcare','AD','+210%','+175%','+290%','Bilingual local SEO put every clinic in the map pack &mdash; new patient bookings up 290%.',
+     'M0,112 L45,104 L90,108 L135,86 L180,70 L225,60 L270,40 L320,24', 'Organic Traffic','Keyword Growth','Revenue Growth'],
+  ];
+  ?>
+  <section class="rh-section">
+    <div class="rh-wrap">
+      <div class="rh-head-center" data-reveal>
+        <span class="rh-eyebrow"><?php echo rh_icon('chart',14); ?> Proven results</span>
+        <h2 class="rh-h2">Featured <span class="rh-grad-text">case studies</span></h2>
+        <p class="rh-lead">Real UAE brands, real revenue &mdash; not vanity metrics.</p>
+      </div>
+      <div class="rh-cases">
+        <?php foreach ( $cases as $ci => $c ) : ?>
+          <article class="rh-case" data-reveal data-reveal-delay="<?php echo esc_attr( $ci ); ?>">
+            <div class="rh-case__head">
+              <div class="rh-case__client">
+                <div class="rh-case__logo"><?php echo esc_html( $c[2] ); ?></div>
+                <div><div class="rh-case__name"><?php echo esc_html( $c[0] ); ?></div><div class="rh-case__sector"><?php echo esc_html( $c[1] ); ?></div></div>
+              </div>
+              <span class="rh-case__badge"><?php echo esc_html( $c[3] ); ?> traffic</span>
+            </div>
+            <div class="rh-case__chart">
+              <svg viewBox="0 0 320 130" preserveAspectRatio="none">
+                <defs><linearGradient id="rhCase<?php echo $ci; ?>" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="rgba(28,200,255,.30)"/><stop offset="1" stop-color="rgba(28,200,255,0)"/></linearGradient></defs>
+                <path d="<?php echo esc_attr( $c[7] ); ?> L320,130 L0,130 Z" fill="url(#rhCase<?php echo $ci; ?>)"/>
+                <path d="<?php echo esc_attr( $c[7] ); ?>" fill="none" stroke="#1CC8FF" stroke-width="3" stroke-linecap="round" class="rh-chart__line"/>
+                <line x1="0" y1="110" x2="320" y2="110" stroke="rgba(8,27,75,.08)" stroke-width="1" stroke-dasharray="4 4"/>
+              </svg>
+            </div>
+            <div class="rh-case__metrics">
+              <div class="rh-cm"><b><?php echo esc_html( $c[3] ); ?></b><span><?php echo esc_html( $c[8] ); ?></span></div>
+              <div class="rh-cm"><b><?php echo esc_html( $c[4] ); ?></b><span><?php echo esc_html( $c[9] ); ?></span></div>
+              <div class="rh-cm"><b><?php echo esc_html( $c[5] ); ?></b><span><?php echo esc_html( $c[10] ); ?></span></div>
+            </div>
+            <p class="rh-case__quote">&ldquo;<?php echo esc_html( $c[6] ); ?>&rdquo;</p>
+            <div class="rh-case__foot"><a class="rh-btn rh-btn--outline" href="<?php echo esc_url( home_url('/case-studies/') ); ?>">Read Case Study <?php echo rh_icon('arrow',16); ?></a></div>
+          </article>
+        <?php endforeach; ?>
+      </div>
+    </div>
+  </section>
 
-<!-- ════════════════════════════════ DARK CTA ════════════════════════════════════ -->
-<?php seoae_cta_dark(); ?>
+  <!-- ============================ 10. WHY CHOOSE US ============================ -->
+  <section class="rh-section rh-gray">
+    <div class="rh-wrap">
+      <div class="rh-head-center" data-reveal>
+        <span class="rh-eyebrow"><?php echo rh_icon('shield',14); ?> Why choose us</span>
+        <h2 class="rh-h2">Built like an in-house team, <span class="rh-grad-text">accountable like a partner</span></h2>
+      </div>
+      <?php $feats = [
+        ['users','Dedicated SEO Team','A senior pod assigned to your account &mdash; no juniors, no hand-offs, no guesswork.'],
+        ['star','Senior Specialists','8+ years average experience across technical, content and authority SEO.'],
+        ['report','Weekly Reports','Transparent dashboards tracking rankings, traffic, leads and revenue every week.'],
+        ['brain','AI + Human SEO','We pair generative-search expertise with human strategy for durable results.'],
+        ['eye','Transparent Process','You own your data and see exactly what we do and why &mdash; always.'],
+        ['coins','ROI Focused','We optimise for pipeline and revenue, not vanity rankings.'],
+      ]; ?>
+      <div class="rh-choose">
+        <?php foreach ( $feats as $fi => $f ) : ?>
+          <div class="rh-feature" data-reveal data-reveal-delay="<?php echo esc_attr( $fi % 3 ); ?>">
+            <div class="rh-feature__ic"><?php echo rh_icon( $f[0], 26 ); ?></div>
+            <h3 class="rh-feature__t"><?php echo esc_html( $f[1] ); ?></h3>
+            <p class="rh-feature__d"><?php echo esc_html( $f[2] ); ?></p>
+          </div>
+        <?php endforeach; ?>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ 11. TESTIMONIALS ============================ -->
+  <?php $tsts = [
+    ['GOOGLE REVIEW','This SEO team completely transformed our online visibility. We now outrank every competitor for our core keywords, and organic leads have become our #1 growth channel.','Dr. Mohamed Al Zarooni','CEO, Aster Dental Clinic','MA'],
+    ['CLUTCH REVIEW','Finally an agency that speaks revenue, not rankings. Their weekly reporting and senior team make them feel like an in-house department.','Sarah Al Marri','Marketing Director, Luxury Villas Dubai','SM'],
+    ['LINKEDIN','The most transparent and technically strong SEO partner we&rsquo;ve worked with in the UAE. Traffic up 240% and still compounding.','James Whitfield','Founder, GulfTech Commerce','JW'],
+  ]; ?>
+  <section class="rh-section">
+    <div class="rh-wrap">
+      <div class="rh-head-center" data-reveal>
+        <span class="rh-eyebrow"><?php echo rh_icon('star',14); ?> Client testimonials</span>
+        <h2 class="rh-h2">Trusted by leaders across the UAE</h2>
+      </div>
+      <div class="rh-tst">
+        <?php foreach ( $tsts as $ti => $t ) : ?>
+          <div class="rh-tcard" data-reveal data-reveal-delay="<?php echo esc_attr( $ti ); ?>">
+            <div class="rh-tcard__top"><span class="rh-tcard__src"><?php echo esc_html( $t[0] ); ?></span><span class="rh-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div>
+            <p class="rh-tcard__body"><?php echo wp_kses_post( $t[1] ); ?></p>
+            <div class="rh-tcard__who"><span class="rh-tcard__av"><?php echo esc_html( $t[4] ); ?></span><div><div class="rh-tcard__nm"><?php echo esc_html( $t[2] ); ?></div><div class="rh-tcard__rl"><?php echo esc_html( $t[3] ); ?></div></div></div>
+          </div>
+        <?php endforeach; ?>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ 12. LIVE DASHBOARD ============================ -->
+  <section class="rh-section rh-section--tight rh-dark">
+    <div class="rh-wrap">
+      <div class="rh-head-center" data-reveal>
+        <span class="rh-eyebrow"><?php echo rh_icon('chart',14); ?> Full transparency</span>
+        <h2 class="rh-h2">A live view of the metrics that matter</h2>
+      </div>
+      <?php
+      $live = [
+        ['Organic Traffic','12.6M','M0,40 L30,36 L60,38 L90,28 L120,30 L150,18 L180,10'],
+        ['Keywords Ranked','34.5K','M0,42 L30,38 L60,34 L90,30 L120,26 L150,18 L180,12'],
+        ['Backlinks Earned','128K','M0,38 L30,40 L60,30 L90,32 L120,22 L150,20 L180,14'],
+        ['Revenue Influenced','$8.7M','M0,44 L30,36 L60,32 L90,26 L120,24 L150,16 L180,8'],
+      ]; ?>
+      <div class="rh-live">
+        <?php foreach ( $live as $li => $l ) : ?>
+          <div class="rh-live__card" data-reveal data-reveal-delay="<?php echo esc_attr( $li ); ?>">
+            <div class="rh-live__l"><?php echo esc_html( $l[0] ); ?></div>
+            <div class="rh-live__v"><?php echo esc_html( $l[1] ); ?></div>
+            <div class="rh-live__spark">
+              <svg viewBox="0 0 180 48" preserveAspectRatio="none"><path d="<?php echo esc_attr( $l[2] ); ?>" fill="none" stroke="#1CC8FF" stroke-width="2.5" stroke-linecap="round" class="rh-chart__line"/></svg>
+            </div>
+          </div>
+        <?php endforeach; ?>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ 13. PRICING ============================ -->
+  <section class="rh-section">
+    <div class="rh-wrap">
+      <div class="rh-head-center" data-reveal>
+        <span class="rh-eyebrow"><?php echo rh_icon('coins',14); ?> Transparent pricing</span>
+        <h2 class="rh-h2">Plans that scale with your ambition</h2>
+        <p class="rh-lead">No lock-ins. No hidden fees. Just measurable growth.</p>
+      </div>
+      <?php $plans = [
+        ['Launch','AED 4,900','/mo','Perfect for SMEs starting their SEO journey.', false, ['Technical SEO foundation','8 target keywords','4 content pieces / mo','Monthly reporting','Email support']],
+        ['Growth','AED 9,900','/mo','Our most popular plan for scaling brands.', true, ['Everything in Launch','25 target keywords','8 content pieces / mo','Authority link building','Weekly reporting','Dedicated strategist']],
+        ['Enterprise','Custom','','For market leaders and multi-location brands.', false, ['Everything in Growth','Unlimited keywords','Custom content velocity','Digital PR & CRO','Bi-weekly strategy calls','Slack + priority support']],
+      ]; ?>
+      <div class="rh-price">
+        <?php foreach ( $plans as $pi => $p ) : ?>
+          <div class="rh-plan<?php echo $p[4] ? ' rh-plan--hot' : ''; ?>" data-reveal data-reveal-delay="<?php echo esc_attr( $pi ); ?>">
+            <?php if ( $p[4] ) : ?><span class="rh-plan__tag">Most Popular</span><?php endif; ?>
+            <div class="rh-plan__name"><?php echo esc_html( $p[0] ); ?></div>
+            <div class="rh-plan__price"><?php echo esc_html( $p[1] ); ?><small><?php echo esc_html( $p[2] ); ?></small></div>
+            <p class="rh-serv__d" style="<?php echo $p[4] ? 'color:#A9BCE4' : ''; ?>"><?php echo esc_html( $p[3] ); ?></p>
+            <ul class="rh-plan__list">
+              <?php foreach ( $p[5] as $li ) : ?><li><?php echo rh_icon('check',18); ?><span><?php echo esc_html( $li ); ?></span></li><?php endforeach; ?>
+            </ul>
+            <a class="rh-btn <?php echo $p[4] ? 'rh-btn--primary' : 'rh-btn--outline'; ?>" href="<?php echo esc_url( home_url('/contact/') ); ?>">Get Started</a>
+          </div>
+        <?php endforeach; ?>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ 14. FREE SEO AUDIT ============================ -->
+  <section class="rh-section rh-gray">
+    <div class="rh-wrap">
+      <div class="rh-audit">
+        <div data-reveal>
+          <span class="rh-eyebrow"><?php echo rh_icon('search',14); ?> Free SEO audit</span>
+          <h2 class="rh-h2">See exactly what&rsquo;s holding your rankings back</h2>
+          <p class="rh-lead" style="margin-bottom:26px">Get a free, no-obligation audit of your website&rsquo;s technical health, content, and competitive gaps &mdash; delivered by a senior specialist within 24 hours.</p>
+          <form class="rh-audit__form" action="<?php echo esc_url( home_url('/contact/') ); ?>" method="get">
+            <div class="rh-field"><label>Full name</label><input type="text" name="name" placeholder="Your name" required></div>
+            <div class="rh-field"><label>Work email</label><input type="email" name="email" placeholder="you@company.ae" required></div>
+            <div class="rh-field"><label>Website URL</label><input type="url" name="website" placeholder="https://yourwebsite.ae"></div>
+            <button type="submit" class="rh-btn rh-btn--primary" style="width:100%"><?php echo rh_icon('rocket',18); ?> Get My Free Audit</button>
+          </form>
+        </div>
+        <div class="rh-audit__preview" data-reveal data-reveal-delay="2">
+          <div class="rh-report">
+            <div class="rh-dash__top" style="margin-bottom:8px"><span class="rh-dash__brand"><span class="rh-dash__dot"></span> Audit Report Preview</span><span class="rh-dash__pill">A-</span></div>
+            <div class="rh-report__row"><span class="rh-report__k">Core Web Vitals</span><span class="rh-score rh-score--g">92</span></div>
+            <div class="rh-report__row"><span class="rh-report__k">On-page SEO</span><span class="rh-score rh-score--y">74</span></div>
+            <div class="rh-report__row"><span class="rh-report__k">Technical Health</span><span class="rh-score rh-score--g">88</span></div>
+            <div class="rh-report__row"><span class="rh-report__k">Backlink Authority</span><span class="rh-score rh-score--r">51</span></div>
+            <div class="rh-report__row"><span class="rh-report__k">Content Coverage</span><span class="rh-score rh-score--y">69</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ 15. FAQ ============================ -->
+  <?php $faqs = [
+    ['How long does SEO take to show results in the UAE?','Most UAE businesses see measurable keyword movement within 3&ndash;4 months and significant organic growth between months 5&ndash;8. Competitive sectors like real estate and legal can take longer, but SEO compounds &mdash; unlike ads that stop when the budget does.'],
+    ['Do you offer bilingual (Arabic + English) SEO?','Yes. Bilingual keyword research and content are core to how we capture the full UAE market. Our specialists optimise for both English and Arabic search behaviour.'],
+    ['How is your reporting different?','You get a transparent live dashboard plus weekly updates covering rankings, traffic, leads and revenue &mdash; you always know exactly what we&rsquo;re doing and why.'],
+    ['Do you optimise for AI search like ChatGPT and Google AI Overviews?','Absolutely. Entity-first, answer-ready content and structured data are built into every engagement so your brand gets cited across generative search.'],
+    ['Are there long-term contracts?','No lock-ins. We earn your business every month with measurable results, and plans can scale up or down as you grow.'],
+  ]; ?>
+  <section class="rh-section">
+    <div class="rh-wrap">
+      <div class="rh-head-center" data-reveal>
+        <span class="rh-eyebrow"><?php echo rh_icon('report',14); ?> FAQ</span>
+        <h2 class="rh-h2">Questions, answered</h2>
+      </div>
+      <div class="rh-faq">
+        <?php foreach ( $faqs as $qi => $q ) : ?>
+          <div class="rh-acc<?php echo $qi === 0 ? ' is-open' : ''; ?>" data-reveal>
+            <button class="rh-acc__q" type="button"><?php echo esc_html( $q[0] ); ?> <?php echo rh_icon('plus',22); ?></button>
+            <div class="rh-acc__a"<?php echo $qi === 0 ? ' style="max-height:240px"' : ''; ?>><p><?php echo wp_kses_post( $q[1] ); ?></p></div>
+          </div>
+        <?php endforeach; ?>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ 16. LATEST RESOURCES ============================ -->
+  <?php
+  $posts = function_exists( 'seoae_get_recent_posts' ) ? seoae_get_recent_posts( 3 ) : get_posts( [ 'numberposts' => 3 ] );
+  if ( $posts ) : ?>
+  <section class="rh-section rh-gray">
+    <div class="rh-wrap">
+      <div class="rh-head-center" data-reveal>
+        <span class="rh-eyebrow"><?php echo rh_icon('report',14); ?> Latest resources</span>
+        <h2 class="rh-h2">SEO &amp; growth insights</h2>
+      </div>
+      <div class="rh-posts">
+        <?php foreach ( $posts as $pi => $post ) : setup_postdata( $post );
+          $cat = get_the_category( $post->ID ); $catn = $cat ? $cat[0]->name : 'SEO';
+        ?>
+          <a class="rh-post" href="<?php echo esc_url( get_permalink( $post ) ); ?>" data-reveal data-reveal-delay="<?php echo esc_attr( $pi ); ?>">
+            <div class="rh-post__img"><?php if ( has_post_thumbnail( $post ) ) echo get_the_post_thumbnail( $post, 'medium_large' ); ?></div>
+            <div class="rh-post__body">
+              <span class="rh-post__cat"><?php echo esc_html( $catn ); ?></span>
+              <h3 class="rh-post__t"><?php echo esc_html( get_the_title( $post ) ); ?></h3>
+              <div class="rh-post__meta"><?php echo esc_html( get_the_date( '', $post ) ); ?> &middot; <?php echo esc_html( max( 1, ceil( str_word_count( wp_strip_all_tags( $post->post_content ) ) / 200 ) ) ); ?> min read</div>
+            </div>
+          </a>
+        <?php endforeach; wp_reset_postdata(); ?>
+      </div>
+    </div>
+  </section>
+  <?php endif; ?>
+
+  <!-- ============================ 17. FINAL CTA ============================ -->
+  <section class="rh-section rh-final">
+    <span class="rh-final__glow" aria-hidden="true"></span>
+    <div class="rh-wrap" style="position:relative;z-index:2">
+      <div data-reveal>
+        <span class="rh-eyebrow"><?php echo rh_icon('rocket',14); ?> Let&rsquo;s grow</span>
+        <h2 class="rh-final__title">Ready to Outrank Your Competitors?</h2>
+        <p class="rh-lead" style="margin:0 auto;color:#AFC0E8">Book a free strategy call or claim your no-obligation SEO audit &mdash; and see how much revenue your search visibility is leaving on the table.</p>
+        <div class="rh-final__cta">
+          <a class="rh-btn rh-btn--primary" href="<?php echo esc_url( home_url('/contact/') ); ?>"><?php echo rh_icon('rocket',18); ?> Book Strategy Call</a>
+          <a class="rh-btn rh-btn--ghost" href="<?php echo esc_url( home_url('/contact/') ); ?>">Get Free SEO Audit</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
 
 <?php get_footer(); ?>
