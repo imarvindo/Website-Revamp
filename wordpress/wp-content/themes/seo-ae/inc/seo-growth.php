@@ -380,14 +380,12 @@ add_action( 'wp_footer', function () {
 		return;
 	}
 	$wa  = seoae_whatsapp_number();
-	$tel = seoae_phone_display();
 	?>
 	<div class="seoae-sticky-cta" id="seoae-sticky-cta" hidden>
 		<div class="seoae-sticky-cta__inner">
 			<span class="seoae-sticky-cta__copy">Free SEO audit for UAE businesses</span>
 			<div class="seoae-sticky-cta__actions">
 				<a class="seoae-sticky-cta__btn" href="<?php echo esc_url( home_url( '/contact/' ) ); ?>">Get Free Audit</a>
-				<a class="seoae-sticky-cta__btn seoae-sticky-cta__btn--ghost" href="tel:+97145687444"><?php echo esc_html( $tel ); ?></a>
 			</div>
 			<button type="button" class="seoae-sticky-cta__close" id="seoae-sticky-close" aria-label="Dismiss sticky bar">×</button>
 		</div>
