@@ -41,7 +41,6 @@ $category_lbl   = get_post_meta( get_the_ID(), 'category_label',    true ) ?: 'D
 $hero_badge     = get_post_meta( get_the_ID(), 'hero_badge',        true ) ?: 'Premium';
 $hero_badge_sub = get_post_meta( get_the_ID(), 'hero_badge_sub',  true ) ?: 'Results Driven';
 $cta_primary    = get_post_meta( get_the_ID(), 'cta_primary_text',  true ) ?: 'Start Your Campaign';
-$cta_phone      = get_post_meta( get_the_ID(), 'cta_phone_text',    true ) ?: 'Call Us Now';
 $icon_svg       = get_post_meta( get_the_ID(), 'icon_svg',          true ) ?: '<svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>';
 $benefits       = get_post_meta( get_the_ID(), 'svc_benefits',    true ) ?: [];
 $process        = get_post_meta( get_the_ID(), 'svc_process',     true ) ?: [];
@@ -49,7 +48,6 @@ $technologies   = get_post_meta( get_the_ID(), 'svc_technologies',true ) ?: [];
 $faqs           = get_post_meta( get_the_ID(), 'svc_faqs',        true ) ?: [];
 $related_ids    = get_post_meta( get_the_ID(), 'svc_related',     true ) ?: [];
 $related        = array_filter( array_map( 'get_post', (array) $related_ids ) );
-$phone          = seoae_phone();
 
 // Reading time + author (CMS-editable scalars; ACF Free safe).
 $word_count   = str_word_count( wp_strip_all_tags( get_the_content() ) );
@@ -113,9 +111,9 @@ $show_toc = count( $toc_items ) >= 3;
 			</div>
 			<div class="service-hero__actions">
 				<a href="<?php echo esc_url( home_url( '/contact' ) ); ?>" class="btn btn--primary btn--lg"><?php echo esc_html( $cta_primary ); ?> →</a>
-				<a href="tel:<?php echo esc_attr( preg_replace( '/[^+0-9]/', '', $phone ) ); ?>" class="btn btn--outline-white btn--lg">
-					<svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 7V5z"/></svg>
-					<?php echo esc_html( $cta_phone ); ?>
+				<a href="mailto:<?php echo esc_attr( seoae_email() ); ?>" class="btn btn--outline-white btn--lg">
+					<svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+					Email Us
 				</a>
 			</div>
 		</div>

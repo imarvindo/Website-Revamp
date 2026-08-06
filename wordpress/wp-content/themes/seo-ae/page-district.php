@@ -232,7 +232,6 @@ $schema = [
 	'logo'     => SEOAE_URI . '/assets/images/logo.svg',
 	'image'    => SEOAE_URI . '/assets/images/og-image.jpg',
 	'email'    => seoae_email(),
-	'telephone' => seoae_phone() ?: '+971 4 320 9898',
 	'address'  => [
 		'@type'           => 'PostalAddress',
 		'streetAddress'   => 'M-01, Muteena Street, Above Saravana Bhavan',

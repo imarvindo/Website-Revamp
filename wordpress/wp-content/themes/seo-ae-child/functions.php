@@ -146,7 +146,6 @@ add_action( 'wp_head', function () {
         '@id'         => $url . '#localbusiness',
         'name'        => 'SearchEngineOptimization.ae — ' . $city . ' SEO',
         'url'         => $url,
-        'telephone'   => '+971 4 320 9898',
         'email'       => 'sales@searchengineoptimization.ae',
         'address'     => [
             '@type'           => 'PostalAddress',

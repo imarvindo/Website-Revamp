@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) define( 'ABSPATH', __DIR__ . '/' );
 // ─────────────────────────────────────────────────────────────────────────────
 // 1. THEME SETTINGS (global options)
 // ─────────────────────────────────────────────────────────────────────────────
-update_field( 'site_phone',    '+971 4 320 9898',                                            'option' );
+update_field( 'site_phone',    '',                                            'option' );
 update_field( 'site_email',    'sales@searchengineoptimization.ae',                          'option' );
 update_field( 'site_address',  'M-01, Muteena Street, Above Saravana Bhavan, Deira, Dubai, UAE', 'option' );
 update_field( 'site_maps_url', 'https://goo.gl/maps/DeiraDubai',                            'option' );
@@ -134,7 +134,7 @@ wp_update_post([
 
 // ACF fields for Dubai page
 update_post_meta( $dubai_post_id, 'seo_title',       'SEO Agency Dubai — #1 Ranked Search Engine Optimisation Company UAE | SearchEngineOptimization.ae' );
-update_post_meta( $dubai_post_id, 'seo_description', 'Dubai\'s leading SEO agency. First-page Google rankings, Arabic SEO, local search & AI optimisation for UAE businesses. Free audit. ☎ +971 4 320 9898.' );
+update_post_meta( $dubai_post_id, 'seo_description', 'Dubai\'s leading SEO agency. First-page Google rankings, Arabic SEO, local search & AI optimisation for UAE businesses. Free audit.' );
 echo "✅ Dubai page updated (ID: $dubai_post_id)\n";
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -210,8 +210,7 @@ $contact_content = '<p>Ready to dominate your Dubai market? Whether you want a f
 <h2>Visit Our Dubai Office</h2>
 <p>We welcome in-person consultations at our Deira headquarters. Coffee is always on, and strategic conversations are always free. Our office is open Sunday to Thursday, 9am–6pm GST.</p>
 <p><strong>Address:</strong> M-01, Muteena Street, Above Saravana Bhavan, Deira, Dubai, UAE<br>
-<strong>Email:</strong> sales@searchengineoptimization.ae<br>
-<strong>Phone:</strong> +971 4 320 9898</p>
+<strong>Email:</strong> sales@searchengineoptimization.ae</p>
 
 <p>Explore our <a href="/services">services</a>, read our <a href="/case-studies">case studies</a>, or learn <a href="/about">about our agency</a> before getting in touch. We typically respond to all enquiries within 2 business hours.</p>';
 

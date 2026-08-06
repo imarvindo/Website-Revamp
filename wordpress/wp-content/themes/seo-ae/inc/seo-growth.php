@@ -9,16 +9,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-/** WhatsApp business number (international, digits only). Override via filter. */
-function seoae_whatsapp_number(): string {
-	return apply_filters( 'seoae_whatsapp_number', '918010355718' );
-}
-
-/** Public phone display. */
-function seoae_phone_display(): string {
-	$phone = function_exists( 'seoae_phone' ) ? seoae_phone() : '';
-	return apply_filters( 'seoae_phone_display', $phone );
-}
 
 // ─────────────────────────────────────────────────────────────────────────────
 // A. AUTO INDEXING — IndexNow + sitemap ping on publish/update/delete
@@ -248,7 +238,7 @@ add_filter( 'the_content', function ( $content ) {
 		. '<p class="seoae-inline-cta__text">Want a data-backed growth plan for your Dubai or UAE market? Our strategists map keywords, competitors, and quick wins in one call.</p>'
 		. '<p class="seoae-inline-cta__actions">'
 		. '<a class="btn btn--primary btn--sm" href="' . esc_url( home_url( '/contact/' ) ) . '">Book Free Audit</a> '
-		. '<a class="btn btn--outline btn--sm" href="https://wa.me/' . esc_attr( seoae_whatsapp_number() ) . '" target="_blank" rel="noopener">WhatsApp Us</a>'
+		. '<a class="btn btn--outline btn--sm" href="mailto:' . esc_attr( seoae_email() ) . '">Email Us</a>'
 		. '</p></aside>';
 
 	// Insert after roughly every 3rd paragraph block beyond the first screen.
@@ -417,7 +407,6 @@ add_action( 'wp_footer', function () {
 	if ( is_admin() ) {
 		return;
 	}
-	$wa  = seoae_whatsapp_number();
 	?>
 	<div class="seoae-sticky-cta" id="seoae-sticky-cta" hidden>
 		<div class="seoae-sticky-cta__inner">
@@ -428,9 +417,6 @@ add_action( 'wp_footer', function () {
 			<button type="button" class="seoae-sticky-cta__close" id="seoae-sticky-close" aria-label="Dismiss sticky bar">×</button>
 		</div>
 	</div>
-	<a class="seoae-wa-float" href="https://wa.me/<?php echo esc_attr( $wa ); ?>?text=<?php echo rawurlencode( 'Hi — I want a free SEO audit for my UAE business.' ); ?>" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
-		<svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.52 3.48A11.86 11.86 0 0012.06 0C5.5 0 .16 5.34.16 11.9c0 2.1.55 4.15 1.6 5.96L0 24l6.3-1.65a11.86 11.86 0 005.76 1.47h.01c6.56 0 11.9-5.34 11.9-11.9 0-3.18-1.24-6.17-3.45-8.44zM12.07 21.8h-.01a9.87 9.87 0 01-5.03-1.38l-.36-.21-3.74.98 1-3.64-.24-.37a9.86 9.86 0 01-1.51-5.27c0-5.45 4.43-9.88 9.9-9.88 2.64 0 5.12 1.03 6.98 2.9a9.82 9.82 0 012.91 6.98c0 5.45-4.44 9.87-9.9 9.87zm5.42-7.4c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.64-2.04-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.5h-.57c-.2 0-.52.07-.8.37-.27.3-1.05 1.02-1.05 2.5s1.08 2.9 1.23 3.1c.15.2 2.12 3.24 5.14 4.54 1.92.83 2.67.9 3.63.76.58-.08 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35z"/></svg>
-	</a>
 	<script>
 	(function(){
 	  var bar = document.getElementById('seoae-sticky-cta');

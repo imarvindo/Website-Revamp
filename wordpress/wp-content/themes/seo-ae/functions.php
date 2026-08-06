@@ -371,7 +371,6 @@ add_action( 'acf/init', function () {
 			[ 'key' => 'field_svc_icon_svg',     'label' => 'Icon (SVG HTML)',        'name' => 'icon_svg',             'type' => 'textarea', 'rows' => 4 ],
 			[ 'key' => 'field_svc_category',     'label' => 'Category Label',         'name' => 'category_label',       'type' => 'text',     'default_value' => 'Digital Marketing' ],
 			[ 'key' => 'field_svc_cta_primary',  'label' => 'Primary CTA Text',       'name' => 'cta_primary_text',     'type' => 'text',     'default_value' => 'Start Your Campaign' ],
-			[ 'key' => 'field_svc_cta_phone',    'label' => 'Phone CTA Text',         'name' => 'cta_phone_text',       'type' => 'text',     'default_value' => 'Call Us Now' ],
 			[ 'key' => 'field_svc_author_name',  'label' => 'Author Byline Name',     'name' => 'svc_author_name',      'type' => 'text',     'default_value' => 'SearchEngineOptimization.ae Team', 'instructions' => 'Shown under the service hero.' ],
 			[ 'key' => 'field_svc_author_role',  'label' => 'Author Role',            'name' => 'svc_author_role',      'type' => 'text',     'default_value' => 'SEO Strategists' ],
 			[ 'key' => 'field_svc_reading_time', 'label' => 'Reading Time (minutes)', 'name' => 'svc_reading_time',     'type' => 'number',   'min' => 1, 'max' => 60, 'instructions' => 'Leave blank to auto-calculate from word count.' ],
@@ -784,7 +783,6 @@ add_action( 'wp_head', function () {
 		'image'    => SEOAE_URI . '/assets/images/og-image.jpg',
 		'description' => "Dubai's #1 enterprise SEO and digital marketing agency delivering measurable growth through AI-driven SEO, PPC, social media, and web development.",
 		'email'       => $email,
-		'telephone'   => seoae_phone() ?: '+971 4 320 9898',
 		'address'     => [
 			'@type'           => 'PostalAddress',
 			'streetAddress'   => 'M-01, Muteena Street, Above Saravana Bhavan',
@@ -875,7 +873,7 @@ function seoae_phone(): string {
 		$acf = get_field( 'site_phone', 'option' );
 		if ( $acf ) return $acf;
 	}
-	return get_option( 'seoae_site_phone', '+971 4 320 9898' );
+	return get_option( 'seoae_site_phone', '' );
 }
 
 /**
@@ -1799,7 +1797,6 @@ add_action( 'wp_head', function () {
 			'@id'   => home_url( '/#organization' ),
 			'name'  => 'SearchEngineOptimization.ae',
 			'url'   => home_url(),
-			'telephone' => seoae_phone() ?: '+971 4 320 9898',
 			'address'   => [
 				'@type'           => 'PostalAddress',
 				'streetAddress'   => 'M-01, Muteena Street, Above Saravana Bhavan',

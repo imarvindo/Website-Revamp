@@ -86,23 +86,16 @@ $address = seoae_address();
 							<input type="email" name="email" class="form-input" placeholder="john@company.com" required autocomplete="email">
 						</div>
 						<div class="form-group">
-							<label class="form-label">Phone Number</label>
-							<input type="tel" name="phone" class="form-input" placeholder="+971 50 000 0000" autocomplete="tel">
+							<label class="form-label">Website URL</label>
+							<input type="url" name="website" class="form-input" placeholder="https://yourwebsite.com" autocomplete="url">
 						</div>
 					</div>
 
 					<div class="form-row">
-						<div class="form-group">
-							<label class="form-label">Website URL</label>
-							<input type="url" name="website" class="form-input" placeholder="https://yourwebsite.com" autocomplete="url">
-						</div>
 						<div class="form-group">
 							<label class="form-label">Business Name</label>
 							<input type="text" name="business" class="form-input" placeholder="Trading / Brand name">
 						</div>
-					</div>
-
-					<div class="form-row">
 						<div class="form-group">
 							<label class="form-label">Service Interested In</label>
 							<select name="service" class="form-select">
@@ -117,6 +110,9 @@ $address = seoae_address();
 								<option>Other / Not Sure</option>
 							</select>
 						</div>
+					</div>
+
+					<div class="form-row">
 						<div class="form-group">
 							<label class="form-label">Monthly Marketing Budget</label>
 							<select name="budget" class="form-select">
@@ -129,22 +125,21 @@ $address = seoae_address();
 								<option>AED 50,000+</option>
 							</select>
 						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="form-label">Country</label>
-						<select name="country" class="form-select">
-							<option value=""> -  Select country  - </option>
-							<option selected>United Arab Emirates</option>
-							<option>Saudi Arabia</option>
-							<option>Kuwait</option>
-							<option>Qatar</option>
-							<option>Bahrain</option>
-							<option>Oman</option>
-							<option>United Kingdom</option>
-							<option>United States</option>
-							<option>Other</option>
-						</select>
+						<div class="form-group">
+							<label class="form-label">Country</label>
+							<select name="country" class="form-select">
+								<option value=""> -  Select country  - </option>
+								<option selected>United Arab Emirates</option>
+								<option>Saudi Arabia</option>
+								<option>Kuwait</option>
+								<option>Qatar</option>
+								<option>Bahrain</option>
+								<option>Oman</option>
+								<option>United Kingdom</option>
+								<option>United States</option>
+								<option>Other</option>
+							</select>
+						</div>
 					</div>
 
 					<div class="form-group">

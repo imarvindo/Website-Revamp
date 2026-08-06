@@ -278,11 +278,7 @@
 				</div>
 			</div>
 
-			<div class="qcm-row qcm-row--2">
-				<div class="qcm-field">
-					<label for="qcm-phone">Phone / WhatsApp</label>
-					<input type="tel" id="qcm-phone" name="phone" placeholder="+971 50 000 0000" autocomplete="tel">
-				</div>
+			<div class="qcm-row">
 				<div class="qcm-field">
 					<label for="qcm-website">Website URL</label>
 					<input type="url" id="qcm-website" name="website" placeholder="https://yoursite.ae" autocomplete="url">
