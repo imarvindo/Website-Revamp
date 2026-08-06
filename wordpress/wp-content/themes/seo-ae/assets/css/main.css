@@ -2954,17 +2954,7 @@ p:last-child { margin-bottom: 0; }
   font-size: 1.4rem; line-height: 1; cursor: pointer; padding: .2rem .4rem;
 }
 
-.seoae-wa-float {
-  position: fixed; right: 1.1rem; bottom: 5.25rem; z-index: 9991;
-  width: 56px; height: 56px; border-radius: 50%;
-  background: #25D366; color: #fff;
-  display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 10px 28px rgba(37,211,102,.4);
-  transition: transform .2s;
-}
-.seoae-wa-float:hover { transform: scale(1.06); color: #fff; }
 @media (max-width: 700px) {
   .seoae-sticky-cta__copy { font-size: .8rem; }
-  .seoae-wa-float { bottom: 5.75rem; right: .85rem; width: 52px; height: 52px; }
   body { padding-bottom: 4.5rem; }
 }
