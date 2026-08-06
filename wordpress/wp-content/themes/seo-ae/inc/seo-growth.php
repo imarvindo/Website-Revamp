@@ -25,7 +25,13 @@ function seoae_phone_display(): string {
 // ─────────────────────────────────────────────────────────────────────────────
 
 /**
- * IndexNow API key (Rank Math setting, with fallback).
+ * IndexNow API key.
+ *
+ * Prefers an explicitly configured key (Rank Math instant-indexing setting or
+ * the `seoae_indexnow_key` option). When none is set, derives a stable key from
+ * the site's auth salt so IndexNow works out of the box with no DB writes and a
+ * key that stays constant across requests. Override via the `seoae_indexnow_key`
+ * filter.
  */
 function seoae_indexnow_key(): string {
 	$opts = get_option( 'rank-math-options-instant-indexing', [] );
@@ -33,8 +39,39 @@ function seoae_indexnow_key(): string {
 	if ( $key === '' ) {
 		$key = (string) get_option( 'seoae_indexnow_key', '' );
 	}
-	return preg_replace( '/[^a-f0-9]/i', '', $key );
+	$key = preg_replace( '/[^a-f0-9]/i', '', (string) $key );
+
+	// Deterministic per-site fallback key (32 hex chars) — no persistence needed.
+	if ( $key === '' ) {
+		$salt = function_exists( 'wp_salt' ) ? wp_salt( 'auth' ) : '';
+		$key  = substr( hash( 'sha256', 'seoae-indexnow|' . $salt . '|' . home_url() ), 0, 32 );
+	}
+
+	return (string) apply_filters( 'seoae_indexnow_key', $key );
 }
+
+/**
+ * Serve the IndexNow key-verification file at /{key}.txt.
+ *
+ * Search engines fetch this file to confirm ownership before accepting
+ * submissions, so it must return the key as plain text.
+ */
+add_action( 'init', function () {
+	$path = (string) wp_parse_url( $_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH );
+	$path = trim( rawurldecode( $path ), '/' );
+	if ( $path === '' || substr( $path, -4 ) !== '.txt' ) {
+		return;
+	}
+
+	$key = seoae_indexnow_key();
+	if ( $key !== '' && $path === $key . '.txt' ) {
+		nocache_headers();
+		header( 'Content-Type: text/plain; charset=UTF-8' );
+		header( 'X-Robots-Tag: noindex' );
+		echo $key; // phpcs:ignore
+		exit;
+	}
+}, 1 );
 
 /**
  * Submit URL list to IndexNow (+ Bing).
