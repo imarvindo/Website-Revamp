@@ -6,7 +6,10 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-define( 'SEOAE_VERSION', '1.1.4' );
+define( 'SEOAE_VERSION', '1.2.0' );
+
+// SEO growth foundations: auto IndexNow, CTAs, EEAT, linking helpers.
+require_once get_template_directory() . '/inc/seo-growth.php';
 
 // Prevent WordPress from converting hyphens into en/em dashes in public content.
 add_filter( 'run_wptexturize', '__return_false' );

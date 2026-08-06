@@ -266,7 +266,31 @@ $show_toc = count( $toc_items ) >= 3;
 </section>
 <?php endif; ?>
 
+<!-- RELATED CASE STUDIES -->
 <?php
+$rel_cases = function_exists( 'seoae_related_case_studies' ) ? seoae_related_case_studies( 3 ) : [];
+if ( $rel_cases ) :
+?>
+<section class="section bg-light" style="padding:3rem 0;">
+	<div class="container">
+		<h3 style="font-size:1.1rem;font-weight:700;color:var(--color-heading);margin-bottom:1.5rem;">Related Case Studies</h3>
+		<div class="services-grid">
+			<?php foreach ( $rel_cases as $cs ) : ?>
+			<a href="<?php echo esc_url( get_permalink( $cs ) ); ?>" class="service-card">
+				<h3 class="service-card__title"><?php echo esc_html( get_the_title( $cs ) ); ?></h3>
+				<p class="service-card__desc"><?php echo esc_html( wp_trim_words( get_the_excerpt( $cs ), 18 ) ); ?></p>
+				<span class="service-card__link">View Results →</span>
+			</a>
+			<?php endforeach; ?>
+		</div>
+	</div>
+</section>
+<?php endif; ?>
+
+<?php
+if ( function_exists( 'seoae_related_links_module' ) ) {
+	seoae_related_links_module( 'Internal growth links — services, locations & proof' );
+}
 seoae_cta_dark(
 	'Ready to Get Started?',
 	'Book a free strategy call. We will audit your current performance and show you exactly where the biggest growth opportunities are.',

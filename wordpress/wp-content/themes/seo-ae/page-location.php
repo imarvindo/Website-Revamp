@@ -140,5 +140,10 @@ $the_content  = get_the_content();
 </section>
 <?php endif; ?>
 
-<?php seoae_cta_dark(); ?>
-<?php get_footer(); ?>
+<?php
+if ( function_exists( 'seoae_related_links_module' ) ) {
+	seoae_related_links_module( 'Related SEO services, districts & proof for ' . $city );
+}
+seoae_cta_dark();
+get_footer();
+?>
