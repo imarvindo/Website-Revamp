@@ -40,6 +40,8 @@ function seoae_upsert_cpt( string $type, string $slug, string $title, string $co
 	if ( ! empty( $rank['kw'] ) ) {
 		update_post_meta( $id, 'rank_math_focus_keyword', $rank['kw'] );
 	}
+	// Ensure Rank Math includes the URL in sitemaps / indexation.
+	update_post_meta( $id, 'rank_math_robots', [ 'index' ] );
 	return (int) $id;
 }
 
