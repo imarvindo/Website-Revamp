@@ -357,10 +357,15 @@
 .rhome .rh-plan__tag { position: absolute; top: -13px; left: 50%; transform: translateX(-50%); background: var(--grad-cyan); color: #04122e; font-weight: 800; font-size: .72rem; padding: 6px 14px; border-radius: 999px; }
 .rhome .rh-plan__name { font-weight: 800; font-size: 1.2rem; color: var(--ink); }
 .rhome .rh-plan--hot .rh-plan__name { color: #fff; }
-.rhome .rh-plan__price { font-size: 2.6rem; font-weight: 800; letter-spacing: -.03em; color: var(--navy); margin: 12px 0 4px; }
+.rhome .rh-plan__price { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 8px; font-size: 2.6rem; font-weight: 800; letter-spacing: -.03em; color: var(--navy); margin: 12px 0 4px; line-height: 1; }
 .rhome .rh-plan--hot .rh-plan__price { color: #fff; }
+.rhome .rh-plan__currency { width: 100%; font-size: .82rem; font-weight: 700; letter-spacing: .04em; color: var(--muted); }
+.rhome .rh-plan--hot .rh-plan__currency { color: #A9BCE4; }
+.rhome .rh-plan__amount { font-size: inherit; font-weight: inherit; }
 .rhome .rh-plan__price small { font-size: .95rem; font-weight: 600; color: var(--muted); }
 .rhome .rh-plan--hot .rh-plan__price small { color: #A9BCE4; }
+.rhome .rh-plan__billing { margin: 0 0 4px; font-size: .86rem; color: var(--muted); }
+.rhome .rh-plan--hot .rh-plan__billing { color: #A9BCE4; }
 .rhome .rh-plan__list { display: flex; flex-direction: column; gap: 11px; margin: 22px 0; }
 .rhome .rh-plan__list li { display: flex; gap: 10px; font-size: .92rem; color: #33415c; }
 .rhome .rh-plan--hot .rh-plan__list li { color: #cfdcff; }

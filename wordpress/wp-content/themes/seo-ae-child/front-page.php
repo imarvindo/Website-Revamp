@@ -460,21 +460,65 @@ if ( ! function_exists( 'rh_icon' ) ) {
         <p class="rh-lead">No lock-ins. No hidden fees. Just measurable growth.</p>
       </div>
       <?php $plans = [
-        ['Launch','AED 4,900','/mo','Perfect for SMEs starting their SEO journey.', false, ['Technical SEO foundation','8 target keywords','4 content pieces / mo','Monthly reporting','Email support']],
-        ['Growth','AED 9,900','/mo','Our most popular plan for scaling brands.', true, ['Everything in Launch','25 target keywords','8 content pieces / mo','Authority link building','Weekly reporting','Dedicated strategist']],
-        ['Enterprise','Custom','','For market leaders and multi-location brands.', false, ['Everything in Growth','Unlimited keywords','Custom content velocity','Digital PR & CRO','Bi-weekly strategy calls','Slack + priority support']],
+        [
+          'Starter',
+          '2,999',
+          false,
+          [
+            'Up to 20 target keywords',
+            'On-page SEO optimization',
+            'Technical SEO audit',
+            'Basic link building',
+            'Google My Business setup',
+            'Monthly performance report',
+          ],
+        ],
+        [
+          'Professional',
+          '5,999',
+          true,
+          [
+            'Up to 50 target keywords',
+            'Advanced on-page & off-page SEO',
+            'Premium link building',
+            'Content creation (4 articles/mo)',
+            'Local SEO optimization',
+            'Conversion rate optimization',
+            'Bi-weekly reports + strategy call',
+            'Dedicated account manager',
+          ],
+        ],
+        [
+          'Enterprise',
+          '12,999',
+          false,
+          [
+            'Unlimited target keywords',
+            'Full-service SEO management',
+            'Authority link building',
+            'Content creation (12 articles/mo)',
+            'Multi-location SEO',
+            'Custom landing pages',
+            'Weekly reports + calls',
+            'Dedicated team + 24/7 support',
+          ],
+        ],
       ]; ?>
       <div class="rh-price">
         <?php foreach ( $plans as $pi => $p ) : ?>
-          <div class="rh-plan<?php echo $p[4] ? ' rh-plan--hot' : ''; ?>" data-reveal data-reveal-delay="<?php echo esc_attr( $pi ); ?>">
-            <?php if ( $p[4] ) : ?><span class="rh-plan__tag">Most Popular</span><?php endif; ?>
+          <div class="rh-plan<?php echo $p[2] ? ' rh-plan--hot' : ''; ?>" data-reveal data-reveal-delay="<?php echo esc_attr( $pi ); ?>">
+            <?php if ( $p[2] ) : ?><span class="rh-plan__tag">Most Popular</span><?php endif; ?>
             <div class="rh-plan__name"><?php echo esc_html( $p[0] ); ?></div>
-            <div class="rh-plan__price"><?php echo esc_html( $p[1] ); ?><small><?php echo esc_html( $p[2] ); ?></small></div>
-            <p class="rh-serv__d" style="<?php echo $p[4] ? 'color:#A9BCE4' : ''; ?>"><?php echo esc_html( $p[3] ); ?></p>
+            <div class="rh-plan__price">
+              <span class="rh-plan__currency">AED</span>
+              <span class="rh-plan__amount"><?php echo esc_html( $p[1] ); ?></span>
+              <small>/month</small>
+            </div>
+            <p class="rh-plan__billing">Billed monthly · Cancel anytime</p>
             <ul class="rh-plan__list">
-              <?php foreach ( $p[5] as $li ) : ?><li><?php echo rh_icon('check',18); ?><span><?php echo esc_html( $li ); ?></span></li><?php endforeach; ?>
+              <?php foreach ( $p[3] as $li ) : ?><li><?php echo rh_icon('check',18); ?><span><?php echo esc_html( $li ); ?></span></li><?php endforeach; ?>
             </ul>
-            <a class="rh-btn <?php echo $p[4] ? 'rh-btn--primary' : 'rh-btn--outline'; ?>" href="<?php echo esc_url( home_url('/contact/') ); ?>">Get Started</a>
+            <a class="rh-btn <?php echo $p[2] ? 'rh-btn--primary' : 'rh-btn--outline'; ?>" href="<?php echo esc_url( home_url('/contact/') ); ?>">Get Started →</a>
           </div>
         <?php endforeach; ?>
       </div>
