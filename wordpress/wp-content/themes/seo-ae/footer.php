@@ -9,10 +9,10 @@
 			<div class="footer__prebar-text">
 				<span class="footer__prebar-tag">UAE's #1 SEO Agency</span>
 				<h3 class="footer__prebar-heading">Ready to dominate search in Dubai?</h3>
-				<p class="footer__prebar-sub">Get your free audit — results within 48 hours, no obligation.</p>
+				<p class="footer__prebar-sub">Get your free audit  -  results within 48 hours, no obligation.</p>
 			</div>
 			<div class="footer__prebar-actions">
-				<button type="button" class="footer__prebar-btn" onclick="document.getElementById('quick-contact-modal').classList.add('is-open')">
+				<button type="button" class="footer__prebar-btn" onclick="window.seoaeOpenContactModal&&window.seoaeOpenContactModal()">
 					Get Free Audit
 					<svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
 				</button>
@@ -57,7 +57,7 @@
 				<div class="footer__newsletter">
 					<p class="footer__newsletter-label">
 						<svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="#16B1D4" stroke-width="2"><path stroke-linecap="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-						Weekly SEO insights — free
+						Weekly SEO insights  -  free
 					</p>
 					<form class="footer__newsletter-form" id="newsletter-form">
 						<input type="email" name="email" placeholder="your@email.com" class="footer__newsletter-input" required>
@@ -107,8 +107,12 @@
 						<svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5h6M5 2l3 3-3 3" stroke="#16B1D4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Portfolio</a></li>
 					<li><a href="<?php echo esc_url( home_url('/contact') ); ?>" class="footer__link">
 						<svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5h6M5 2l3 3-3 3" stroke="#16B1D4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Contact</a></li>
-					<li><a href="<?php echo esc_url( home_url('/dubai') ); ?>" class="footer__link">
+					<li><a href="<?php echo esc_url( home_url('/dubai/') ); ?>" class="footer__link">
 						<svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5h6M5 2l3 3-3 3" stroke="#16B1D4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>SEO Dubai</a></li>
+					<li><a href="<?php echo esc_url( home_url('/locations/') ); ?>" class="footer__link">
+						<svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5h6M5 2l3 3-3 3" stroke="#16B1D4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Locations</a></li>
+					<li><a href="<?php echo esc_url( home_url('/industries/') ); ?>" class="footer__link">
+						<svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5h6M5 2l3 3-3 3" stroke="#16B1D4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Industries</a></li>
 				</ul>
 			</div>
 
@@ -153,20 +157,23 @@
 					<svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0H5"/></svg>
 					Industries
 				</span>
-				<nav class="footer__coverage-links">
+				<nav class="footer__coverage-links" aria-label="Industry pages">
 					<?php
+					// Canonical industry URLs (live page-industry.php pages).
 					$ind = [
-						'Healthcare' => '/healthcare-seo/', 'Real Estate' => '/real-estate-seo/',
-						'E-commerce' => '/ecommerce-seo/', 'Hospitality' => '/hospitality-seo/',
-						'SaaS & B2B' => '/saas-b2b-seo/', 'Education'   => '/education-seo/',
-						'Automotive' => '/automotive-seo/', 'Finance'    => '/finance-seo/',
-						'Legal'      => '/legal-seo/',
+						'All Industries' => '/industries/',
+						'Healthcare'     => '/industries/healthcare/',
+						'Real Estate'    => '/industries/real-estate/',
+						'E-commerce'     => '/industries/ecommerce/',
+						'Hospitality'    => '/industries/hospitality/',
+						'Finance'        => '/industries/finance/',
+						'Legal'          => '/industries/legal/',
 					];
 					$i = 0;
 					foreach ( $ind as $label => $slug ) :
 						if ( $i++ ) echo '<span class="footer__coverage-sep">·</span>';
 					?>
-					<a href="<?php echo esc_url( home_url($slug) ); ?>" class="footer__coverage-link"><?php echo esc_html($label); ?></a>
+					<a href="<?php echo esc_url( home_url( $slug ) ); ?>" class="footer__coverage-link"><?php echo esc_html( $label ); ?></a>
 					<?php endforeach; ?>
 				</nav>
 			</div>
@@ -176,23 +183,35 @@
 					<svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/></svg>
 					UAE Cities
 				</span>
-				<nav class="footer__coverage-links">
+				<nav class="footer__coverage-links" aria-label="Location pages">
 					<?php
+					// Canonical location / district URLs currently published on production.
 					$cities = [
-						'Dubai' => '/seo-company-dubai/', 'Abu Dhabi' => '/seo-company-abu-dhabi/',
-						'Sharjah' => '/seo-company-sharjah/', 'Ajman' => '/seo-company-ajman/',
-						'Ras Al Khaimah' => '/seo-company-ras-al-khaimah/', 'Fujairah' => '/seo-company-fujairah/',
-						'Al Ain' => '/seo-company-al-ain/', 'Umm Al Quwain' => '/seo-company-umm-al-quwain/',
-						'Dubai Marina' => '/seo-company-dubai-marina/', 'Business Bay' => '/seo-company-business-bay/',
-						'Deira' => '/seo-company-deira/', 'Downtown Dubai' => '/seo-company-downtown-dubai/',
-						'Jebel Ali' => '/seo-company-jebel-ali/', 'Khor Fakkan' => '/seo-company-khor-fakkan/',
-						'Dibba Al Fujairah' => '/seo-company-dibba-al-fujairah/',
+						'All Locations'    => '/locations/',
+						'Dubai'            => '/dubai/',
+						'Abu Dhabi'        => '/locations/seo-abu-dhabi/',
+						'Sharjah'          => '/locations/seo-sharjah/',
+						'Ajman'            => '/locations/seo-ajman/',
+						'Ras Al Khaimah'   => '/locations/seo-ras-al-khaimah/',
+						'Fujairah'         => '/locations/seo-fujairah/',
+						'Dubai Marina'     => '/dubai/marina/',
+						'Business Bay'     => '/dubai/business-bay/',
+						'Downtown Dubai'   => '/dubai/downtown/',
+						'Deira'            => '/dubai/deira/',
+						'DIFC'             => '/dubai/difc/',
+						'JLT'              => '/dubai/jlt/',
+						'Jumeirah'         => '/dubai/jumeirah/',
+						'Bur Dubai'        => '/dubai/bur-dubai/',
+						'Al Quoz'          => '/dubai/al-quoz/',
+						'Dubai Hills'      => '/dubai/dubai-hills/',
+						'Palm Jumeirah'    => '/dubai/palm-jumeirah/',
+						'Mirdif'           => '/dubai/mirdif/',
 					];
 					$i = 0;
 					foreach ( $cities as $label => $slug ) :
 						if ( $i++ ) echo '<span class="footer__coverage-sep">·</span>';
 					?>
-					<a href="<?php echo esc_url( home_url($slug) ); ?>" class="footer__coverage-link"><?php echo esc_html($label); ?></a>
+					<a href="<?php echo esc_url( home_url( $slug ) ); ?>" class="footer__coverage-link"><?php echo esc_html( $label ); ?></a>
 					<?php endforeach; ?>
 				</nav>
 			</div>
@@ -240,7 +259,7 @@
 				&nbsp;&bull;&nbsp;
 				<a href="<?php echo esc_url( home_url('/sitemap.xml') ); ?>" class="footer__bottom-link">Sitemap</a>
 			</p>
-			<p class="footer__made">Made with ❤️ in Dubai, UAE 🇦🇪</p>
+			<p class="footer__made">Made with  in Dubai, UAE 🇦🇪</p>
 		</div>
 	</div>
 
@@ -249,7 +268,7 @@
 <!-- ═══════════════════════════════════════════════════════════════════
      QUICK CONTACT MODAL
 ════════════════════════════════════════════════════════════════════ -->
-<div id="quick-contact-modal" class="qcm-overlay" role="dialog" aria-modal="true" aria-labelledby="qcm-title">
+<div id="quick-contact-modal" class="qcm-overlay" role="dialog" aria-modal="true" aria-labelledby="qcm-title" aria-hidden="true" inert hidden>
 	<div class="qcm-panel">
 		<!-- Close -->
 		<button class="qcm-close" id="qcm-close-btn" aria-label="Close">
@@ -260,7 +279,7 @@
 		<div class="qcm-header">
 			<span class="qcm-tag">Free Consultation</span>
 			<h2 id="qcm-title" class="qcm-title">Get Your Free SEO Audit</h2>
-			<p class="qcm-subtitle">Fill in the form — our team will respond within 2 hours.</p>
+			<p class="qcm-subtitle">Fill in the form  -  our team will respond within 2 hours.</p>
 		</div>
 
 		<!-- Form -->
@@ -278,11 +297,7 @@
 				</div>
 			</div>
 
-			<div class="qcm-row qcm-row--2">
-				<div class="qcm-field">
-					<label for="qcm-phone">Phone / WhatsApp</label>
-					<input type="tel" id="qcm-phone" name="phone" placeholder="+971 50 000 0000" autocomplete="tel">
-				</div>
+			<div class="qcm-row">
 				<div class="qcm-field">
 					<label for="qcm-website">Website URL</label>
 					<input type="url" id="qcm-website" name="website" placeholder="https://yoursite.ae" autocomplete="url">
@@ -293,7 +308,7 @@
 				<div class="qcm-field">
 					<label for="qcm-service">Service Interested In</label>
 					<select id="qcm-service" name="service">
-						<option value="">— Select a service —</option>
+						<option value="">Select a service</option>
 						<option>Search Engine Optimisation (SEO)</option>
 						<option>AI Search / GEO Optimisation</option>
 						<option>PPC &amp; Google Ads Management</option>
@@ -317,7 +332,7 @@
 
 			<div class="qcm-privacy">
 				<label class="qcm-checkbox-label">
-					<input type="checkbox" name="privacy" id="qcm-privacy" required>
+					<input type="checkbox" name="privacy" id="qcm-privacy" value="1" required>
 					<span>I agree to the <a href="<?php echo esc_url(home_url('/privacy-policy')); ?>" target="_blank">Privacy Policy</a></span>
 				</label>
 			</div>
@@ -339,8 +354,8 @@
 				<svg width="36" height="36" fill="none" viewBox="0 0 24 24" stroke="#16B1D4" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
 			</div>
 			<h3>Enquiry Received!</h3>
-			<p>Thank you — our senior SEO specialist will contact you within 2 business hours.</p>
-			<button class="qcm-success-close" onclick="document.getElementById('quick-contact-modal').classList.remove('is-open')">Close</button>
+			<p>Thank you  -  our senior SEO specialist will contact you within 2 business hours.</p>
+			<button type="button" class="qcm-success-close" onclick="window.seoaeCloseContactModal&&window.seoaeCloseContactModal()">Close</button>
 		</div>
 	</div>
 </div>
@@ -353,18 +368,32 @@
   var submitBtn= document.getElementById('qcm-submit-btn');
   var errEl    = document.getElementById('qcm-error');
   var success  = document.getElementById('qcm-success');
+  if (!overlay) return;
 
-  // Set nonce from localised SEOAE object
   document.getElementById('qcm-nonce').value =
     (typeof SEOAE !== 'undefined' && SEOAE.nonce) ? SEOAE.nonce : '';
 
-  // Close handlers
-  closeBtn.addEventListener('click', close);
-  overlay.addEventListener('click', function(e){ if(e.target===overlay) close(); });
-  document.addEventListener('keydown', function(e){ if(e.key==='Escape') close(); });
-  function close(){ overlay.classList.remove('is-open'); }
+  function openModal(){
+    overlay.hidden = false;
+    overlay.removeAttribute('inert');
+    overlay.setAttribute('aria-hidden', 'false');
+    overlay.classList.add('is-open');
+    var focusEl = overlay.querySelector('#qcm-name, #qcm-close-btn, input, button');
+    if (focusEl) focusEl.focus();
+  }
+  function closeModal(){
+    overlay.classList.remove('is-open');
+    overlay.setAttribute('aria-hidden', 'true');
+    overlay.setAttribute('inert', '');
+    overlay.hidden = true;
+  }
+  window.seoaeOpenContactModal = openModal;
+  window.seoaeCloseContactModal = closeModal;
 
-  // Submit
+  closeBtn.addEventListener('click', closeModal);
+  overlay.addEventListener('click', function(e){ if(e.target===overlay) closeModal(); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape' && overlay.classList.contains('is-open')) closeModal(); });
+
   form.addEventListener('submit', function(e){
     e.preventDefault();
     var txt  = submitBtn.querySelector('.qcm-submit-text');
@@ -376,7 +405,7 @@
     var data = new FormData(form);
     data.append('action', 'seoae_contact');
 
-    fetch((typeof SEOAE!=='undefined'&&SEOAE.ajax_url)||'/wp-admin/admin-ajax.php', {
+    fetch((typeof SEOAE!=='undefined'&&(SEOAE.ajaxUrl||SEOAE.ajax_url))||'/wp-admin/admin-ajax.php', {
       method: 'POST', body: data
     })
     .then(function(r){ return r.json(); })

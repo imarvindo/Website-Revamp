@@ -163,3 +163,23 @@ find wp-content/uploads -type f -exec chmod 644 {} \;
 ---
 
 *Generated: July 2026 | SearchEngineOptimization.ae*
+
+## Production database export (keep up to date)
+
+A CLI-only exporter lives on Hostinger at:
+
+`wp-content/private-exports/export-prod.php` (HTTP returns 403)
+
+Refresh the repo copy:
+
+```bash
+HOSTINGER_SSH_PASS='***' ./scripts/refresh-production-export.sh
+```
+
+Optional auto-commit: `SEOAE_EXPORT_COMMIT=1 ./scripts/refresh-production-export.sh`
+
+On the server, run daily via cron if available:
+
+```bash
+php /home/u635810218/websites/p0262hfDR/public_html/wp-content/private-exports/export-prod.php
+```

@@ -39,16 +39,19 @@
 	<div class="container navbar__inner">
 
 		<!-- Logo -->
-		<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="navbar__logo" aria-label="SearchEngineOptimization.ae Home">
+		<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="navbar__logo" aria-label="SearchEngineOptimization.ae - Dubai SEO Agency Home">
 			<img
-				src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/logo-concept-1.png' ); ?>"
-				alt="SearchEngineOptimization.ae"
+				src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/logo-mark.png' ); ?>"
+				srcset="<?php echo esc_url( get_template_directory_uri() . '/assets/images/logo-mark.png' ); ?> 1x, <?php echo esc_url( get_template_directory_uri() . '/assets/images/logo-mark@2x.png' ); ?> 2x"
+				alt="SearchEngineOptimization.ae - Dubai SEO and digital marketing agency"
 				class="navbar__logo-img"
 				width="40"
 				height="40"
+				decoding="async"
+				fetchpriority="high"
 			/>
 			<div class="navbar__logo-text">
-				<span class="navbar__logo-name" style="font-size:.95rem;">SearchEngine<span class="text-primary">Optimization.ae</span></span>
+				<span class="navbar__logo-name">SearchEngine<span class="text-primary">Optimization.ae</span></span>
 				<span class="navbar__logo-tagline">DIGITAL GROWTH PARTNER</span>
 			</div>
 		</a>
@@ -67,41 +70,134 @@
 						Services
 						<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
 					</button>
-					<div class="mega-menu" role="region" aria-label="Services menu">
-						<div class="container mega-menu__inner">
-							<div class="mega-menu__header">
-								<span class="mega-menu__label">Our Services</span>
-								<p class="mega-menu__desc">Enterprise-grade digital marketing solutions designed for UAE businesses</p>
+					<div class="mega-menu mega-menu--visual" role="region" aria-label="Services menu">
+						<div class="mega-menu__inner">
+							<div class="mega-menu__top">
+								<div class="mega-menu__header">
+									<span class="mega-menu__label">Our Services</span>
+									<p class="mega-menu__desc">Enterprise digital marketing for ambitious UAE brands</p>
+								</div>
+								<a class="mega-menu__cta" href="<?php echo esc_url( home_url( '/contact/' ) ); ?>">
+									<span class="mega-menu__cta-kicker">Free</span>
+									<span class="mega-menu__cta-title">SEO Audit</span>
+									<span class="mega-menu__cta-arrow" aria-hidden="true">→</span>
+								</a>
 							</div>
 							<div class="mega-menu__grid">
 								<?php
-								$services = seoae_get_services();
-								$icons = [
-									'seo'                    => '<svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path stroke-linecap="round" d="m21 21-4.35-4.35"/></svg>',
-									'ai-search-optimization' => '<svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M9.663 17h4.673M12 3v1m6.364 1.636-.707.707M21 12h-1M4 12H3m3.343-5.657-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>',
-									'ppc'                    => '<svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>',
-									'social-media-marketing' => '<svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>',
-									'web-design'             => '<svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>',
-									'web-development'        => '<svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>',
+								$services  = seoae_get_services();
+								$menu_copy = [
+									'search-engine-optimization' => [
+										'title' => 'SEO Services',
+										'desc'  => 'Rank higher & grow organic traffic',
+										'tone'  => 'cyan',
+										'icon'  => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="m20 20-3.5-3.5"/></svg>',
+									],
+									'ai-search-optimization' => [
+										'title' => 'AI Search',
+										'desc'  => 'Visibility in AI Overviews & GEO',
+										'tone'  => 'violet',
+										'icon'  => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" d="M12 3v3M12 18v3M3 12h3M18 12h3"/><rect x="7" y="7" width="10" height="10" rx="3"/><circle cx="12" cy="12" r="1.5"/></svg>',
+									],
+									'ppc-management' => [
+										'title' => 'PPC & Ads',
+										'desc'  => 'High-ROI Google & Meta campaigns',
+										'tone'  => 'amber',
+										'icon'  => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg>',
+									],
+									'social-media-marketing' => [
+										'title' => 'Social Media',
+										'desc'  => 'Brand growth across channels',
+										'tone'  => 'pink',
+										'icon'  => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path stroke-linecap="round" d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg>',
+									],
+									'web-design' => [
+										'title' => 'Web Design',
+										'desc'  => 'Conversion-led UX for UAE brands',
+										'tone'  => 'blue',
+										'icon'  => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="14" rx="2"/><path stroke-linecap="round" d="M3 9h18M8 4v5"/></svg>',
+									],
+									'web-development' => [
+										'title' => 'Web Development',
+										'desc'  => 'Fast, secure custom builds',
+										'tone'  => 'slate',
+										'icon'  => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="m8 8-4 4 4 4M16 8l4 4-4 4M13 6l-2 12"/></svg>',
+									],
+									'technical-seo' => [
+										'title' => 'Technical SEO',
+										'desc'  => 'Crawlability, speed & Core Web Vitals',
+										'tone'  => 'indigo',
+										'icon'  => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path stroke-linecap="round" d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>',
+									],
+									'local-seo' => [
+										'title' => 'Local SEO',
+										'desc'  => 'Dominate nearby search demand',
+										'tone'  => 'green',
+										'icon'  => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21s7-5.8 7-11a7 7 0 1 0-14 0c0 5.2 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>',
+									],
+									'ecommerce-seo' => [
+										'title' => 'Ecommerce SEO',
+										'desc'  => 'Product & category ranking systems',
+										'tone'  => 'orange',
+										'icon'  => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5h2l2.2 10.2a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.5L21 8H7"/><circle cx="10" cy="20" r="1.4"/><circle cx="17" cy="20" r="1.4"/></svg>',
+									],
+									'seo-audit' => [
+										'title' => 'SEO Audit',
+										'desc'  => 'Find gaps holding rankings back',
+										'tone'  => 'teal',
+										'icon'  => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M9 11l2 2 4-4"/><path stroke-linecap="round" d="M8 4h8a2 2 0 0 1 2 2v14l-6-3-6 3V6a2 2 0 0 1 2-2z"/></svg>',
+									],
+									'chatgpt-seo' => [
+										'title' => 'ChatGPT SEO',
+										'desc'  => 'Win AI answers & citations',
+										'tone'  => 'violet',
+										'icon'  => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a8 8 0 0 1-11.5 7.2L4 20l1.1-4.2A8 8 0 1 1 21 12z"/><path stroke-linecap="round" d="M8.5 12h.01M12 12h.01M15.5 12h.01"/></svg>',
+									],
+									'generative-engine-optimization' => [
+										'title' => 'GEO',
+										'desc'  => 'Optimise for generative engines',
+										'tone'  => 'cyan',
+										'icon'  => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" d="M12 3l1.8 4.7L19 9.5l-4 3.1L16.3 18 12 15.4 7.7 18l1.3-5.4-4-3.1 5.2-1.8L12 3z"/></svg>',
+									],
+									'google-business-profile-seo' => [
+										'title' => 'Google Business',
+										'desc'  => 'Profile SEO that drives calls',
+										'tone'  => 'blue',
+										'icon'  => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1v-9.5z"/></svg>',
+									],
+									'link-building' => [
+										'title' => 'Link Building',
+										'desc'  => 'Authority links that move rankings',
+										'tone'  => 'green',
+										'icon'  => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" d="M10 13a5 5 0 0 0 7.07 0l1.41-1.41a5 5 0 0 0-7.07-7.07L10 5"/><path stroke-linecap="round" d="M14 11a5 5 0 0 0-7.07 0L5.5 12.43a5 5 0 0 0 7.07 7.07L14 19"/></svg>',
+									],
+								];
+								$fallback = [
+									'title' => '',
+									'desc'  => 'Explore this service',
+									'tone'  => 'cyan',
+									'icon'  => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="m20 20-3.5-3.5"/></svg>',
 								];
 								foreach ( $services as $service ) :
 									$slug  = $service->post_name;
-									$icon  = $icons[ $slug ] ?? $icons['seo'];
-									$short = get_post_meta( $service->ID, 'short_description', true )
-									         ?: wp_trim_words( $service->post_excerpt ?: $service->post_content, 10 );
+									$copy  = $menu_copy[ $slug ] ?? $fallback;
+									$title = $copy['title'] !== '' ? $copy['title'] : ( get_post_meta( $service->ID, 'category_label', true ) ?: wp_trim_words( $service->post_title, 4, '' ) );
+									$desc  = $copy['desc'];
+									$tone  = $copy['tone'];
+									$icon  = $copy['icon'];
 								?>
-								<a href="<?php echo esc_url( get_permalink( $service ) ); ?>" class="mega-menu__item">
-									<div class="mega-menu__item-icon"><?= $icon ?></div>
-									<div class="mega-menu__item-body">
-										<span class="mega-menu__item-title"><?php echo esc_html( $service->post_title ); ?></span>
-										<span class="mega-menu__item-desc"><?php echo esc_html( $short ); ?></span>
-									</div>
+								<a href="<?php echo esc_url( get_permalink( $service ) ); ?>" class="mega-menu__item mega-menu__item--<?php echo esc_attr( $tone ); ?>">
+									<span class="mega-menu__item-icon" aria-hidden="true"><?php echo $icon; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
+									<span class="mega-menu__item-body">
+										<span class="mega-menu__item-title"><?php echo esc_html( $title ); ?></span>
+										<span class="mega-menu__item-desc"><?php echo esc_html( $desc ); ?></span>
+									</span>
 								</a>
 								<?php endforeach; ?>
 							</div>
 							<div class="mega-menu__footer">
-								<a href="<?php echo esc_url( get_post_type_archive_link( 'service' ) ); ?>" class="mega-menu__all-link">
-									View All Services
+								<a href="<?php echo esc_url( get_post_type_archive_link( 'service' ) ?: home_url( '/services/' ) ); ?>" class="mega-menu__all-link">
+									View all services
 									<svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
 								</a>
 							</div>
@@ -164,18 +260,18 @@
 			</ul>
 		</nav>
 
-		<!-- CTA Button -->
-		<div class="navbar__cta">
-			<button type="button" class="btn btn--primary btn--sm" id="navbar-cta-btn" onclick="document.getElementById('quick-contact-modal').classList.add('is-open')">
-				Get Started
-				<svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+		<!-- Right actions -->
+		<div class="navbar__right">
+			<div class="navbar__cta">
+				<button type="button" class="btn btn--primary btn--sm" id="navbar-cta-btn" onclick="document.getElementById('quick-contact-modal').classList.add('is-open')">
+					Get Started
+					<svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+				</button>
+			</div>
+			<button class="navbar__hamburger" id="mobile-menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+				<span></span><span></span><span></span>
 			</button>
 		</div>
-
-		<!-- Mobile Hamburger -->
-		<button class="navbar__hamburger" id="mobile-menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
-			<span></span><span></span><span></span>
-		</button>
 
 	</div>
 </header>
@@ -187,14 +283,16 @@
 	<div class="mobile-menu__header">
 		<a href="<?php echo esc_url( home_url('/') ); ?>" class="navbar__logo">
 			<img
-				src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/logo-concept-1.png' ); ?>"
-				alt="SearchEngineOptimization.ae"
+				src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/logo-mark.png' ); ?>"
+				srcset="<?php echo esc_url( get_template_directory_uri() . '/assets/images/logo-mark.png' ); ?> 1x, <?php echo esc_url( get_template_directory_uri() . '/assets/images/logo-mark@2x.png' ); ?> 2x"
+				alt="SearchEngineOptimization.ae logo"
 				class="navbar__logo-img"
-				width="36"
-				height="36"
+				width="40"
+				height="40"
+				decoding="async"
 			/>
 			<div class="navbar__logo-text">
-				<span class="navbar__logo-name" style="font-size:.95rem;">SearchEngine<span class="text-primary">Optimization.ae</span></span>
+				<span class="navbar__logo-name">SearchEngine<span class="text-primary">Optimization.ae</span></span>
 			</div>
 		</a>
 		<button class="mobile-menu__close" id="mobile-menu-close" aria-label="Close menu">

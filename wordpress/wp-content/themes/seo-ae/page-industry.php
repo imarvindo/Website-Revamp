@@ -6,7 +6,13 @@
 
 $industry     = get_field('industry_name')    ?: get_the_title();
 $industry_adj = get_field('industry_adj')     ?: $industry;
-$icon         = get_field('industry_icon')    ?: '🏢';
+$icon         = get_field('industry_icon')    ?: '';
+if ( is_string( $icon ) ) {
+	$icon = preg_replace( '/[\x{1F300}-\x{1FAFF}\x{2600}-\x{27BF}\x{FE0F}\x{200D}]/u', '', $icon );
+}
+if ( $icon === '' ) {
+	$icon = '<svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#0FB4D9" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg>';
+}
 $the_content  = get_the_content();
 $faqs         = get_post_meta( get_the_ID(), 'location_faqs', true ) ?: [];
 if ( ! is_array($faqs) ) {
@@ -92,11 +98,11 @@ get_header();
 		<div class="why-grid" style="margin-top:2.5rem;">
 			<?php
 			$points = [
-				['title'=>$industry.' Keyword Research','desc'=>'We identify the exact search terms your potential '.$industry.' clients use — then build content that captures them.'],
+				['title'=>$industry.' Keyword Research','desc'=>'We identify the exact search terms your potential '.$industry.' clients use, then build content that captures them.'],
 				['title'=>'Competitor Intelligence','desc'=>'We analyse every UAE '.$industry.' competitor ranking above you and reverse-engineer their strategy.'],
 				['title'=>'Content That Converts','desc'=>'Industry-specific content written by SEO experts who understand the UAE '.$industry.' market.'],
-				['title'=>'Technical SEO','desc'=>'Full technical audit and implementation — site speed, schema markup, Core Web Vitals, mobile optimisation.'],
-				['title'=>'Local & National Rankings','desc'=>'Whether you\'re targeting Dubai, Abu Dhabi, or all of UAE — we build the right strategy for your coverage area.'],
+				['title'=>'Technical SEO','desc'=>'Full technical audit and implementation: site speed, schema markup, Core Web Vitals, mobile optimisation.'],
+				['title'=>'Local & National Rankings','desc'=>'Whether you\'re targeting Dubai, Abu Dhabi, or all of UAE, we build the right strategy for your coverage area.'],
 				['title'=>'ROI-Focused Reporting','desc'=>'Monthly reports showing keyword rankings, organic traffic, leads generated, and revenue attribution.'],
 			];
 			foreach ($points as $p) : ?>
