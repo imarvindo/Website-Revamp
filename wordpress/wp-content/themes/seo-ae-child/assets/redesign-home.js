@@ -142,4 +142,28 @@
       }
     });
   });
+
+  /* ---- Sticky conversion CTA ---- */
+  var sticky = root.querySelector('[data-rh-sticky-cta]');
+  if (sticky) {
+    sticky.hidden = false;
+    var hero = root.querySelector('.rh-hero, .rs-hero');
+    var finalCta = root.querySelector('.rh-final, .rh-convert--band');
+    function updateSticky() {
+      var pastHero = true;
+      if (hero) {
+        var hr = hero.getBoundingClientRect();
+        pastHero = hr.bottom < 80;
+      }
+      var nearFinal = false;
+      if (finalCta) {
+        var fr = finalCta.getBoundingClientRect();
+        nearFinal = fr.top < window.innerHeight - 40;
+      }
+      sticky.classList.toggle('is-visible', pastHero && !nearFinal);
+    }
+    window.addEventListener('scroll', updateSticky, { passive: true });
+    window.addEventListener('resize', updateSticky);
+    updateSticky();
+  }
 })();

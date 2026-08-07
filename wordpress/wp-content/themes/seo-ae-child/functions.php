@@ -11,6 +11,9 @@
  *  • Demo Importer           → Appearance → Import Demo one-click importer
  */
 
+// Shared conversion layout helpers.
+require_once get_stylesheet_directory() . '/includes/conversion-blocks.php';
+
 // ── 1. Enqueue parent + child stylesheets ────────────────────────────────────
 add_action( 'wp_enqueue_scripts', function () {
     // Parent main stylesheet
@@ -29,8 +32,13 @@ add_action( 'wp_enqueue_scripts', function () {
         wp_get_theme()->get( 'Version' )
     );
 
-    // ── Redesign assets (homepage + single service pages) ───────────────────
-    if ( is_front_page() || is_singular( 'service' ) ) {
+    // ── Redesign assets (homepage, services, about, contact) ─────────────────
+    $use_redesign = is_front_page()
+        || is_singular( 'service' )
+        || is_page( [ 'services', 'about', 'about-us', 'contact' ] )
+        || is_page_template( [ 'page-services.php', 'page-about.php', 'page-contact.php' ] );
+
+    if ( $use_redesign ) {
         wp_enqueue_style(
             'seoae-inter',
             'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap',

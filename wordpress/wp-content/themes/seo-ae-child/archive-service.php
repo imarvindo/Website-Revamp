@@ -1,7 +1,6 @@
 <?php
 /**
- * Services archive/overview — conversion-focused redesign.
- * Template Name: Services Page
+ * Service CPT archive — conversion-focused redesign.
  */
 get_header();
 
