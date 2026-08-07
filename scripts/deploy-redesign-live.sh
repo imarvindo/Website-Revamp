@@ -75,6 +75,9 @@ echo "$LOCAL_SUMS"
 echo "$REMOTE_SUMS"
 diff -u <(echo "$LOCAL_SUMS") <(echo "$REMOTE_SUMS") >/dev/null
 
+echo "==> Activating child theme (required for redesign templates)"
+"${SSH[@]}" "cd '${REMOTE_ROOT}' && wp theme activate seo-ae-child"
+
 echo "==> Flushing WordPress caches"
 "${SSH[@]}" "cd '${REMOTE_ROOT}' && wp cache flush && wp rewrite flush"
 

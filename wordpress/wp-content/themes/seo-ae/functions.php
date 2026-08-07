@@ -6,15 +6,21 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-define( 'SEOAE_VERSION', '1.2.0' );
+if ( ! defined( 'SEOAE_VERSION' ) ) {
+	define( 'SEOAE_VERSION', '1.2.0' );
+}
 
 // SEO growth foundations: auto IndexNow, CTAs, EEAT, linking helpers.
 require_once get_template_directory() . '/inc/seo-growth.php';
 
 // Prevent WordPress from converting hyphens into en/em dashes in public content.
 add_filter( 'run_wptexturize', '__return_false' );
-define( 'SEOAE_DIR', get_template_directory() );
-define( 'SEOAE_URI', get_template_directory_uri() );
+if ( ! defined( 'SEOAE_DIR' ) ) {
+	define( 'SEOAE_DIR', get_template_directory() );
+}
+if ( ! defined( 'SEOAE_URI' ) ) {
+	define( 'SEOAE_URI', get_template_directory_uri() );
+}
 
 // ─────────────────────────────────────────────────────────────────────────────
 // 1. THEME SETUP
