@@ -1,7 +1,7 @@
 <?php
 /**
  * Template Name: Abu Dhabi Location Page
- * Abu Dhabi SEO agency landing page — targets "SEO agency Abu Dhabi",
+ * Abu Dhabi SEO agency landing page  -  targets "SEO agency Abu Dhabi",
  * "digital marketing Abu Dhabi", "SEO company Abu Dhabi" and geo-modified queries.
  */
 get_header();
@@ -10,7 +10,7 @@ get_header();
 $schema_org = [
 	'@context' => 'https://schema.org',
 	'@type'    => ['LocalBusiness','ProfessionalService','MarketingAgency'],
-	'name'     => 'SearchEngineOptimization.ae — Abu Dhabi SEO Agency',
+	'name'     => 'SearchEngineOptimization.ae  -  Abu Dhabi SEO Agency',
 	'alternateName' => ['SEO Agency Abu Dhabi','Digital Marketing Agency Abu Dhabi','SEO Company Abu Dhabi'],
 	'description'   => "Abu Dhabi's leading SEO and digital marketing agency. We help Abu Dhabi businesses dominate Google search, attract high-intent traffic, and convert visitors into customers. Enterprise SEO, PPC, social media, and web design tailored to the Abu Dhabi market.",
 	'url'      => get_permalink(get_the_ID()),
@@ -47,7 +47,7 @@ $city_faqs = [
 	],
 	[
 		'question' => 'How long does SEO take to show results for an Abu Dhabi business?',
-		'answer'   => 'Most Abu Dhabi businesses see measurable ranking improvements within 60–90 days. Meaningful organic traffic growth typically follows in months 3–6. Competitive sectors such as government services, real estate, finance, and legal services may require 6–12 months for top-3 Google positions. Local and long-tail keyword wins often appear within the first 30 days.',
+		'answer'   => 'Most Abu Dhabi businesses see measurable ranking improvements within 60-90 days. Meaningful organic traffic growth typically follows in months 3-6. Competitive sectors such as government services, real estate, finance, and legal services may require 6-12 months for top-3 Google positions. Local and long-tail keyword wins often appear within the first 30 days.',
 	],
 	[
 		'question' => 'Do you provide Arabic SEO for Abu Dhabi businesses?',
@@ -67,15 +67,15 @@ $city_faqs = [
 	],
 	[
 		'question' => 'Do you run Google Ads (PPC) campaigns in Abu Dhabi?',
-		'answer'   => 'Yes. We offer fully managed Google Ads and Meta Ads campaigns precisely targeted at Abu Dhabi audiences and buyer intent. Our PPC service complements SEO — capturing immediate traffic while organic rankings build. Abu Dhabi clients often combine both services as an integrated growth package.',
+		'answer'   => 'Yes. We offer fully managed Google Ads and Meta Ads campaigns precisely targeted at Abu Dhabi audiences and buyer intent. Our PPC service complements SEO  -  capturing immediate traffic while organic rankings build. Abu Dhabi clients often combine both services as an integrated growth package.',
 	],
 	[
 		'question' => 'How do I get a free SEO audit for my Abu Dhabi website?',
-		'answer'   => 'Fill in the contact form on this page or email sales@searchengineoptimization.ae. Our team will conduct a full technical, on-page, and keyword audit of your site and deliver a personalised report within 48 hours — no obligation, no sales pressure.',
+		'answer'   => 'Fill in the contact form on this page or email sales@searchengineoptimization.ae. Our team will conduct a full technical, on-page, and keyword audit of your site and deliver a personalised report within 48 hours  -  no obligation, no sales pressure.',
 	],
 	[
 		'question' => 'Can you optimise our site for Abu Dhabi and Dubai simultaneously?',
-		'answer'   => 'Yes. Many of our clients are UAE-wide businesses that need to rank in both Abu Dhabi and Dubai. We build a geo-targeted content architecture with separate city landing pages, dual Google Business Profile management, and emirate-specific keyword targeting — all from a single unified SEO strategy.',
+		'answer'   => 'Yes. Many of our clients are UAE-wide businesses that need to rank in both Abu Dhabi and Dubai. We build a geo-targeted content architecture with separate city landing pages, dual Google Business Profile management, and emirate-specific keyword targeting  -  all from a single unified SEO strategy.',
 	],
 	[
 		'question' => 'Why choose SearchEngineOptimization.ae over other Abu Dhabi SEO agencies?',
@@ -118,7 +118,7 @@ echo '<script type="application/ld+json">' . wp_json_encode([
 					<br><span style="color:var(--color-primary,#16B1D4);">Drive Local Search Growth</span>
 				</h1>
 				<p style="color:rgba(255,255,255,.78);font-size:1.075rem;max-width:520px;line-height:1.7;margin-bottom:2.25rem;">
-					Abu Dhabi generates <strong style="color:#fff;">2.4M+ monthly Google searches</strong> for local products and services. We help Abu Dhabi businesses rank higher, capture that traffic, and convert visitors into paying customers — with transparent monthly pricing and no lock-in contracts.
+					Abu Dhabi generates <strong style="color:#fff;">2.4M+ monthly Google searches</strong> for local products and services. We help Abu Dhabi businesses rank higher, capture that traffic, and convert visitors into paying customers  -  with transparent monthly pricing and no lock-in contracts.
 				</p>
 				<div style="display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:2rem;">
 					<a href="<?php echo esc_url(home_url('/contact/')); ?>" class="btn btn--primary btn--lg">Get Free Abu Dhabi SEO Audit →</a>
@@ -156,7 +156,7 @@ echo '<script type="application/ld+json">' . wp_json_encode([
 						<div style="font-size:.65rem;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.4);margin-top:.2rem;">To Page 1 Rankings</div>
 					</div>
 					<div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:1.1rem;text-align:center;">
-						<div style="font-size:1.5rem;font-weight:800;color:#fff;">4.9★</div>
+						<div style="font-size:1.5rem;font-weight:800;color:#fff;">4.9</div>
 						<div style="font-size:.65rem;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.4);margin-top:.2rem;">Google Rating</div>
 					</div>
 					<div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:1.1rem;text-align:center;">
@@ -206,7 +206,7 @@ echo '<script type="application/ld+json">' . wp_json_encode([
 				[
 					'icon' => '<svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>',
 					'title' => 'Transparent Reporting',
-					'desc'  => 'Weekly rank tracking, monthly strategy calls, and a live dashboard showing exactly how your Abu Dhabi SEO is performing — no vanity metrics, only revenue-relevant data.',
+					'desc'  => 'Weekly rank tracking, monthly strategy calls, and a live dashboard showing exactly how your Abu Dhabi SEO is performing  -  no vanity metrics, only revenue-relevant data.',
 				],
 				[
 					'icon' => '<svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>',
@@ -233,7 +233,7 @@ echo '<script type="application/ld+json">' . wp_json_encode([
 			$local_stats = [
 				['num' => '2.4M+', 'label' => 'Abu Dhabi monthly Google searches'],
 				['num' => '99%',   'label' => 'UAE internet penetration rate'],
-				['num' => '#1',    'label' => 'Abu Dhabi — UAE capital & government hub'],
+				['num' => '#1',    'label' => 'Abu Dhabi  -  UAE capital & government hub'],
 				['num' => '1.5M',  'label' => 'Abu Dhabi population actively searching online'],
 			];
 			foreach ($local_stats as $s) : ?>
@@ -253,7 +253,7 @@ echo '<script type="application/ld+json">' . wp_json_encode([
 			<?php seoae_section_label('Our Services in Abu Dhabi'); ?>
 			<h2>Complete SEO &amp; Digital Marketing Services in Abu Dhabi</h2>
 			<p class="section-header__desc" style="max-width:540px;margin-left:auto;margin-right:auto;">
-				From technical SEO to AI search optimisation — every service tuned to Abu Dhabi's unique search landscape and enterprise market.
+				From technical SEO to AI search optimisation  -  every service tuned to Abu Dhabi's unique search landscape and enterprise market.
 			</p>
 		</div>
 		<div class="services-grid" style="margin-top:2.5rem;">
@@ -263,7 +263,7 @@ echo '<script type="application/ld+json">' . wp_json_encode([
 					'icon'  => '<svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>',
 					'title' => 'Search Engine Optimisation',
 					'url'   => '/services/search-engine-optimization/',
-					'desc'  => 'Full-service SEO strategy to dominate Abu Dhabi Google results — technical, on-page, and off-page.',
+					'desc'  => 'Full-service SEO strategy to dominate Abu Dhabi Google results  -  technical, on-page, and off-page.',
 				],
 				[
 					'icon'  => '<svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>',
@@ -352,9 +352,9 @@ echo '<script type="application/ld+json">' . wp_json_encode([
 			<?php
 			$steps = [
 				['num'=>'01','title'=>'Free SEO Audit','desc'=>'We analyse your site\'s current rankings, technical health, content gaps, and competitive position in Abu Dhabi\'s search landscape.'],
-				['num'=>'02','title'=>'Abu Dhabi Keyword Research','desc'=>'We identify the exact queries Abu Dhabi customers use to find businesses like yours — including Arabic search terms and government-sector keywords your competitors are missing.'],
+				['num'=>'02','title'=>'Abu Dhabi Keyword Research','desc'=>'We identify the exact queries Abu Dhabi customers use to find businesses like yours  -  including Arabic search terms and government-sector keywords your competitors are missing.'],
 				['num'=>'03','title'=>'Strategy & Roadmap','desc'=>'A clear 90-day roadmap with prioritised actions, traffic projections, and revenue goals specific to your Abu Dhabi target market.'],
-				['num'=>'04','title'=>'Implementation','desc'=>'Senior specialists execute technical fixes, on-page optimisation, bilingual Arabic/English content creation, and targeted link building — fast and with full QA.'],
+				['num'=>'04','title'=>'Implementation','desc'=>'Senior specialists execute technical fixes, on-page optimisation, bilingual Arabic/English content creation, and targeted link building  -  fast and with full QA.'],
 				['num'=>'05','title'=>'Track & Report','desc'=>'Weekly rank tracking, monthly performance calls, and a live dashboard. You always know exactly where you stand in Abu Dhabi search results.'],
 				['num'=>'06','title'=>'Compound & Scale','desc'=>'As rankings and domain authority build, we identify new keyword opportunities and scale the channels delivering the highest ROI for your Abu Dhabi business.'],
 			];
@@ -407,7 +407,7 @@ echo '<script type="application/ld+json">' . wp_json_encode([
 	<div class="container" style="max-width:800px;">
 		<div class="section-header section-header--center">
 			<?php seoae_section_label('FAQ'); ?>
-			<h2>Frequently Asked Questions — SEO Agency Abu Dhabi</h2>
+			<h2>Frequently Asked Questions  -  SEO Agency Abu Dhabi</h2>
 			<p class="section-header__desc" style="max-width:520px;margin-left:auto;margin-right:auto;">
 				Everything Abu Dhabi businesses want to know before starting an SEO campaign.
 			</p>

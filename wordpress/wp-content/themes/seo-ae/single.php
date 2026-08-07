@@ -45,7 +45,9 @@ while (have_posts()) : the_post();
 
 			<!-- Main Content -->
 			<div class="post-content">
-				<?php if ($thumb) : ?><img src="<?php echo esc_url($thumb); ?>" alt="<?php the_title_attribute(); ?>" style="border-radius:16px;margin-bottom:2rem;"><?php endif; ?>
+				<?php if ($thumb) : ?><img src="<?php echo esc_url($thumb); ?>" alt="<?php the_title_attribute(); ?>" width="1200" height="675" loading="eager" decoding="async" style="border-radius:16px;margin-bottom:2rem;aspect-ratio:16/9;object-fit:cover;width:100%;height:auto;"><?php endif; ?>
+
+				<?php if ( function_exists( 'seoae_eeat_byline' ) ) { seoae_eeat_byline(); } ?>
 
 				<?php if ($key_taks) : ?>
 				<div style="background:rgba(22,177,212,.07);border:1px solid rgba(22,177,212,.2);border-radius:12px;padding:1.5rem;margin-bottom:2rem;">
@@ -123,6 +125,11 @@ while (have_posts()) : the_post();
 	</div>
 </div>
 
-<?php seoae_cta_dark(); ?>
-
-<?php endwhile; get_footer(); ?>
+<?php
+if ( function_exists( 'seoae_related_links_module' ) ) {
+	seoae_related_links_module( 'Continue exploring — services, locations & case studies' );
+}
+seoae_cta_dark();
+endwhile;
+get_footer();
+?>

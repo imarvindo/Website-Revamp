@@ -1,17 +1,17 @@
 <?php
 /**
- * Homepage Template — SearchEngineOptimization.ae
+ * Homepage Template  -  SearchEngineOptimization.ae
  */
 get_header();
 
 $hero_badge       = get_field('hero_badge_text','option')    ?: "UAE's Leading SEO & Digital Marketing Agency";
 $hero_headline    = get_field('hero_headline','option')      ?: "Turn Search Visibility Into\nBusiness Growth";
-$hero_sub         = get_field('hero_subheadline','option')   ?: "We help UAE and GCC businesses dominate organic search, capture high-intent traffic, and convert visitors into qualified leads — backed by data, not guesswork.";
+$hero_sub         = get_field('hero_subheadline','option')   ?: "We help UAE and GCC businesses dominate organic search, capture high-intent traffic, and convert visitors into qualified leads  -  backed by data, not guesswork.";
 $hero_cta_primary = get_field('hero_cta_primary','option')   ?: 'Get Your Free SEO Audit';
 $hero_cta_primary_url = get_field('hero_cta_primary_url','option') ?: '/contact/';
 $hero_cta_sec     = get_field('hero_cta_secondary','option') ?: 'View Our Results';
 $hero_cta_sec_url = get_field('hero_cta_secondary_url','option') ?: '/case-studies/';
-// Brand-authoritative stats — hardcoded as single source of truth.
+// Brand-authoritative stats  -  hardcoded as single source of truth.
 // Update these values here when the agency's real numbers change.
 $hero_stats = [
 	['stat_prefix' => '+', 'stat_value' => '206', 'stat_suffix' => '%',  'stat_label' => 'AVG. ROI INCREASE'],
@@ -43,8 +43,17 @@ $case_studies = new WP_Query(['post_type'=>'case_study','posts_per_page'=>4,'pos
 			</div>
 
 			<h1 class="hero-wow__title">
-				Turn Search Visibility Into<br>
-				<span class="hero-wow__highlight">Business Growth</span>
+				<?php
+				$hl_lines = preg_split( '/\r\n|\r|\n/', (string) $hero_headline );
+				if ( count( $hl_lines ) > 1 ) {
+					$last = array_pop( $hl_lines );
+					echo esc_html( implode( ' ', $hl_lines ) ) . '<br>';
+					echo '<span class="hero-wow__highlight">' . esc_html( $last ) . '</span>';
+				} else {
+					// Default expressive split matching brand hero.
+					echo 'Turn Search Visibility Into<br><span class="hero-wow__highlight">Business Growth</span>';
+				}
+				?>
 			</h1>
 
 			<p class="hero-wow__desc"><?php echo esc_html($hero_sub); ?></p>
@@ -69,96 +78,89 @@ $case_studies = new WP_Query(['post_type'=>'case_study','posts_per_page'=>4,'pos
 			</div>
 		</div>
 
-		<!-- RIGHT: Analytics Dashboard Widget -->
+		<!-- RIGHT: Live analytics dashboard (visual mock matching React design) -->
 		<div class="hero-wow__right" aria-hidden="true">
-			<div class="hero-dashboard">
-
-				<!-- AI Visibility row -->
-				<div class="hero-dashboard__ai-row">
-					<span class="hero-dashboard__ai-label">AI VISIBILITY</span>
-					<span class="hero-dashboard__chip hero-dashboard__chip--navy">ChatGPT ✓</span>
-					<span class="hero-dashboard__chip hero-dashboard__chip--cyan">Perplexity ✓</span>
-				</div>
-
-				<!-- Organic header -->
-				<div class="hero-dashboard__organic">
-					<div>
-						<div class="hero-dashboard__micro-label">ORGANIC VISIBILITY</div>
-						<div class="hero-dashboard__domain">SearchBrand.ae</div>
+			<div class="hero-dashboard hero-dashboard--live">
+				<div class="hero-dashboard__header">
+					<div class="hero-dashboard__header-left">
+						<span class="hero-dashboard__live-icon" aria-hidden="true">
+							<svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+						</span>
+						<span class="hero-dashboard__header-title">Live SEO Dashboard</span>
 					</div>
-					<div class="hero-dashboard__growth-pill">↑ +218%</div>
+					<div class="hero-dashboard__live-pill">
+						<span class="hero-dashboard__live-dot"></span>
+						Live
+					</div>
 				</div>
 
-				<!-- Chart -->
-				<div class="hero-dashboard__chart">
-					<svg viewBox="0 0 340 80" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+				<div class="hero-dashboard__chart-block">
+					<div class="hero-dashboard__chart-top">
+						<span>Organic Traffic</span>
+						<span class="hero-dashboard__chart-delta">↑ +127% this quarter</span>
+					</div>
+					<svg class="hero-dashboard__spark" viewBox="0 0 220 64" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
 						<defs>
-							<linearGradient id="chartFill" x1="0" y1="0" x2="0" y2="1">
-								<stop offset="0%" stop-color="#16B1D4" stop-opacity="0.25"/>
+							<linearGradient id="chartGradLive" x1="0" y1="0" x2="0" y2="1">
+								<stop offset="0%" stop-color="#16B1D4" stop-opacity="0.4"/>
 								<stop offset="100%" stop-color="#16B1D4" stop-opacity="0"/>
 							</linearGradient>
 						</defs>
-						<path d="M0,72 C30,68 55,63 80,57 C105,51 130,42 160,31 C185,22 210,15 240,10 C265,6 295,4 340,3"
-							stroke="#16B1D4" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-						<path d="M0,72 C30,68 55,63 80,57 C105,51 130,42 160,31 C185,22 210,15 240,10 C265,6 295,4 340,3 L340,80 L0,80 Z"
-							fill="url(#chartFill)"/>
-						<!-- Dot at peak -->
-						<circle cx="310" cy="3.8" r="4" fill="#16B1D4"/>
-						<circle cx="310" cy="3.8" r="7" fill="#16B1D4" fill-opacity="0.2"/>
+						<!-- Points mapped from sample traffic series: 42,55,48,70,83,97,108,134 -->
+						<polygon points="0,64 0,41.7 31.4,36.6 62.9,39.4 94.3,30.8 125.7,25.7 157.1,20.3 188.6,16.0 220,5.9 220,64" fill="url(#chartGradLive)"/>
+						<polyline points="0,41.7 31.4,36.6 62.9,39.4 94.3,30.8 125.7,25.7 157.1,20.3 188.6,16.0 220,5.9" fill="none" stroke="#16B1D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+						<circle cx="220" cy="5.9" r="3.5" fill="#16B1D4"/>
 					</svg>
 					<div class="hero-dashboard__chart-months">
-						<span>Jan</span><span>Mar</span><span>May</span><span>Jul</span><span>Sep</span><span>Nov</span>
+						<span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span>
 					</div>
 				</div>
 
-				<!-- Stats row -->
-				<div class="hero-dashboard__stats">
-					<div class="hero-dashboard__stat">
-						<div class="hero-dashboard__stat-val">847</div>
-						<div class="hero-dashboard__stat-lbl">PAGE-1 RANKINGS</div>
-						<div class="hero-dashboard__stat-delta">+234 new</div>
+				<div class="hero-dashboard__metrics">
+					<div>
+						<div class="hero-dashboard__metric-val">28.4K</div>
+						<div class="hero-dashboard__metric-lbl">Sessions</div>
 					</div>
-					<div class="hero-dashboard__stat">
-						<div class="hero-dashboard__stat-val">28.4K</div>
-						<div class="hero-dashboard__stat-lbl">MONTHLY TRAFFIC</div>
-						<div class="hero-dashboard__stat-delta">+215%</div>
+					<div>
+						<div class="hero-dashboard__metric-val">847</div>
+						<div class="hero-dashboard__metric-lbl">Page-1 KWs</div>
 					</div>
-					<div class="hero-dashboard__stat">
-						<div class="hero-dashboard__stat-val">142</div>
-						<div class="hero-dashboard__stat-lbl">LEADS / MONTH</div>
-						<div class="hero-dashboard__stat-delta">4.2x ROI</div>
+					<div>
+						<div class="hero-dashboard__metric-val">4.2x</div>
+						<div class="hero-dashboard__metric-lbl">ROI</div>
 					</div>
 				</div>
 
-				<!-- Top keyword positions -->
-				<div class="hero-dashboard__kw-head">TOP KEYWORD POSITIONS</div>
+				<div class="hero-dashboard__kw-head">Keyword Rankings</div>
 				<div class="hero-dashboard__kw-list">
 					<div class="hero-dashboard__kw">
 						<span class="hero-dashboard__kw-pos">#1</span>
 						<span class="hero-dashboard__kw-name">SEO agency Dubai</span>
-						<span class="hero-dashboard__kw-up">+12</span>
+						<span class="hero-dashboard__kw-up">+3</span>
 					</div>
 					<div class="hero-dashboard__kw">
 						<span class="hero-dashboard__kw-pos">#2</span>
-						<span class="hero-dashboard__kw-name">SEO services UAE</span>
-						<span class="hero-dashboard__kw-up">+8</span>
+						<span class="hero-dashboard__kw-name">Google Ads UAE</span>
+						<span class="hero-dashboard__kw-up">+5</span>
 					</div>
 					<div class="hero-dashboard__kw">
-						<span class="hero-dashboard__kw-pos">#1</span>
-						<span class="hero-dashboard__kw-name">local SEO Abu Dhabi</span>
-						<span class="hero-dashboard__kw-up">+15</span>
+						<span class="hero-dashboard__kw-pos">#4</span>
+						<span class="hero-dashboard__kw-name">digital marketing Dubai</span>
+						<span class="hero-dashboard__kw-up">+2</span>
+					</div>
+					<div class="hero-dashboard__kw">
+						<span class="hero-dashboard__kw-pos">#6</span>
+						<span class="hero-dashboard__kw-name">web design Abu Dhabi</span>
+						<span class="hero-dashboard__kw-down">-1</span>
 					</div>
 				</div>
 
-				<!-- Google Maps badge -->
 				<div class="hero-dashboard__maps">
 					<span class="hero-dashboard__maps-label">GOOGLE MAPS</span>
-					<span class="hero-dashboard__maps-val">#1 UAE Local Pack ✓</span>
+					<span class="hero-dashboard__maps-val">#1 UAE Local Pack</span>
 				</div>
+			</div>
 
-			</div><!-- /.hero-dashboard -->
-
-			<!-- Floating accent cards -->
 			<div class="hero-float hero-float--tl">
 				<svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
 				<span>+318% organic traffic</span>
@@ -167,7 +169,6 @@ $case_studies = new WP_Query(['post_type'=>'case_study','posts_per_page'=>4,'pos
 				<svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
 				<span>Ranked #1 in 48 hrs</span>
 			</div>
-
 		</div><!-- /.hero-wow__right -->
 	</div><!-- /.hero-wow__inner -->
 </section>
@@ -203,7 +204,7 @@ $case_studies = new WP_Query(['post_type'=>'case_study','posts_per_page'=>4,'pos
 		<div class="section-header section-header--center">
 			<?php seoae_section_label('Our Services'); ?>
 			<h2 class="section-header__title">Enterprise Digital Marketing Solutions</h2>
-			<p class="section-header__desc">From AI-driven SEO to high-converting web development — everything your business needs to dominate online.</p>
+			<p class="section-header__desc">From AI-driven SEO to high-converting web development  -  everything your business needs to dominate online.</p>
 		</div>
 		<div class="services-grid">
 			<?php foreach ($services as $svc) :
@@ -231,7 +232,7 @@ $case_studies = new WP_Query(['post_type'=>'case_study','posts_per_page'=>4,'pos
 		<div class="section-header">
 			<?php seoae_section_label('UAE Coverage'); ?>
 			<h2 class="section-header__title">Search Specialists Across Every Emirate</h2>
-			<p class="section-header__desc" style="max-width:560px;">From Dubai's hypercompetitive commercial market to Fujairah's port-city B2B sector — we deliver measurable search results in every UAE market.</p>
+			<p class="section-header__desc" style="max-width:560px;">From Dubai's hypercompetitive commercial market to Fujairah's port-city B2B sector  -  we deliver measurable search results in every UAE market.</p>
 		</div>
 		<div class="uae-grid">
 
@@ -285,7 +286,7 @@ $case_studies = new WP_Query(['post_type'=>'case_study','posts_per_page'=>4,'pos
 					<svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M7 17L17 7M17 7H7M17 7v10"/></svg>
 				</div>
 				<h3 class="uae-card__city">Fujairah</h3>
-				<p class="uae-card__desc">Port-city B2B and tourism SEO for Fujairah's unique dual-market search landscape — maritime, logistics, and hospitality.</p>
+				<p class="uae-card__desc">Port-city B2B and tourism SEO for Fujairah's unique dual-market search landscape  -  maritime, logistics, and hospitality.</p>
 				<span class="uae-card__badge">900K+ monthly searches</span>
 			</a>
 
@@ -307,7 +308,7 @@ $case_studies = new WP_Query(['post_type'=>'case_study','posts_per_page'=>4,'pos
 			['why_icon' => '<svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>',          'why_title' => 'Rapid Execution',        'why_desc' => 'We move faster than your competitors can react. Strategy → execution in days, not months.'],
 			['why_icon' => '<svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>',  'why_title' => 'Guaranteed Transparency', 'why_desc' => 'You own your data. Weekly reports, monthly strategy calls, full dashboard access.'],
 			['why_icon' => '<svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>', 'why_title' => 'Senior-Led Teams',       'why_desc' => 'No juniors. Your account is managed by senior specialists with 8+ years of experience.'],
-			['why_icon' => '<svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>', 'why_title' => 'UAE Market Expertise',   'why_desc' => 'Deep knowledge of the UAE, GCC, and Arabic digital landscape — including bilingual SEO.'],
+			['why_icon' => '<svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>', 'why_title' => 'UAE Market Expertise',   'why_desc' => 'Deep knowledge of the UAE, GCC, and Arabic digital landscape  -  including bilingual SEO.'],
 			['why_icon' => '<svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M9.663 17h4.673M12 3v1m6.364 1.636-.707.707M21 12h-1M4 12H3m3.343-5.657-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>', 'why_title' => 'AI-Search Optimized',    'why_desc' => 'Future-proof strategies covering Google AI Overviews, ChatGPT, Gemini, and Perplexity.'],
 		];
 		?>
@@ -329,7 +330,7 @@ $case_studies = new WP_Query(['post_type'=>'case_study','posts_per_page'=>4,'pos
 		<div class="process-v2__header">
 			<span class="process-v2__label">HOW WE WORK</span>
 			<h2 class="process-v2__title">A Six-Step Methodology<br>Built for Compounding Growth</h2>
-			<p class="process-v2__subtitle">Every engagement follows the same proven framework — systematic, measurable, and designed to outperform your competitors long-term.</p>
+			<p class="process-v2__subtitle">Every engagement follows the same proven framework  -  systematic, measurable, and designed to outperform your competitors long-term.</p>
 		</div>
 
 		<div class="process-v2__grid">
@@ -401,7 +402,7 @@ $case_studies = new WP_Query(['post_type'=>'case_study','posts_per_page'=>4,'pos
 						<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="#16B1D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
 					</div>
 					<h3 class="process-v2__step-title">Compound</h3>
-					<p class="process-v2__step-desc">Build on what works — authority, content, and technical gains compound over time.</p>
+					<p class="process-v2__step-desc">Build on what works  -  authority, content, and technical gains compound over time.</p>
 				</div>
 			</div>
 
@@ -493,11 +494,7 @@ $case_studies = new WP_Query(['post_type'=>'case_study','posts_per_page'=>4,'pos
 			'verified' => get_field('verified',       $t->ID),
 		];
 	}
-	// Split into two rows for the marquee
-	$mid    = (int) ceil(count($testi_cards) / 2);
-	$row1   = array_slice($testi_cards, 0, $mid);
-	$row2   = array_slice($testi_cards, $mid);
-	$feat   = $testi_cards[0]; // Featured = first card
+	$feat = $testi_cards[0]; // Featured = first card
 ?>
 <section class="testi-section">
 
@@ -507,7 +504,7 @@ $case_studies = new WP_Query(['post_type'=>'case_study','posts_per_page'=>4,'pos
 			<div class="testi-trust-stat">
 				<span class="testi-trust-num">4.9</span>
 				<div>
-					<div class="testi-trust-stars">★★★★★</div>
+					<div class="testi-trust-stars"></div>
 					<div class="testi-trust-label">Google Rating</div>
 				</div>
 			</div>
@@ -534,7 +531,7 @@ $case_studies = new WP_Query(['post_type'=>'case_study','posts_per_page'=>4,'pos
 		<div class="testi-header">
 			<?php seoae_section_label('Client Reviews'); ?>
 			<h2 class="testi-header__title">Trusted by UAE's <span class="text-primary">Leading Businesses</span></h2>
-			<p class="testi-header__sub">Real results, real clients — from Dubai startups to enterprise brands across the UAE.</p>
+			<p class="testi-header__sub">Real results from real clients, from Dubai startups to enterprise brands across the UAE.</p>
 		</div>
 
 		<!-- ── Featured testimonial ── -->
@@ -554,19 +551,21 @@ $case_studies = new WP_Query(['post_type'=>'case_study','posts_per_page'=>4,'pos
 		</div>
 	</div>
 
-	<!-- ── Marquee rows ── -->
+	<!-- ── Single-line marquee ── -->
 	<?php
-	// Helper to render one marquee card
-	function seoae_testi_card(array $c): string {
-		$init = esc_html(strtoupper(substr($c['name'],0,1)));
-		$name = esc_html($c['name']);
-		$role = esc_html($c['role'] . ($c['company'] ? ', '.$c['company'] : ''));
-		$quote= esc_html($c['content']);
-		$ver  = $c['verified'];
-		$stars= '';
-		for($i=0;$i<5;$i++) $stars .= '<svg width="13" height="13" viewBox="0 0 24 24" fill="#F59E0B"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>';
-		$verified = $ver ? '<span class="tc-verified"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Verified</span>' : '';
-		return "<div class=\"tc\">
+	if ( ! function_exists( 'seoae_testi_card' ) ) {
+		function seoae_testi_card( array $c ): string {
+			$init = esc_html( strtoupper( substr( $c['name'], 0, 1 ) ) );
+			$name = esc_html( $c['name'] );
+			$role = esc_html( $c['role'] . ( $c['company'] ? ', ' . $c['company'] : '' ) );
+			$quote = esc_html( $c['content'] );
+			$ver  = $c['verified'];
+			$stars = '';
+			for ( $i = 0; $i < 5; $i++ ) {
+				$stars .= '<svg width="13" height="13" viewBox="0 0 24 24" fill="#F59E0B"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>';
+			}
+			$verified = $ver ? '<span class="tc-verified"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Verified</span>' : '';
+			return "<div class=\"tc\">
 			<div class=\"tc__top\"><div class=\"tc__stars\">$stars</div>$verified</div>
 			<p class=\"tc__quote\">\"$quote\"</p>
 			<div class=\"tc__author\">
@@ -574,20 +573,14 @@ $case_studies = new WP_Query(['post_type'=>'case_study','posts_per_page'=>4,'pos
 				<div><p class=\"tc__name\">$name</p><p class=\"tc__role\">$role</p></div>
 			</div>
 		</div>";
+		}
 	}
 	?>
 
-	<div class="testi-marquee">
-		<!-- Row 1 — scrolls left -->
-		<div class="testi-marquee__row" aria-hidden="true">
+	<div class="testi-marquee testi-marquee--single" aria-label="Client testimonials">
+		<div class="testi-marquee__row">
 			<div class="testi-marquee__track testi-marquee__track--ltr">
-				<?php foreach(array_merge($row1,$row1) as $c) echo seoae_testi_card($c); ?>
-			</div>
-		</div>
-		<!-- Row 2 — scrolls right -->
-		<div class="testi-marquee__row" aria-hidden="true">
-			<div class="testi-marquee__track testi-marquee__track--rtl">
-				<?php foreach(array_merge($row2,$row2) as $c) echo seoae_testi_card($c); ?>
+				<?php foreach ( array_merge( $testi_cards, $testi_cards ) as $c ) { echo seoae_testi_card( $c ); } ?>
 			</div>
 		</div>
 	</div>
@@ -645,7 +638,7 @@ $case_studies = new WP_Query(['post_type'=>'case_study','posts_per_page'=>4,'pos
 					Based in Dubai. Serving All UAE Businesses.
 				</h2>
 				<p style="color:rgba(255,255,255,.72);font-size:.9375rem;line-height:1.7;max-width:520px;margin-bottom:0;">
-					Our Dubai office delivers hyper-local SEO campaigns across every district — from Deira to Marina, Business Bay to Downtown. 6M+ monthly Dubai searches are waiting.
+					Our Dubai office delivers hyper-local SEO campaigns across every district  -  from Deira to Marina, Business Bay to Downtown. 6M+ monthly Dubai searches are waiting.
 				</p>
 			</div>
 			<div style="display:flex;flex-direction:column;gap:.75rem;min-width:220px;">
@@ -665,7 +658,7 @@ $case_studies = new WP_Query(['post_type'=>'case_study','posts_per_page'=>4,'pos
 $home_faqs = [
   [
     'q' => 'What are SEO services in Dubai?',
-    'a' => 'SEO services in Dubai help businesses rank higher on Google for searches made by UAE customers. This includes technical audits, on-page optimisation, keyword research, content creation, link building, and local SEO. The goal is to drive qualified organic traffic that converts into leads and revenue — without the ongoing cost of paid advertising.',
+    'a' => 'SEO services in Dubai help businesses rank higher on Google for searches made by UAE customers. This includes technical audits, on-page optimisation, keyword research, content creation, link building, and local SEO. The goal is to drive qualified organic traffic that converts into leads and revenue  -  without the ongoing cost of paid advertising.',
   ],
   [
     'q' => 'Why does my business need SEO in the UAE?',
@@ -673,7 +666,7 @@ $home_faqs = [
   ],
   [
     'q' => 'How long does SEO take to deliver results in the UAE?',
-    'a' => 'Most UAE businesses see measurable ranking improvements within 60–90 days. Meaningful organic traffic growth typically follows between months 3 and 6. Highly competitive sectors — real estate, finance, healthcare, and legal — may require 6–12 months for top-3 Google positions. Local and long-tail keyword wins often appear within the first 30 days of a campaign launch.',
+    'a' => 'Most UAE businesses see measurable ranking improvements within 60-90 days. Meaningful organic traffic growth typically follows between months 3 and 6. Highly competitive sectors  -  real estate, finance, healthcare, and legal  -  may require 6-12 months for top-3 Google positions. Local and long-tail keyword wins often appear within the first 30 days of a campaign launch.',
   ],
   [
     'q' => 'How much do SEO services cost in Dubai?',
@@ -681,35 +674,35 @@ $home_faqs = [
   ],
   [
     'q' => 'Do you provide Local SEO for Dubai and Abu Dhabi businesses?',
-    'a' => 'Yes — local SEO is a core service. We optimise Google Business Profiles, build UAE-specific citation networks, create location-targeted landing pages, and implement local structured data. Our local SEO campaigns target the "near me" and location-modifier searches that drive direct calls, enquiries, and foot traffic for businesses serving specific Dubai or Abu Dhabi areas.',
+    'a' => 'Yes  -  local SEO is a core service. We optimise Google Business Profiles, build UAE-specific citation networks, create location-targeted landing pages, and implement local structured data. Our local SEO campaigns target the "near me" and location-modifier searches that drive direct calls, enquiries, and foot traffic for businesses serving specific Dubai or Abu Dhabi areas.',
   ],
   [
     'q' => 'Can you help my Google Business Profile rank higher?',
-    'a' => 'Absolutely. We optimise every element of your Google Business Profile — categories, services, posts, photos, Q&A, and review management — specifically for UAE map pack rankings. Paired with consistent local citations and geo-targeted content, our GBP optimisation clients regularly enter the Google Maps 3-pack for their primary service categories within 60 days.',
+    'a' => 'Absolutely. We optimise every element of your Google Business Profile  -  categories, services, posts, photos, Q&A, and review management  -  specifically for UAE map pack rankings. Paired with consistent local citations and geo-targeted content, our GBP optimisation clients regularly enter the Google Maps 3-pack for their primary service categories within 60 days.',
   ],
   [
     'q' => 'What industries do you provide SEO services for?',
-    'a' => 'We serve every major UAE industry: real estate, healthcare and clinics, legal and professional services, financial services and fintech, hospitality and tourism, e-commerce and retail, construction, logistics, education, restaurants and F&B, automotive, and technology. Each industry has a distinct search landscape — our sector-specific experience means we skip the learning curve and deliver results from month one.',
+    'a' => 'We serve every major UAE industry: real estate, healthcare and clinics, legal and professional services, financial services and fintech, hospitality and tourism, e-commerce and retail, construction, logistics, education, restaurants and F&B, automotive, and technology. Each industry has a distinct search landscape  -  our sector-specific experience means we skip the learning curve and deliver results from month one.',
   ],
   [
     'q' => 'Do you offer Arabic and English SEO services?',
-    'a' => 'Yes — bilingual Arabic and English SEO is a core offering. We conduct Arabic keyword research, produce native-quality Arabic content written by professional UAE-based writers, and implement hreflang for bilingual sites. In the UAE market, Arabic SEO can double your addressable organic audience and unlock commercially valuable searches your competitors are ignoring entirely.',
+    'a' => 'Yes  -  bilingual Arabic and English SEO is a core offering. We conduct Arabic keyword research, produce native-quality Arabic content written by professional UAE-based writers, and implement hreflang for bilingual sites. In the UAE market, Arabic SEO can double your addressable organic audience and unlock commercially valuable searches your competitors are ignoring entirely.',
   ],
   [
     'q' => "What's included in your monthly SEO packages?",
-    'a' => "Monthly retainers include: dedicated SEO strategist, full technical audit and implementation, keyword research and content strategy, on-page optimisation, content creation, link building outreach, Google Business Profile management, weekly automated rank tracking, and a monthly performance review call. Everything is in one fixed monthly fee — no surprise add-ons for reporting, content, or technical work.",
+    'a' => "Monthly retainers include: dedicated SEO strategist, full technical audit and implementation, keyword research and content strategy, on-page optimisation, content creation, link building outreach, Google Business Profile management, weekly automated rank tracking, and a monthly performance review call. Everything is in one fixed monthly fee  -  no surprise add-ons for reporting, content, or technical work.",
   ],
   [
     'q' => 'Do you optimize websites for Google AI Overviews and ChatGPT?',
-    'a' => 'Yes — AI search optimisation (GEO/AIO) is a dedicated service. We structure your content, implement comprehensive schema markup, and build the entity authority signals that cause AI search engines to cite your brand in generated answers. Appearing in Google AI Overviews, ChatGPT, Perplexity, and Gemini responses is now essential for UAE brand visibility.',
+    'a' => 'Yes  -  AI search optimisation (GEO/AIO) is a dedicated service. We structure your content, implement comprehensive schema markup, and build the entity authority signals that cause AI search engines to cite your brand in generated answers. Appearing in Google AI Overviews, ChatGPT, Perplexity, and Gemini responses is now essential for UAE brand visibility.',
   ],
   [
     'q' => 'How do you measure SEO success and ROI?',
-    'a' => 'We track keyword rankings, organic traffic, organic lead volume, conversion rates, and revenue attribution — not vanity metrics. Every client receives a live dashboard with real-time data, weekly automated rank reports, and monthly strategy calls. We connect SEO performance directly to business outcomes so you always know exactly what your investment is delivering.',
+    'a' => 'We track keyword rankings, organic traffic, organic lead volume, conversion rates, and revenue attribution  -  not vanity metrics. Every client receives a live dashboard with real-time data, weekly automated rank reports, and monthly strategy calls. We connect SEO performance directly to business outcomes so you always know exactly what your investment is delivering.',
   ],
   [
     'q' => 'Why choose SearchEngineOptimization.ae as your UAE SEO agency?',
-    'a' => 'We are a UAE-specialist agency — not a global generalist applying cookie-cutter strategies. We have served 345+ UAE businesses across every major sector, have dedicated market research for every emirate, deliver full bilingual Arabic and English SEO, and focus exclusively on revenue outcomes. No lock-in contracts, transparent pricing, and a track record of measurable organic growth for UAE businesses.',
+    'a' => 'We are a UAE-specialist agency  -  not a global generalist applying cookie-cutter strategies. We have served 345+ UAE businesses across every major sector, have dedicated market research for every emirate, deliver full bilingual Arabic and English SEO, and focus exclusively on revenue outcomes. No lock-in contracts, transparent pricing, and a track record of measurable organic growth for UAE businesses.',
   ],
 ];
 
@@ -740,7 +733,7 @@ $col2 = array_slice($home_faqs, 6);
         Common Questions<br>About SEO in the UAE
       </h2>
       <p class="section-header__desc" style="max-width:520px;margin-left:auto;margin-right:auto;">
-        Everything UAE businesses want to know before starting an SEO campaign — answered clearly.
+        Everything UAE businesses want to know before starting an SEO campaign  -  answered clearly.
       </p>
     </div>
 
@@ -797,7 +790,7 @@ $col2 = array_slice($home_faqs, 6);
 
     <!-- Bottom CTA strip -->
     <div style="text-align:center;margin-top:3rem;padding:2.5rem;background:linear-gradient(135deg,#101A6A 0%,#1a2d8a 100%);border-radius:20px;">
-      <p style="color:rgba(255,255,255,.75);font-size:.9375rem;margin-bottom:1rem;">Still have questions? Talk to a UAE SEO specialist — no sales pressure.</p>
+      <p style="color:rgba(255,255,255,.75);font-size:.9375rem;margin-bottom:1rem;">Still have questions? Talk to a UAE SEO specialist  -  no sales pressure.</p>
       <a href="/contact/" class="btn btn--primary btn--lg" style="background:var(--color-primary,#16B1D4);color:#fff;">Get a Free SEO Consultation →</a>
     </div>
 

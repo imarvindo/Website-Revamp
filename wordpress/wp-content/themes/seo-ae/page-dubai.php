@@ -1,7 +1,7 @@
 <?php
 /**
  * Template Name: Dubai Location Page
- * Dubai SEO agency landing page — targets "SEO agency Dubai", "digital marketing Dubai"
+ * Dubai SEO agency landing page  -  targets "SEO agency Dubai", "digital marketing Dubai"
  * and geo-modified local search queries.
  */
 get_header();
@@ -10,7 +10,7 @@ get_header();
 $schema_org = [
 	'@context' => 'https://schema.org',
 	'@type'    => ['LocalBusiness','ProfessionalService','MarketingAgency'],
-	'name'     => 'SearchEngineOptimization.ae — Dubai SEO Agency',
+	'name'     => 'SearchEngineOptimization.ae  -  Dubai SEO Agency',
 	'alternateName' => ['SEO Agency Dubai','Digital Marketing Agency Dubai'],
 	'description'   => "Dubai's #1 SEO and digital marketing agency. We help Dubai businesses dominate Google search, drive qualified traffic, and convert visitors into customers. Enterprise SEO, PPC, social media, and web design from our Deira, Dubai office.",
 	'url'      => home_url('/dubai/'),
@@ -55,7 +55,7 @@ $dubai_faqs = [
 	],
 	[
 		'question' => 'How long does SEO take to work for a Dubai business?',
-		'answer'   => 'Most Dubai businesses see measurable ranking improvements within 60–90 days. Meaningful organic traffic growth typically follows in months 3–6. Highly competitive sectors such as real estate, finance, and legal may require 6–12 months for top-3 Google positions. Local and long-tail keyword wins often appear within the first 30 days.',
+		'answer'   => 'Most Dubai businesses see measurable ranking improvements within 60-90 days. Meaningful organic traffic growth typically follows in months 3-6. Highly competitive sectors such as real estate, finance, and legal may require 6-12 months for top-3 Google positions. Local and long-tail keyword wins often appear within the first 30 days.',
 	],
 	[
 		'question' => 'Do you offer local SEO for specific Dubai areas like Marina or Business Bay?',
@@ -75,11 +75,11 @@ $dubai_faqs = [
 	],
 	[
 		'question' => 'Do you also run Google Ads (PPC) campaigns in Dubai?',
-		'answer'   => 'Yes. We offer fully managed Google Ads and Meta Ads campaigns targeting Dubai audiences. Our PPC service complements SEO — capturing immediate traffic while organic rankings build. Clients often run both services together as an integrated growth package.',
+		'answer'   => 'Yes. We offer fully managed Google Ads and Meta Ads campaigns targeting Dubai audiences. Our PPC service complements SEO  -  capturing immediate traffic while organic rankings build. Clients often run both services together as an integrated growth package.',
 	],
 	[
 		'question' => 'How do I get a free SEO audit for my Dubai website?',
-		'answer'   => 'Simply fill in the contact form on this page or email sales@searchengineoptimization.ae. Our team will conduct a full technical and keyword audit of your site and deliver a personalised report within 48 hours — no obligation, no sales pressure.',
+		'answer'   => 'Simply fill in the contact form on this page or email sales@searchengineoptimization.ae. Our team will conduct a full technical and keyword audit of your site and deliver a personalised report within 48 hours  -  no obligation, no sales pressure.',
 	],
 	[
 		'question' => 'Where is your Dubai office located?',
@@ -124,7 +124,7 @@ echo '<script type="application/ld+json">' . wp_json_encode([
 					<br><span style="color:var(--color-primary,#16B1D4);">Drive Local Search Growth</span>
 				</h1>
 				<p style="color:rgba(255,255,255,.78);font-size:1.075rem;max-width:520px;line-height:1.7;margin-bottom:2.25rem;">
-					Dubai sees <strong style="color:#fff;">6M+ monthly Google searches</strong> for products and services. We help Dubai businesses rank higher, capture that traffic, and convert visitors into paying customers — with transparent monthly pricing and no lock-in contracts.
+					Dubai sees <strong style="color:#fff;">6M+ monthly Google searches</strong> for products and services. We help Dubai businesses rank higher, capture that traffic, and convert visitors into paying customers  -  with transparent monthly pricing and no lock-in contracts.
 				</p>
 				<div style="display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:2rem;">
 					<a href="<?php echo esc_url(home_url('/contact/')); ?>" class="btn btn--primary btn--lg">Get Free Dubai SEO Audit →</a>
@@ -162,7 +162,7 @@ echo '<script type="application/ld+json">' . wp_json_encode([
 						<div style="font-size:.65rem;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.4);margin-top:.2rem;">To Page 1 Rankings</div>
 					</div>
 					<div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:1.1rem;text-align:center;">
-						<div style="font-size:1.5rem;font-weight:800;color:#fff;">4.9★</div>
+						<div style="font-size:1.5rem;font-weight:800;color:#fff;">4.9</div>
 						<div style="font-size:.65rem;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.4);margin-top:.2rem;">Google Rating</div>
 					</div>
 					<div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:1.1rem;text-align:center;">
@@ -212,7 +212,7 @@ echo '<script type="application/ld+json">' . wp_json_encode([
 				[
 					'icon' => '<svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>',
 					'title' => 'Transparent Reporting',
-					'desc'  => 'Weekly rank tracking, monthly strategy calls, and a live dashboard showing exactly how your Dubai SEO is performing — no vanity metrics, only revenue-relevant data.',
+					'desc'  => 'Weekly rank tracking, monthly strategy calls, and a live dashboard showing exactly how your Dubai SEO is performing  -  no vanity metrics, only revenue-relevant data.',
 				],
 				[
 					'icon' => '<svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>',
@@ -259,7 +259,7 @@ echo '<script type="application/ld+json">' . wp_json_encode([
 			<?php seoae_section_label('Our Services in Dubai'); ?>
 			<h2>Complete SEO &amp; Digital Marketing Services in Dubai</h2>
 			<p class="section-header__desc" style="max-width:540px;margin-left:auto;margin-right:auto;">
-				From technical SEO to AI search optimisation — every service tuned to Dubai's search landscape.
+				From technical SEO to AI search optimisation  -  every service tuned to Dubai's search landscape.
 			</p>
 		</div>
 		<div class="services-grid" style="margin-top:2.5rem;">
@@ -269,7 +269,7 @@ echo '<script type="application/ld+json">' . wp_json_encode([
 					'icon'  => '<svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>',
 					'title' => 'Search Engine Optimisation',
 					'url'   => '/services/search-engine-optimization/',
-					'desc'  => 'Full-service SEO strategy to dominate Dubai Google results — technical, on-page, and off-page.',
+					'desc'  => 'Full-service SEO strategy to dominate Dubai Google results  -  technical, on-page, and off-page.',
 				],
 				[
 					'icon'  => '<svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>',
@@ -328,20 +328,18 @@ echo '<script type="application/ld+json">' . wp_json_encode([
 		<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:1rem;margin-top:2.5rem;">
 			<?php
 			$districts = [
-				// Dedicated sub-pages exist for these four districts
 				['name' => 'Dubai Marina',     'url' => '/dubai/marina/',       'has_page' => true],
 				['name' => 'Business Bay',     'url' => '/dubai/business-bay/', 'has_page' => true],
 				['name' => 'Downtown Dubai',   'url' => '/dubai/downtown/',     'has_page' => true],
 				['name' => 'Deira',            'url' => '/dubai/deira/',        'has_page' => true],
-				// Remaining districts — no dedicated sub-page yet
-				['name' => 'DIFC',             'url' => '/dubai/difc/',         'has_page' => false],
-				['name' => 'JLT',              'url' => '/dubai/jlt/',          'has_page' => false],
-				['name' => 'Jumeirah',         'url' => '/dubai/jumeirah/',     'has_page' => false],
-				['name' => 'Bur Dubai',        'url' => '/dubai/bur-dubai/',    'has_page' => false],
-				['name' => 'Al Quoz',          'url' => '/dubai/al-quoz/',      'has_page' => false],
-				['name' => 'Dubai Hills',      'url' => '/dubai/dubai-hills/',  'has_page' => false],
-				['name' => 'Palm Jumeirah',    'url' => '/dubai/palm-jumeirah/','has_page' => false],
-				['name' => 'Mirdif',           'url' => '/dubai/mirdif/',       'has_page' => false],
+				['name' => 'DIFC',             'url' => '/dubai/difc/',         'has_page' => true],
+				['name' => 'JLT',              'url' => '/dubai/jlt/',          'has_page' => true],
+				['name' => 'Jumeirah',         'url' => '/dubai/jumeirah/',     'has_page' => true],
+				['name' => 'Bur Dubai',        'url' => '/dubai/bur-dubai/',    'has_page' => true],
+				['name' => 'Al Quoz',          'url' => '/dubai/al-quoz/',      'has_page' => true],
+				['name' => 'Dubai Hills',      'url' => '/dubai/dubai-hills/',  'has_page' => true],
+				['name' => 'Palm Jumeirah',    'url' => '/dubai/palm-jumeirah/','has_page' => true],
+				['name' => 'Mirdif',           'url' => '/dubai/mirdif/',       'has_page' => true],
 			];
 			foreach ($districts as $d) :
 				$tag = $d['has_page'] ? 'a' : 'div';
@@ -376,9 +374,9 @@ echo '<script type="application/ld+json">' . wp_json_encode([
 			<?php
 			$steps = [
 				['num'=>'01','title'=>'Free SEO Audit','desc'=>'We analyse your site\'s current rankings, technical health, content gaps, and competitive position in Dubai\'s search landscape.'],
-				['num'=>'02','title'=>'Dubai Keyword Research','desc'=>'We identify the exact queries Dubai customers use to find businesses like yours — including Arabic search terms your competitors are missing.'],
+				['num'=>'02','title'=>'Dubai Keyword Research','desc'=>'We identify the exact queries Dubai customers use to find businesses like yours  -  including Arabic search terms your competitors are missing.'],
 				['num'=>'03','title'=>'Strategy & Roadmap','desc'=>'A clear 90-day roadmap with prioritised actions, traffic projections, and revenue goals specific to your Dubai market.'],
-				['num'=>'04','title'=>'Implementation','desc'=>'Senior specialists execute technical fixes, on-page optimisation, content creation, and link building — fast and with full QA.'],
+				['num'=>'04','title'=>'Implementation','desc'=>'Senior specialists execute technical fixes, on-page optimisation, content creation, and link building  -  fast and with full QA.'],
 				['num'=>'05','title'=>'Track & Report','desc'=>'Weekly rank tracking, monthly performance calls, and a live dashboard. You always know exactly where you stand.'],
 				['num'=>'06','title'=>'Compound & Scale','desc'=>'As rankings and authority build, we identify new opportunities and scale the channels delivering the highest ROI for your Dubai business.'],
 			];
@@ -403,7 +401,7 @@ echo '<script type="application/ld+json">' . wp_json_encode([
 					Visit Our Dubai Office
 				</h2>
 				<p style="color:#6b7280;font-size:.9375rem;line-height:1.7;margin-bottom:1.5rem;">
-					We are conveniently located in Deira, Dubai — one of the emirate's most established business districts. Drop in for a consultation or reach us remotely from anywhere in the UAE.
+					We are conveniently located in Deira, Dubai  -  one of the emirate's most established business districts. Drop in for a consultation or reach us remotely from anywhere in the UAE.
 				</p>
 				<div style="display:flex;flex-direction:column;gap:.875rem;">
 					<div style="display:flex;align-items:flex-start;gap:.875rem;">
@@ -424,7 +422,7 @@ echo '<script type="application/ld+json">' . wp_json_encode([
 						<svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="#16B1D4" stroke-width="2" style="flex-shrink:0;margin-top:.1rem;"><path stroke-linecap="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
 						<div>
 							<p style="font-weight:600;color:#101A6A;font-size:.9rem;margin-bottom:.2rem;">Business Hours</p>
-							<p style="font-size:.875rem;color:#6b7280;">Monday – Friday, 9:00 AM – 6:00 PM</p>
+							<p style="font-size:.875rem;color:#6b7280;">Monday - Friday, 9:00 AM - 6:00 PM</p>
 						</div>
 					</div>
 				</div>
@@ -482,7 +480,7 @@ $gbp = seoae_get_gbp_reviews();
 		$gbp_schema = [
 			'@context'        => 'https://schema.org',
 			'@type'           => 'LocalBusiness',
-			'name'            => 'SearchEngineOptimization.ae — Dubai SEO Agency',
+			'name'            => 'SearchEngineOptimization.ae  -  Dubai SEO Agency',
 			'url'             => home_url( '/dubai/' ),
 			'aggregateRating' => [
 				'@type'       => 'AggregateRating',
@@ -500,11 +498,11 @@ $gbp = seoae_get_gbp_reviews();
 			<?php seoae_section_label('Google Reviews'); ?>
 			<h2>What Our Clients Say on Google</h2>
 			<p class="section-header__desc" style="max-width:540px;margin-left:auto;margin-right:auto;">
-				Real reviews from our Google Business Profile — written by Dubai businesses we have helped grow.
+				Real reviews from our Google Business Profile  -  written by Dubai businesses we have helped grow.
 			</p>
 		</div>
 
-		<!-- Aggregate rating bar — sourced from GBP API -->
+		<!-- Aggregate rating bar  -  sourced from GBP API -->
 		<div style="display:flex;align-items:center;justify-content:center;gap:2rem;flex-wrap:wrap;margin:2rem 0 2.75rem;padding:1.5rem 2rem;background:#fff;border:1.5px solid #e2e8f0;border-radius:18px;max-width:520px;margin-left:auto;margin-right:auto;">
 			<div style="text-align:center;">
 				<div style="font-size:3rem;font-weight:900;color:#101A6A;line-height:1;"><?php echo esc_html( number_format( $gbp_rating, 1 ) ); ?></div>
@@ -519,7 +517,7 @@ $gbp = seoae_get_gbp_reviews();
 			<div>
 				<div style="font-size:1.75rem;font-weight:800;color:#101A6A;line-height:1.1;"><?php echo esc_html( number_format( $gbp_total ) ); ?>+</div>
 				<div style="font-size:.8rem;color:#6b7280;margin-top:.25rem;">Google reviews</div>
-				<!-- Google logo — used only here because data IS from Google -->
+				<!-- Google logo  -  used only here because data IS from Google -->
 				<div style="display:flex;align-items:center;gap:.4rem;margin-top:.5rem;">
 					<svg width="16" height="16" viewBox="0 0 24 24" aria-label="Google"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
 					<span style="font-size:.75rem;color:#6b7280;font-weight:600;">Google Business Profile</span>
@@ -527,7 +525,7 @@ $gbp = seoae_get_gbp_reviews();
 			</div>
 		</div>
 
-		<!-- Review cards — one per GBP review returned by the API (up to 5) -->
+		<!-- Review cards  -  one per GBP review returned by the API (up to 5) -->
 		<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem;">
 			<?php foreach ( $gbp['reviews'] as $rev ) :
 				$stars    = (int) $rev['rating'];
@@ -558,7 +556,7 @@ $gbp = seoae_get_gbp_reviews();
 							<?php endfor; ?>
 						</div>
 					</div>
-					<!-- Google "G" icon per card — data IS from Google -->
+					<!-- Google "G" icon per card  -  data IS from Google -->
 					<svg width="18" height="18" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:.2rem;" aria-label="Google review"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
 				</div>
 				<p style="font-size:.875rem;color:#374151;line-height:1.72;margin:0;flex:1;">
@@ -579,7 +577,7 @@ $gbp = seoae_get_gbp_reviews();
 		</div>
 
 <?php else :
-	// ── B. GBP not yet configured — show a transparent, honest placeholder ──
+	// ── B. GBP not yet configured  -  show a transparent, honest placeholder ──
 	// No fabricated ratings, no fake reviews. Just a clean prompt to configure or visit the profile.
 	$gbp_profile_url = 'https://search.google.com/local/reviews?placeid='; // blank until configured
 ?>
@@ -647,7 +645,7 @@ $gbp = seoae_get_gbp_reviews();
 	<div class="container" style="max-width:800px;">
 		<div class="section-header section-header--center">
 			<?php seoae_section_label('FAQ'); ?>
-			<h2>Frequently Asked Questions — SEO Agency Dubai</h2>
+			<h2>Frequently Asked Questions  -  SEO Agency Dubai</h2>
 			<p class="section-header__desc" style="max-width:520px;margin-left:auto;margin-right:auto;">
 				Everything Dubai businesses want to know before starting an SEO campaign.
 			</p>

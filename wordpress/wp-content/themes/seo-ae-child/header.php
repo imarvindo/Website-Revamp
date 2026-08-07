@@ -39,16 +39,19 @@
 	<div class="container navbar__inner">
 
 		<!-- Logo -->
-		<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="navbar__logo" aria-label="SearchEngineOptimization.ae Home">
+		<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="navbar__logo" aria-label="SearchEngineOptimization.ae - Dubai SEO Agency Home">
 			<img
-				src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/logo-concept-1.png' ); ?>"
-				alt="SearchEngineOptimization.ae"
+				src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/logo-mark.png' ); ?>"
+				srcset="<?php echo esc_url( get_template_directory_uri() . '/assets/images/logo-mark.png' ); ?> 1x, <?php echo esc_url( get_template_directory_uri() . '/assets/images/logo-mark@2x.png' ); ?> 2x"
+				alt="SearchEngineOptimization.ae - Dubai SEO and digital marketing agency"
 				class="navbar__logo-img"
 				width="40"
 				height="40"
+				decoding="async"
+				fetchpriority="high"
 			/>
 			<div class="navbar__logo-text">
-				<span class="navbar__logo-name" style="font-size:.95rem;">SearchEngine<span class="text-primary">Optimization.ae</span></span>
+				<span class="navbar__logo-name">SearchEngine<span class="text-primary">Optimization.ae</span></span>
 				<span class="navbar__logo-tagline">DIGITAL GROWTH PARTNER</span>
 			</div>
 		</a>
@@ -164,18 +167,18 @@
 			</ul>
 		</nav>
 
-		<!-- CTA Button -->
-		<div class="navbar__cta">
-			<button type="button" class="btn btn--primary btn--sm" id="navbar-cta-btn" onclick="document.getElementById('quick-contact-modal').classList.add('is-open')">
-				Get Started
-				<svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+		<!-- Right actions -->
+		<div class="navbar__right">
+			<div class="navbar__cta">
+				<button type="button" class="btn btn--primary btn--sm" id="navbar-cta-btn" onclick="document.getElementById('quick-contact-modal').classList.add('is-open')">
+					Get Started
+					<svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+				</button>
+			</div>
+			<button class="navbar__hamburger" id="mobile-menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+				<span></span><span></span><span></span>
 			</button>
 		</div>
-
-		<!-- Mobile Hamburger -->
-		<button class="navbar__hamburger" id="mobile-menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
-			<span></span><span></span><span></span>
-		</button>
 
 	</div>
 </header>
@@ -187,14 +190,16 @@
 	<div class="mobile-menu__header">
 		<a href="<?php echo esc_url( home_url('/') ); ?>" class="navbar__logo">
 			<img
-				src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/logo-concept-1.png' ); ?>"
-				alt="SearchEngineOptimization.ae"
+				src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/logo-mark.png' ); ?>"
+				srcset="<?php echo esc_url( get_template_directory_uri() . '/assets/images/logo-mark.png' ); ?> 1x, <?php echo esc_url( get_template_directory_uri() . '/assets/images/logo-mark@2x.png' ); ?> 2x"
+				alt="SearchEngineOptimization.ae logo"
 				class="navbar__logo-img"
-				width="36"
-				height="36"
+				width="40"
+				height="40"
+				decoding="async"
 			/>
 			<div class="navbar__logo-text">
-				<span class="navbar__logo-name" style="font-size:.95rem;">SearchEngine<span class="text-primary">Optimization.ae</span></span>
+				<span class="navbar__logo-name">SearchEngine<span class="text-primary">Optimization.ae</span></span>
 			</div>
 		</a>
 		<button class="mobile-menu__close" id="mobile-menu-close" aria-label="Close menu">

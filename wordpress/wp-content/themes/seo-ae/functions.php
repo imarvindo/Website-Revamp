@@ -6,7 +6,13 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-define( 'SEOAE_VERSION', '1.0.0' );
+define( 'SEOAE_VERSION', '1.2.0' );
+
+// SEO growth foundations: auto IndexNow, CTAs, EEAT, linking helpers.
+require_once get_template_directory() . '/inc/seo-growth.php';
+
+// Prevent WordPress from converting hyphens into en/em dashes in public content.
+add_filter( 'run_wptexturize', '__return_false' );
 define( 'SEOAE_DIR', get_template_directory() );
 define( 'SEOAE_URI', get_template_directory_uri() );
 
@@ -365,7 +371,9 @@ add_action( 'acf/init', function () {
 			[ 'key' => 'field_svc_icon_svg',     'label' => 'Icon (SVG HTML)',        'name' => 'icon_svg',             'type' => 'textarea', 'rows' => 4 ],
 			[ 'key' => 'field_svc_category',     'label' => 'Category Label',         'name' => 'category_label',       'type' => 'text',     'default_value' => 'Digital Marketing' ],
 			[ 'key' => 'field_svc_cta_primary',  'label' => 'Primary CTA Text',       'name' => 'cta_primary_text',     'type' => 'text',     'default_value' => 'Start Your Campaign' ],
-			[ 'key' => 'field_svc_cta_phone',    'label' => 'Phone CTA Text',         'name' => 'cta_phone_text',       'type' => 'text',     'default_value' => 'Call Us Now' ],
+			[ 'key' => 'field_svc_author_name',  'label' => 'Author Byline Name',     'name' => 'svc_author_name',      'type' => 'text',     'default_value' => 'SearchEngineOptimization.ae Team', 'instructions' => 'Shown under the service hero.' ],
+			[ 'key' => 'field_svc_author_role',  'label' => 'Author Role',            'name' => 'svc_author_role',      'type' => 'text',     'default_value' => 'SEO Strategists' ],
+			[ 'key' => 'field_svc_reading_time', 'label' => 'Reading Time (minutes)', 'name' => 'svc_reading_time',     'type' => 'number',   'min' => 1, 'max' => 60, 'instructions' => 'Leave blank to auto-calculate from word count.' ],
 			// Benefits
 			[
 				'key'        => 'field_svc_benefits',
@@ -569,42 +577,138 @@ add_action( 'acf/init', function () {
 
 } );
 
+/**
+ * Extract a brace-balanced FAQPage JSON object from HTML/content.
+ *
+ * @return array{0:string,1:?array} [cleaned, decoded_schema_or_null]
+ */
+function seoae_extract_faqpage_from_content( string $content ): array {
+	$markers = [ '"@type":"FAQPage"', '"@type": "FAQPage"' ];
+	$pos     = false;
+	foreach ( $markers as $marker ) {
+		$pos = strpos( $content, $marker );
+		if ( false !== $pos ) {
+			break;
+		}
+	}
+	if ( false === $pos ) {
+		return [ $content, null ];
+	}
+
+	$start = $pos;
+	while ( $start > 0 && $content[ $start ] !== '{' ) {
+		--$start;
+	}
+	if ( $content[ $start ] !== '{' ) {
+		return [ $content, null ];
+	}
+
+	$depth  = 0;
+	$in_str = false;
+	$escape = false;
+	$end    = null;
+	$len    = strlen( $content );
+	for ( $i = $start; $i < $len; $i++ ) {
+		$ch = $content[ $i ];
+		if ( $in_str ) {
+			if ( $escape ) {
+				$escape = false;
+			} elseif ( '\\' === $ch ) {
+				$escape = true;
+			} elseif ( '"' === $ch ) {
+				$in_str = false;
+			}
+			continue;
+		}
+		if ( '"' === $ch ) {
+			$in_str = true;
+			continue;
+		}
+		if ( '{' === $ch ) {
+			++$depth;
+		} elseif ( '}' === $ch ) {
+			--$depth;
+			if ( 0 === $depth ) {
+				$end = $i;
+				break;
+			}
+		}
+	}
+	if ( null === $end ) {
+		return [ $content, null ];
+	}
+
+	$json    = substr( $content, $start, $end - $start + 1 );
+	$decoded = json_decode( $json, true );
+	if ( ! is_array( $decoded ) || ( $decoded['@type'] ?? '' ) !== 'FAQPage' ) {
+		return [ $content, null ];
+	}
+
+	$before = substr( $content, 0, $start );
+	$after  = substr( $content, $end + 1 );
+	if ( preg_match( '/<p[^>]*>\s*$/i', $before ) && preg_match( '/^\s*<\/p>/i', $after ) ) {
+		$before = preg_replace( '/<p[^>]*>\s*$/i', '', $before );
+		$after  = preg_replace( '/^\s*<\/p>/i', '', $after );
+	}
+
+	$cleaned = preg_replace( "/\n{3,}/", "\n\n", rtrim( $before ) . "\n\n" . ltrim( $after ) );
+	return [ $cleaned, $decoded ];
+}
+
 // ─────────────────────────────────────────────────────────────────────────────
 // 5. FAQ SCHEMA JSON-LD (injected via wp_head)
 // ─────────────────────────────────────────────────────────────────────────────
 add_action( 'wp_head', function () {
-	if ( ! function_exists( 'get_field' ) ) return;
+	if ( ! is_singular() ) {
+		return;
+	}
 
 	$faqs = [];
 
-	if ( is_singular( 'service' ) ) {
-		$faqs = get_field( 'service_faqs' ) ?: [];
-	} elseif ( is_singular() ) {
-		// Try ACF page_faqs first
-		$faqs = get_field( 'page_faqs' ) ?: [];
-
-		if ( empty( $faqs ) && is_single() ) {
-			$faqs = get_field( 'article_faqs' ) ?: [];
-		}
-
-		// Fallback: location/industry pages store FAQs as PHP arrays in post meta
-		if ( empty( $faqs ) ) {
-			$raw = get_post_meta( get_the_ID(), 'location_faqs', true );
-			if ( is_array( $raw ) ) {
-				foreach ( $raw as $item ) {
-					$q = $item['faq_question'] ?? $item['question'] ?? '';
-					$a = $item['faq_answer']   ?? $item['answer']   ?? '';
-					if ( $q && $a ) $faqs[] = [ 'question' => $q, 'answer' => $a ];
+	if ( function_exists( 'get_field' ) ) {
+		if ( is_singular( 'service' ) ) {
+			$faqs = get_field( 'service_faqs' ) ?: [];
+		} else {
+			$faqs = get_field( 'page_faqs' ) ?: [];
+			if ( empty( $faqs ) && is_single() ) {
+				$faqs = get_field( 'article_faqs' ) ?: [];
+			}
+			if ( empty( $faqs ) ) {
+				$raw = get_post_meta( get_the_ID(), 'location_faqs', true );
+				if ( is_array( $raw ) ) {
+					foreach ( $raw as $item ) {
+						$q = $item['faq_question'] ?? $item['question'] ?? '';
+						$a = $item['faq_answer']   ?? $item['answer']   ?? '';
+						if ( $q && $a ) {
+							$faqs[] = [ 'question' => $q, 'answer' => $a ];
+						}
+					}
 				}
 			}
 		}
 	}
 
-	if ( empty( $faqs ) ) return;
+	// Saved schema extracted from post content (was previously visible as raw JSON).
+	if ( empty( $faqs ) ) {
+		$inline = get_post_meta( get_the_ID(), '_seoae_inline_faq_schema', true );
+		if ( is_string( $inline ) && $inline !== '' ) {
+			$decoded = json_decode( $inline, true );
+			if ( is_array( $decoded ) && ( $decoded['@type'] ?? '' ) === 'FAQPage' && ! empty( $decoded['mainEntity'] ) ) {
+				echo '<script type="application/ld+json">' . wp_json_encode( $decoded, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ) . '</script>' . "\n";
+				return;
+			}
+		}
+	}
+
+	if ( empty( $faqs ) ) {
+		return;
+	}
 
 	$items = [];
 	foreach ( $faqs as $faq ) {
-		if ( empty( $faq['question'] ) || empty( $faq['answer'] ) ) continue;
+		if ( empty( $faq['question'] ) || empty( $faq['answer'] ) ) {
+			continue;
+		}
 		$items[] = [
 			'@type'          => 'Question',
 			'name'           => wp_strip_all_tags( $faq['question'] ),
@@ -615,7 +719,9 @@ add_action( 'wp_head', function () {
 		];
 	}
 
-	if ( empty( $items ) ) return;
+	if ( empty( $items ) ) {
+		return;
+	}
 
 	$schema = [
 		'@context'   => 'https://schema.org',
@@ -666,24 +772,43 @@ add_action( 'wp_head', function () {
 	$schema = [
 		'@context' => 'https://schema.org',
 		'@type'    => ['Organization','LocalBusiness','ProfessionalService'],
+		'@id'      => home_url( '/#organization' ),
 		'name'     => 'SearchEngineOptimization.ae',
 		'alternateName' => 'SearchEngineOptimization.ae',
 		'url'      => home_url(),
-		'logo'     => SEOAE_URI . '/assets/images/logo-concept-1.png',
+		'logo'     => [
+			'@type' => 'ImageObject',
+			'url'   => SEOAE_URI . '/assets/images/logo-concept-1.png',
+		],
 		'image'    => SEOAE_URI . '/assets/images/og-image.jpg',
-		'description' => "Dubai's #1 enterprise SEO and digital marketing agency — delivering measurable growth through AI-driven SEO, PPC, social media, and web development.",
+		'description' => "Dubai's #1 enterprise SEO and digital marketing agency delivering measurable growth through AI-driven SEO, PPC, social media, and web development.",
 		'email'       => $email,
-		'telephone'   => seoae_phone() ?: '+971 4 320 9898',
 		'address'     => [
 			'@type'           => 'PostalAddress',
-			'streetAddress'   => $address,
-			'addressLocality' => 'Dubai',
+			'streetAddress'   => 'M-01, Muteena Street, Above Saravana Bhavan',
+			'addressLocality' => 'Deira, Dubai',
 			'addressRegion'   => 'Dubai',
+			'postalCode'      => '00000',
 			'addressCountry'  => 'AE',
 		],
-		'areaServed'   => ['Dubai','Abu Dhabi','Sharjah','United Arab Emirates'],
+		'geo' => [
+			'@type'     => 'GeoCoordinates',
+			'latitude'  => '25.2721',
+			'longitude' => '55.3279',
+		],
+		'areaServed'   => [
+			[ '@type' => 'City', 'name' => 'Dubai' ],
+			[ '@type' => 'City', 'name' => 'Abu Dhabi' ],
+			[ '@type' => 'City', 'name' => 'Sharjah' ],
+			[ '@type' => 'Country', 'name' => 'United Arab Emirates' ],
+		],
 		'priceRange'   => '$$$$',
-		'openingHours' => 'Mo-Fr 09:00-18:00',
+		'openingHoursSpecification' => [
+			'@type'     => 'OpeningHoursSpecification',
+			'dayOfWeek' => [ 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday' ],
+			'opens'     => '09:00',
+			'closes'    => '18:00',
+		],
 		'aggregateRating' => [
 			'@type'       => 'AggregateRating',
 			'ratingValue' => '4.9',
@@ -691,11 +816,11 @@ add_action( 'wp_head', function () {
 			'bestRating'  => '5',
 			'worstRating' => '1',
 		],
-		'sameAs'       => array_filter( [
+		'sameAs'       => array_values( array_filter( [
 			function_exists('get_field') ? get_field('social_linkedin','option') : '',
 			function_exists('get_field') ? get_field('social_instagram','option') : '',
 			function_exists('get_field') ? get_field('social_facebook','option') : '',
-		]),
+		] ) ),
 	];
 
 	if ( ! empty( $reviews ) ) {
@@ -748,7 +873,7 @@ function seoae_phone(): string {
 		$acf = get_field( 'site_phone', 'option' );
 		if ( $acf ) return $acf;
 	}
-	return get_option( 'seoae_site_phone', '+971 4 320 9898' );
+	return get_option( 'seoae_site_phone', '' );
 }
 
 /**
@@ -991,6 +1116,8 @@ function seoae_contact_handler(): void {
 
 	// Save to DB (legacy table — kept for backward compatibility)
 	global $wpdb;
+	seoae_ensure_contacts_table();
+	// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
 	$wpdb->insert( $wpdb->prefix . 'seoae_contacts', [
 		'name'       => $name,
 		'email'      => $email,
@@ -1057,47 +1184,39 @@ function seoae_contact_handler(): void {
 	wp_send_json_success( "Thank you $name! We've received your enquiry and will be in touch within 24 hours." );
 }
 
-// Create contacts table on theme activation AND on init (in case of fresh DB)
-add_action( 'init', function () {
+/**
+ * Ensure wp_{prefix}seoae_contacts exists (option alone is not enough —
+ * a prior failed create can leave the option set with no table).
+ */
+function seoae_ensure_contacts_table(): void {
 	global $wpdb;
-	if ( get_option( 'seoae_contacts_table_v1' ) ) return; // already done
-	$charset_collate = $wpdb->get_charset_collate();
 	$table = $wpdb->prefix . 'seoae_contacts';
-	$sql = "CREATE TABLE IF NOT EXISTS $table (
-id mediumint(9) NOT NULL AUTO_INCREMENT,
-name tinytext NOT NULL,
-email varchar(200) NOT NULL,
-phone varchar(50),
-company varchar(200),
-service varchar(200),
-budget varchar(100),
-message text,
-created_at datetime DEFAULT '0000-00-00 00:00:00',
-PRIMARY KEY (id)
-) $charset_collate;";
-	require_once ABSPATH . 'wp-admin/includes/upgrade.php';
-	dbDelta( $sql );
-	update_option( 'seoae_contacts_table_v1', '1' );
-} );
-add_action( 'after_switch_theme', function () {
-	global $wpdb;
+	// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+	$exists = $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table ) );
+	if ( $exists === $table ) {
+		return;
+	}
 	$charset_collate = $wpdb->get_charset_collate();
-	$table = $wpdb->prefix . 'seoae_contacts';
-	$sql = "CREATE TABLE IF NOT EXISTS $table (
+	$sql             = "CREATE TABLE $table (
 		id mediumint(9) NOT NULL AUTO_INCREMENT,
 		name tinytext NOT NULL,
 		email varchar(200) NOT NULL,
-		phone varchar(50),
-		company varchar(200),
-		service varchar(200),
-		budget varchar(100),
+		phone varchar(50) DEFAULT '',
+		company varchar(200) DEFAULT '',
+		service varchar(200) DEFAULT '',
+		budget varchar(100) DEFAULT '',
 		message text,
-		created_at datetime DEFAULT '0000-00-00 00:00:00',
-		PRIMARY KEY (id)
+		created_at datetime DEFAULT CURRENT_TIMESTAMP,
+		PRIMARY KEY  (id),
+		KEY email (email),
+		KEY created_at (created_at)
 	) $charset_collate;";
 	require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 	dbDelta( $sql );
-} );
+	update_option( 'seoae_contacts_table_v1', '1' );
+}
+add_action( 'init', 'seoae_ensure_contacts_table' );
+add_action( 'after_switch_theme', 'seoae_ensure_contacts_table' );
 
 // ─────────────────────────────────────────────────────────────────────────────
 // 10. SERVICE SHORT-SLUG REDIRECTS
@@ -1434,52 +1553,37 @@ add_action( 'after_switch_theme', function () {
 } );
 
 // ─────────────────────────────────────────────────────────────────────────────
-// 12. YOAST SEO — BREADCRUMB SHORTCODE
+// 12. BREADCRUMB SHORTCODE (Rank Math → Yoast fallback)
 // ─────────────────────────────────────────────────────────────────────────────
-add_shortcode( 'seoae_breadcrumbs', function() {
+add_shortcode( 'seoae_breadcrumbs', function () {
+	if ( function_exists( 'rank_math_the_breadcrumbs' ) ) {
+		ob_start();
+		echo '<nav class="breadcrumbs" aria-label="Breadcrumb">';
+		rank_math_the_breadcrumbs();
+		echo '</nav>';
+		return ob_get_clean();
+	}
 	if ( function_exists( 'yoast_breadcrumb' ) ) {
 		return yoast_breadcrumb( '<nav class="breadcrumbs" aria-label="Breadcrumb">', '</nav>', false );
 	}
 	return '';
 } );
 
-// ─────────────────────────────────────────────────────────────────────────────
-// 13. SUPPRESS YOAST SEO OUTPUT (plugin inactive but partially loads)
-// ─────────────────────────────────────────────────────────────────────────────
-add_action( 'after_setup_theme', function () {
-	// Yoast hooks to wp_head at priority 1 via wpseo_head
-	remove_action( 'wp_head', 'wpseo_head', 1 );
-	// Also remove via class instance if it's been instantiated
-	if ( class_exists( 'WPSEO_Frontend' ) ) {
-		$instance = WPSEO_Frontend::get_instance();
-		remove_action( 'wp_head', [ $instance, 'head' ], 1 );
-	}
-	// Yoast canonical / meta output
-	remove_action( 'wp_head', 'rel_canonical' );
-	// Yoast opengraph
-	if ( class_exists( 'WPSEO_OpenGraph' ) ) {
-		global $wpseo_og;
-		if ( isset( $wpseo_og ) ) {
-			remove_action( 'wpseo_head', [ $wpseo_og, 'opengraph' ], 30 );
-		}
-	}
-}, 999 );
-
-// Nuclear option: intercept Yoast's head action and block all its output
-add_action( 'wp_head', function () {
-	remove_action( 'wp_head', 'wpseo_head', 1 );
-	remove_action( 'wp_head', 'rel_canonical' );
-	// Block Yoast's opengraph hooks
-	global $wpseo_og;
-	if ( isset( $wpseo_og ) && is_object( $wpseo_og ) ) {
-		remove_action( 'wpseo_head', [ $wpseo_og, 'opengraph' ], 30 );
-	}
-}, 0 );
+/**
+ * Rank Math is the primary SEO plugin — skip theme OG/Twitter/canonical
+ * so titles and social tags are not duplicated in <head>.
+ */
+function seoae_rank_math_active(): bool {
+	return defined( 'RANK_MATH_VERSION' ) || class_exists( 'RankMath' );
+}
 
 // ─────────────────────────────────────────────────────────────────────────────
-// 13b. OPEN GRAPH + TWITTER CARD META TAGS
+// 13b. OPEN GRAPH + TWITTER CARD META TAGS (fallback when Rank Math is off)
 // ─────────────────────────────────────────────────────────────────────────────
 add_action( 'wp_head', function () {
+	if ( seoae_rank_math_active() ) {
+		return;
+	}
 	global $post;
 	$site_name   = 'SearchEngineOptimization.ae';
 	$base_url    = home_url();
@@ -1487,20 +1591,20 @@ add_action( 'wp_head', function () {
 
 	// Title
 	if ( is_front_page() ) {
-		$title = "Dubai's #1 SEO & Digital Marketing Agency — SearchEngineOptimization.ae";
+		$title = "Dubai's #1 SEO & Digital Marketing Agency | SearchEngineOptimization.ae";
 		$desc  = "Dominate search. Scale revenue. We help UAE & GCC businesses grow organic traffic, capture high-intent leads, and outrank competitors with enterprise SEO strategies.";
 		$url   = $base_url . '/';
 		$type  = 'website';
 		$img   = $default_img;
 	} elseif ( is_singular() && $post ) {
-		$title = get_the_title( $post ) . ' — ' . $site_name;
+		$title = get_the_title( $post ) . ' | ' . $site_name;
 		$desc  = wp_strip_all_tags( get_the_excerpt( $post ) ?: wp_trim_words( $post->post_content, 30 ) );
 		$url   = get_permalink( $post );
 		$type  = ( $post->post_type === 'post' ) ? 'article' : 'website';
 		$img   = get_the_post_thumbnail_url( $post, 'large' ) ?: $default_img;
 	} elseif ( is_category() || is_tag() || is_archive() ) {
-		$title = single_cat_title( '', false ) . ' — ' . $site_name;
-		$desc  = "SEO and digital marketing insights from SearchEngineOptimization.ae — Dubai's leading SEO agency.";
+		$title = single_cat_title( '', false ) . ' | ' . $site_name;
+		$desc  = "SEO and digital marketing insights from SearchEngineOptimization.ae, Dubai's leading SEO agency.";
 		$url   = get_term_link( get_queried_object() );
 		$type  = 'website';
 		$img   = $default_img;
@@ -1538,9 +1642,12 @@ add_action( 'wp_head', function () {
 }, 5 );
 
 // ─────────────────────────────────────────────────────────────────────────────
-// 14. CANONICAL URL (dynamic host — works on localhost + Replit proxy)
+// 14. CANONICAL URL (fallback when Rank Math is off)
 // ─────────────────────────────────────────────────────────────────────────────
 add_action( 'wp_head', function () {
+	if ( seoae_rank_math_active() ) {
+		return;
+	}
 	// Remove WordPress default rel=canonical and re-output with correct host
 	remove_action( 'wp_head', 'rel_canonical' );
 
@@ -1607,7 +1714,7 @@ add_action( 'wp_head', function () {
 	$name = is_singular() && $post ? get_the_title($post) : get_bloginfo('name');
 	$desc = is_singular() && $post
 		? substr( wp_strip_all_tags( get_the_excerpt($post) ?: $post->post_content ), 0, 200 )
-		: "Dubai's #1 SEO and digital marketing agency — delivering measurable growth.";
+		: "Dubai's #1 SEO and digital marketing agency delivering measurable growth.";
 
 	$webpage = [
 		'@context'        => 'https://schema.org',
@@ -1674,23 +1781,41 @@ add_action( 'wp_head', function () {
 	global $post;
 	if ( ! $post ) return;
 
-	$desc  = get_field('short_description', $post->ID) ?: substr( wp_strip_all_tags( $post->post_content ), 0, 200 );
+	$desc  = get_post_meta( $post->ID, 'short_description', true ) ?: ( function_exists( 'get_field' ) ? get_field( 'short_description', $post->ID ) : '' );
+	$desc  = $desc ?: substr( wp_strip_all_tags( $post->post_content ), 0, 200 );
 	$img   = get_the_post_thumbnail_url( $post, 'large' ) ?: home_url() . '/wp-content/themes/seo-ae/assets/images/og-image.jpg';
 	$schema = [
 		'@context'    => 'https://schema.org',
 		'@type'       => 'Service',
-		'@id'         => get_permalink($post) . '#service',
-		'name'        => get_the_title($post),
-		'description' => $desc,
-		'url'         => get_permalink($post),
+		'@id'         => get_permalink( $post ) . '#service',
+		'name'        => get_the_title( $post ),
+		'description' => wp_strip_all_tags( $desc ),
+		'url'         => get_permalink( $post ),
 		'image'       => $img,
 		'provider'    => [
-			'@type' => 'Organization',
+			'@type' => [ 'Organization', 'LocalBusiness' ],
+			'@id'   => home_url( '/#organization' ),
 			'name'  => 'SearchEngineOptimization.ae',
 			'url'   => home_url(),
+			'address'   => [
+				'@type'           => 'PostalAddress',
+				'streetAddress'   => 'M-01, Muteena Street, Above Saravana Bhavan',
+				'addressLocality' => 'Deira, Dubai',
+				'addressRegion'   => 'Dubai',
+				'addressCountry'  => 'AE',
+			],
 		],
-		'areaServed'  => 'United Arab Emirates',
-		'serviceType' => get_the_title($post),
+		'areaServed'  => [
+			'@type' => 'Country',
+			'name'  => 'United Arab Emirates',
+		],
+		'serviceType' => get_the_title( $post ),
+		'offers'      => [
+			'@type'         => 'Offer',
+			'priceCurrency' => 'AED',
+			'availability'  => 'https://schema.org/InStock',
+			'url'           => get_permalink( $post ),
+		],
 	];
 	echo '<script type="application/ld+json">' . wp_json_encode( $schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ) . '</script>' . "\n";
 }, 24 );
@@ -1745,28 +1870,47 @@ add_action( 'template_redirect', function () {
 	$uri = isset( $_SERVER['REQUEST_URI'] ) ? strtok( $_SERVER['REQUEST_URI'], '?' ) : '';
 	$uri = trailingslashit( $uri );
 
-	// Old city slug (before rename)
-	// NOTE: /dubai/ is now a live page — redirect removed
-	$city_redirects = [
-		'/locations/seo-abu-dhabi/'       => '/seo-company-abu-dhabi/',
-		'/locations/seo-sharjah/'         => '/seo-company-sharjah/',
-		'/locations/seo-ajman/'           => '/seo-company-ajman/',
-		'/locations/seo-ras-al-khaimah/'  => '/seo-company-ras-al-khaimah/',
-		'/locations/seo-fujairah/'        => '/seo-company-fujairah/',
+	// Legacy slugs → current canonical page URLs (never redirect away from live pages).
+	$legacy_redirects = [
+		'/seo-company-dubai/'          => '/dubai/',
+		'/seo-company-abu-dhabi/'      => '/locations/seo-abu-dhabi/',
+		'/seo-company-sharjah/'        => '/locations/seo-sharjah/',
+		'/seo-company-ajman/'          => '/locations/seo-ajman/',
+		'/seo-company-ras-al-khaimah/' => '/locations/seo-ras-al-khaimah/',
+		'/seo-company-fujairah/'       => '/locations/seo-fujairah/',
+		'/seo-company-dubai-marina/'   => '/dubai/marina/',
+		'/seo-company-business-bay/'   => '/dubai/business-bay/',
+		'/seo-company-deira/'          => '/dubai/deira/',
+		'/seo-company-downtown-dubai/' => '/dubai/downtown/',
+		'/seo-company-jebel-ali/'      => '/dubai/',
+		'/seo-company-khor-fakkan/'    => '/locations/',
+		'/seo-company-dibba-al-fujairah/' => '/locations/',
+		'/seo-company-al-ain/'         => '/locations/',
+		'/seo-company-umm-al-quwain/'  => '/locations/',
+		'/seo-abu-dhabi/'              => '/locations/seo-abu-dhabi/',
+		'/seo-sharjah/'                => '/locations/seo-sharjah/',
+		'/seo-ajman/'                  => '/locations/seo-ajman/',
+		'/seo-ras-al-khaimah/'         => '/locations/seo-ras-al-khaimah/',
+		'/seo-fujairah/'               => '/locations/seo-fujairah/',
+		'/real-estate-seo/'            => '/industries/real-estate/',
+		'/healthcare-seo/'             => '/industries/healthcare/',
+		'/ecommerce-seo/'              => '/industries/ecommerce/',
+		'/hospitality-seo/'            => '/industries/hospitality/',
+		'/legal-seo/'                  => '/industries/legal/',
+		'/finance-seo/'                => '/industries/finance/',
+		'/saas-b2b-seo/'               => '/industries/',
+		'/education-seo/'              => '/industries/',
+		'/automotive-seo/'             => '/industries/',
+		'/real-estate/'                => '/industries/real-estate/',
+		'/healthcare/'                 => '/industries/healthcare/',
+		'/ecommerce/'                  => '/industries/ecommerce/',
+		'/hospitality/'                => '/industries/hospitality/',
+		'/legal/'                      => '/industries/legal/',
+		'/finance/'                    => '/industries/finance/',
 	];
-	// Old industry slugs (before rename)
-	$industry_redirects = [
-		'/industries/real-estate/'  => '/real-estate-seo/',
-		'/industries/healthcare/'   => '/healthcare-seo/',
-		'/industries/ecommerce/'    => '/ecommerce-seo/',
-		'/industries/hospitality/'  => '/hospitality-seo/',
-		'/industries/legal/'        => '/legal-seo/',
-		'/industries/finance/'      => '/finance-seo/',
-	];
-	$all = array_merge( $city_redirects, $industry_redirects );
 
-	if ( isset( $all[ $uri ] ) ) {
-		wp_redirect( home_url( $all[ $uri ] ), 301 );
+	if ( isset( $legacy_redirects[ $uri ] ) ) {
+		wp_safe_redirect( home_url( $legacy_redirects[ $uri ] ), 301 );
 		exit;
 	}
 }, 1 );
@@ -1864,13 +2008,37 @@ remove_action( 'wp_head', 'wlwmanifest_link' );
 remove_action( 'wp_head', 'rsd_link' );
 remove_action( 'wp_head', 'wp_shortlink_wp_head' );
 
-// Lazy load all images and iframes
+// Lazy load images/iframes; hide leaked FAQ JSON; remap broken Unsplash IDs.
 add_filter( 'the_content', function ( $content ) {
-	if ( is_admin() ) return $content;
+	if ( is_admin() || ! is_string( $content ) || $content === '' ) {
+		return $content;
+	}
+
+	static $broken_map = [
+		'photo-1535919020263-2f3ea35e95b4' => 'photo-1494412574643-ff11b0a5c1c3',
+		'photo-1548625149-720f52f84c84'    => 'photo-1518684079-3c830dcef090',
+		'photo-1597149098814-c9e7b9fefbff' => 'photo-1486406146926-c627a92ad1ab',
+	];
+	$content = str_replace( array_keys( $broken_map ), array_values( $broken_map ), $content );
+
+	if ( strpos( $content, 'FAQPage' ) !== false ) {
+		[ $content, $faq_schema ] = seoae_extract_faqpage_from_content( $content );
+		if ( is_array( $faq_schema ) ) {
+			add_action( 'wp_footer', static function () use ( $faq_schema ) {
+				static $done = false;
+				if ( $done ) {
+					return;
+				}
+				$done = true;
+				echo '<script type="application/ld+json">' . wp_json_encode( $faq_schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ) . '</script>' . "\n";
+			}, 5 );
+		}
+	}
+
 	$content = preg_replace( '/<img(?![^>]*loading=)/', '<img loading="lazy"', $content );
 	$content = preg_replace( '/<iframe(?![^>]*loading=)/', '<iframe loading="lazy"', $content );
 	return $content;
-} );
+}, 8 );
 
 // Add loading="lazy" to featured images
 add_filter( 'post_thumbnail_html', function ( $html ) {
@@ -1888,18 +2056,20 @@ add_filter( 'script_loader_tag', function ( $tag, $handle, $src ) {
 }, 10, 3 );
 
 // ─────────────────────────────────────────────────────────────────────────────
-// 21. META DESCRIPTION FALLBACK
+// 21. META DESCRIPTION FALLBACK (when Rank Math is off)
 // ─────────────────────────────────────────────────────────────────────────────
 add_action( 'wp_head', function () {
+	if ( seoae_rank_math_active() ) {
+		return;
+	}
 	global $post;
-	// Only output if not already provided by another plugin
 	$desc = '';
 	if ( is_front_page() ) {
 		$desc = "Dubai's #1 SEO & digital marketing agency. We help UAE businesses dominate search, capture high-intent traffic, and grow revenue. Get your free audit today.";
 	} elseif ( is_singular() && $post ) {
 		$desc = wp_trim_words( wp_strip_all_tags( get_the_excerpt($post) ?: $post->post_content ), 30 );
 	} elseif ( is_home() ) {
-		$desc = 'SEO tips, digital marketing strategies, and industry insights from Dubai\'s leading SEO agency — SearchEngineOptimization.ae.';
+		$desc = 'SEO tips, digital marketing strategies, and industry insights from Dubai\'s leading SEO agency, SearchEngineOptimization.ae.';
 	}
 	if ( $desc ) {
 		echo '<meta name="description" content="' . esc_attr( substr($desc, 0, 160) ) . '">' . "\n";
@@ -2106,3 +2276,109 @@ function seoae_lead_meta_box( $post ) {
 		echo '<p style="background:#f9f9f9;padding:1rem;border-radius:4px;">' . esc_html( $msg ) . '</p>';
 	}
 }
+
+// ─────────────────────────────────────────────────────────────────────────────
+// CMS SECTION EDITOR (ACF Free-safe array meta for Services)
+// Lets non-technical staff edit benefits / process / FAQs without ACF Pro.
+// ─────────────────────────────────────────────────────────────────────────────
+add_action( 'add_meta_boxes', function () {
+	add_meta_box(
+		'seoae_svc_sections',
+		'Service Page Sections (CMS)',
+		'seoae_svc_sections_metabox',
+		'service',
+		'normal',
+		'high'
+	);
+} );
+
+function seoae_svc_sections_metabox( $post ) {
+	wp_nonce_field( 'seoae_svc_sections_save', 'seoae_svc_sections_nonce' );
+	$benefits = get_post_meta( $post->ID, 'svc_benefits', true ) ?: [];
+	$process  = get_post_meta( $post->ID, 'svc_process', true ) ?: [];
+	$faqs     = get_post_meta( $post->ID, 'svc_faqs', true ) ?: [];
+	$techs    = get_post_meta( $post->ID, 'svc_technologies', true ) ?: [];
+
+	$benefit_lines = [];
+	foreach ( (array) $benefits as $b ) {
+		$benefit_lines[] = is_array( $b ) ? ( $b['benefit'] ?? '' ) : (string) $b;
+	}
+	$process_lines = [];
+	foreach ( (array) $process as $s ) {
+		if ( ! is_array( $s ) ) { continue; }
+		$process_lines[] = trim( ( $s['step_title'] ?? '' ) . ' | ' . ( $s['step_desc'] ?? '' ) );
+	}
+	$faq_lines = [];
+	foreach ( (array) $faqs as $f ) {
+		if ( ! is_array( $f ) ) { continue; }
+		$faq_lines[] = trim( ( $f['question'] ?? '' ) . ' || ' . wp_strip_all_tags( $f['answer'] ?? '' ) );
+	}
+	$tech_lines = [];
+	foreach ( (array) $techs as $t ) {
+		$tech_lines[] = is_array( $t ) ? ( $t['tech_name'] ?? '' ) : (string) $t;
+	}
+
+	echo '<p style="color:#646970;margin-top:0;">Edit these sections without code. Changes appear on the live service page.</p>';
+	echo '<p><label for="seoae_benefits"><strong>Benefits</strong> (one per line)</label><br>';
+	echo '<textarea id="seoae_benefits" name="seoae_benefits" rows="6" style="width:100%;font-family:monospace;">' . esc_textarea( implode( "\n", $benefit_lines ) ) . '</textarea></p>';
+	echo '<p><label for="seoae_process"><strong>Process steps</strong> (one per line: <code>Title | Description</code>)</label><br>';
+	echo '<textarea id="seoae_process" name="seoae_process" rows="6" style="width:100%;font-family:monospace;">' . esc_textarea( implode( "\n", $process_lines ) ) . '</textarea></p>';
+	echo '<p><label for="seoae_faqs"><strong>FAQs</strong> (one per line: <code>Question || Answer</code>)</label><br>';
+	echo '<textarea id="seoae_faqs" name="seoae_faqs" rows="10" style="width:100%;font-family:monospace;">' . esc_textarea( implode( "\n", $faq_lines ) ) . '</textarea></p>';
+	echo '<p><label for="seoae_techs"><strong>Tools &amp; Technologies</strong> (one per line)</label><br>';
+	echo '<textarea id="seoae_techs" name="seoae_techs" rows="4" style="width:100%;font-family:monospace;">' . esc_textarea( implode( "\n", $tech_lines ) ) . '</textarea></p>';
+}
+
+add_action( 'save_post_service', function ( $post_id ) {
+	if ( ! isset( $_POST['seoae_svc_sections_nonce'] ) || ! wp_verify_nonce( $_POST['seoae_svc_sections_nonce'], 'seoae_svc_sections_save' ) ) {
+		return;
+	}
+	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+		return;
+	}
+	if ( ! current_user_can( 'edit_post', $post_id ) ) {
+		return;
+	}
+
+	$benefits = [];
+	foreach ( preg_split( '/\r\n|\r|\n/', (string) ( $_POST['seoae_benefits'] ?? '' ) ) as $line ) {
+		$line = trim( $line );
+		if ( $line !== '' ) {
+			$benefits[] = [ 'benefit' => $line ];
+		}
+	}
+	update_post_meta( $post_id, 'svc_benefits', $benefits );
+
+	$process = [];
+	foreach ( preg_split( '/\r\n|\r|\n/', (string) ( $_POST['seoae_process'] ?? '' ) ) as $line ) {
+		$line = trim( $line );
+		if ( $line === '' ) { continue; }
+		$parts = array_map( 'trim', explode( '|', $line, 2 ) );
+		$process[] = [
+			'step_title' => $parts[0] ?? '',
+			'step_desc'  => $parts[1] ?? '',
+		];
+	}
+	update_post_meta( $post_id, 'svc_process', $process );
+
+	$faqs = [];
+	foreach ( preg_split( '/\r\n|\r|\n/', (string) ( $_POST['seoae_faqs'] ?? '' ) ) as $line ) {
+		$line = trim( $line );
+		if ( $line === '' ) { continue; }
+		$parts = array_map( 'trim', explode( '||', $line, 2 ) );
+		$faqs[] = [
+			'question' => $parts[0] ?? '',
+			'answer'   => $parts[1] ?? '',
+		];
+	}
+	update_post_meta( $post_id, 'svc_faqs', $faqs );
+
+	$techs = [];
+	foreach ( preg_split( '/\r\n|\r|\n/', (string) ( $_POST['seoae_techs'] ?? '' ) ) as $line ) {
+		$line = trim( $line );
+		if ( $line !== '' ) {
+			$techs[] = [ 'tech_name' => $line ];
+		}
+	}
+	update_post_meta( $post_id, 'svc_technologies', $techs );
+} );

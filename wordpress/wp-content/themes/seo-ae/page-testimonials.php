@@ -1,12 +1,12 @@
 <?php
 /**
  * Template Name: Testimonials Page
- * Dedicated /testimonials/ page — full grid, filterable by industry.
+ * Dedicated /testimonials/ page  -  full grid, filterable by industry.
  */
 
 // SEO meta
 add_filter( 'seoae_page_title', function() {
-	return 'Client Reviews & Testimonials — SearchEngineOptimization.ae';
+	return 'Client Reviews & Testimonials  -  SearchEngineOptimization.ae';
 } );
 add_filter( 'seoae_meta_desc', function() {
 	return 'Read real client reviews from UAE businesses across real estate, hospitality, e-commerce, legal, and more. 345+ clients trust SearchEngineOptimization.ae with their SEO.';
@@ -56,14 +56,14 @@ sort( $industries );
 			What Our Clients Say About<br>
 			<span class="gradient-text">SearchEngineOptimization.ae</span>
 		</h1>
-		<p class="testi-page-hero__sub">Real results, real businesses — from Dubai startups to enterprise brands across the UAE and GCC.</p>
+		<p class="testi-page-hero__sub">Real results, real businesses  -  from Dubai startups to enterprise brands across the UAE and GCC.</p>
 
 		<!-- Stats strip -->
 		<div class="testi-page-hero__stats">
 			<div class="testi-page-hero__stat">
 				<span class="testi-page-hero__stat-num">4.9</span>
 				<span class="testi-page-hero__stat-label">
-					<span class="testi-page-stars">★★★★★</span>
+					<span class="testi-page-stars"></span>
 					Google Rating
 				</span>
 			</div>
@@ -145,7 +145,7 @@ sort( $industries );
 					<?php endif; ?>
 				</div>
 
-				<!-- Full quote — no clamp -->
+				<!-- Full quote  -  no clamp -->
 				<blockquote class="tpc__quote" itemprop="reviewBody">"<?php echo $content; ?>"</blockquote>
 
 				<!-- Author -->
