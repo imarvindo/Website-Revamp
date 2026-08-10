@@ -227,12 +227,26 @@ Content/SEO improvements belong in a **separate** release after hosting is stabl
 
 ---
 
+## Ranking preservation
+
+Hosting move is ranking-safe only if crawl/index signals stay the same.
+
+- Plan: [`RANKING-PRESERVATION.md`](./RANKING-PRESERVATION.md)
+- Live baseline (66/66 healthy): [`RANKING-BASELINE.md`](./RANKING-BASELINE.md)
+- CSV: `artifacts/seoindia-ranking-baseline.csv`
+
+Do **not** combine redesign, slug changes, or content rewrites with the DNS cutover.
+
+---
+
 ## Related files in this repo
 
 | Path | Purpose |
 |---|---|
 | `docs/seoindia-ai/url-inventory.md` | Human-readable inventory by content type |
 | `docs/seoindia-ai/urls.txt` | Flat list for automated checks |
+| `docs/seoindia-ai/RANKING-PRESERVATION.md` | Ranking protection rules + post-cutover monitoring |
+| `docs/seoindia-ai/RANKING-BASELINE.md` | Pre-migration technical ranking baseline |
 | `scripts/seoindia-migration/verify-site.sh` | Status / robots / canonical / noindex checks |
 | `scripts/seoindia-migration/fetch-seo-artifacts.sh` | Download live robots + sitemaps for backup |
 | `HOSTING-MIGRATION-GUIDE.md` | Separate guide for SearchEngineOptimization.ae (different site) |
