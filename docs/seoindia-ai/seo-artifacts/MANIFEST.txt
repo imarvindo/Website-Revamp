@@ -1,0 +1,13 @@
+origin=https://www.seoindia.ai
+fetched_at_utc=2026-08-10T15:30Z
+files:
+  - author-sitemap.xml
+  - category-sitemap.xml
+  - geo-sitemap.xml
+  - homepage-seo-snippets.txt
+  - MANIFEST.txt
+  - page-sitemap.xml
+  - post-sitemap.xml
+  - post_tag-sitemap.xml
+  - robots.txt
+  - sitemap_index.xml

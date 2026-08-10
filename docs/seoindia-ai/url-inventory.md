@@ -1,0 +1,85 @@
+# Live URL inventory — www.seoindia.ai
+# Generated: 2026-08-10
+# Source: Yoast sitemap_index.xml children
+# Do not change these slugs during hosting migration.
+
+## Homepage
+https://www.seoindia.ai/
+
+## Pages (from page-sitemap.xml)
+https://www.seoindia.ai/about-seo-india/
+https://www.seoindia.ai/ai-powered-seo-services/
+https://www.seoindia.ai/contact-our-team/
+https://www.seoindia.ai/digital-marketing-services/
+https://www.seoindia.ai/enterprise-level-seo-solutions/
+https://www.seoindia.ai/local-seo-for-business-growth/
+https://www.seoindia.ai/managed-seo-solution/
+https://www.seoindia.ai/new-jersey/
+https://www.seoindia.ai/pay-per-click-ppc-advertising/
+https://www.seoindia.ai/seo-india-agency/
+https://www.seoindia.ai/seo-india-llm-seo/
+https://www.seoindia.ai/seo-services-in-india/
+https://www.seoindia.ai/seo-success-stories/
+https://www.seoindia.ai/virginia/
+https://www.seoindia.ai/washington-dc/
+
+## Posts / resources (from post-sitemap.xml)
+https://www.seoindia.ai/ai-and-search-engine-optimization/
+https://www.seoindia.ai/ai-powered-seo/
+https://www.seoindia.ai/blogs/
+https://www.seoindia.ai/chatgpt-ads-manager-goes-live-for-everyone-how-brands-should-respond/
+https://www.seoindia.ai/complete-seo-checklist/
+https://www.seoindia.ai/dental-practice-seo/
+https://www.seoindia.ai/education-sector-seo/
+https://www.seoindia.ai/financial-services-seo/
+https://www.seoindia.ai/franchise-seo/
+https://www.seoindia.ai/healthcare-seo/
+https://www.seoindia.ai/how-can-i-generate-more-leads/
+https://www.seoindia.ai/how-do-you-measure-seo-roi/
+https://www.seoindia.ai/how-much-do-seo-agencies-charge/
+https://www.seoindia.ai/how-search-engines-work/
+https://www.seoindia.ai/how-to-choose-the-right-seo-agency/
+https://www.seoindia.ai/how-to-rank-in-ai-search-platforms/
+https://www.seoindia.ai/hvac-seo-services/
+https://www.seoindia.ai/in-house-seo-vs-hiring-an-agency/
+https://www.seoindia.ai/is-seo-a-good-investment/
+https://www.seoindia.ai/keyword-research-guide/
+https://www.seoindia.ai/local-business-seo/
+https://www.seoindia.ai/local-seo-strategy-guide/
+https://www.seoindia.ai/manufacturing-industry-seo/
+https://www.seoindia.ai/off-page-seo-optimization/
+https://www.seoindia.ai/on-page-seo-optimization/
+https://www.seoindia.ai/pest-control-seo/
+https://www.seoindia.ai/search-everywhere-optimization/
+https://www.seoindia.ai/seo-content-writing-guide/
+https://www.seoindia.ai/seo-for-chatgpt-search/
+https://www.seoindia.ai/seo-for-google-gemini/
+https://www.seoindia.ai/seo-for-perplexity-ai/
+https://www.seoindia.ai/seo-fundamentals/
+https://www.seoindia.ai/technical-seo-guide/
+https://www.seoindia.ai/top-ai-tools-for-seo/
+https://www.seoindia.ai/top-seo-companies-to-know/
+https://www.seoindia.ai/transportation-logistics-seo/
+https://www.seoindia.ai/using-ai-for-content-creation/
+https://www.seoindia.ai/what-are-the-key-seo-kpis/
+https://www.seoindia.ai/what-does-an-seo-agency-actually-do/
+https://www.seoindia.ai/what-is-traditional-seo-vs-llm-seo/
+https://www.seoindia.ai/why-isnt-my-website-ranking-on-google/
+
+## Categories
+https://www.seoindia.ai/category/agency/
+https://www.seoindia.ai/category/ai-seo/
+https://www.seoindia.ai/category/industry/
+https://www.seoindia.ai/category/learn-seo/
+https://www.seoindia.ai/category/seo-guides/
+https://www.seoindia.ai/category/seo-questions/
+
+## Tags
+https://www.seoindia.ai/tag/chatgpt/
+https://www.seoindia.ai/tag/openai/
+
+## Authors
+https://www.seoindia.ai/author/admin/
+
+## Geo / other
+https://www.seoindia.ai/locations.kml
