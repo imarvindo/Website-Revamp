@@ -1,10 +1,13 @@
 # seoindia.ai — SEO-Safe Hosting Migration Playbook
 
 **Live site:** https://www.seoindia.ai/  
+**Staging (ready):** https://staging.seoindia.ai/ — see [`STAGING-STATUS.md`](./STAGING-STATUS.md)  
 **Stack:** WordPress (Apache, LiteSpeed cache headers observed)  
 **Theme:** Finix + Elementor / Elementor Pro  
 **SEO:** Yoast SEO Premium  
 **Approach:** Clone → test on staging → DNS switch (not direct production edits)
+
+> Staging is live on BigRock as a noindex clone. **Production DNS was not changed.**
 
 ---
 
